@@ -45,6 +45,8 @@ app.get("/", (req, res) => {
 
 // Start the server, run at local first, then deploy on https://itlearning.ddns.net/ later on
 app.listen(port, host, async () => {
+  // Print out PID for easy killing of the server
+  console.log(`Server PID: ${process.pid}`);
   // Connect to MongoDB
   // Must be done before the server starts
   await connectDB(); // This will initiate the MongoDB connection
