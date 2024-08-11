@@ -1,3 +1,0 @@
-# ITLearning Backend
-
-### Setup
