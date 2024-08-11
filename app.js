@@ -1,27 +1,48 @@
-//Our project main entry point
-
+// Importing required modules
 const express = require("express");
+const connectDB = require("./config/db"); // MongoDB connection file
+
+// Import Swagger configuration
+const { swaggerUi, swaggerDocs } = require("./config/swaggerConfig");
+
 const app = express();
 const port = 3000;
 
-// Importing the route groups
+// Middleware for parsing JSON bodies
+app.use(express.json());
+
+// Swagger setup using the imported configuration
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// Importing route groups
 const authRoutes = require("./controllers/authController");
+const boughtCourseRoutes = require("./controllers/boughtCourseController");
+const contactFormRoutes = require("./controllers/contactFormController");
 const courseRoutes = require("./controllers/courseController");
 const instructorRoutes = require("./controllers/instructorController");
 const learnerRoutes = require("./controllers/learnerController");
+const platformAdminRoutes = require("./controllers/platformAdminController");
 
-// Use the routers
-app.use("/auth", authRoutes); // All auth-related routes will be prefixed with /auth
-app.use("/courses", courseRoutes); // All course-related routes will be prefixed with /courses
-app.use("/instructors", instructorRoutes); // All instructor-related routes will be prefixed with /instructors
-app.use("/learners", learnerRoutes); // All learner-related routes will be prefixed with /learners
+// Using the controllers as routers
+// app.use("/auth", authRoutes); //authenication has not been done yet
+app.use("/boughtCourses", boughtCourseRoutes);
+app.use("/contactForms", contactFormRoutes);
+app.use("/courses", courseRoutes);
+app.use("/instructors", instructorRoutes);
+app.use("/learners", learnerRoutes);
+app.use("/platformAdmins", platformAdminRoutes);
 
-// Start the server
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+// Root route
+app.get("/", (req, res) => {
+  res.send("Welcome to the IT Learning platform API!");
 });
 
-// Start the server
+// Start the server, run at local first, then deploy on https://itlearning.ddns.net/ later on
 app.listen(port, () => {
+  // Connect to MongoDB
+  connectDB(); // This will initiate the MongoDB connection
   console.log(`Server is running on http://localhost:${port}`);
+  console.log(
+    `SwaggerUI API Documentation is running on http://localhost:${port}/api-docs/`
+  );
 });
