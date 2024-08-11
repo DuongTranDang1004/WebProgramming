@@ -1,3 +1,0 @@
-# ITLearning Frontend
-
-### Setup
