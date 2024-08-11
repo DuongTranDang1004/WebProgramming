@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "background": "rm nohup.out && nohup node app.js &"
   },
   "keywords": [],
   "author": "",
