@@ -21,7 +21,7 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Importing route groups
-const authRoutes = require("./controllers/authController");
+// const authRoutes = require("./controllers/authController");
 const boughtCourseRoutes = require("./controllers/boughtCourseController");
 const contactFormRoutes = require("./controllers/contactFormController");
 const courseRoutes = require("./controllers/courseController");
@@ -47,6 +47,8 @@ app.get("/", (req, res) => {
 app.listen(port, host, async () => {
   // Print out PID for easy killing of the server
   console.log(`Server PID: ${process.pid}`);
+  console.log("MongoDB_URI:", process.env.MONGODB_URI);
+
   // Connect to MongoDB
   // Must be done before the server starts
   await connectDB(); // This will initiate the MongoDB connection
