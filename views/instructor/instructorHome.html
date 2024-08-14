@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITLearning Instructor Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        #sidebar {
+            transition: width 0.3s ease;
+            width: 3.7rem;
+            padding-top: 10px;
+        }
+        #sidebar:hover {
+            width: 16rem; /* Adjust width as needed */
+        }
+        #sidebar .sidebar-logo{
+            display: flex;
+            align-items: center;
+            padding-left: 0.5rem;
+            padding-bottom: 10px;
+            transition: padding 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        #sidebar .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            transition: padding 0.3s ease;
+            padding-left: 1rem;
+        }
+        #sidebar .sidebar-item .text {
+            display: none;
+        }
+        #sidebar:hover .sidebar-item .text {
+            display: inline;
+            margin-left: 0.75rem;
+        }
+        #sidebar .sidebar-item:hover {
+            padding-left: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+        }
+        .logo{
+            width: 47px;
+            height: 47px;
+        }
+        .icon {
+            width: 24px; /* Adjust size as needed */
+            height: 24px; /* Adjust size as needed */
+        }
+        #sidebar .sidebar-item.active {
+            background-color: rgba(255, 255, 255, 0.2); /* Background color */
+            color: #e5e7eb; /* Light text color */
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div class="flex flex-1">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar" class="bg-gray-800 h-screen w-16">
+            <div class="mb-5 text-white text-2xl sidebar-logo">
+                <img src="../../public/Logo.png" class="logo" alt="Logo">
+                <h6 class="font-medium pl-1">ITLearning</h6>
+            </div>
+            <ul>
+                <li class="mb-6 sidebar-item">
+                    <a href="instructorHome.html" class="text-white flex items-center">
+                        <img src="../../public/graduate.png" class="icon" alt="Courses Icon">
+                        <span class="text">Courses</span>
+                    </a>
+                </li>
+                <li class="mb-6 sidebar-item">
+                    <a href="message.html" class="text-white flex items-center">
+                        <img src="../../public/comment.png" class="icon" alt="Communication Icon">
+                        <span class="text">Communication</span>
+                    </a>
+                </li>
+                <li class="mb-6 sidebar-item">
+                    <a href="performance.html" class="text-white flex items-center">
+                        <img src="../../public/statistics.png" class="icon" alt="Performance Icon">
+                        <span class="text">Performance</span>
+                    </a>
+                </li>
+                <li class="mb-6 sidebar-item">
+                    <a href="tool.html" class="text-white flex items-center">
+                        <img src="../../public/wrench.png" class="icon" alt="Tools Icon">
+                        <span class="text">Tools</span>
+                    </a>
+                </li>
+                <li class="mb-6 sidebar-item">
+                    <a href="resources.html" class="text-white flex items-center">
+                        <img src="../../public/question.png" class="icon" alt="Resources Icon">
+                        <span class="text">Resources</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10">
+            <div class="flex justify-between items-center mb-10">
+                <div class="text-xl font-semibold">Courses</div>
+                <button class="bg-purple-700 text-white px-4 py-2 rounded">New Course</button>
+            </div>
+
+            <div class="bg-white p-5 rounded shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <input type="text" class="border border-gray-300 rounded p-2 w-1/2" placeholder="Search your courses">
+                    <select class="border border-gray-300 rounded p-2 ml-4">
+                        <option>Newest</option>
+                        <option>Oldest</option>
+                        <option>Most Popular</option>
+                    </select>
+                </div>
+
+                <div class="p-4 bg-gray-100 rounded mb-4">
+                    <span class="text-sm">New</span>
+                    <p class="mt-2 text-sm">We upgraded practice tests so you can upgrade yours.</p>
+                    <div class="flex items-center justify-between mt-2">
+                        <a href="#" class="text-purple-700">Learn more</a>
+                        <a href="#" class="text-gray-500">Dismiss</a>
+                    </div>
+                </div>
+
+                <div class="border p-4 rounded mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <p class="text-lg font-semibold">Data Structure Practice Test</p>
+                            <p class="text-sm text-gray-500">DRAFT • Public</p>
+                        </div>
+                        <div class="text-sm text-gray-700">Finish your course</div>
+                    </div>
+                    <div class="h-2 bg-purple-700 w-3/4 rounded"></div>
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <div class="text-lg font-semibold mb-5">Based on your experience, we think these resources will be helpful.</div>
+                <div class="bg-white p-5 rounded shadow-sm flex items-center">
+                    <div class="mr-4">
+                        <img src="https://via.placeholder.com/100" alt="Create Course">
+                    </div>
+                    <div>
+                        <p class="font-semibold">Create an Engaging Course</p>
+                        <p class="text-sm text-gray-700">Whether you've been teaching for years or are teaching for the first time...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Footer Component -->
+    <div id="footer">
+        <div class="bg-gray-800 text-white p-5 text-center">
+            <p>&copy; 2024 Udemy Clone. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname.split('/').pop().split('.')[0]; // Get the base filename without extension
+            document.querySelectorAll('#sidebar .sidebar-item').forEach(item => {
+                if (item.getAttribute('data-page') === path) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        });
+
+        document.querySelectorAll('#sidebar .sidebar-item a').forEach(item => {
+            item.addEventListener('click', function() {
+                // Save active state to local storage
+                localStorage.setItem('activePage', this.parentElement.getAttribute('data-page'));
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const activePage = localStorage.getItem('activePage');
+            if (activePage) {
+                document.querySelectorAll('#sidebar .sidebar-item').forEach(item => {
+                    if (item.getAttribute('data-page') === activePage) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
