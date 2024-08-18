@@ -1,6 +1,7 @@
 const express = require("express");
+const mongoose = require('mongoose');
 const router = express.Router();
-const Learner = require("../models/learnerModel");
+const Learners = require("../models/learnerModel");
 
 /**
  * @swagger
@@ -82,10 +83,10 @@ const Learner = require("../models/learnerModel");
  */
 router.get("/", async (req, res) => {
   try {
-    const learners = await Learner.getAllLearners();
+    const learners = await Learners.find({});
     res.json(learners);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching the learners.' });
   }
 });
 
@@ -116,13 +117,137 @@ router.get("/", async (req, res) => {
  */
 router.get("/:id", async (req, res) => {
   try {
-    const learner = await Learner.getLearnerById(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    const learner = await Learners.findById(id);
+
     if (!learner) {
       return res.status(404).json({ message: "Learner not found" });
     }
+
     res.json(learner);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+/**
+ * @swagger
+ * /learners:
+ *   post:
+ *     summary: Create a new learner
+ *     tags: [Learners]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Learner'
+ *     responses:
+ *       201:
+ *         description: Learner created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Learner'
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
+router.post("/", async (req, res) => {
+  try {
+    const newLearner = new Learners(req.body);
+    await newLearner.save();
+    res.status(201).json(newLearner);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+/**
+ * @swagger
+ * /learners/{id}:
+ *   put:
+ *     summary: Update a learner by ID
+ *     tags: [Learners]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The learner ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Learner'
+ *     responses:
+ *       200:
+ *         description: Learner updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Learner'
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Learner not found
+ *       500:
+ *         description: Internal server error
+ */
+router.put("/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const updatedLearner = await Learners.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedLearner) {
+      return res.status(404).json({ message: "Learner not found" });
+    }
+
+    res.json(updatedLearner);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+/**
+ * @swagger
+ * /learners/{id}:
+ *   delete:
+ *     summary: Delete a learner by ID
+ *     tags: [Learners]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The learner ID
+ *     responses:
+ *       200:
+ *         description: Learner deleted successfully
+ *       404:
+ *         description: Learner not found
+ *       500:
+ *         description: Internal server error
+ */
+router.delete("/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const deletedLearner = await Learners.findByIdAndDelete(id);
+
+    if (!deletedLearner) {
+      return res.status(404).json({ message: "Learner not found" });
+    }
+
+    res.json({ message: "Learner deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

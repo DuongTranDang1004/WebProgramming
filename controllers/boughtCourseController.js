@@ -1,6 +1,7 @@
 const express = require("express");
+const mongoose = require('mongoose');
 const router = express.Router();
-const BoughtCourse = require("../models/boughtCourseModel");
+const BoughtCourses = require("../models/boughtCourseModel");
 
 /**
  * @swagger
@@ -77,10 +78,10 @@ const BoughtCourse = require("../models/boughtCourseModel");
  */
 router.get("/", async (req, res) => {
   try {
-    const boughtCourses = await BoughtCourse.getAllBoughtCourses();
-    res.json(boughtCourses);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const courses = await BoughtCourses.find({});
+    res.json(courses);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching courses' });
   }
 });
 
@@ -111,7 +112,14 @@ router.get("/", async (req, res) => {
  */
 router.get("/:id", async (req, res) => {
   try {
-    const boughtCourse = await BoughtCourse.getBoughtCourseById(req.params.id);
+    const id = parseInt(req.params.id, 10);
+
+    // Check if the ID is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid course ID format" });
+    }
+
+    const boughtCourse = await BoughtCourses.findById(id);
     if (!boughtCourse) {
       return res.status(404).json({ message: "Bought course not found" });
     }
