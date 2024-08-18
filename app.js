@@ -1,12 +1,18 @@
 // Importing required modules
 const express = require("express");
 const connectDB = require("./config/db"); // MongoDB connection file
+const dotenv = require("dotenv"); // Dotenv is used to load environment variables
 
 // Import Swagger configuration
 const { swaggerUi, swaggerDocs } = require("./config/swaggerConfig");
 
+// Load environment variables
+// Override is set to true to ensure that the variables are loaded
+dotenv.config({ path: "./config/.env", override: true });
+
 const app = express();
-const port = 3000;
+const port = process.env.APP_PORT || 3000;
+const host = process.env.APP_HOST || "localhost";
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
@@ -15,7 +21,7 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Importing route groups
-const authRoutes = require("./controllers/authController");
+// const authRoutes = require("./controllers/authController");
 const boughtCourseRoutes = require("./controllers/boughtCourseController");
 const contactFormRoutes = require("./controllers/contactFormController");
 const courseRoutes = require("./controllers/courseController");
@@ -38,11 +44,16 @@ app.get("/", (req, res) => {
 });
 
 // Start the server, run at local first, then deploy on https://itlearning.ddns.net/ later on
-app.listen(port, () => {
+app.listen(port, host, async () => {
+  // Print out PID for easy killing of the server
+  console.log(`Server PID: ${process.pid}`);
+  console.log("MongoDB_URI:", process.env.MONGODB_URI);
+
   // Connect to MongoDB
-  connectDB(); // This will initiate the MongoDB connection
-  console.log(`Server is running on http://localhost:${port}`);
+  // Must be done before the server starts
+  await connectDB(); // This will initiate the MongoDB connection
+  console.log(`Server is running on http://${host}:${port}`);
   console.log(
-    `SwaggerUI API Documentation is running on http://localhost:${port}/api-docs/`
+    `SwaggerUI API Documentation is running on http://${host}:${port}/api-docs/`
   );
 });
