@@ -1,6 +1,7 @@
 const express = require("express");
+const mongoose = require('mongoose');
 const router = express.Router();
-const PlatformAdmin = require("../models/platformAdminModel");
+const PlatformAdmins = require("../models/platformAdminModel");
 
 /**
  * @swagger
@@ -82,10 +83,10 @@ const PlatformAdmin = require("../models/platformAdminModel");
  */
 router.get("/", async (req, res) => {
   try {
-    const platformAdmins = await PlatformAdmin.getAllPlatformAdmins();
-    res.json(platformAdmins);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const admins = await PlatformAdmins.find({});
+    res.json(admins);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -116,15 +117,14 @@ router.get("/", async (req, res) => {
  */
 router.get("/:id", async (req, res) => {
   try {
-    const platformAdmin = await PlatformAdmin.getPlatformAdminById(
-      req.params.id
-    );
-    if (!platformAdmin) {
+    const id = parseInt(req.params.id, 10); // Convert id to a number
+    const admin = await PlatformAdmins.findById(id);
+    if (!admin) {
       return res.status(404).json({ message: "Platform admin not found" });
     }
-    res.json(platformAdmin);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.json(admin);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

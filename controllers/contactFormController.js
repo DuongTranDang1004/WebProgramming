@@ -1,6 +1,7 @@
 const express = require("express");
+const mongoose = require('mongoose');
 const router = express.Router();
-const ContactForm = require("../models/contactFormModel");
+const ContactForms = require("../models/contactFormModel");
 
 /**
  * @swagger
@@ -78,10 +79,10 @@ const ContactForm = require("../models/contactFormModel");
  */
 router.get("/", async (req, res) => {
   try {
-    const contactForms = await ContactForm.getAllContactForms();
-    res.json(contactForms);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const forms = await ContactForms.find();
+    res.json(forms);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -112,13 +113,14 @@ router.get("/", async (req, res) => {
  */
 router.get("/:id", async (req, res) => {
   try {
-    const contactForm = await ContactForm.getContactFormById(req.params.id);
-    if (!contactForm) {
+    const id = parseInt(req.params.id, 10); // Convert id to a number
+    const form = await ContactForms.findById(id);
+    if (!form) {
       return res.status(404).json({ message: "Contact form not found" });
     }
-    res.json(contactForm);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.json(form);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
