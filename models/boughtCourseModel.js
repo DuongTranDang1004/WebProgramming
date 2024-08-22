@@ -9,11 +9,13 @@ const BoughtCoursesSchema = new Schema({
       required: true
     },
     learnerId: {
-      type: Number,
+      type: String,
+      ref: 'Learners',
       required: true
     },
     courseId: {
-      type: Number,
+      type: String,
+      ref: 'Course',
       required: true
     },
     boughtDateTime: {
@@ -25,6 +27,7 @@ const BoughtCoursesSchema = new Schema({
       {
         lectureId: {
           type: Number,
+          ref: 'Lectures',
           required: true
         },
         completeStatus: {

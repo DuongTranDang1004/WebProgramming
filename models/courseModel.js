@@ -3,6 +3,10 @@
 const mongoose = require("mongoose");
 
 const CourseSchema = new mongoose.Schema({
+  _id: {
+    type: Number,  // Use Number since your _id is numeric
+    required: true
+  },
   name: {
     type: String,
     required: true,
