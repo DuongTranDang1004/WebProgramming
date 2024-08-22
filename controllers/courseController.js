@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const Course = require("../models/courseModel");
 
 /**
@@ -64,14 +62,16 @@ const Course = require("../models/courseModel");
  *       500:
  *         description: Server error
  */
-router.get("/", async (req, res) => {
+
+//Get all
+const getCourses = async (req,res) => {
   try {
-    const courses = await Course.getAllCourses();
-    res.json(courses);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const courses = await Course.find({});
+    res.status(200).json(courses)
+  } catch(error){
+    res.status(500).json({ message: error.message})
   }
-});
+}
 
 /**
  * @swagger
@@ -102,15 +102,16 @@ router.get("/", async (req, res) => {
  *       400:
  *         description: Bad request
  */
-router.post("/", async (req, res) => {
+//Create
+const createCourse = async (req,res) => {
   try {
-    const courseData = req.body;
-    const newCourse = await Course.createCourse(courseData);
-    res.status(201).json(newCourse);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const course = await Course.create(req.body);
+    res.status(200).json(course)
+  } catch (error){
+    res.status(500).json({message: error.message})
   }
-});
+}
+
 
 /**
  * @swagger
@@ -137,17 +138,16 @@ router.post("/", async (req, res) => {
  *       500:
  *         description: Server error
  */
-router.get("/:id", async (req, res) => {
+//Get by ID
+const getCourse = async (req,res) => {
   try {
-    const course = await Course.getCourseById(req.params.id);
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
-    }
-    res.json(course);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const {id} = req.param;
+    const course = await Course.findById(id);
+    res.status(200).json(course)
+  } catch(error){
+    res.status(500).json({ message: error.message})
   }
-});
+}
 
 /**
  * @swagger
@@ -186,16 +186,42 @@ router.get("/:id", async (req, res) => {
  *       400:
  *         description: Bad request
  */
-router.put("/:id", async (req, res) => {
+//Update
+const updateCourse = async (req,res) => {
   try {
-    const updatedCourse = await Course.updateCourse(req.params.id, req.body);
-    if (!updatedCourse) {
-      return res.status(404).json({ message: "Course not found" });
-    }
-    res.json(updatedCourse);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+    const {id} = req.param;
+    const course = await Course.findByIdAndUpdate(id, req.body);
 
-module.exports = router;
+    if (!course){
+      return res.status(404).json({message: "Course not found"});
+    }
+
+    const updatedCourse = await Course.findById(id);
+    res.status(200).json(updatedCourse);
+  } catch(error){
+    res.status(500).json({message: error.message});
+  }
+}
+
+//Delete
+const deleteCourse = async (req,res) => {
+  try {
+    const {id} = req.param;
+    const course = await Course.findByIdAndDelete(id);
+
+    if(!course){
+      return res.status(404).json({message: "Course not found"})
+    }
+    res.status(200).json({message: "Course deleted successfully"})
+  }catch(error){
+    res.status(500).json({message: error.message})
+  }
+}
+
+module.exports = {
+  getCourse,
+  getCourses,
+  createCourse,
+  updateCourse,
+  deleteCourse
+};
