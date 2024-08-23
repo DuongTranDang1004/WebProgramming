@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const {getFavoriteCourses, getFavoriteCourse, createFavoriteCourse, updateFavoriteCourse, deleteFavoriteCourse} = require("../controllers/favoriteCourseController");
+const {getCourse, getCourses, createCourse, updateCourse, deleteCourse} = require("../controllers/courseController");
 
-router.get('/', getFavoriteCourses);
+router.get('/', getCourses);
 
-router.get("/:id", getFavoriteCourse);
+router.get("/:id", getCourse);
 
-router.post("/", createFavoriteCourse);
+router.post("/", createCourse);
 
-router.put("/:id", updateFavoriteCourse);
+router.put("/:id", updateCourse);
 
-router.delete("/:id", deleteFavoriteCourse);
+router.delete("/:id", deleteCourse);
 
 module.exports = router;
