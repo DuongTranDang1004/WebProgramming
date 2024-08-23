@@ -15,7 +15,7 @@ const BoughtCoursesSchema = new Schema({
     },
     courseId: {
       type: String,
-      ref: 'Course',
+      ref: 'Courses',
       required: true
     },
     boughtDateTime: {

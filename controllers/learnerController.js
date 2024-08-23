@@ -1,6 +1,3 @@
-const express = require("express");
-const mongoose = require('mongoose');
-const router = express.Router();
 const Learners = require("../models/learnerModel");
 
 /**
@@ -81,14 +78,15 @@ const Learners = require("../models/learnerModel");
  *       500:
  *         description: Internal server error
  */
-router.get("/", async (req, res) => {
+// Get all learners
+const getLearners = async (req, res) => {
   try {
     const learners = await Learners.find({});
-    res.json(learners);
+    res.status(200).json(learners);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching the learners.' });
   }
-});
+};
 
 /**
  * @swagger
@@ -115,20 +113,21 @@ router.get("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.get("/:id", async (req, res) => {
+// Get learner by ID
+const getLearner = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const { id } = req.params;
     const learner = await Learners.findById(id);
 
     if (!learner) {
       return res.status(404).json({ message: "Learner not found" });
     }
 
-    res.json(learner);
+    res.status(200).json(learner);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -154,7 +153,8 @@ router.get("/:id", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.post("/", async (req, res) => {
+// Create a new learner
+const createLearner = async (req, res) => {
   try {
     const newLearner = new Learners(req.body);
     await newLearner.save();
@@ -162,7 +162,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -197,9 +197,10 @@ router.post("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", async (req, res) => {
+// Update learner by ID
+const updateLearner = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const { id } = req.params;
     const updatedLearner = await Learners.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
@@ -209,11 +210,11 @@ router.put("/:id", async (req, res) => {
       return res.status(404).json({ message: "Learner not found" });
     }
 
-    res.json(updatedLearner);
+    res.status(200).json(updatedLearner);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -236,19 +237,26 @@ router.put("/:id", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", async (req, res) => {
+// Delete learner by ID
+const deleteLearner = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const { id } = req.params;
     const deletedLearner = await Learners.findByIdAndDelete(id);
 
     if (!deletedLearner) {
       return res.status(404).json({ message: "Learner not found" });
     }
 
-    res.json({ message: "Learner deleted successfully" });
+    res.status(200).json({ message: "Learner deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getLearners,
+  getLearner,
+  createLearner,
+  updateLearner,
+  deleteLearner,
+};

@@ -22,12 +22,12 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Importing route groups
 // const authRoutes = require("./controllers/authController");
-const boughtCourseRoutes = require("./controllers/boughtCourseController");
-const contactFormRoutes = require("./controllers/contactFormController");
+const boughtCourseRoutes = require("./Routes/boughtCourseRoute");
+const contactFormRoutes = require("./Routes/contactFormRoute");
 const courseRoutes = require("./controllers/courseController");
 const instructorRoutes = require("./controllers/instructorController");
-const learnerRoutes = require("./controllers/learnerController");
-const platformAdminRoutes = require("./controllers/platformAdminController");
+const learnerRoutes = require("./Routes/learnerRoute");
+const platformAdminRoutes = require("./Routes/platformAdminRoute");
 
 // Using the controllers as routers
 // app.use("/auth", authRoutes); //authenication has not been done yet

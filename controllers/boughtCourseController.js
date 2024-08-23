@@ -1,6 +1,3 @@
-const express = require("express");
-const mongoose = require('mongoose');
-const router = express.Router();
 const BoughtCourses = require("../models/boughtCourseModel");
 
 /**
@@ -76,17 +73,17 @@ const BoughtCourses = require("../models/boughtCourseModel");
  *       500:
  *         description: Internal server error
  */
-router.get("/", async (req, res) => {
+// Get all bought courses
+const getBoughtCourses = async (req, res) => {
   try {
     const courses = await BoughtCourses.find({})
-      .populate('learnerId', 'firstName lastName email') // Fetch learner details
-      .populate('courseId', 'name category price'); // Fetch course details
-    res.json(courses);
+      .populate('learnerId', 'firstName lastName email')
+      .populate('courseId', 'name category price');
+    res.status(200).json(courses);
   } catch (error) {
-    console.log(error)
     res.status(500).json({ error: 'An error occurred while fetching courses' });
   }
-});
+};
 
 /**
  * @swagger
@@ -100,10 +97,10 @@ router.get("/", async (req, res) => {
  *         schema:
  *           type: integer
  *         required: true
- *         description: The bought course id
+ *         description: The bought course ID
  *     responses:
  *       200:
- *         description: A bought course by id
+ *         description: A bought course by ID
  *         content:
  *           application/json:
  *             schema:
@@ -113,21 +110,22 @@ router.get("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.get("/:id", async (req, res) => {
+// Get bought course by ID
+const getBoughtCourse = async (req, res) => {
   try {
     const id = req.params.id;
     const boughtCourse = await BoughtCourses.findById(id)
-      .populate('learnerId', 'firstName lastName email') // Fetch learner details
-      .populate('courseId', 'name category price'); // Fetch course details
+      .populate('learnerId', 'firstName lastName email')
+      .populate('courseId', 'name category price');
 
     if (!boughtCourse) {
       return res.status(404).json({ message: "Bought course not found" });
     }
-    res.json(boughtCourse);
+    res.status(200).json(boughtCourse);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -153,7 +151,8 @@ router.get("/:id", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.post("/", async (req, res) => {
+// Create a new bought course
+const createBoughtCourse = async (req, res) => {
   try {
     const boughtCourse = new BoughtCourses(req.body);
     await boughtCourse.save();
@@ -161,7 +160,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: 'An error occurred while creating the bought course' });
   }
-});
+};
 
 /**
  * @swagger
@@ -175,7 +174,7 @@ router.post("/", async (req, res) => {
  *         schema:
  *           type: integer
  *         required: true
- *         description: The bought course id
+ *         description: The bought course ID
  *     requestBody:
  *       required: true
  *       content:
@@ -194,7 +193,8 @@ router.post("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", async (req, res) => {
+// Update bought course by ID
+const updateBoughtCourse = async (req, res) => {
   try {
     const id = req.params.id;
     const updatedCourse = await BoughtCourses.findByIdAndUpdate(id, req.body, { new: true })
@@ -204,11 +204,11 @@ router.put("/:id", async (req, res) => {
     if (!updatedCourse) {
       return res.status(404).json({ message: "Bought course not found" });
     }
-    res.json(updatedCourse);
+    res.status(200).json(updatedCourse);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -222,7 +222,7 @@ router.put("/:id", async (req, res) => {
  *         schema:
  *           type: integer
  *         required: true
- *         description: The bought course id
+ *         description: The bought course ID
  *     responses:
  *       204:
  *         description: No content, course deleted successfully
@@ -231,7 +231,8 @@ router.put("/:id", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", async (req, res) => {
+// Delete bought course by ID
+const deleteBoughtCourse = async (req, res) => {
   try {
     const id = req.params.id;
     const deletedCourse = await BoughtCourses.findByIdAndDelete(id);
@@ -243,6 +244,12 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getBoughtCourses,
+  getBoughtCourse,
+  createBoughtCourse,
+  updateBoughtCourse,
+  deleteBoughtCourse,
+};

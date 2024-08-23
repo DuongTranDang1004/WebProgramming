@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const CourseSchema = new mongoose.Schema({
+const CoursesSchema = new mongoose.Schema({
   _id: {
     type: Number,  // Use Number since your _id is numeric
     required: true
@@ -41,31 +41,31 @@ const CourseSchema = new mongoose.Schema({
 // Static Methods for CRUD Operations via Moongose and using JS syntax, instead of code SQL syntax
 
 // Get all courses
-CourseSchema.statics.getAllCourses = async function () {
+CoursesSchema.statics.getAllCourses = async function () {
   return await this.find();
 };
 
 // Create a new course
-CourseSchema.statics.createCourse = async function (courseData) {
+CoursesSchema.statics.createCourse = async function (courseData) {
   const course = new this(courseData);
   return await course.save();
 };
 
 // Get a course by ID
-CourseSchema.statics.getCourseById = async function (id) {
+CoursesSchema.statics.getCourseById = async function (id) {
   return await this.findById(id);
 };
 
 // Update a course
-CourseSchema.statics.updateCourse = async function (id, courseData) {
+CoursesSchema.statics.updateCourse = async function (id, courseData) {
   return await this.findByIdAndUpdate(id, courseData, { new: true });
 };
 
 // Delete a course
-CourseSchema.statics.deleteCourse = async function (id) {
+CoursesSchema.statics.deleteCourse = async function (id) {
   return await this.findByIdAndRemove(id);
 };
 
-const Course = mongoose.model("Course", CourseSchema);
+const Courses = mongoose.model("Courses", CoursesSchema);
 
-module.exports = Course;
+module.exports = Courses;

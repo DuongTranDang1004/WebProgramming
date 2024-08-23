@@ -1,6 +1,3 @@
-const express = require("express");
-const mongoose = require('mongoose');
-const router = express.Router();
 const PlatformAdmins = require("../models/platformAdminModel");
 
 /**
@@ -81,14 +78,15 @@ const PlatformAdmins = require("../models/platformAdminModel");
  *       500:
  *         description: Internal server error
  */
-router.get("/", async (req, res) => {
+// Get all platform admins
+const getPlatformAdmins = async (req, res) => {
   try {
     const admins = await PlatformAdmins.find({});
-    res.json(admins);
+    res.status(200).json(admins);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -115,18 +113,19 @@ router.get("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.get("/:id", async (req, res) => {
+// Get platform admin by ID
+const getPlatformAdmin = async (req, res) => {
   try {
     const id = req.params.id;
     const admin = await PlatformAdmins.findById(id);
     if (!admin) {
       return res.status(404).json({ message: "Platform admin not found" });
     }
-    res.json(admin);
+    res.status(200).json(admin);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -152,7 +151,8 @@ router.get("/:id", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.post("/", async (req, res) => {
+// Create a new platform admin
+const createPlatformAdmin = async (req, res) => {
   try {
     const platformAdmin = new PlatformAdmins(req.body);
     await platformAdmin.save();
@@ -160,7 +160,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: 'An error occurred while creating the platform admin', error });
   }
-});
+};
 
 /**
  * @swagger
@@ -193,18 +193,19 @@ router.post("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", async (req, res) => {
+// Update platform admin by ID
+const updatePlatformAdmin = async (req, res) => {
   try {
     const id = req.params.id;
     const updatedAdmin = await PlatformAdmins.findByIdAndUpdate(id, req.body, { new: true });
     if (!updatedAdmin) {
       return res.status(404).json({ message: "Platform admin not found" });
     }
-    res.json(updatedAdmin);
+    res.status(200).json(updatedAdmin);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -227,7 +228,8 @@ router.put("/:id", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", async (req, res) => {
+// Delete platform admin by ID
+const deletePlatformAdmin = async (req, res) => {
   try {
     const id = req.params.id;
     const deletedAdmin = await PlatformAdmins.findByIdAndDelete(id);
@@ -238,6 +240,12 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getPlatformAdmins,
+  getPlatformAdmin,
+  createPlatformAdmin,
+  updatePlatformAdmin,
+  deletePlatformAdmin,
+};
