@@ -27,7 +27,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // const authRoutes = require("./controllers/authController");
 const boughtCourseRoutes = require("./controllers/boughtCourseController");
 const contactFormRoutes = require("./controllers/contactFormController");
-const courseRoutes = require("./Routes/favoriteCourseRoute");
+const courseRoutes = require("./Routes/courseRoute");
 const instructorRoutes = require("./Routes/instructorRoute");
 const learnerRoutes = require("./controllers/learnerController");
 const platformAdminRoutes = require("./controllers/platformAdminController");
