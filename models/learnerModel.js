@@ -54,6 +54,6 @@ const LearnersSchema = new Schema({
 }, { collection: "Learners" });
 
 // Create a model using the schema
-const Learners = mongoose.model('Learners', LearnersSchema);
+const Learners = mongoose.model('Learners', LearnersSchema, 'Learners');
 
 module.exports = Learners;

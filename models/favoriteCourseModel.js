@@ -5,15 +5,15 @@ const FavoriteCourseSchema = new mongoose.Schema({
   learnerId: {
     type: Number,
     required: true,
-    ref: 'Learner' 
+    ref: 'Learners' 
   },
   courseId: {
     type: Number,
     required: true,
-    ref: 'Course' 
+    ref: 'Courses' 
   }
 });
 
 // Create the model for the FavoriteCourses schema
-const FavoriteCourse = mongoose.model('FavoriteCourse', FavoriteCourseSchema);
+const FavoriteCourse = mongoose.model('FavoriteCourses', FavoriteCourseSchema, 'FavoriteCourses');
 module.exports = FavoriteCourse;

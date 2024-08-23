@@ -32,6 +32,8 @@ const instructorRoutes = require("./Routes/instructorRoute");
 const learnerRoutes = require("./controllers/learnerController");
 const platformAdminRoutes = require("./controllers/platformAdminController");
 const lectureRoutes = require("./Routes/lectureRoute");
+const favoriteCourseRoutes = require("./Routes/favoriteCourseRoute");
+const followingInstructorRoutes = require("./Routes/followingInstructorRoute");
 
 // Using the controllers as routers
 // app.use("/auth", authRoutes); //authenication has not been done yet
@@ -41,7 +43,9 @@ app.use("/courses", courseRoutes);
 app.use("/instructors", instructorRoutes);
 app.use("/learners", learnerRoutes);
 app.use("/platformAdmins", platformAdminRoutes);
-app.use("/lectures", lectureRoutes)
+app.use("/lectures", lectureRoutes);
+app.use("/favoritesCourses", favoriteCourseRoutes);
+app.use("/followingInstructors", followingInstructorRoutes);
 
 // Root route
 app.get("/", (req, res) => {

@@ -33,5 +33,5 @@ const LectureSchema = new mongoose.Schema({
 });
 
 // Create the model for the Lectures schema
-const Lecture = mongoose.model('Lecture', LectureSchema);
+const Lecture = mongoose.model('Lectures', LectureSchema, 'Lectures');
 module.exports = Lecture;
