@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Detail Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .course-banner {
+            background-image: url('https://via.placeholder.com/1500x500');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+        }
+        .purple-bg {
+            background-color: #6d28d9; /* Tailwind purple-800 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Breadcrumbs -->
+    <nav class="bg-gray-200 py-3 px-4 mb-8">
+        <ol class="flex space-x-4">
+            <li><a href="#" class="text-indigo-600 hover:text-indigo-700">Home</a></li>
+            <li><a href="#" class="text-indigo-600 hover:text-indigo-700">Courses</a></li>
+            <li class="text-gray-500">Course Detail</li>
+        </ol>
+    </nav>
+
+    <!-- Course Banner -->
+    <header class="course-banner flex items-center justify-center text-white text-4xl font-bold">
+        <div class="bg-black bg-opacity-50 p-4">
+            <h1 id="course-title">Course Title</h1>
+        </div>
+    </header>
+
+    <!-- Course Detail Section -->
+    <div class="container mx-auto py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Course Information -->
+            <div class="col-span-2 bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-4">About the Course</h2>
+                    <p id="course-description" class="text-gray-700 mb-4">Course Description</p>
+                    <p id="course-duration" class="text-gray-600 mb-4">Duration: 10 weeks</p>
+                    <p id="course-instructor" class="text-gray-600 mb-4">Instructor: John Doe</p>
+                    <p id="course-level" class="text-gray-600 mb-4">Level: Beginner</p>
+                    <p id="course-enrollment" class="text-gray-600 mb-4">Enrollment: Open</p>
+                    <a id="course-link" href="#" class="inline-block bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">Enroll Now</a>
+                </div>
+
+                <!-- Syllabus -->
+                <div class="bg-gray-50 p-6">
+                    <h2 class="text-2xl font-bold mb-4">Syllabus</h2>
+                    <ul id="course-content" class="list-disc pl-6 text-gray-700">
+                        <!-- Syllabus items will be injected here -->
+                    </ul>
+                </div>
+
+                <!-- Course Outcomes -->
+                <div class="bg-gray-50 p-6 mt-4">
+                    <h2 class="text-2xl font-bold mb-4">Course Outcomes</h2>
+                    <ul id="course-outcomes" class="list-disc pl-6 text-gray-700">
+                        <!-- Outcomes will be injected here -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Instructor Profile -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-4">Instructor Profile</h2>
+                <div class="flex items-center mb-4">
+                    <img id="instructor-image" class="w-16 h-16 rounded-full object-cover" src="https://via.placeholder.com/100" alt="Instructor">
+                    <div class="ml-4">
+                        <h3 id="instructor-name" class="text-xl font-semibold">Instructor Name</h3>
+                        <p id="instructor-bio" class="text-gray-600">Short bio about the instructor.</p>
+                    </div>
+                </div>
+                <a id="instructor-link" href="#" class="text-indigo-500 hover:text-indigo-600">View Profile</a>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold mb-4">Testimonials</h2>
+            <div id="testimonials" class="space-y-4">
+                <!-- Testimonials will be injected here -->
+            </div>
+        </div>
+
+        <!-- Earn Certificate Advertisement -->
+        <div class="purple-bg text-white p-6 rounded-lg mt-8">
+            <h2 class="text-2xl font-bold mb-4">Earn a Certificate</h2>
+            <p>Complete this course and earn a professional certificate to showcase your skills and advance your career.</p>
+            <a href="#" class="inline-block bg-white text-purple-800 py-2 px-4 rounded mt-4 hover:bg-gray-100">Learn More</a>
+        </div>
+    </div>
+
+    <script>
+        async function fetchCourseData(courseId) {
+            try {
+                const response = await fetch(`/courses/${courseId}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const course = await response.json();
+
+                // Populate the page with course data
+                document.getElementById('course-title').textContent = course.title;
+                document.getElementById('course-description').textContent = course.description;
+                document.getElementById('course-duration').textContent = `Duration: ${course.duration}`;
+                document.getElementById('course-instructor').textContent = `Instructor: ${course.instructor}`;
+                document.getElementById('course-level').textContent = `Level: ${course.level}`;
+                document.getElementById('course-enrollment').textContent = `Enrollment: ${course.enrollment}`;
+                document.getElementById('course-link').href = course.link;
+
+                const courseContentList = document.getElementById('course-content');
+                course.content.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = item;
+                    courseContentList.appendChild(listItem);
+                });
+
+                const courseOutcomesList = document.getElementById('course-outcomes');
+                course.outcomes.forEach(outcome => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = outcome;
+                    courseOutcomesList.appendChild(listItem);
+                });
+
+                document.getElementById('instructor-image').src = course.instructorImage;
+                document.getElementById('instructor-name').textContent = course.instructorName;
+                document.getElementById('instructor-bio').textContent = course.instructorBio;
+                document.getElementById('instructor-link').href = course.link;
+
+                const testimonialsDiv = document.getElementById('testimonials');
+                course.testimonials.forEach(testimonial => {
+                    const testimonialDiv = document.createElement('div');
+                    testimonialDiv.classList.add('bg-gray-100', 'p-4', 'rounded-lg', 'shadow');
+                    testimonialDiv.innerHTML = `
+                        <p class="text-gray-700 mb-2"><strong>${testimonial.name}:</strong> ${testimonial.text}</p>
+                    `;
+                    testimonialsDiv.appendChild(testimonialDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching course data:', error);
+                // Optionally, handle the error (e.g., show an error message to the user)
+            }
+        }
+
+        // Fetch the course data with a specific course ID (you can dynamically set this ID as needed)
+        const courseId = '123'; // Replace with dynamic course ID
+        fetchCourseData(courseId);
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 // Importing required modules
 const express = require("express");
+const cors = require('cors');
 const connectDB = require("./config/db"); // MongoDB connection file
 const dotenv = require("dotenv"); // Dotenv is used to load environment variables
 
@@ -16,6 +17,8 @@ const host = process.env.APP_HOST || "localhost";
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
+
+app.use(cors());
 
 // Swagger setup using the imported configuration
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

@@ -1,6 +1,7 @@
 const express = require("express");
+const mongoose = require('mongoose');
 const router = express.Router();
-const Instructor = require("../models/instructorModel");
+const Instructors = require("../models/instructorModel");
 
 /**
  * @swagger
@@ -102,7 +103,7 @@ const Instructor = require("../models/instructorModel");
  */
 router.get("/", async (req, res) => {
   try {
-    const instructors = await Instructor.getAllInstructors();
+    const instructors = await Instructors.find({});
     res.json(instructors);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -136,13 +137,48 @@ router.get("/", async (req, res) => {
  */
 router.get("/:id", async (req, res) => {
   try {
-    const instructor = await Instructor.getInstructorById(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    const instructor = await Instructors.findById(id);
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
     res.json(instructor);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /instructors:
+ *   post:
+ *     summary: Create a new instructor
+ *     tags: [Instructors]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Instructor'
+ *     responses:
+ *       201:
+ *         description: Learner created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Instructor'
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
+router.post("/", async (req, res) => {
+  try {
+    const newInstructor = new Instructors(req.body);
+    await newInstructor.save();
+    res.status(201).json(newInstructor);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
 
