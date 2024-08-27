@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
 app.listen(port, host, async () => {
   // Print out PID for easy killing of the server
   console.log(`Server PID: ${process.pid}`);
-  console.log("MongoDB_URI:", process.env.MONGODB_URI);
+  // console.log("MongoDB_URI:", process.env.MONGODB_URI);
 
   // Connect to MongoDB
   // Must be done before the server starts
