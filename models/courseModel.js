@@ -2,7 +2,11 @@
 
 const mongoose = require("mongoose");
 
-const CourseSchema = new mongoose.Schema({
+const CoursesSchema = new mongoose.Schema({
+  _id: {
+    type: Number,  // Use Number since your _id is numeric
+    required: true
+  },
   name: {
     type: String,
     required: true,
@@ -37,4 +41,4 @@ const CourseSchema = new mongoose.Schema({
 
 const Course = mongoose.model("Courses", CourseSchema, "Courses");
 
-module.exports = Course;
+module.exports = Courses;

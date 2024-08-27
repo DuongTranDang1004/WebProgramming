@@ -28,15 +28,15 @@ app.use(require("./middlewares/authenticate"));
 
 // Importing route groups
 // const authRoutes = require("./controllers/authController");
-const boughtCourseRoutes = require("./controllers/boughtCourseController");
-const contactFormRoutes = require("./controllers/contactFormController");
 const courseRoutes = require("./Routes/courseRoute");
 const instructorRoutes = require("./Routes/instructorRoute");
-const learnerRoutes = require("./controllers/learnerController");
-const platformAdminRoutes = require("./controllers/platformAdminController");
 const lectureRoutes = require("./Routes/lectureRoute");
 const favoriteCourseRoutes = require("./Routes/favoriteCourseRoute");
 const followingInstructorRoutes = require("./Routes/followingInstructorRoute");
+const boughtCourseRoutes = require("./Routes/boughtCourseRoute");
+const contactFormRoutes = require("./Routes/contactFormRoute");
+const learnerRoutes = require("./Routes/learnerRoute");
+const platformAdminRoutes = require("./Routes/platformAdminRoute");
 
 // Using the controllers as routers
 // app.use("/auth", authRoutes); //authenication has not been done yet
