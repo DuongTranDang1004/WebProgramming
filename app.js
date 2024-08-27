@@ -22,22 +22,21 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Importing route groups
 // const authRoutes = require("./controllers/authController");
-const boughtCourseRoutes = require("./Routes/boughtCourseRoute");
-const contactFormRoutes = require("./Routes/contactFormRoute");
-
-const courseRoutes = require("./Routes/courseRoute"); // Ensure the correct path
-const instructorRoutes = require("./Routes/instructorRoute"); // Ensure the correct path
-const learnerRoutes = require("./Routes/learnerRoute");
-const platformAdminRoutes = require("./Routes/platformAdminRoute");
+const boughtCourseRoutes = require("./routes/boughtCourseRoute");
+const contactFormRoutes = require("./routes/contactFormRoute");
+const courseRoutes = require("./routes/courseRoute"); // Ensure the correct path
+const instructorRoutes = require("./routes/instructorRoute"); // Ensure the correct path
+const learnerRoutes = require("./routes/learnerRoute");
+const platformAdminRoutes = require("./routes/platformAdminRoute");
 
 // Using the controllers as routers
 // app.use("/auth", authRoutes); //authenication has not been done yet
-app.use("/boughtCourses", boughtCourseRoutes);
-app.use("/contactForms", contactFormRoutes);
-app.use("/courses", courseRoutes);
-app.use("/instructors", instructorRoutes);
-app.use("/learners", learnerRoutes);
-app.use("/platformAdmins", platformAdminRoutes);
+app.use("/api/boughtCourses", boughtCourseRoutes);
+app.use("/api/contactForms", contactFormRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/instructors", instructorRoutes);
+app.use("/api/learners", learnerRoutes);
+app.use("/api/platformAdmins", platformAdminRoutes);
 
 // Root route
 app.get("/", (req, res) => {
