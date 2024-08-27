@@ -1,12 +1,18 @@
 // models/courseModel.js
 
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
+<<<<<<< HEAD
 const CoursesSchema = new mongoose.Schema({
   _id: {
     type: Number,  // Use Number since your _id is numeric
     required: true
   },
+=======
+const CourseSchema = new mongoose.Schema({
+  _id: Number,
+>>>>>>> origin/Doan-UI
   name: {
     type: String,
     required: true,
@@ -32,14 +38,14 @@ const CoursesSchema = new mongoose.Schema({
     required: true,
   },
   instructorId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: "Instructor",
     required: true,
   },
 });
 
-// Static Methods for CRUD Operations via Moongose and using JS syntax, instead of code SQL syntax
 
+<<<<<<< HEAD
 // Get all courses
 CoursesSchema.statics.getAllCourses = async function () {
   return await this.find();
@@ -67,5 +73,8 @@ CoursesSchema.statics.deleteCourse = async function (id) {
 };
 
 const Courses = mongoose.model("Courses", CoursesSchema);
+=======
+const Course = mongoose.model("Courses", CourseSchema, "Courses");
+>>>>>>> origin/Doan-UI
 
 module.exports = Courses;

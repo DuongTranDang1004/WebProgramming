@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const Course = require("../models/courseModel");
 
 /**
@@ -16,10 +14,10 @@ const Course = require("../models/courseModel");
  *     Course:
  *       type: object
  *       properties:
- *         _id:
- *           type: integer
+ *         id:
+ *           type: string
  *           description: The auto-generated ID of the course
- *           example: 1
+ *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
  *         instructorId:
  *           type: integer
  *           description: The ID of the instructor teaching the course
@@ -64,14 +62,14 @@ const Course = require("../models/courseModel");
  *       500:
  *         description: Server error
  */
-router.get("/", async (req, res) => {
+const getCourses = async (req, res) => {
   try {
-    const courses = await Course.getAllCourses();
-    res.json(courses);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    courses = await Course.find({});
+    res.status(200).json(courses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -102,15 +100,14 @@ router.get("/", async (req, res) => {
  *       400:
  *         description: Bad request
  */
-router.post("/", async (req, res) => {
+const createCourse = async (req, res) => {
   try {
-    const courseData = req.body;
-    const newCourse = await Course.createCourse(courseData);
-    res.status(201).json(newCourse);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const course = await Course.create(req.body);
+    res.status(201).json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -137,17 +134,18 @@ router.post("/", async (req, res) => {
  *       500:
  *         description: Server error
  */
-router.get("/:id", async (req, res) => {
+const getCourse = async (req, res) => {
   try {
-    const course = await Course.getCourseById(req.params.id);
+    const { id } = req.params;
+    const course = await Course.findById(id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
-    res.json(course);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(200).json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -186,16 +184,61 @@ router.get("/:id", async (req, res) => {
  *       400:
  *         description: Bad request
  */
-router.put("/:id", async (req, res) => {
+const updateCourse = async (req, res) => {
   try {
-    const updatedCourse = await Course.updateCourse(req.params.id, req.body);
-    if (!updatedCourse) {
+    const { id } = req.params;
+    const course = await Course.findByIdAndUpdate(id, req.body, { new: true });
+
+    if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
-    res.json(updatedCourse);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
 
-module.exports = router;
+    res.status(200).json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * @swagger
+ * /courses/{id}:
+ *   delete:
+ *     summary: Delete a course by ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The course ID
+ *     responses:
+ *       200:
+ *         description: Course deleted successfully
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
+const deleteCourse = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const course = await Course.findByIdAndDelete(id);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.status(200).json({ message: "Course deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getCourse,
+  getCourses,
+  createCourse,
+  updateCourse,
+  deleteCourse,
+};
