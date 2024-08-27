@@ -23,6 +23,9 @@ app.use(express.urlencoded({extended: false}));
 // Swagger setup using the imported configuration
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+// Authenticate middleware
+app.use(require("./middlewares/authenticate"));
+
 // Importing route groups
 // const authRoutes = require("./controllers/authController");
 const boughtCourseRoutes = require("./controllers/boughtCourseController");

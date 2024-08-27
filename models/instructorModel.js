@@ -116,6 +116,12 @@ const InstructorSchema = new mongoose.Schema(
             enum: ['basic', 'silver', 'gold', 'diamond'],
             default: 'basic',
             required: true
+        },
+
+        token: {
+          type: String,
+          default: null,
+          required: false
         }
     }
 )
