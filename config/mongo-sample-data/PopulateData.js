@@ -126,7 +126,7 @@ async function generateSampleData() {
     let courseData = [];
     for (let i = 0; i < 30; i++) {
       courseData.push({
-        instructorId: faker.number.int({ min: 1, max: 30 }),
+        instructorId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
         category: faker.helpers.arrayElement([
           "front-end",
           "back-end",
@@ -147,8 +147,7 @@ async function generateSampleData() {
     let lectureData = [];
     for (let i = 0; i < 30; i++) {
       lectureData.push({
-        courseId: faker.number.int({ min: 1, max: 30 }),
-        lectureId: faker.number.int({ min: 1, max: 999 }),
+        courseId: (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id,
         name: faker.company.catchPhrase(),
         description: faker.lorem.paragraph(),
         video: faker.internet.url(),
@@ -192,8 +191,8 @@ async function generateSampleData() {
     let favoriteCourseData = [];
     for (let i = 0; i < 30; i++) {
       favoriteCourseData.push({
-        learnerId: faker.number.int({ min: 1, max: 30 }),
-        courseId: faker.number.int({ min: 1, max: 30 }),
+        learnerId: (await learners.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        courseId: (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id,
       });
     }
     await favoriteCourses.insertMany(favoriteCourseData);
@@ -202,8 +201,8 @@ async function generateSampleData() {
     let followingInstructorData = [];
     for (let i = 0; i < 30; i++) {
       followingInstructorData.push({
-        learnerId: faker.number.int({ min: 1, max: 30 }),
-        instructorId: faker.number.int({ min: 1, max: 30 }),
+        learnerId: (await learners.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        instructorId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
       });
     }
     await followingInstructors.insertMany(followingInstructorData);
@@ -214,14 +213,14 @@ async function generateSampleData() {
       let lectureCompletionStatus = [];
       for (let j = 1; j <= 5; j++) {
         lectureCompletionStatus.push({
-          lectureId: j,
+          lectureId: (await lectures.find().toArray())[Math.floor(Math.random() * 30)]._id,
           completeStatus: faker.datatype.boolean(),
         });
       }
 
       boughtCourseData.push({
-        learnerId: faker.number.int({ min: 1, max: 30 }),
-        courseId: faker.number.int({ min: 1, max: 30 }),
+        learnerId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        courseId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
         boughtDateTime: truncateToMinute(faker.date.recent()),
         lectureCompletionStatus: lectureCompletionStatus,
         completionDateTime: faker.helpers.maybe(
