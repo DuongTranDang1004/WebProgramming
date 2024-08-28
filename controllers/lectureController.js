@@ -13,7 +13,7 @@ const getLectures = async (req,res) => {
 //Get by ID
 const getLecture = async (req,res) => {
     try {
-        const {id} = req.param;
+        const {id} = req.params;
         const lecture = await Lecture.findById(id);
         res.status(200).json({lecture});
     }catch(error){
@@ -34,7 +34,7 @@ const createLecture = async (req,res) => {
 //Update
 const updateLecture = async (req, res) => {
     try {
-        const {id} = req.param;
+        const {id} = req.params;
         const lecture = await Lecture.findByIdAndUpdate(id);;
 
         if(!lecture){
@@ -50,7 +50,7 @@ const updateLecture = async (req, res) => {
 //Delete
 const deleteLecture = async (req,res) => {
     try {
-        const {id} = req.param;
+        const {id} = req.params;
         const lecture = await Lecture.findByIdAndDelete(id);
 
         if(!lecture){

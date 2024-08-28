@@ -13,7 +13,7 @@ const getInstructors = async (req,res) => {
 //Get by ID
 const getInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const instructor = await Instructor.findById(id);
     res.status(200).json(instructor)
   } catch(error){
@@ -35,7 +35,7 @@ const createInstructor = async (req,res) => {
 //Update
 const updateInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const instructor = await Instructor.findByIdAndUpdate(id, req.body);
 
     if (!instructor){
@@ -52,7 +52,7 @@ const updateInstructor = async (req,res) => {
 //Delete
 const deleteInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const instructor = await Instructor.findByIdAndUpdate(id);
 
     if(!instructor){

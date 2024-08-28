@@ -141,7 +141,7 @@ const createCourse = async (req,res) => {
 //Get by ID
 const getCourse = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const course = await Course.findById(id);
     res.status(200).json(course)
   } catch(error){
@@ -189,7 +189,7 @@ const getCourse = async (req,res) => {
 //Update
 const updateCourse = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const course = await Course.findByIdAndUpdate(id, req.body);
 
     if (!course){
@@ -206,7 +206,7 @@ const updateCourse = async (req,res) => {
 //Delete
 const deleteCourse = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const course = await Course.findByIdAndDelete(id);
 
     if(!course){
