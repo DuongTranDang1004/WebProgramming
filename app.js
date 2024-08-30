@@ -23,23 +23,23 @@ app.use(express.urlencoded({ extended: false })); //encode character for url sea
 app.use(cors()); //set up cors so fe has the permisson to fetch
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger setup using the imported configuration
 
-// Importing route groups (group files into routes variables)
-// const authRoutes = require("./controllers/authController"); //this is not done
-const boughtCourseRoutes = require("./Routes/boughtCourseRoute");
-const contactFormRoutes = require("./Routes/contactFormRoute");
-const courseRoutes = require("./Routes/courseRoute");
-const instructorRoutes = require("./Routes/instructorRoute");
-const learnerRoutes = require("./Routes/learnerRoute");
-const platformAdminRoutes = require("./Routes/platformAdminRoute");
+// Importing route groups
+// const authRoutes = require("./controllers/authController");
+const boughtCourseRoutes = require("./routes/boughtCourseRoute");
+const contactFormRoutes = require("./routes/contactFormRoute");
+const courseRoutes = require("./routes/courseRoute"); // Ensure the correct path
+const instructorRoutes = require("./routes/instructorRoute"); // Ensure the correct path
+const learnerRoutes = require("./routes/learnerRoute");
+const platformAdminRoutes = require("./routes/platformAdminRoute");
 
 // API paths (backend/server)
 // app.use("/auth", authRoutes); //authenication has not been done yet
-app.use("/boughtCourses", boughtCourseRoutes);
-app.use("/contactForms", contactFormRoutes);
-app.use("/courses", courseRoutes);
-app.use("/instructors", instructorRoutes);
-app.use("/learners", learnerRoutes);
-app.use("/platformAdmins", platformAdminRoutes);
+app.use("/api/boughtCourses", boughtCourseRoutes);
+app.use("/api/contactForms", contactFormRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/instructors", instructorRoutes);
+app.use("/api/learners", learnerRoutes);
+app.use("/api/platformAdmins", platformAdminRoutes);
 
 // /API: backend end router
 
