@@ -23,12 +23,19 @@ app.use(express.urlencoded({ extended: false })); //encode character for url sea
 app.use(cors()); //set up cors so fe has the permisson to fetch
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger setup using the imported configuration
 
+// Authenticate middleware
+app.use(require("./middlewares/authenticate"));
+
 // Importing route groups
 // const authRoutes = require("./controllers/authController");
+
 const boughtCourseRoutes = require("./routes/boughtCourseRoute");
 const contactFormRoutes = require("./routes/contactFormRoute");
-const courseRoutes = require("./routes/courseRoute"); // Ensure the correct path
-const instructorRoutes = require("./routes/instructorRoute"); // Ensure the correct path
+const lectureRoutes = require("./routes/lectureRoute");
+const favoriteCourseRoutes = require("./routes/favoriteCourseRoute");
+const followingInstructorRoutes = require("./routes/followingInstructorRoute");
+const courseRoutes = require("./routes/courseRoute");
+const instructorRoutes = require("./routes/instructorRoute");
 const learnerRoutes = require("./routes/learnerRoute");
 const platformAdminRoutes = require("./routes/platformAdminRoute");
 

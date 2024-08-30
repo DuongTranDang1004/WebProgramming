@@ -13,7 +13,7 @@ const getFavoriteCourses = async (req,res) => {
   //Get by ID
   const getFavoriteCourse = async (req,res) => {
     try {
-      const {id} = req.param;
+      const {id} = req.params;
       const favoritecourse = await FavoriteCourse.findById(id);
       res.status(200).json(favoritecourse)
     } catch(error){
@@ -35,7 +35,7 @@ const getFavoriteCourses = async (req,res) => {
   //Update
   const updateFavoriteCourse = async (req,res) => {
     try {
-      const {id} = req.param;
+      const {id} = req.params;
       const favoritecourse = await FavoriteCourse.findByIdAndUpdate(id, req.body);
   
       if (!favoritecourse){
@@ -52,7 +52,7 @@ const getFavoriteCourses = async (req,res) => {
   //Delete
   const deleteFavoriteCourse = async (req,res) => {
     try {
-      const {id} = req.param;
+      const {id} = req.params;
       const favoritecourse = await FavoriteCourse.findByIdAndUpdate(id);
   
       if(!favoritecourse){

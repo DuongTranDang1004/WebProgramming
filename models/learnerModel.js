@@ -50,7 +50,12 @@ const LearnersSchema = new Schema({
     phone: {
         type: String,
         required: false
-    }
+    },
+    token: {
+        type: String,
+        default: null,
+        required: false
+      }
 }, { collection: "Learners" });
 
 // Create a model using the schema
