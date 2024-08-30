@@ -88,7 +88,7 @@ const getLectures = async (req, res) => {
 const getLecture = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id } = req.params;
+
     const lecture = await Lecture.findById(id);
     res.status(200).json({ lecture });
   } catch (error) {
