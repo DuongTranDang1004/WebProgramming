@@ -156,40 +156,12 @@ const createInstructor = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /instructors/{id}:
- *   put:
- *     summary: Update an instructor by ID
- *     tags: [Instructors]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Instructor'
- *     responses:
- *       200:
- *         description: Updated instructor
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Instructor'
- *       404:
- *         description: Instructor not found
- *       500:
- *         description: Internal server error
- */
+//Update
 const updateInstructor = async (req, res) => {
-  const { id } = req.params;
   try {
-    const instructor = await Instructor.findByIdAndUpdate(id, req.body, { new: true });
+    const { id } = req.param;
+    const instructor = await Instructor.findByIdAndUpdate(id, req.body);
+
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -199,30 +171,12 @@ const updateInstructor = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /instructors/{id}:
- *   delete:
- *     summary: Delete an instructor by ID
- *     tags: [Instructors]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Instructor deleted successfully
- *       404:
- *         description: Instructor not found
- *       500:
- *         description: Internal server error
- */
+//Delete
 const deleteInstructor = async (req, res) => {
-  const { id } = req.params;
   try {
-    const instructor = await Instructor.findByIdAndDelete(id);
+    const { id } = req.param;
+    const instructor = await Instructor.findByIdAndUpdate(id);
+
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -263,7 +217,9 @@ const getCoursesByInstructorId = async (req, res) => {
   try {
     const courses = await Course.find({ instructorId: id });
     if (courses.length === 0) {
-      return res.status(404).json({ message: "No courses found for this instructor" });
+      return res
+        .status(404)
+        .json({ message: "No courses found for this instructor" });
     }
     res.status(200).json(courses);
   } catch (error) {
@@ -277,5 +233,5 @@ module.exports = {
   createInstructor,
   updateInstructor,
   deleteInstructor,
-  getCoursesByInstructorId
+  getCoursesByInstructorId,
 };

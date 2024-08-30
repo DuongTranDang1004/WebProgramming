@@ -187,7 +187,7 @@ const getCourse = async (req, res) => {
 const updateCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const course = await Course.findByIdAndUpdate(id, req.body, { new: true });
+    const course = await Course.findByIdAndUpdate(id, req.body);
 
     if (!course) {
       return res.status(404).json({ message: "Course not found" });

@@ -13,7 +13,7 @@ const getFollowingInstructors = async (req,res) => {
 //Get by ID
 const getFollowingInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const followingInstructor = await FollowingInstructor.findById(id);
     res.status(200).json(followingInstructor)
   } catch(error){
@@ -35,7 +35,7 @@ const createFollowingInstructor = async (req,res) => {
 //Update
 const updateFollowingInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const followingInstructor = await FollowingInstructor.findByIdAndUpdate(id, req.body);
 
     if (!FollowingInstructor){
@@ -52,7 +52,7 @@ const updateFollowingInstructor = async (req,res) => {
 //Delete
 const deleteFollowingInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const followingInstructor = await FollowingInstructor.findByIdAndUpdate(id);
 
     if(!followingInstructor){

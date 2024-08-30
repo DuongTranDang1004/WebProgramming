@@ -50,6 +50,11 @@ const PlatformAdminsSchema = new Schema({
   phone: {
     type: String,
     required: false
+  },
+  token: {
+    type: String,
+    default: null,
+    required: false
   }
 }, {collection: "PlatformAdmins"});
 
