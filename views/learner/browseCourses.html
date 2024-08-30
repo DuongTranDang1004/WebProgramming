@@ -9,8 +9,9 @@
     <div id="course-display"></div>
     hello there
     <!-- try call API that get all courses here -->
-    <script src="/js/fetchAPIs/fetchCourse.js"></script>
-
-    <!-- path: /views/learner/coursesQueryResult.html" -->
+    <!-- 
+    since we config express to serve static files from "public directory", we
+    dont need public as path overhere, otherwise it cannot find the js file -->
+    <script src="/js/fetchAPIs/fetchCourses.js"></script>
   </body>
 </html>
