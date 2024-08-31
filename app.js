@@ -52,8 +52,8 @@ app.use("/api/platformAdmins", platformAdminRoutes);
 
 //SERVE STATIC FILES (ORDER IS IMPORTANT)
 
-//Serve all files form public directory
-app.use(express.static(path.join(__dirname, "public")));
+//Serve all files form static directory
+app.use(express.static(path.join(__dirname, "static")));
 //Serve static html files from "views" directory
 app.use(express.static(path.join(__dirname, "views")));
 

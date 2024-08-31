@@ -22,6 +22,7 @@ body {
   padding: 20px;
   text-align: center;
   border-right: 1px solid #ddd;
+  background-color: #1c1c1c;
 }
 
 .profile-pic {
@@ -35,12 +36,24 @@ body {
 .profile-sidebar h2 {
   font-size: 20px;
   margin-bottom: 10px;
+  color: #fff;
 }
 
 .profile-sidebar .button {
   display: block;
   width: 100%;
   margin-bottom: 10px;
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.profile-sidebar .button:hover {
+  background-color: #53389e;
 }
 
 /* Main Content Section */
@@ -50,10 +63,10 @@ body {
 }
 
 .profile-main-content h3 {
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #6f42c1;
   padding-bottom: 5px;
   margin-bottom: 15px;
-  color: #007bff;
+  color: #6f42c1;
 }
 
 .form-group {
@@ -87,7 +100,7 @@ body {
 }
 
 .button {
-  background-color: #007bff;
+  background-color: #6f42c1;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -98,7 +111,7 @@ body {
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #53389e;
 }
 
 @media (max-width: 768px) {
