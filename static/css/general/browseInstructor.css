@@ -5,7 +5,7 @@ body {
   background-color: #f4f4f4;
 }
 
-.favorites-page {
+.browse-page {
   width: 90%;
   margin: 0 auto;
   display: flex;
@@ -25,17 +25,24 @@ body {
   text-align: center;
 }
 
-.sidebar h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
+.sidebar h2,
+.sidebar h3 {
+  margin-bottom: 15px;
 }
 
+.sidebar select,
 .sidebar input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 4px;
   border: none;
+}
+
+.checkbox-group label {
+  display: block;
+  text-align: left;
+  color: #ffffff;
 }
 
 .sidebar .button {
@@ -54,20 +61,19 @@ body {
 }
 
 /* Main Content */
-.favorites-content {
+.instructors-content {
   width: 75%;
   padding: 20px;
 }
 
 .instructor-list {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .instructor-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+  flex: 1 1 calc(33% - 20px);
   padding: 15px;
   border-radius: 8px;
   background-color: #f8f9fa;
@@ -75,43 +81,26 @@ body {
 }
 
 .instructor-item img {
-  width: 100px;
-  height: 80px;
+  width: 100%;
+  height: 150px;
   border-radius: 8px;
   object-fit: cover;
-  margin-right: 20px;
+  margin-bottom: 15px;
 }
 
-.instructor-item .instructor-details {
-  flex-grow: 1;
-}
-
-.instructor-item .instructor-details h4 {
-  margin: 0 0 5px 0;
+.instructor-item h4 {
+  margin: 0 0 10px 0;
   color: #343a40;
 }
 
-.instructor-item .instructor-details p {
-  margin: 0;
+.instructor-item p {
+  margin: 0 0 5px 0;
   font-size: 14px;
   color: #6c757d;
 }
 
-.instructor-item .button {
-  background-color: #6f42c1;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.instructor-item .button:hover {
-  background-color: #53389e;
-}
-
 @media (max-width: 768px) {
-  .favorites-page {
+  .browse-page {
     flex-direction: column;
     width: 95%;
   }
@@ -121,7 +110,11 @@ body {
     margin-bottom: 20px;
   }
 
-  .favorites-content {
+  .instructors-content {
     width: 100%;
+  }
+
+  .instructor-item {
+    flex: 1 1 100%;
   }
 }

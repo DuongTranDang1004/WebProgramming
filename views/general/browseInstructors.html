@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browse Instructors</title>
+    <link rel="stylesheet" href="/static/css/general/browseInstructor.css" />
+  </head>
+  <body>
+    <div class="browse-page">
+      <aside class="sidebar">
+        <h2>Browse Instructors</h2>
+
+        <!-- Sort Options -->
+        <div class="sort-section">
+          <label for="sort-select">Sort by:</label>
+          <select id="sort-select" onchange="sortInstructors()">
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+            <option value="join-asc">Join Date (Oldest First)</option>
+            <option value="join-desc">Join Date (Newest First)</option>
+          </select>
+        </div>
+
+        <!-- Filter Options -->
+        <div class="filter-section">
+          <h3>Filters</h3>
+
+          <!-- Filter by Specialization -->
+          <label>Specialization:</label>
+          <div class="checkbox-group">
+            <label
+              ><input
+                type="checkbox"
+                value="AI"
+                onchange="filterInstructors()"
+              />
+              AI</label
+            ><br />
+            <label
+              ><input
+                type="checkbox"
+                value="Data Science"
+                onchange="filterInstructors()"
+              />
+              Data Science</label
+            ><br />
+            <label
+              ><input
+                type="checkbox"
+                value="Web Development"
+                onchange="filterInstructors()"
+              />
+              Web Development</label
+            ><br />
+            <!-- Add more specializations as needed -->
+          </div>
+        </div>
+
+        <!-- Search Options -->
+        <div class="search-section">
+          <h3>Search</h3>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search by instructor or organization..."
+            oninput="searchInstructors()"
+          />
+        </div>
+
+        <button class="button" onclick="applyFilters()">Apply Filters</button>
+      </aside>
+
+      <div class="instructors-content">
+        <div id="instructors-list" class="instructor-list">
+          <!-- Instructors will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/js/clientSideProcessing/general/"></script>
+  </body>
+</html>
