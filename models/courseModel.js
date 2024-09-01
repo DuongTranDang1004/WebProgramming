@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CourseSchema = new mongoose.Schema({
-  _id: Number,
   name: {
     type: String,
     required: true,
@@ -30,7 +29,7 @@ const CourseSchema = new mongoose.Schema({
     required: true,
   },
   instructorId: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Instructor",
     required: true,
   },

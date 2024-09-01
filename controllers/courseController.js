@@ -14,10 +14,10 @@ const Course = require("../models/courseModel");
  *     Course:
  *       type: object
  *       properties:
- *         id:
- *           type: string
+ *         _id:
+ *           type: integer
  *           description: The auto-generated ID of the course
- *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
+ *           example: 1
  *         instructorId:
  *           type: integer
  *           description: The ID of the instructor teaching the course
@@ -62,12 +62,14 @@ const Course = require("../models/courseModel");
  *       500:
  *         description: Server error
  */
-const getCourses = async (req, res) => {
+
+//Get all
+const getCourses = async (req,res) => {
   try {
-    courses = await Course.find({});
-    res.status(200).json(courses);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const courses = await Course.find({});
+    res.status(200).json(courses)
+  } catch(error){
+    res.status(500).json({ message: error.message})
   }
 };
 
