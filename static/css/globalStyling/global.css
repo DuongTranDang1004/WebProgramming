@@ -1,0 +1,128 @@
+/* Our theme primary colors, ensure high contrast:  */
+/* #6D28D9 (purple) , #FFFFFF (white), #1F2937 (dark blue) */
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ffffff; /* White background for the main content */
+  color: #1f2937; /* Dark blue text color */
+}
+/* Navbar Styles */
+.header-nav {
+  background-color: #ffffff; /* White background for the navbar */
+  border-bottom: 1px solid #ddd; /* Light border at the bottom */
+  padding: 10px 0;
+}
+
+.header-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-nav li {
+  padding: 0 15px; /* Add spacing between menu items */
+}
+
+.header-nav a {
+  color: #1f2937; /* Dark blue text color */
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 15px;
+  display: block;
+}
+
+.header-nav a:hover {
+  color: #6d28d9; /* Purple text on hover */
+}
+
+/*Nav Item Dropdown Styling */
+
+/* Hide the dropdown content by default, only show when on click */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Show the dropdown when the 'show' class is added */
+.dropdown-content.show {
+  display: block;
+}
+
+/* source: https://www.w3schools.com/howto/howto_css_dropdown.asp  */
+
+/* Input Form */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #1f2937; /* Dark blue text color */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #6d28d9; /* Purple border */
+  border-radius: 4px;
+  background-color: #ffffff; /* White input background */
+  color: #1f2937; /* Dark blue text color */
+}
+
+/* Button Styling */
+button,
+.btn-primary {
+  background-color: #6d28d9; /* Purple button background */
+  color: #ffffff; /* White text color */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover,
+.btn-primary:hover {
+  background-color: #1f2937; /* Dark blue on hover */
+}
+
+/* Footer Styling */
+footer {
+  background-color: #1f2937; /* Dark blue background for footer */
+  color: #ffffff; /* White text color */
+  padding: 20px;
+  text-align: center;
+}
+
+footer a {
+  color: #ffffff; /* White text color for footer links */
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+
+/* For Tablets (768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+}
+
+/* For Smartphones (767px or lower) */
+@media (max-width: 767px) {
+}
+
+/* For Desktop Computers (1200px or higher) */
+@media (min-width: 1200px) {
+}
