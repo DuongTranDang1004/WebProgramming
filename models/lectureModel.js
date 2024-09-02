@@ -29,6 +29,10 @@ const LectureSchema = new mongoose.Schema({
       correctAnswer: { type: String, required: true }
     },
     required: false
+  },
+  index: {
+    type: Number,
+    required: true
   }
 });
 

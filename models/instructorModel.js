@@ -117,12 +117,16 @@ const InstructorSchema = new mongoose.Schema(
             default: 'basic',
             required: true
         },
-
-        token: {
+        createTime: {
+          type: Date,
+          require: true,
+          default: Date.now
+        },
+        Bio: {
           type: String,
-          default: null,
-          required: false
+          require: false,
         }
+
     }
 )
 

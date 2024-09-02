@@ -1,10 +1,27 @@
-const FavoriteCourse = require("../models/favoriteCourseModel")
+const FavoriteCourse = require("../models/favoriteCourseModel");
 
 //Get all
 const getFavoriteCourses = async (req,res) => {
     try {
-      const favoritecourses = await FavoriteCourse.find({});
+      const favoritecourses = await FavoriteCourse.find({})
+        .populate('courseId', 'name category price description');
       res.status(200).json(favoritecourses)
+    } catch(error){
+      res.status(500).json({ message: error.message})
+    }
+  }
+
+//Get all by learnerID
+  const getFavoriteCourseByLearnerID = async (req,res) => {
+    try {
+      const {id} = req.params;
+      const favoritecourses = await FavoriteCourse.find({learnerId: id})
+      .populate('courseId', 'name category price description');
+      if (favoritecourses.length > 0) {
+        return res.status(200).json(favoritecourses);
+    } else {
+        return res.status(200).json({ message: "No favorite course" });
+    }
     } catch(error){
       res.status(500).json({ message: error.message})
     }
@@ -14,7 +31,8 @@ const getFavoriteCourses = async (req,res) => {
   const getFavoriteCourse = async (req,res) => {
     try {
       const {id} = req.params;
-      const favoritecourse = await FavoriteCourse.findById(id);
+      const favoritecourse = await FavoriteCourse.findById(id)
+        .populate('courseId', 'name category price description');
       res.status(200).json(favoritecourse)
     } catch(error){
       res.status(500).json({ message: error.message})
@@ -68,5 +86,6 @@ const getFavoriteCourses = async (req,res) => {
     getFavoriteCourse,
     createFavoriteCourse,
     updateFavoriteCourse,
-    deleteFavoriteCourse
+    deleteFavoriteCourse,
+    getFavoriteCourseByLearnerID,
   }

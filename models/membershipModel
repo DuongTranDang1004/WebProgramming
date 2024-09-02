@@ -1,0 +1,7 @@
+import { schema } from './instructorModel';
+
+const mongoose = require('mongoose');
+
+const membershipSchema = new mongoose.Schema(
+    
+)

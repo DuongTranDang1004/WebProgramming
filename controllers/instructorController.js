@@ -1,5 +1,49 @@
 const Instructor = require("../models/instructorModel");
 
+/**
+ * @swagger
+ * tags:
+ *   name: Instructors
+ *   description: API for managing courses
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Course:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: integer
+ *           description: The auto-generated ID of the course
+ *           example: 1
+ *         instructorId:
+ *           type: integer
+ *           description: The ID of the instructor teaching the course
+ *           example: 1
+ *         category:
+ *           type: string
+ *           description: The category of the course
+ *           example: "front-end"
+ *         name:
+ *           type: string
+ *           description: The name of the course
+ *           example: "Introduction to Front-End Development"
+ *         thumbnailImage:
+ *           type: string
+ *           description: The URL of the course's thumbnail image
+ *           example: "https://example.com/course-thumbnail.jpg"
+ *         price:
+ *           type: number
+ *           description: The price of the course
+ *           example: 99.99
+ *         description:
+ *           type: string
+ *           description: A brief description of the course
+ *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
+ */
+
 //Get all
 const getInstructors = async (req,res) => {
   try {

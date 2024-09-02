@@ -3,12 +3,12 @@ const mongoose = require("mongoose")
 //Define schema for FollowingInstructor collection
 const FollowingInstructorSchema = new mongoose.Schema({
     learnerId: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Learners' 
     },
     instructorId: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Instructors' 
     }
