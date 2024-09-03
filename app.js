@@ -16,6 +16,11 @@ const app = express();
 const port = process.env.APP_PORT || 3000;
 const host = process.env.APP_HOST || "localhost";
 
+// Route to serve the browse dropdown content
+app.get("/dropdown/browse", (req, res) => {
+  res.render("partials/browseDropdown");
+});
+
 //Use middlewares and modules for the app
 app.use(express.json()); // Middleware for parsing JSON from response body
 
@@ -63,6 +68,10 @@ app.get("/", (req, res) => {
 });
 
 //Duong mofidication start
+
+// Set EJS as the templating engine to render partial views
+app.set("view engine", "ejs");
+
 //View Paths (front-end/client)
 
 //BrowseCourse path

@@ -9,14 +9,15 @@ body {
   background-color: #ffffff; /* White background for the main content */
   color: #1f2937; /* Dark blue text color */
 }
-/* Navbar Styles */
-.header-nav {
+
+/* Header style  */
+header {
   background-color: #ffffff; /* White background for the navbar */
   border-bottom: 1px solid #ddd; /* Light border at the bottom */
   padding: 10px 0;
 }
 
-.header-nav ul {
+header ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -25,11 +26,11 @@ body {
   align-items: center;
 }
 
-.header-nav li {
+header li {
   padding: 0 15px; /* Add spacing between menu items */
 }
 
-.header-nav a {
+header a {
   color: #1f2937; /* Dark blue text color */
   text-decoration: none;
   font-weight: 500;
@@ -37,10 +38,82 @@ body {
   display: block;
 }
 
-.header-nav a:hover {
+header a:hover {
   color: #6d28d9; /* Purple text on hover */
 }
 
+/* Logo style */
+.logo img {
+  height: 100px;
+  width: 100px;
+}
+
+/* Navbar Styles */
+
+/* Primary nav bar style  */
+/* Primary Navigation Bar */
+.header-primary-nav {
+  display: flex;
+  justify-content: space-between; /* Space between logo and other items */
+  align-items: center;
+  padding: 10px 20px; /* Padding around the content */
+}
+
+.header-primary-nav .logo {
+  flex: 0 0 auto; /* Prevent logo from growing */
+}
+
+.header-primary-nav .logo img {
+  height: 50px; /* Adjust logo size to be smaller */
+}
+
+.header-primary-nav .category-dropdown {
+  margin-right: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.header-primary-nav .search-box {
+  flex-grow: 2; /* Allow search box to grow */
+  margin: 0 20px;
+}
+
+.header-primary-nav .search-box input {
+  width: 100%;
+  padding: 10px 20px; /* Padding inside the search box */
+  border: 1px solid #ddd;
+  border-radius: 50px; /* Rounded corners like Udemy */
+  font-size: 16px;
+  background-color: #f8f8f8; /* Light background color */
+}
+
+.header-primary-nav .cart-icon,
+.header-primary-nav .account-avatar {
+  flex: 0 0 auto; /* Prevent these items from growing */
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.header-primary-nav .cart-icon {
+  font-size: 24px; /* Increase the size for visibility */
+}
+
+.header-primary-nav .account-avatar {
+  background-color: #6d28d9; /* Purple background like the image */
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Circle avatar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+/* Secondary nav bar style */
+.header-secondary-nav {
+}
 /*Nav Item Dropdown Styling */
 
 /* Hide the dropdown content by default, only show when on click */
