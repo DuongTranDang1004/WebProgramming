@@ -71,7 +71,7 @@ phone: String - Stores the phone number of the admin.
     let platformAdminData = [];
     for (let i = 0; i < 30; i++) {
       platformAdminData.push({
-        _id: i + 1,
+        _id: i + 1, 
         email: faker.internet.email(),
         password: faker.internet.password(12),
         profilePicture: faker.image.avatar(),

@@ -1,6 +1,3 @@
-const express = require("express");
-const mongoose = require('mongoose');
-const router = express.Router();
 const ContactForms = require("../models/contactFormModel");
 
 /**
@@ -77,14 +74,15 @@ const ContactForms = require("../models/contactFormModel");
  *       500:
  *         description: Internal server error
  */
-router.get("/", async (req, res) => {
+// Get all contact forms
+const getContactForms = async (req, res) => {
   try {
     const forms = await ContactForms.find();
-    res.json(forms);
+    res.status(200).json(forms);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -98,10 +96,10 @@ router.get("/", async (req, res) => {
  *         schema:
  *           type: integer
  *         required: true
- *         description: The contact form id
+ *         description: The contact form ID
  *     responses:
  *       200:
- *         description: A contact form by id
+ *         description: A contact form by ID
  *         content:
  *           application/json:
  *             schema:
@@ -111,17 +109,139 @@ router.get("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.get("/:id", async (req, res) => {
+// Get contact form by ID
+const getContactForm = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10); // Convert id to a number
+    const id = req.params.id;
     const form = await ContactForms.findById(id);
     if (!form) {
       return res.status(404).json({ message: "Contact form not found" });
     }
-    res.json(form);
+    res.status(200).json(form);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-module.exports = router;
+/**
+ * @swagger
+ * /contactForms:
+ *   post:
+ *     summary: Create a new contact form
+ *     tags: [ContactForms]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ContactForm'
+ *     responses:
+ *       201:
+ *         description: The created contact form
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ContactForm'
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
+// Create a new contact form
+const createContactForm = async (req, res) => {
+  try {
+    const contactForm = new ContactForms(req.body);
+    await contactForm.save();
+    res.status(201).json(contactForm);
+  } catch (error) {
+    res.status(400).json({ message: 'An error occurred while creating the contact form', error });
+  }
+};
+
+/**
+ * @swagger
+ * /contactForms/{id}:
+ *   put:
+ *     summary: Update a contact form by ID
+ *     tags: [ContactForms]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The contact form ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ContactForm'
+ *     responses:
+ *       200:
+ *         description: The updated contact form
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ContactForm'
+ *       404:
+ *         description: Contact form not found
+ *       500:
+ *         description: Internal server error
+ */
+// Update contact form by ID
+const updateContactForm = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedForm = await ContactForms.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedForm) {
+      return res.status(404).json({ message: "Contact form not found" });
+    }
+    res.status(200).json(updatedForm);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * @swagger
+ * /contactForms/{id}:
+ *   delete:
+ *     summary: Delete a contact form by ID
+ *     tags: [ContactForms]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The contact form ID
+ *     responses:
+ *       204:
+ *         description: No content, form deleted successfully
+ *       404:
+ *         description: Contact form not found
+ *       500:
+ *         description: Internal server error
+ */
+// Delete contact form by ID
+const deleteContactForm = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deletedForm = await ContactForms.findByIdAndDelete(id);
+    if (!deletedForm) {
+      return res.status(404).json({ message: "Contact form not found" });
+    }
+    res.status(204).json({ message: "Contact form deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getContactForms,
+  getContactForm,
+  createContactForm,
+  updateContactForm,
+  deleteContactForm,
+};

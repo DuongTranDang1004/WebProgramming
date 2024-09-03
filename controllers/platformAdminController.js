@@ -1,6 +1,3 @@
-const express = require("express");
-const mongoose = require('mongoose');
-const router = express.Router();
 const PlatformAdmins = require("../models/platformAdminModel");
 
 /**
@@ -81,14 +78,15 @@ const PlatformAdmins = require("../models/platformAdminModel");
  *       500:
  *         description: Internal server error
  */
-router.get("/", async (req, res) => {
+// Get all platform admins
+const getPlatformAdmins = async (req, res) => {
   try {
     const admins = await PlatformAdmins.find({});
-    res.json(admins);
+    res.status(200).json(admins);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 /**
  * @swagger
@@ -115,17 +113,139 @@ router.get("/", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.get("/:id", async (req, res) => {
+// Get platform admin by ID
+const getPlatformAdmin = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10); // Convert id to a number
+    const id = req.params.id;
     const admin = await PlatformAdmins.findById(id);
     if (!admin) {
       return res.status(404).json({ message: "Platform admin not found" });
     }
-    res.json(admin);
+    res.status(200).json(admin);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-module.exports = router;
+/**
+ * @swagger
+ * /platformAdmins:
+ *   post:
+ *     summary: Create a new platform admin
+ *     tags: [PlatformAdmins]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PlatformAdmin'
+ *     responses:
+ *       201:
+ *         description: The created platform admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PlatformAdmin'
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
+// Create a new platform admin
+const createPlatformAdmin = async (req, res) => {
+  try {
+    const platformAdmin = new PlatformAdmins(req.body);
+    await platformAdmin.save();
+    res.status(201).json(platformAdmin);
+  } catch (error) {
+    res.status(400).json({ message: 'An error occurred while creating the platform admin', error });
+  }
+};
+
+/**
+ * @swagger
+ * /platformAdmins/{id}:
+ *   put:
+ *     summary: Update a platform admin by ID
+ *     tags: [PlatformAdmins]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The platform admin ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PlatformAdmin'
+ *     responses:
+ *       200:
+ *         description: The updated platform admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PlatformAdmin'
+ *       404:
+ *         description: Platform admin not found
+ *       500:
+ *         description: Internal server error
+ */
+// Update platform admin by ID
+const updatePlatformAdmin = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedAdmin = await PlatformAdmins.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedAdmin) {
+      return res.status(404).json({ message: "Platform admin not found" });
+    }
+    res.status(200).json(updatedAdmin);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * @swagger
+ * /platformAdmins/{id}:
+ *   delete:
+ *     summary: Delete a platform admin by ID
+ *     tags: [PlatformAdmins]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The platform admin ID
+ *     responses:
+ *       204:
+ *         description: No content, admin deleted successfully
+ *       404:
+ *         description: Platform admin not found
+ *       500:
+ *         description: Internal server error
+ */
+// Delete platform admin by ID
+const deletePlatformAdmin = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deletedAdmin = await PlatformAdmins.findByIdAndDelete(id);
+    if (!deletedAdmin) {
+      return res.status(404).json({ message: "Platform admin not found" });
+    }
+    res.status(204).json({ message: "Platform admin deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getPlatformAdmins,
+  getPlatformAdmin,
+  createPlatformAdmin,
+  updatePlatformAdmin,
+  deletePlatformAdmin,
+};

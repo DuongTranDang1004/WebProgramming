@@ -138,7 +138,7 @@ const createCourse = async (req, res) => {
  */
 const getCourse = async (req, res) => {
   try {
-    const { id } = req.params;
+    const {id} = req.params;
     const course = await Course.findById(id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
@@ -188,8 +188,8 @@ const getCourse = async (req, res) => {
  */
 const updateCourse = async (req, res) => {
   try {
-    const { id } = req.params;
-    const course = await Course.findByIdAndUpdate(id, req.body, { new: true });
+    const {id} = req.params;
+    const course = await Course.findByIdAndUpdate(id, req.body);
 
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
@@ -224,7 +224,7 @@ const updateCourse = async (req, res) => {
  */
 const deleteCourse = async (req, res) => {
   try {
-    const { id } = req.params;
+    const {id} = req.params;
     const course = await Course.findByIdAndDelete(id);
 
     if (!course) {

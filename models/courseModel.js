@@ -3,7 +3,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CourseSchema = new mongoose.Schema({
+const CoursesSchema = new mongoose.Schema({
+
   name: {
     type: String,
     required: true,
@@ -36,6 +37,6 @@ const CourseSchema = new mongoose.Schema({
 });
 
 
-const Course = mongoose.model("Courses", CourseSchema, "Courses");
+const Courses = mongoose.model("Courses", CoursesSchema, "Courses");
 
-module.exports = Course;
+module.exports = Courses;

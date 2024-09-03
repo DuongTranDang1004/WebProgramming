@@ -115,6 +115,7 @@ const getInstructors = async (req, res) => {
 const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
+    const {id} = req.params;
     const instructor = await Instructor.findById(id);
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
@@ -189,9 +190,11 @@ const createInstructor = async (req, res) => {
 const updateInstructor = async (req, res) => {
   const { id } = req.params;
   try {
-    const instructor = await Instructor.findByIdAndUpdate(id, req.body, { new: true });
-    if (!instructor) {
-      return res.status(404).json({ message: "Instructor not found" });
+    const {id} = req.params;
+    const instructor = await Instructor.findByIdAndUpdate(id, req.body);
+
+    if (!instructor){
+      return res.status(404).json({message: "Instructor not found"});
     }
     res.status(200).json(instructor);
   } catch (error) {
@@ -222,9 +225,11 @@ const updateInstructor = async (req, res) => {
 const deleteInstructor = async (req, res) => {
   const { id } = req.params;
   try {
-    const instructor = await Instructor.findByIdAndDelete(id);
-    if (!instructor) {
-      return res.status(404).json({ message: "Instructor not found" });
+    const {id} = req.param;
+    const instructor = await Instructor.findByIdAndUpdate(id);
+
+    if(!instructor){
+      return res.status(404).json({message: "Instructor not found"})
     }
     res.status(200).json({ message: "Instructor deleted successfully" });
   } catch (error) {

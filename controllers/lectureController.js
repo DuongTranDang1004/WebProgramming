@@ -160,7 +160,7 @@ const createLecture = async (req,res) => {
 const updateLecture = async (req, res) => {
     try {
         const {id} = req.params;
-        const lecture = await Lecture.findByIdAndUpdate(id, req.body, { new: true });
+        const lecture = await Lecture.findByIdAndUpdate(id);;
 
         if(!lecture){
             return res.status(404).json({message: "Lecture not found"});

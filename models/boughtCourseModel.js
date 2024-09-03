@@ -5,11 +5,13 @@ const Schema = mongoose.Schema;
 
 const BoughtCoursesSchema = new Schema({
     learnerId: {
-      type: Number,
+      type: String,
+      ref: 'Learners',
       required: true
     },
     courseId: {
-      type: Number,
+      type: String,
+      ref: 'Courses',
       required: true
     },
     boughtDateTime: {
@@ -21,6 +23,7 @@ const BoughtCoursesSchema = new Schema({
       {
         lectureId: {
           type: Number,
+          ref: 'Lectures',
           required: true
         },
         completeStatus: {
