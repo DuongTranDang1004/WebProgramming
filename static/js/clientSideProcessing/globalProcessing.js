@@ -1,49 +1,29 @@
-// Function to handle dropdowns
+//Function to change nav bar responsive between horizontal and vertical
 
-document.addEventListener("DOMContentLoaded", function () {
-  function setupDropdown(dropdownSelector, dropdownContentSelector, url) {
-    const dropdown = document.querySelector(dropdownSelector);
-    const dropdownContent = document.querySelector(dropdownContentSelector);
+function toggleResponsiveNav() {
+  var x = document.getElementsByClassName("secondaryNav")[0]; // Get the first element with class "secondaryNav"
 
-    dropdown.addEventListener("click", function (event) {
-      event.stopPropagation(); // Prevents the click from bubbling up
-
-      // If the dropdown content is empty, fetch it from the server
-      if (dropdownContent.innerHTML.trim() === "") {
-        fetch(url)
-          .then((response) => response.text())
-          .then((html) => {
-            dropdownContent.innerHTML = html;
-            dropdownContent.classList.toggle("show");
-          })
-          .catch((err) =>
-            console.error("Error loading dropdown content:", err)
-          );
-      } else {
-        dropdownContent.classList.toggle("show");
-      }
-    });
-
-    // Close the dropdown and clear content if the user clicks outside of it
-    document.addEventListener("click", function (event) {
-      if (!dropdown.contains(event.target)) {
-        dropdownContent.classList.remove("show");
-        dropdownContent.innerHTML = ""; // Clear the dropdown content
-      }
-    });
+  if (x.className === "secondaryNav") {
+    x.className += " responsive"; // Add 'responsive' class
+  } else {
+    x.className = "secondaryNav"; // Remove 'responsive' class
   }
+}
 
-  // Setup for category dropdown
-  setupDropdown(
-    ".category-dropdown",
-    ".dropdown-content.category",
-    "/partials/categoryDropdown.ejs"
-  );
+// Function to handle dropdowns// Function to handle dropdowns
+function showDropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
 
-  // Setup for browse dropdown
-  setupDropdown(
-    ".browse-dropdown",
-    ".dropdown-content.browse",
-    "/partials/browseDropdown.ejs"
-  );
-});
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (event) {
+  if (!event.target.matches(".dropbtn")) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
+      }
+    }
+  }
+};

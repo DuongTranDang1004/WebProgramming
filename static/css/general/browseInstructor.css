@@ -118,3 +118,19 @@ body {
     flex: 1 1 100%;
   }
 }
+
+/* Layout:
+Desktop Computers: Multi-column layout.  */
+/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+/* For Smartphones (767px or lower) */
+@media (max-width: 767px) {
+}
+
+/* For Tablets (768px to 1199px) */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+}
+
+/* For Desktop Computers (1200px or higher) */
+@media (min-width: 1200px) {
+}

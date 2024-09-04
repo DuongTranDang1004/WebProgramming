@@ -1,35 +1,74 @@
-<header>
-  <nav class="header-primary-nav">
-    <div class="logo">
-      <a href="/">
-        <img src="/img/logo/mockLogo.jpg" alt="IT Learning Logo" />
-      </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="topNav" class="container-fluid">
+    <a class="navbar-brand" href="/"
+      ><img src="img/logo/mockLogo.jpg" alt="logo" width="100px" height="100px"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarTogglerDemo02"
+      aria-controls="navbarTogglerDemo02"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="aboutUs">About Us</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarScrollingDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Browse
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li>
+              <a class="dropdown-item" href="#">Browse Courses by Category</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Browse Courses by Name</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Browse Intructors</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pricing">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="myAccount">My Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="faq">FAQs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contactPage">Contact</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
-    <div>
-      <li class="dropdown">
-        <a href="#" class="category-dropdown">Course Category</a>
-        <ul class="dropdown-content category"></ul>
-      </li>
-    </div>
-    <div class="search-box"></div>
-    <div class="cart-icon"></div>
-    <div class="account-avatar"></div>
-  </nav>
+  </div>
+</nav>
 
-  <nav class="header-secondary-nav">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="aboutUs">About Us</a></li>
-      <li><a href="pricing">Pricing</a></li>
-      <li>
-        <a href="myAccount">My Account</a>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="browse-dropdown">Browse</a>
-        <ul class="dropdown-content browse"></ul>
-      </li>
-      <li><a href="faq">FAQs</a></li>
-      <li><a href="contactPage">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+<!-- //get back the color and visual on github -->
+<!-- //change link name -->
