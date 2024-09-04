@@ -37,13 +37,13 @@ document.addEventListener("DOMContentLoaded", function () {
   setupDropdown(
     ".category-dropdown",
     ".dropdown-content.category",
-    "/views/partial/categoryDropdown.ejs"
+    "/partials/categoryDropdown.ejs"
   );
 
   // Setup for browse dropdown
   setupDropdown(
     ".browse-dropdown",
     ".dropdown-content.browse",
-    "/views/partial/browseDropdown.ejs"
+    "/partials/browseDropdown.ejs"
   );
 });

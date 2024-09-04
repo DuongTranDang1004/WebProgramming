@@ -4,6 +4,7 @@ const connectDB = require("./config/db"); // MongoDB connection file
 const dotenv = require("dotenv"); // Dotenv is used to load environment variables
 const cors = require("cors"); //cors is for cross origin resource sharing between views render origin (FE) and API (BE) origin
 const path = require("path"); // Import the path module
+const expressLayouts = require("express-ejs-layouts"); // import the express-layout npm package
 
 // Import Swagger configuration
 const { swaggerUi, swaggerDocs } = require("./config/swaggerConfig");
@@ -57,27 +58,45 @@ app.use("/api/platformAdmins", platformAdminRoutes);
 
 //SERVE STATIC FILES (ORDER IS IMPORTANT)
 
-//Serve all files form static directory
+//Serve all files form static directory. Then remove all the prefix "/static" from all the routes
 app.use(express.static(path.join(__dirname, "static")));
-//Serve static html files from "views" directory
+// Serve static html files from "views" directory. Then remove all the prefix "/views" from all the routes
 app.use(express.static(path.join(__dirname, "views")));
-
-// Root path (homepage)
-app.get("/", (req, res) => {
-  res.send("Welcome to the IT Learning platform API!");
-});
+// This line configures the directory where your EJS (or other view engine) templates are located. Express uses this path to look for view files when you call res.render().
+app.set("views", path.join(__dirname, "views"));
 
 //Duong mofidication start
 
-// Set EJS as the templating engine to render partial views
+// Set EJS as the templating engine to render partial views from "views" folder
 app.set("view engine", "ejs");
+app.use(expressLayouts); //use the expressLayout package
+
+//Set the default layout
+app.set("layout", "layouts/default");
 
 //View Paths (front-end/client)
 
+// Render custom layouts in the routes
+//later on we should define the routers for these routes
+
+//GENERAL PAGES
+// Root path (homepage)
+app.get("/", (req, res) => {
+  res.render("general/homepage", {
+    title: "Home Page",
+  });
+});
+
+app.get("/about", (req, res) => {
+  res.render("general/aboutUs", {
+    title: "About Us",
+    layout: "layouts/default",
+  });
+});
+
 //BrowseCourse path
 app.get("/browseCourses", (req, res) => {
-  //browse course would be a better name then query result
-  res.sendFile(path.join(__dirname, "views", "learner", "browseCourses.html"));
+  res.sendFile(path.join(__dirname, "views", "general", "browseCourses.html"));
 });
 
 //Duong modification end
@@ -94,8 +113,10 @@ app.listen(port, host, async () => {
   console.log(
     `SwaggerUI API Documentation is running on http://${host}:${port}/api-docs/`
   );
-
+  //Print our each the paths to check
+  console.log(`Home Page available at: http://${host}:${port}/`);
+  console.log(`Home Page available at: http://${host}:${port}/aboutUs`);
   console.log(
-    "Browse Course Page available at: http://localhost:3000/browseCourses"
+    `Browse Course Page available at: http://${host}:${port}/browseCourses`
   );
 });
