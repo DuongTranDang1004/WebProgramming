@@ -1,38 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learner Favorite Courses</title>
-    <link
-      rel="stylesheet"
-      href="/static/css/learner/learnerFavoriteCourses.css"
+<div class="favorites-page">
+  <aside class="sidebar">
+    <h2>Favorite Courses</h2>
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search by category..."
+      oninput="filterCourses()"
     />
-  </head>
-  <body>
-    <div class="favorites-page">
-      <aside class="sidebar">
-        <h2>Favorite Courses</h2>
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search by category..."
-          oninput="filterCourses()"
-        />
-        <select id="sort-select" onchange="sortCourses()">
-          <option value="name">Sort by Name</option>
-          <option value="price">Sort by Price</option>
-        </select>
-        <button class="button" onclick="addFavoriteCourse()">Add Course</button>
-      </aside>
+    <select id="sort-select" onchange="sortCourses()">
+      <option value="name">Sort by Name</option>
+      <option value="price">Sort by Price</option>
+    </select>
+    <button class="button" onclick="addFavoriteCourse()">Add Course</button>
+  </aside>
 
-      <div class="favorites-content">
-        <div id="favorite-courses" class="course-list">
-          <!-- Favorite courses will be dynamically inserted here -->
-        </div>
-      </div>
+  <div class="favorites-content">
+    <div id="favorite-courses" class="course-list">
+      <!-- Favorite courses will be dynamically inserted here -->
     </div>
-
-    <script src="/static/js/clientSideProcessing/learner/leanerFavoriteCourses.js"></script>
-  </body>
-</html>
+  </div>
+</div>
