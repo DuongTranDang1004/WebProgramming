@@ -103,7 +103,7 @@ app.listen(port, host, async () => {
   console.log(
     `SwaggerUI API Documentation is running on http://${host}:${port}/api-docs/`
   );
-  //Print our each the paths to check
+  //Print out general pages paths
   console.log(`Home Page available at: http://${host}:${port}/`);
   console.log(`Home Page available at: http://${host}:${port}/aboutUs`);
   console.log(

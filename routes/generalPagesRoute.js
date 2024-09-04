@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   });
 });
 // About us
-router.get("/about", (req, res) => {
+router.get("/aboutUs", (req, res) => {
   res.render("general/aboutUs", {
     title: "About Us",
     pageStylesheet: "css/general/aboutUs.css",

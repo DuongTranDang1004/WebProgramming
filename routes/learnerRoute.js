@@ -21,4 +21,12 @@ router.delete("/:id", deleteLearner);
 
 //extra paths for learner pages
 
+// Tos
+router.get("/", (req, res) => {
+  res.render("general/Tos", {
+    title: "Term of Services",
+    pageStylesheet: "css/general/Tos.css",
+  });
+});
+
 module.exports = router;
