@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%- title %></title>
+    <!-- global css for all the pages that use this layout  -->
     <link rel="stylesheet" href="/css/globalStyling/global.css" />
+    <!-- custom css sheet for specific pages (pass in as para when render as app.js ) -->
+    <% if (typeof pageStylesheet !== 'undefined') { %>
+    <link rel="stylesheet" href="<%= pageStylesheet %>" />
+    <% } %>
   </head>
   <body>
     <%- include('../partials/header') %>

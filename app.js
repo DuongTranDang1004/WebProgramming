@@ -84,6 +84,7 @@ app.set("layout", "layouts/default");
 app.get("/", (req, res) => {
   res.render("general/homepage", {
     title: "Home Page",
+    pageStylesheet: "/css/general/homepage.css",
   });
 });
 
