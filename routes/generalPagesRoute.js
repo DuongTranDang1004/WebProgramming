@@ -6,6 +6,7 @@ router.get("/", (req, res) => {
   res.render("general/homepage", {
     title: "Home Page",
     pageStylesheet: "css/general/homepage.css",
+    // layout: "./layouts/default",
   });
 });
 // About us

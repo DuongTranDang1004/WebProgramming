@@ -17,11 +17,6 @@ const app = express();
 const port = process.env.APP_PORT || 3000;
 const host = process.env.APP_HOST || "localhost";
 
-// Route to serve the browse dropdown content
-app.get("/dropdown/browse", (req, res) => {
-  res.render("partials/browseDropdown");
-});
-
 //Use middlewares and modules for the app
 app.use(express.json()); // Middleware for parsing JSON from response body
 
@@ -105,8 +100,5 @@ app.listen(port, host, async () => {
   );
   //Print out general pages paths
   console.log(`Home Page available at: http://${host}:${port}/`);
-  console.log(`Home Page available at: http://${host}:${port}/aboutUs`);
-  console.log(
-    `Browse Course Page available at: http://${host}:${port}/browseCourses`
-  );
+  console.log(`About Us Page available at: http://${host}:${port}/aboutUs`);
 });
