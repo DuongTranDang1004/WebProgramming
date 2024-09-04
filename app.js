@@ -44,6 +44,7 @@ const courseRoutes = require("./routes/courseRoute");
 const instructorRoutes = require("./routes/instructorRoute");
 const learnerRoutes = require("./routes/learnerRoute");
 const platformAdminRoutes = require("./routes/platformAdminRoute");
+const generalPagesRoutes = require("./routes/generalPagesRoute"); // Import the general pages route
 
 // API paths (backend/server)
 // app.use("/auth", authRoutes); //authenication has not been done yet
@@ -80,25 +81,13 @@ app.set("layout", "layouts/default");
 //later on we should define the routers for these routes
 
 //GENERAL PAGES
-// Root path (homepage)
-app.get("/", (req, res) => {
-  res.render("general/homepage", {
-    title: "Home Page",
-    pageStylesheet: "/css/general/homepage.css",
-  });
-});
+// Use the general pages routes
+app.use("/", generalPagesRoutes);
 
-app.get("/about", (req, res) => {
-  res.render("general/aboutUs", {
-    title: "About Us",
-    layout: "layouts/default",
-  });
-});
-
-//BrowseCourse path
-app.get("/browseCourses", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "general", "browseCourses.html"));
-});
+// //BrowseCourse path
+// app.get("/browseCourses", (req, res) => {
+//   res.sendFile(path.join(__dirname, "views", "general", "browseCourses.html"));
+// });
 
 //Duong modification end
 
