@@ -1,0 +1,12 @@
+#group-description {
+}
+
+#member-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+image {
+  border-radius: 50%;
+}

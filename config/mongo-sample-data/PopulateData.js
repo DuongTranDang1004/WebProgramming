@@ -5,7 +5,11 @@ const username = "cosc2430";
 const password = "fighting";
 
 // MongoDB connection URL to the desired database
+//Connection to physical server database
 const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+//Connection to localhost database for testing purpose
+// const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+
 const dbName = "ITLearning";
 
 function truncateToMinute(date) {
@@ -40,15 +44,17 @@ async function generateSampleData() {
     const memberships = db.collection("Membership");
 
     // Empty the collections before inserting new data
-    await platformAdmins.deleteMany({});
-    await instructors.deleteMany({});
-    await learners.deleteMany({});
-    await courses.deleteMany({});
-    await lectures.deleteMany({});
-    await contactForms.deleteMany({});
-    await favoriteCourses.deleteMany({});
-    await followingInstructors.deleteMany({});
-    await boughtCourses.deleteMany({});
+    await Promise.all([
+      platformAdmins.deleteMany({}),
+      instructors.deleteMany({}),
+      learners.deleteMany({}),
+      courses.deleteMany({}),
+      lectures.deleteMany({}),
+      contactForms.deleteMany({}),
+      favoriteCourses.deleteMany({}),
+      followingInstructors.deleteMany({}),
+      boughtCourses.deleteMany({}),
+    ]);
 
     console.log("Collections emptied successfully.");
 

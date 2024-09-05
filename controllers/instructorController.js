@@ -5,27 +5,18 @@ const Course = require("../models/courseModel");
  * @swagger
  * tags:
  *   name: Instructors
-<<<<<<< HEAD
- *   description: API for managing courses
-=======
  *   description: API for Instructors
->>>>>>> origin/Cuong-UI
  */
 
 /**
  * @swagger
  * components:
  *   schemas:
-<<<<<<< HEAD
- *     Course:
-=======
  *     Instructors:
->>>>>>> origin/Cuong-UI
  *       type: object
  *       properties:
  *         _id:
  *           type: integer
-<<<<<<< HEAD
  *           description: The auto-generated ID of the course
  *           example: 1
  *         instructorId:
@@ -54,52 +45,6 @@ const Course = require("../models/courseModel");
  *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
  */
 
-//Get all
-const getInstructors = async (req,res) => {
-=======
- *           description: The auto-generated ID of the instructor
- *           example: 1
- *         email:
- *           type: string
- *           description: The email of the instructor
- *           example: "jane.doe@example.com"
- *         password:
- *           type: string
- *           description: The hashed password of the instructor
- *           example: "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36Pz7dp62ptDXY1dRg/IXHy"
- *         profilePicture:
- *           type: string
- *           description: The URL of the instructor's profile picture
- *           example: "https://example.com/images/profile.jpg"
- *         firstName:
- *           type: string
- *           description: The first name of the instructor
- *           example: "Jane"
- *         lastName:
- *           type: string
- *           description: The last name of the instructor
- *           example: "Doe"
- *         address:
- *           type: string
- *           description: The street address of the instructor
- *           example: "456 Elm St"
- *         city:
- *           type: string
- *           description: The city of the instructor
- *           example: "Anytown"
- *         zipcode:
- *           type: string
- *           description: The postal/zip code of the instructor
- *           example: "67890"
- *         country:
- *           type: string
- *           description: The country code of the instructor
- *           example: "US"
- *         phone:
- *           type: string
- *           description: The phone number of the instructor
- *           example: "+1 987-654-3210"
- */
 
 /**
  * @swagger
@@ -120,7 +65,6 @@ const getInstructors = async (req,res) => {
  *         description: Internal server error
  */
 const getInstructors = async (req, res) => {
->>>>>>> origin/Cuong-UI
   try {
     const instructors = await Instructor.find({});
     res.status(200).json(instructors);
@@ -156,10 +100,7 @@ const getInstructors = async (req, res) => {
 const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
-<<<<<<< HEAD
-    const {id} = req.params;
-=======
->>>>>>> origin/Cuong-UI
+    const { id } = req.params;
     const instructor = await Instructor.findById(id);
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
@@ -201,50 +142,14 @@ const createInstructor = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /instructors/{id}:
- *   put:
- *     summary: Update an instructor by ID
- *     tags: [Instructors]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Instructor'
- *     responses:
- *       200:
- *         description: Updated instructor
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Instructor'
- *       404:
- *         description: Instructor not found
- *       500:
- *         description: Internal server error
- */
+//Update
 const updateInstructor = async (req, res) => {
-  const { id } = req.params;
   try {
-<<<<<<< HEAD
-    const {id} = req.params;
+    const { id } = req.param;
     const instructor = await Instructor.findByIdAndUpdate(id, req.body);
 
-    if (!instructor){
-      return res.status(404).json({message: "Instructor not found"});
-=======
-    const instructor = await Instructor.findByIdAndUpdate(id, req.body, { new: true });
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
->>>>>>> origin/Cuong-UI
     }
     res.status(200).json(instructor);
   } catch (error) {
@@ -252,34 +157,12 @@ const updateInstructor = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /instructors/{id}:
- *   delete:
- *     summary: Delete an instructor by ID
- *     tags: [Instructors]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Instructor deleted successfully
- *       404:
- *         description: Instructor not found
- *       500:
- *         description: Internal server error
- */
+//Delete
 const deleteInstructor = async (req, res) => {
-  const { id } = req.params;
   try {
-<<<<<<< HEAD
-    const {id} = req.params;
+    const { id } = req.params;
     const instructor = await Instructor.findByIdAndUpdate(id);
-=======
-    const instructor = await Instructor.findByIdAndDelete(id);
+
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -288,7 +171,6 @@ const deleteInstructor = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
->>>>>>> origin/Cuong-UI
 
 /**
  * @swagger
@@ -321,7 +203,9 @@ const getCoursesByInstructorId = async (req, res) => {
   try {
     const courses = await Course.find({ instructorId: id });
     if (courses.length === 0) {
-      return res.status(404).json({ message: "No courses found for this instructor" });
+      return res
+        .status(404)
+        .json({ message: "No courses found for this instructor" });
     }
     res.status(200).json(courses);
   } catch (error) {
@@ -335,5 +219,5 @@ module.exports = {
   createInstructor,
   updateInstructor,
   deleteInstructor,
-  getCoursesByInstructorId
+  getCoursesByInstructorId,
 };
