@@ -1,11 +1,9 @@
-import { schema } from './instructorModel';
-
 const mongoose = require('mongoose');
 
 const membershipSchema = new mongoose.Schema({
     instructorId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Instructor', 
+        ref: 'Instructor',
         required: true
     },
     planName: {
@@ -34,7 +32,7 @@ const membershipSchema = new mongoose.Schema({
     endDate: {
         type: Date,
         required: true,
-        default: function() {
+        default: function () {
             const startDate = this.startDate;
             if (this.planType === 'Monthly') {
                 return new Date(startDate.setMonth(startDate.getMonth() + 1));
@@ -50,7 +48,7 @@ const membershipSchema = new mongoose.Schema({
     },
     cardNumber: {
         type: String,
-        required: function() { return this.paymentMethod === 'Card'; }
+        required: function () { return this.paymentMethod === 'Card'; }
     }
 })
 
