@@ -251,5 +251,7 @@ module.exports = {
   getCourses,
   createCourse,
   updateCourse,
-  deleteCourse
+  deleteCourse,
+  getIsPublishCourses,
+  getCoursesByInstructorID
 };
