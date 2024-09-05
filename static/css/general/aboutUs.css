@@ -5,21 +5,27 @@ image {
 /* Light grey background for the section */
 #avatar-containers {
   background-color: #f0f0f0;
-  padding: 30px 0;
+  padding: 50px 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  flex-wrap: wrap; /* Allow wrapping for responsive layout */
 }
 
 /* Avatar container styling */
 .avatar-container {
   background-color: #fff; /* White background for each card */
-  /* border: 2px solid; */
+  border: 2px solid;
   padding: 15px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 15px;
   transition: box-shadow 0.3s ease;
+  max-width: 200px; /* Ensures container is responsive */
 }
 
+/* Add a slight shadow effect when hovering over avatar containers */
+.avatar-container:hover {
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
 /* Add a slight shadow effect when hovering over avatar containers */
 .avatar-container:hover {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
