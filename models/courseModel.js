@@ -3,13 +3,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-<<<<<<< HEAD
 const CoursesSchema = new mongoose.Schema({
-
-=======
-const CourseSchema = new mongoose.Schema({
-  _id: Number,
->>>>>>> origin/Cuong-UI
   name: {
     type: String,
     required: true,
@@ -47,7 +41,7 @@ const CourseSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
     validate: {
-      validator: function(value) {
+      validator: function (value) {
         // Prevent changing isPublish from true to false
         if (this.isPublish && !value) {
           return false;
@@ -59,11 +53,6 @@ const CourseSchema = new mongoose.Schema({
   }
 });
 
-<<<<<<< HEAD
-
 const Courses = mongoose.model("Courses", CoursesSchema, "Courses");
-=======
-const Courses = mongoose.model("Courses", CourseSchema, "Courses");
->>>>>>> origin/Cuong-UI
 
 module.exports = Courses;

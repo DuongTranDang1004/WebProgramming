@@ -101,6 +101,8 @@ async function generateSampleData() {
           "gold",
           "diamond",
         ]),
+        createTime: new Date(Date.now()),
+        Bio: Math.floor(Math.random() * 2) % 2 ? faker.lorem.paragraphs() : null,
       });
     }
     await instructors.insertMany(instructorData);
@@ -140,6 +142,7 @@ async function generateSampleData() {
         thumbnailImage: faker.image.url(),
         price: faker.commerce.price(),
         description: faker.lorem.paragraph(),
+        isPublish: Math.floor(Math.random() * 2) % 2 ? true : false
       });
     }
     await courses.insertMany(courseData);
@@ -147,17 +150,21 @@ async function generateSampleData() {
     // Generate and insert sample data for Lectures
     let lectureData = [];
     for (let i = 0; i < 30; i++) {
-      lectureData.push({
-        courseId: (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id,
-        name: faker.company.catchPhrase(),
-        description: faker.lorem.paragraph(),
-        video: faker.internet.url(),
-        exercise: {
-          question: faker.lorem.sentence(),
-          options: ["option1", "option2", "option3"],
-          correctAnswer: "option1",
-        },
-      });
+      let numberLecture = faker.number.int({ min: 1, max: 15 });
+      for (let index = 1; index <= numberLecture; index++) {
+        lectureData.push({
+          courseId: (await courses.find().toArray())[i]._id,
+          name: faker.company.catchPhrase(),
+          description: faker.lorem.paragraph(),
+          video: faker.internet.url(),
+          exercise: {
+            question: faker.lorem.sentence(),
+            options: ["option1", "option2", "option3"],
+            correctAnswer: "option1",
+          },
+          index: index
+        });
+      }
     }
     await lectures.insertMany(lectureData);
 
