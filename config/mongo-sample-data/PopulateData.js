@@ -37,6 +37,7 @@ async function generateSampleData() {
     const favoriteCourses = db.collection("FavoriteCourses");
     const followingInstructors = db.collection("FollowingInstructors");
     const boughtCourses = db.collection("BoughtCourses");
+    const memberships = db.collection("Membership");
 
     // Empty the collections before inserting new data
     await platformAdmins.deleteMany({});
@@ -231,6 +232,26 @@ async function generateSampleData() {
       });
     }
     await boughtCourses.insertMany(boughtCourseData);
+
+    let membershipData = [];
+    instructorData = await instructors.find().toArray();
+    for (let index = 0; index < instructorData.length; index++) {
+      let planType = Math.floor(Math.random() * 2) % 2 ? "Monthly" : "Yearly";
+      let startDate = new Date(Date.now())
+      let paymentMethod = Math.floor(Math.random() * 2) % 2 ? "Card" : "Paypal";
+      membershipData.push({
+        instructorId: instructorData[index]._id,
+        planName: "Gold",
+        planType: planType,
+        commissionFee: 0.2,
+        price: planType == "Monthly" ? 20 : 200,
+        startDate: startDate,
+        endDate: planType == "Monthly" ? new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate()) : new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate()),
+        paymentMethod: paymentMethod,
+        cardNumber: paymentMethod == "Card" ? faker.finance.creditCardNumber() : null
+      });
+    };
+    await memberships.insertMany(membershipData);
 
     console.log("Sample data inserted successfully!");
   } catch (err) {
