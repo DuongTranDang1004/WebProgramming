@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-1/5 bg-gray-900 text-white p-6 border-r min-h-screen fixed">
+            <h2 class="text-2xl font-semibold mb-6">Plan your course</h2>
+            <ul>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="learners">Intended learners</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="structure">Course structure</button>
+                </li>
+                <li class="mb-6">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="video">Setup & test video</button>
+                </li>
+            </ul>
+            <h2 class="text-2xl font-semibold mb-6">Create your content</h2>
+            <ul>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="film">Film & edit</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="curriculum">Curriculum</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="captions">Captions (optional)</button>
+                </li>
+                <li class="mb-6">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="accessibility">Accessibility (optional)</button>
+                </li>
+            </ul>
+            <h2 class="text-2xl font-semibold mb-6">Publish your course</h2>
+            <ul>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="landing-page">Course landing page</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="pricing">Pricing</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="promotions">Promotions</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="messages">Course messages</button>
+                </li>
+            </ul>
+            <button class="bg-purple-600 text-white w-full py-3 mt-6 hover:bg-purple-700 transition-colors">Submit for
+                Review</button>
+        </aside>
+        <!-- Main content -->
+        <main class="w-4/5 ml-auto p-6">
+            <div id="learners" class="content-section active">
+                <h1 class="text-2xl font-semibold mb-4">Intended learners</h1>
+                <p>Content about intended learners...</p>
+            </div>
+            <div id="structure" class="content-section">
+                <h1 class="text-2xl font-semibold mb-4">Course structure</h1>
+                <p>Content about course structure...</p>
+            </div>
+            <div id="video" class="content-section">
+                <h1 class="text-2xl font-semibold mb-4">Setup & test video</h1>
+                <p>Content about setup & test video...</p>
+            </div>
+            <div id="film" class="content-section">
+                <h1 class="text-2xl font-semibold mb-4">Film & edit</h1>
+                <p>Content about film & edit...</p>
+            </div>
+
+            <div id="curriculum" class="content-section">
+                <div class="container mx-auto px-6 py-8"> <!-- Adjusted padding -->
+                    <div class="flex justify-between items-center mb-6"> <!-- Adjusted margin -->
+                        <h1 class="text-3xl font-bold">Curriculum</h1> <!-- Increased text size -->
+                        <button class="btn bg-gray-300 text-gray-700 px-5 py-3 rounded">Bulk Uploader</button>
+                        <!-- Adjusted colors and padding -->
+                    </div>
+
+                    <div class="bg-gray-100 p-5 mb-6 rounded-lg"> <!-- Adjusted padding and border radius -->
+                        <p class="text-base">Here’s where you add course content—like lectures, course sections,
+                            assignments, and more. Click a + icon on the left to get started.</p>
+                        <!-- Adjusted text size -->
+                        <button class="btn bg-black text-white px-5 py-2.5 rounded mt-3">Dismiss</button>
+                        <!-- Adjusted padding -->
+                    </div>
+
+                    <p class="text-base mb-4">Start putting together your course by creating sections, lectures, and
+                        practice (quizzes, coding exercises, and assignments).</p>
+
+                    <div class="bg-green-100 p-5 mb-6 rounded-lg">
+                        <p class="text-green-600 text-base">Check out the latest creation flow improvements, new
+                            question types, and AI-assisted features in practice tests.</p>
+                        <button class="btn bg-black text-white px-5 py-2.5 rounded mt-3">Dismiss</button>
+                    </div>
+
+                    <div class="bg-gray-200 p-5 mb-6 rounded-lg relative"> <!-- Adjusted padding and border radius -->
+                        <h3 class="text-lg font-bold">Unpublished Section: Introduction</h3>
+                        <button id="curriculum-btn" class="btn bg-gray-300 text-gray-700 px-5 py-3 rounded mt-3">+
+                            Curriculum item</button>
+
+                        <!-- Dropdown menu with close button -->
+                        <div class="relative inline-block mt-2"> <!-- Added margin for better alignment -->
+                            <div id="dropdown-menu"
+                                class="hidden bg-white border border-gray-300 rounded shadow-lg p-2 inline-block">
+                                <button id="lecture-btn"
+                                    class="dropdown-item bg-gray-100 text-gray-800 px-5 py-2 rounded mb-2">+
+                                    Lecture</button>
+                                <button id="quiz-btn"
+                                    class="dropdown-item bg-gray-100 text-gray-800 px-5 py-2 rounded mb-2">+
+                                    Quiz</button>
+                                <button id="exer-btn"
+                                    class="dropdown-item bg-gray-100 text-gray-800 px-5 py-2 rounded mb-2">+
+                                    Exercise</button>
+                            </div>
+                            <button id="close-dropdown" class="ml-4 text-gray-700 align-middle">X</button>
+                        </div>
+                    </div>
+
+                    <!-- Lecture form -->
+                    <div id="lecture-form" class="hidden bg-white p-5 border border-gray-300 rounded-lg shadow-lg">
+                        <h4 class="text-lg font-bold mb-4">Add Lecture</h4>
+                        <input type="text" placeholder="Enter Lecture"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+                        <div class="flex justify-end">
+                            <button id="cancel-lecture"
+                                class="btn bg-gray-300 text-gray-700 px-5 py-2.5 rounded mr-2">Cancel</button>
+                            <button id="add-lecture" class="btn bg-blue-500 text-white px-5 py-2.5 rounded">Add
+                                Lecture</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise form -->
+                    <div id="exer-form" class="hidden bg-white p-5 border border-gray-300 rounded-lg shadow-lg">
+                        <h4 class="text-lg font-bold mb-4">Add Exercise</h4>
+                        <input type="text" placeholder="Enter Exercise"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+                        <div class="flex justify-end">
+                            <button id="cancel-exer"
+                                class="btn bg-gray-300 text-gray-700 px-5 py-2.5 rounded mr-2">Cancel</button>
+                            <button id="add-exer" class="btn bg-blue-500 text-white px-5 py-2.5 rounded">Add
+                                Exercise</button> <!-- Corrected ID -->
+                        </div>
+                    </div>
+
+                    <!-- Quiz form -->
+                    <div id="quiz-form" class="hidden bg-white p-5 border border-gray-300 rounded-lg shadow-lg">
+                        <h4 class="text-lg font-bold mb-4">Add Quiz</h4>
+                        <input type="text" placeholder="Enter Quiz Title"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+
+                        <form>
+                            <label for="chat" class="sr-only">Your message</label>
+                            <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+                                <button type="button"
+                                    class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                                    <!-- SVG code for icon -->
+                                    <span class="sr-only">Upload image</span>
+                                </button>
+                                <button type="button"
+                                    class="p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                                    <!-- SVG code for icon -->
+                                    <span class="sr-only">Add emoji</span>
+                                </button>
+                                <textarea id="chat" rows="1"
+                                    class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Your message..."></textarea>
+                                <button type="submit"
+                                    class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                    <!-- SVG code for icon -->
+                                    <span class="sr-only">Send message</span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="flex justify-end">
+                            <button id="cancel-quiz"
+                                class="btn bg-gray-300 text-gray-700 px-5 py-2.5 rounded mr-2">Cancel</button>
+                            <button id="add-quiz" class="btn bg-blue-500 text-white px-5 py-2.5 rounded">Add
+                                Quiz</button>
+                        </div>
+                    </div>
+
+                    <button id="section-btn" class="btn bg-gray-300 text-gray-700 px-5 py-3 rounded mt-3">+
+                        Section</button>
+
+                    <!-- Section form -->
+                    <div id="section-form" class="hidden bg-white p-5 mt-5 border border-gray-300 rounded-lg shadow-lg">
+                        <h4 class="text-lg font-bold mb-4">Add Section</h4>
+                        <input type="text" placeholder="Enter Section Title"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+                        <div class="flex justify-end">
+                            <button id="cancel-section"
+                                class="btn bg-gray-300 text-gray-700 px-5 py-2.5 rounded mr-2">Cancel</button>
+                            <button id="add-section" class="btn bg-blue-500 text-white px-5 py-2.5 rounded">Add
+                                Section</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+    </div>
+    <div id="captions" class="content-section">
+        <h1 class="text-2xl font-semibold mb-4">Captions</h1>
+        <p>Content about captions...</p>
+    </div>
+    <div id="accessibility" class="content-section">
+        <h1 class="text-2xl font-semibold mb-4">Accessibility</h1>
+        <p>Content about accessibility...</p>
+    </div>
+    <div id="landing-page" class="content-section">
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold mb-4">Course landing page</h1>
+            <p class="text-gray-600 mb-6">
+                Your course landing page is crucial to your success on Udemy. If it’s done right, it can also help you
+                gain visibility in search engines like Google. As you complete this section, think about creating a
+                compelling Course Landing Page that demonstrates why someone would want to enroll in your course.
+            </p>
+
+            <form>
+                <div class="mb-6">
+                    <label for="title" class="block text-lg font-medium text-gray-700 mb-2">Course title</label>
+                    <input type="text" id="title"
+                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+                        maxlength="58">
+                    <p class="text-sm text-gray-500 mt-1">You should aim for a title of attention-grabbing, informative,
+                        and optimized for search.</p>
+                </div>
+
+                <div class="mb-6">
+                    <label for="subtitle" class="block text-lg font-medium text-gray-700 mb-2">Course subtitle</label>
+                    <input type="text" id="subtitle"
+                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+                        maxlength="120">
+                    <p class="text-sm text-gray-500 mt-1">Use 2-3 related keywords, and mention 2-4 of the most
+                        important areas that you cover during your course.</p>
+                </div>
+
+                <div class="mb-6">
+                    <label for="description" class="block text-lg font-medium text-gray-700 mb-2">Course
+                        description</label>
+                    <textarea id="description" rows="4"
+                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    <p class="text-sm text-gray-500 mt-1">Description should have a minimum of 200 words.</p>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-lg font-medium text-gray-700 mb-2">Basic info</label>
+                    <div class="flex space-x-4">
+                        <select id="language"
+                            class="w-1/2 border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>English (US)</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                        </select>
+                        <select id="level"
+                            class="w-1/2 border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Select Level</option>
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="image" class="block text-lg font-medium text-gray-700 mb-2">Course image</label>
+                    <input type="file" id="image"
+                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <p class="text-sm text-gray-500 mt-1">Upload your course image here. It must meet our course image
+                        quality standards to be accepted.</p>
+                </div>
+
+                <div class="mb-6">
+                    <label for="video" class="block text-lg font-medium text-gray-700 mb-2">Promotional video</label>
+                    <input type="file" id="video"
+                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <p class="text-sm text-gray-500 mt-1">Your promo video is a quick and compelling way for students to
+                        preview what they’ll learn in your course.</p>
+                </div>
+
+                <button type="submit"
+                    class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:outline-none">Save</button>
+            </form>
+        </div>
+    </div>
+    <div id="pricing" class="content-section">
+        <h1 class="text-2xl font-semibold mb-4">Pricing</h1>
+        <p>Content about pricing...</p>
+    </div>
+    <div id="promotions" class="content-section">
+        <h1 class="text-2xl font-semibold mb-4">Promotions</h1>
+        <p>Content about promotions...</p>
+    </div>
+    <div id="messages" class="content-section">
+        <h1 class="text-2xl font-semibold mb-4">Course messages</h1>
+        <p>Content about course messages...</p>
+    </div>
+    </main>
+    </div>
+
+    <script>
+        const links = document.querySelectorAll('.sidebar-link');
+        const sections = document.querySelectorAll('.content-section');
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                const target = link.getAttribute('data-target');
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === target) {
+                        section.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        document.getElementById('curriculum-btn').addEventListener('click', function () {
+            var dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close dropdown menu
+        document.getElementById('close-dropdown').addEventListener('click', function () {
+            var dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.add('hidden');
+        });
+
+        // Show lecture form
+        document.getElementById('lecture-btn').addEventListener('click', function () {
+            document.getElementById('dropdown-menu').classList.add('hidden');
+            document.getElementById('lecture-form').classList.remove('hidden');
+        });
+
+        // Hide lecture form
+        document.getElementById('cancel-lecture').addEventListener('click', function () {
+            document.getElementById('lecture-form').classList.add('hidden');
+        });
+
+        // Handle add lecture (add your logic here)
+        document.getElementById('add-lecture').addEventListener('click', function () {
+            // Your logic for adding a lecture goes here
+            document.getElementById('lecture-form').classList.add('hidden');
+        });
+
+        // Show quiz form
+        document.getElementById('quiz-btn').addEventListener('click', function () {
+            document.getElementById('dropdown-menu').classList.add('hidden');
+            document.getElementById('quiz-form').classList.remove('hidden');
+        });
+
+        // Hide quiz form
+        document.getElementById('cancel-quiz').addEventListener('click', function () {
+            document.getElementById('quiz-form').classList.add('hidden');
+        });
+
+        // Handle add quiz (add your logic here)
+        document.getElementById('add-quiz').addEventListener('click', function () {
+            // Your logic for adding a quiz goes here
+            document.getElementById('quiz-form').classList.add('hidden');
+        });
+
+        // Show quiz form
+        document.getElementById('exer-btn').addEventListener('click', function () {
+            document.getElementById('dropdown-menu').classList.add('hidden');
+            document.getElementById('exer-form').classList.remove('hidden');
+        });
+
+        // Hide quiz form
+        document.getElementById('cancel-exer').addEventListener('click', function () {
+            document.getElementById('exer-form').classList.add('hidden');
+        });
+
+        // Handle add quiz (add your logic here)
+        document.getElementById('add-exer').addEventListener('click', function () {
+            // Your logic for adding a quiz goes here
+            document.getElementById('exer-form').classList.add('hidden');
+        });
+
+        document.getElementById('section-btn').addEventListener('click', function () {
+            document.getElementById('dropdown-menu').classList.add('hidden');
+            document.getElementById('section-form').classList.remove('hidden');
+        });
+
+        // Hide section form
+        document.getElementById('cancel-section').addEventListener('click', function () {
+            document.getElementById('section-form').classList.add('hidden');
+        });
+
+        // Handle add section (add your logic here)
+        document.getElementById('add-section').addEventListener('click', function () {
+            // Your logic for adding a section goes here
+            document.getElementById('section-form').classList.add('hidden');
+        });
+
+    </script>
+</body>
+
+</html>

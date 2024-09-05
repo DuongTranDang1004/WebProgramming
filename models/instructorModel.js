@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const InstructorSchema = new mongoose.Schema(
-    {
+    {   _id: Number,
         email: {
             type: String,
             required: true

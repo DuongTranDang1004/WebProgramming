@@ -17,9 +17,6 @@ const host = process.env.APP_HOST || "localhost";
 // Middleware for parsing JSON bodies
 app.use(express.json());
 
-// Form URL Encoded
-app.use(express.urlencoded({extended: false}));
-
 // Swagger setup using the imported configuration
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
@@ -28,6 +25,7 @@ app.use(require("./middlewares/authenticate"));
 
 // Importing route groups
 // const authRoutes = require("./controllers/authController");
+<<<<<<< HEAD
 const courseRoutes = require("./Routes/courseRoute");
 const instructorRoutes = require("./Routes/instructorRoute");
 const lectureRoutes = require("./Routes/lectureRoute");
@@ -51,6 +49,23 @@ app.use("/lectures", lectureRoutes);
 app.use("/favoritesCourses", favoriteCourseRoutes);
 app.use("/followingInstructors", followingInstructorRoutes);
 app.use("/memberships", membershipRoutes);
+=======
+const boughtCourseRoutes = require("./routes/boughtCourseRoute");
+const contactFormRoutes = require("./routes/contactFormRoute");
+const courseRoutes = require("./routes/courseRoute"); // Ensure the correct path
+const instructorRoutes = require("./routes/instructorRoute"); // Ensure the correct path
+const learnerRoutes = require("./routes/learnerRoute");
+const platformAdminRoutes = require("./routes/platformAdminRoute");
+
+// Using the controllers as routers
+// app.use("/auth", authRoutes); //authenication has not been done yet
+app.use("/api/boughtCourses", boughtCourseRoutes);
+app.use("/api/contactForms", contactFormRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/instructors", instructorRoutes);
+app.use("/api/learners", learnerRoutes);
+app.use("/api/platformAdmins", platformAdminRoutes);
+>>>>>>> origin/Cuong-UI
 
 // Root route
 app.get("/", (req, res) => {

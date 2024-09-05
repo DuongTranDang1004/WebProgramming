@@ -103,7 +103,7 @@
         <div class="flex-1 p-10">
             <div class="flex justify-between items-center mb-10">
                 <div class="text-xl font-semibold">Courses</div>
-                <button class="bg-purple-700 text-white px-4 py-2 rounded">New Course</button>
+                <button class="bg-purple-700 text-white px-4 py-2 rounded" onClick="window.location.href='addNewCourse.html';">New Course</button>
             </div>
 
             <div class="bg-white p-5 rounded shadow-sm">
@@ -115,7 +115,7 @@
                         <option>Most Popular</option>
                     </select>
                 </div>
-
+                
                 <div class="p-4 bg-gray-100 rounded mb-4">
                     <span class="text-sm">New</span>
                     <p class="mt-2 text-sm">We upgraded practice tests so you can upgrade yours.</p>
@@ -125,15 +125,10 @@
                     </div>
                 </div>
 
-                <div class="border p-4 rounded mb-4">
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <p class="text-lg font-semibold">Data Structure Practice Test</p>
-                            <p class="text-sm text-gray-500">DRAFT • Public</p>
-                        </div>
-                        <div class="text-sm text-gray-700">Finish your course</div>
-                    </div>
-                    <div class="h-2 bg-purple-700 w-3/4 rounded"></div>
+                <!-- editted course (link to addNewCoursePage)  -->
+                <!-- Course List -->
+                <div id="course-list" class="border p-4 rounded mb-4">
+                     <!-- Courses will be dynamically inserted here -->
                 </div>
             </div>
 
@@ -155,8 +150,47 @@
     <!-- Include Footer Component -->
     <div id="footer">
         <div class="bg-gray-800 text-white p-5 text-center">
-            <p>&copy; 2024 Udemy Clone. All Rights Reserved.</p>
-        </div>
+            <div style="text-align: center; margin-bottom: 20px; display: flex;" class="justify-between">
+              <h4 style="font-weight: 600; padding-right: 10px">
+                Top companies choose Udemy Business to build in-demand career skills.
+              </h4>
+              <div style="margin-top: 20px; display: flex">
+                <img src="../../public/company.png" alt="Volkswagen" style="margin: 0 15px" height="80px" width="80px"/>
+                <img src="../../public/company2.svg" alt="Box" style="margin: 0 15px" height="80px" width="80px"/>
+                <img src="../../public/company1.png" alt="NetApp" style="margin: 0 15px" height="80px" width="80px"/>
+              </div>
+            </div>
+          
+            <div
+              style="
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                padding: 0 20px;
+              "
+            >
+              <div>
+                <p><a href="#">Teach on ITLearning</a></p>
+                <p><a href="#">About us</a></p>
+                <p><a href="#">Contact us</a></p>
+              </div>
+              <div>
+                <p><a href="#">Help and Support</a></p>
+                <p><a href="#">Affiliate</a></p>
+                <p><a href="#">Investors</a></p>
+              </div>
+              <div>
+                <p><a href="#">Terms & Services</a></p>
+                <p><a href="#">Privacy policy</a></p>
+                <p><a href="#">FAQs</a></p>
+              </div>
+            </div>
+            <div class="flex left">
+              <img src="../../public/Logo.png" alt="Logo" width="40px" height="40px" />
+              <p>&copy; 2024 ITLearning. All Rights Reserved.</p>
+            </div>
+          </div>
+          
     </div>
 
     <script>
@@ -170,6 +204,31 @@
                 }
             });
         });
+
+        fetch('http://localhost:3000/instructors/2/courses')
+                .then(response => response.json())
+                .then(data => {
+                    const courseList = document.getElementById('course-list');
+                    if (data.length === 0) {
+                        courseList.innerHTML = '<p>No courses available.</p>';
+                    } else {
+                        courseList.innerHTML = data.map(course => `
+                            <a href="createCourse.html" class="block border-b py-4">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-lg font-semibold">${course.name}</p>
+                                        <p class="text-sm text-gray-500">${course.status} • Public </p>
+                                    </div>
+                                    <div class="text-sm text-gray-700">${course.completionStatus}</div>
+                                </div>
+                                <div class="h-2 bg-purple-700 w-3/4 rounded"></div>
+                            </a>
+                        `).join('');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching courses:', error);
+                });
 
         document.querySelectorAll('#sidebar .sidebar-item a').forEach(item => {
             item.addEventListener('click', function() {

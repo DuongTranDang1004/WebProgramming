@@ -14,10 +14,10 @@ const Course = require("../models/courseModel");
  *     Course:
  *       type: object
  *       properties:
- *         _id:
- *           type: integer
+ *         id:
+ *           type: string
  *           description: The auto-generated ID of the course
- *           example: 1
+ *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
  *         instructorId:
  *           type: integer
  *           description: The ID of the instructor teaching the course
@@ -62,17 +62,22 @@ const Course = require("../models/courseModel");
  *       500:
  *         description: Server error
  */
-
-//Get all
-const getCourses = async (req,res) => {
+const getCourses = async (req, res) => {
   try {
+<<<<<<< HEAD
     const courses = await Course.find({})
       .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
     res.status(200).json(courses)
   } catch(error){
     res.status(500).json({ message: error.message})
+=======
+    courses = await Course.find({});
+    res.status(200).json(courses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+>>>>>>> origin/Cuong-UI
   }
-}
+};
 
 //Get all course that is publish
 const getIsPublishCourses = async (req,res) => {
@@ -130,16 +135,14 @@ const getCoursesByInstructorID = async (req,res) => {
  *       400:
  *         description: Bad request
  */
-//Create
-const createCourse = async (req,res) => {
+const createCourse = async (req, res) => {
   try {
     const course = await Course.create(req.body);
-    res.status(200).json(course)
-  } catch (error){
-    res.status(500).json({message: error.message})
+    res.status(201).json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
-
+};
 
 /**
  * @swagger
@@ -166,16 +169,22 @@ const createCourse = async (req,res) => {
  *       500:
  *         description: Server error
  */
-//Get by ID
-const getCourse = async (req,res) => {
+const getCourse = async (req, res) => {
   try {
+<<<<<<< HEAD
     const {id} = req.params;
+=======
+    const { id } = req.params;
+>>>>>>> origin/Cuong-UI
     const course = await Course.findById(id);
-    res.status(200).json(course)
-  } catch(error){
-    res.status(500).json({ message: error.message})
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+    res.status(200).json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 /**
  * @swagger
@@ -214,37 +223,65 @@ const getCourse = async (req,res) => {
  *       400:
  *         description: Bad request
  */
-//Update
-const updateCourse = async (req,res) => {
+const updateCourse = async (req, res) => {
   try {
+<<<<<<< HEAD
     const {id} = req.params;
     const course = await Course.findByIdAndUpdate(id, req.body);
+=======
+    const { id } = req.params;
+    const course = await Course.findByIdAndUpdate(id, req.body, { new: true });
+>>>>>>> origin/Cuong-UI
 
-    if (!course){
-      return res.status(404).json({message: "Course not found"});
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
     }
 
-    const updatedCourse = await Course.findById(id);
-    res.status(200).json(updatedCourse);
-  } catch(error){
-    res.status(500).json({message: error.message});
+    res.status(200).json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
-//Delete
-const deleteCourse = async (req,res) => {
+/**
+ * @swagger
+ * /courses/{id}:
+ *   delete:
+ *     summary: Delete a course by ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The course ID
+ *     responses:
+ *       200:
+ *         description: Course deleted successfully
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
+const deleteCourse = async (req, res) => {
   try {
+<<<<<<< HEAD
     const {id} = req.params;
+=======
+    const { id } = req.params;
+>>>>>>> origin/Cuong-UI
     const course = await Course.findByIdAndDelete(id);
 
-    if(!course){
-      return res.status(404).json({message: "Course not found"})
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
     }
-    res.status(200).json({message: "Course deleted successfully"})
-  }catch(error){
-    res.status(500).json({message: error.message})
+
+    res.status(200).json({ message: "Course deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 module.exports = {
   getCourse,
@@ -252,6 +289,9 @@ module.exports = {
   createCourse,
   updateCourse,
   deleteCourse,
+<<<<<<< HEAD
   getIsPublishCourses,
   getCoursesByInstructorID
+=======
+>>>>>>> origin/Cuong-UI
 };

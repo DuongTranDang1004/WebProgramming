@@ -1,9 +1,15 @@
 // models/courseModel.js
 
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
+<<<<<<< HEAD
 const CoursesSchema = new mongoose.Schema({
 
+=======
+const CourseSchema = new mongoose.Schema({
+  _id: Number,
+>>>>>>> origin/Cuong-UI
   name: {
     type: String,
     required: true,
@@ -29,7 +35,7 @@ const CoursesSchema = new mongoose.Schema({
     required: true,
   },
   instructorId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: "Instructor",
     required: true,
   },
@@ -53,7 +59,11 @@ const CoursesSchema = new mongoose.Schema({
   }
 });
 
+<<<<<<< HEAD
 
 const Courses = mongoose.model("Courses", CoursesSchema, "Courses");
+=======
+const Courses = mongoose.model("Courses", CourseSchema, "Courses");
+>>>>>>> origin/Cuong-UI
 
 module.exports = Courses;
