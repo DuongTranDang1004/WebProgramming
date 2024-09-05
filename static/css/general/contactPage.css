@@ -63,6 +63,11 @@ button[type="reset"] {
 /* Layout:
 Desktop Computers: Multi-column layout.  */
 /* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+/* 
+Input Form:
+Desktop Computers: A label and its linked input field must be positioned on the same row.
+Tablets/Smartphones: The label and input field should be placed on different rows. */
+
 /* For Smartphones (767px or lower) */
 @media (max-width: 767px) {
 }
