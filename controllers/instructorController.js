@@ -17,49 +17,34 @@ const Course = require("../models/courseModel");
  *       properties:
  *         _id:
  *           type: integer
- *           description: The auto-generated ID of the instructor
+ *           description: The auto-generated ID of the course
  *           example: 1
- *         email:
+ *         instructorId:
+ *           type: integer
+ *           description: The ID of the instructor teaching the course
+ *           example: 1
+ *         category:
  *           type: string
- *           description: The email of the instructor
- *           example: "jane.doe@example.com"
- *         password:
+ *           description: The category of the course
+ *           example: "front-end"
+ *         name:
  *           type: string
- *           description: The hashed password of the instructor
- *           example: "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36Pz7dp62ptDXY1dRg/IXHy"
- *         profilePicture:
+ *           description: The name of the course
+ *           example: "Introduction to Front-End Development"
+ *         thumbnailImage:
  *           type: string
- *           description: The URL of the instructor's profile picture
- *           example: "https://example.com/images/profile.jpg"
- *         firstName:
+ *           description: The URL of the course's thumbnail image
+ *           example: "https://example.com/course-thumbnail.jpg"
+ *         price:
+ *           type: number
+ *           description: The price of the course
+ *           example: 99.99
+ *         description:
  *           type: string
- *           description: The first name of the instructor
- *           example: "Jane"
- *         lastName:
- *           type: string
- *           description: The last name of the instructor
- *           example: "Doe"
- *         address:
- *           type: string
- *           description: The street address of the instructor
- *           example: "456 Elm St"
- *         city:
- *           type: string
- *           description: The city of the instructor
- *           example: "Anytown"
- *         zipcode:
- *           type: string
- *           description: The postal/zip code of the instructor
- *           example: "67890"
- *         country:
- *           type: string
- *           description: The country code of the instructor
- *           example: "US"
- *         phone:
- *           type: string
- *           description: The phone number of the instructor
- *           example: "+1 987-654-3210"
+ *           description: A brief description of the course
+ *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
  */
+
 
 /**
  * @swagger
@@ -115,6 +100,7 @@ const getInstructors = async (req, res) => {
 const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
+    const { id } = req.params;
     const instructor = await Instructor.findById(id);
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
@@ -156,40 +142,12 @@ const createInstructor = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /instructors/{id}:
- *   put:
- *     summary: Update an instructor by ID
- *     tags: [Instructors]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Instructor'
- *     responses:
- *       200:
- *         description: Updated instructor
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Instructor'
- *       404:
- *         description: Instructor not found
- *       500:
- *         description: Internal server error
- */
+//Update
 const updateInstructor = async (req, res) => {
-  const { id } = req.params;
   try {
-    const instructor = await Instructor.findByIdAndUpdate(id, req.body, { new: true });
+    const { id } = req.param;
+    const instructor = await Instructor.findByIdAndUpdate(id, req.body);
+
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -199,30 +157,12 @@ const updateInstructor = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /instructors/{id}:
- *   delete:
- *     summary: Delete an instructor by ID
- *     tags: [Instructors]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Instructor deleted successfully
- *       404:
- *         description: Instructor not found
- *       500:
- *         description: Internal server error
- */
+//Delete
 const deleteInstructor = async (req, res) => {
-  const { id } = req.params;
   try {
-    const instructor = await Instructor.findByIdAndDelete(id);
+    const { id } = req.params;
+    const instructor = await Instructor.findByIdAndUpdate(id);
+
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -263,7 +203,9 @@ const getCoursesByInstructorId = async (req, res) => {
   try {
     const courses = await Course.find({ instructorId: id });
     if (courses.length === 0) {
-      return res.status(404).json({ message: "No courses found for this instructor" });
+      return res
+        .status(404)
+        .json({ message: "No courses found for this instructor" });
     }
     res.status(200).json(courses);
   } catch (error) {
@@ -277,5 +219,5 @@ module.exports = {
   createInstructor,
   updateInstructor,
   deleteInstructor,
-  getCoursesByInstructorId
+  getCoursesByInstructorId,
 };

@@ -1,0 +1,5 @@
+1. Event handling 
+2. JS styling (alert, animation, etc.. )
+3. Local queries after retrieved JSON from respond (sort/filt/search)
+
+=> Fetch API and manipulating DOMs to render data is in different directory.

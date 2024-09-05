@@ -5,7 +5,11 @@ const username = "cosc2430";
 const password = "fighting";
 
 // MongoDB connection URL to the desired database
+//Connection to physical server database
 const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+//Connection to localhost database for testing purpose
+// const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+
 const dbName = "ITLearning";
 
 function truncateToMinute(date) {
@@ -37,17 +41,20 @@ async function generateSampleData() {
     const favoriteCourses = db.collection("FavoriteCourses");
     const followingInstructors = db.collection("FollowingInstructors");
     const boughtCourses = db.collection("BoughtCourses");
+    const memberships = db.collection("Membership");
 
     // Empty the collections before inserting new data
-    await platformAdmins.deleteMany({});
-    await instructors.deleteMany({});
-    await learners.deleteMany({});
-    await courses.deleteMany({});
-    await lectures.deleteMany({});
-    await contactForms.deleteMany({});
-    await favoriteCourses.deleteMany({});
-    await followingInstructors.deleteMany({});
-    await boughtCourses.deleteMany({});
+    await Promise.all([
+      platformAdmins.deleteMany({}),
+      instructors.deleteMany({}),
+      learners.deleteMany({}),
+      courses.deleteMany({}),
+      lectures.deleteMany({}),
+      contactForms.deleteMany({}),
+      favoriteCourses.deleteMany({}),
+      followingInstructors.deleteMany({}),
+      boughtCourses.deleteMany({}),
+    ]);
 
     console.log("Collections emptied successfully.");
 
@@ -100,6 +107,8 @@ async function generateSampleData() {
           "gold",
           "diamond",
         ]),
+        createTime: new Date(Date.now()),
+        Bio: Math.floor(Math.random() * 2) % 2 ? faker.lorem.paragraphs() : null,
       });
     }
     await instructors.insertMany(instructorData);
@@ -139,6 +148,7 @@ async function generateSampleData() {
         thumbnailImage: faker.image.url(),
         price: faker.commerce.price(),
         description: faker.lorem.paragraph(),
+        isPublish: Math.floor(Math.random() * 2) % 2 ? true : false
       });
     }
     await courses.insertMany(courseData);
@@ -146,17 +156,21 @@ async function generateSampleData() {
     // Generate and insert sample data for Lectures
     let lectureData = [];
     for (let i = 0; i < 30; i++) {
-      lectureData.push({
-        courseId: (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id,
-        name: faker.company.catchPhrase(),
-        description: faker.lorem.paragraph(),
-        video: faker.internet.url(),
-        exercise: {
-          question: faker.lorem.sentence(),
-          options: ["option1", "option2", "option3"],
-          correctAnswer: "option1",
-        },
-      });
+      let numberLecture = faker.number.int({ min: 1, max: 15 });
+      for (let index = 1; index <= numberLecture; index++) {
+        lectureData.push({
+          courseId: (await courses.find().toArray())[i]._id,
+          name: faker.company.catchPhrase(),
+          description: faker.lorem.paragraph(),
+          video: faker.internet.url(),
+          exercise: {
+            question: faker.lorem.sentence(),
+            options: ["option1", "option2", "option3"],
+            correctAnswer: "option1",
+          },
+          index: index
+        });
+      }
     }
     await lectures.insertMany(lectureData);
 
@@ -231,6 +245,26 @@ async function generateSampleData() {
       });
     }
     await boughtCourses.insertMany(boughtCourseData);
+
+    let membershipData = [];
+    instructorData = await instructors.find().toArray();
+    for (let index = 0; index < instructorData.length; index++) {
+      let planType = Math.floor(Math.random() * 2) % 2 ? "Monthly" : "Yearly";
+      let startDate = new Date(Date.now())
+      let paymentMethod = Math.floor(Math.random() * 2) % 2 ? "Card" : "Paypal";
+      membershipData.push({
+        instructorId: instructorData[index]._id,
+        planName: "Gold",
+        planType: planType,
+        commissionFee: 0.2,
+        price: planType == "Monthly" ? 20 : 200,
+        startDate: startDate,
+        endDate: planType == "Monthly" ? new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate()) : new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate()),
+        paymentMethod: paymentMethod,
+        cardNumber: paymentMethod == "Card" ? faker.finance.creditCardNumber() : null
+      });
+    };
+    await memberships.insertMany(membershipData);
 
     console.log("Sample data inserted successfully!");
   } catch (err) {

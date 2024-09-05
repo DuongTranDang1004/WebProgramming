@@ -116,7 +116,17 @@ const InstructorSchema = new mongoose.Schema(
             enum: ['basic', 'silver', 'gold', 'diamond'],
             default: 'basic',
             required: true
+        },
+        createTime: {
+          type: Date,
+          require: true,
+          default: Date.now
+        },
+        Bio: {
+          type: String,
+          require: false,
         }
+
     }
 )
 

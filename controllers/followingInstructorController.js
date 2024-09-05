@@ -3,8 +3,25 @@ const FollowingInstructor = require("../models/followingInstructorModel");
 //Get all
 const getFollowingInstructors = async (req,res) => {
   try {
-    const followingInstructors = await FollowingInstructor.find({});
+    const followingInstructors = await FollowingInstructor.find({})
+    .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
     res.status(200).json(followingInstructors)
+  } catch(error){
+    res.status(500).json({ message: error.message})
+  }
+}
+
+//Get all by learnerID
+const getFollowingInstructorsByLearnerID = async (req,res) => {
+  try {
+    const {id} = req.params;
+    const followingInstructors = await FollowingInstructor.find({learnerId: id})
+      .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
+    if (followingInstructors.length > 0) {
+      return res.status(200).json(followingInstructors);
+  } else {
+      return res.status(200).json({ message: "No following instructor" });
+  }
   } catch(error){
     res.status(500).json({ message: error.message})
   }
@@ -13,8 +30,9 @@ const getFollowingInstructors = async (req,res) => {
 //Get by ID
 const getFollowingInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
-    const followingInstructor = await FollowingInstructor.findById(id);
+    const {id} = req.params;
+    const followingInstructor = await FollowingInstructor.findById(id)
+      .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
     res.status(200).json(followingInstructor)
   } catch(error){
     res.status(500).json({ message: error.message})
@@ -35,7 +53,7 @@ const createFollowingInstructor = async (req,res) => {
 //Update
 const updateFollowingInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const followingInstructor = await FollowingInstructor.findByIdAndUpdate(id, req.body);
 
     if (!FollowingInstructor){
@@ -52,7 +70,7 @@ const updateFollowingInstructor = async (req,res) => {
 //Delete
 const deleteFollowingInstructor = async (req,res) => {
   try {
-    const {id} = req.param;
+    const {id} = req.params;
     const followingInstructor = await FollowingInstructor.findByIdAndUpdate(id);
 
     if(!followingInstructor){
@@ -68,5 +86,6 @@ module.exports = {
   getFollowingInstructor,
   createFollowingInstructor,
   updateFollowingInstructor,
-  deleteFollowingInstructor
+  deleteFollowingInstructor,
+  getFollowingInstructorsByLearnerID
 }

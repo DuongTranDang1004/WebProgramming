@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const LearnersSchema = new Schema({
-    _id: {
-        type: Number,  // Use Number since your _id is numeric
-        required: true
-    },
     email: {
         type: String,
         required: true,
@@ -50,7 +46,12 @@ const LearnersSchema = new Schema({
     phone: {
         type: String,
         required: false
-    }
+    },
+    token: {
+        type: String,
+        default: null,
+        required: false
+      }
 }, { collection: "Learners" });
 
 // Create a model using the schema
