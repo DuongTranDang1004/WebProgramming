@@ -1,0 +1,153 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.profile-page {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Profile Sidebar (Left Aside) */
+.profile-sidebar {
+  width: 25%;
+  padding: 20px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  background-color: #1c1c1c;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.profile-sidebar .button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.profile-sidebar .button:hover {
+  background-color: #53389e;
+}
+
+/* Main Content Section */
+.profile-main-content {
+  width: 75%;
+  padding: 20px;
+}
+
+.profile-main-content h3 {
+  border-bottom: 2px solid #6f42c1;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  color: #6f42c1;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.experience-group,
+.education-group {
+  margin-bottom: 20px;
+}
+
+.experience-group h4,
+.education-group h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.button {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.button:hover {
+  background-color: #53389e;
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .profile-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+
+  .profile-main-content {
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+
+/* Layout:
+Desktop Computers: Multi-column layout.  */
+/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+/* For Smartphones (767px or lower) */
+@media (max-width: 767px) {
+}
+
+/* For Tablets (768px to 1199px) */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+}
+
+/* For Desktop Computers (1200px or higher) */
+@media (min-width: 1200px) {
+}

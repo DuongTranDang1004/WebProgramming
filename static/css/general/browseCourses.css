@@ -5,7 +5,7 @@ body {
   background-color: #f4f4f4;
 }
 
-.favorites-page {
+.browse-page {
   width: 90%;
   margin: 0 auto;
   display: flex;
@@ -25,17 +25,23 @@ body {
   text-align: center;
 }
 
-.sidebar h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
+.sidebar h2,
+.sidebar h3 {
+  margin-bottom: 15px;
 }
 
+.sidebar select,
 .sidebar input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 4px;
   border: none;
+}
+
+.sidebar .price-range {
+  display: flex;
+  gap: 10px;
 }
 
 .sidebar .button {
@@ -54,64 +60,51 @@ body {
 }
 
 /* Main Content */
-.favorites-content {
+.courses-content {
   width: 75%;
   padding: 20px;
 }
 
-.instructor-list {
+.course-list {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.instructor-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+.course-item {
+  flex: 1 1 calc(33% - 20px);
   padding: 15px;
   border-radius: 8px;
   background-color: #f8f9fa;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-.instructor-item img {
-  width: 100px;
-  height: 80px;
+.course-item img {
+  width: 100%;
+  height: 150px;
   border-radius: 8px;
   object-fit: cover;
-  margin-right: 20px;
+  margin-bottom: 15px;
 }
 
-.instructor-item .instructor-details {
-  flex-grow: 1;
-}
-
-.instructor-item .instructor-details h4 {
-  margin: 0 0 5px 0;
+.course-item h4 {
+  margin: 0 0 10px 0;
   color: #343a40;
 }
 
-.instructor-item .instructor-details p {
-  margin: 0;
+.course-item p {
+  margin: 0 0 5px 0;
   font-size: 14px;
   color: #6c757d;
 }
 
-.instructor-item .button {
-  background-color: #6f42c1;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.instructor-item .button:hover {
-  background-color: #53389e;
+.course-item .price {
+  color: #007bff;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
-  .favorites-page {
+  .browse-page {
     flex-direction: column;
     width: 95%;
   }
@@ -121,8 +114,12 @@ body {
     margin-bottom: 20px;
   }
 
-  .favorites-content {
+  .courses-content {
     width: 100%;
+  }
+
+  .course-item {
+    flex: 1 1 100%;
   }
 }
 

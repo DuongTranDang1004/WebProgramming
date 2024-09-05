@@ -1,0 +1,73 @@
+<div class="browse-page">
+  <aside class="sidebar">
+    <h2>Browse Courses</h2>
+
+    <!-- Sort Options -->
+    <div class="sort-section">
+      <label for="sort-select">Sort by:</label>
+      <select id="sort-select" onchange="sortCourses()">
+        <option value="name-asc">Name (A-Z)</option>
+        <option value="name-desc">Name (Z-A)</option>
+        <option value="price-asc">Price (Low to High)</option>
+        <option value="price-desc">Price (High to Low)</option>
+        <option value="number-sold">Number Sold</option>
+        <option value="creation-asc">Creation Date (Oldest First)</option>
+        <option value="creation-desc">Creation Date (Newest First)</option>
+      </select>
+    </div>
+
+    <!-- Filter Options -->
+    <div class="filter-section">
+      <h3>Filters</h3>
+
+      <!-- Filter by Category -->
+      <label for="category-select">Category:</label>
+      <select id="category-select" onchange="filterCourses()">
+        <option value="all">All Categories</option>
+        <option value="frontend">Front-end</option>
+        <option value="backend">Back-end</option>
+        <option value="fullstack">Full-stack</option>
+        <!-- Add more categories as needed -->
+      </select>
+
+      <!-- Filter by Price Range -->
+      <div class="price-range">
+        <label for="price-start">Price range:</label>
+        <input
+          type="number"
+          id="price-start"
+          placeholder="Start price"
+          min="0"
+          oninput="filterCourses()"
+        />
+        <input
+          type="number"
+          id="price-end"
+          placeholder="End price"
+          min="0"
+          oninput="filterCourses()"
+        />
+      </div>
+    </div>
+
+    <!-- Search Options -->
+    <div class="search-section">
+      <h3>Search</h3>
+      x
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search by course or instructor..."
+        oninput="searchCourses()"
+      />
+    </div>
+
+    <button class="button" onclick="applyFilters()">Apply Filters</button>
+  </aside>
+
+  <div class="courses-content">
+    <div id="courses-list" class="course-list">
+      <!-- Courses will be dynamically inserted here -->
+    </div>
+  </div>
+</div>

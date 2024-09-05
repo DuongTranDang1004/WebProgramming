@@ -5,13 +5,7 @@ body {
   margin: 0;
   padding: 20px;
 }
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+
 .section {
   flex: 1 1 calc(50% - 40px);
   background-color: white;
@@ -58,4 +52,35 @@ h2 {
   object-fit: cover;
   margin-right: 15px;
   border-radius: 8px;
+}
+
+/* Layout:
+Desktop Computers: Multi-column layout.  */
+/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+/* For Smartphones (767px or lower) */
+@media (max-width: 767px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* For Tablets (768px to 1199px) */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* For Desktop Computers (1200px or higher) */
+@media (min-width: 1200px) {
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+  }
 }
