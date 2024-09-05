@@ -1,133 +1,93 @@
-<section class="bg-light py-3 py-md-5 py-xl-8">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
-        <h2 class="mb-4 display-5 text-center">Our Team</h2>
-        <p class="text-secondary mb-5 text-center lead fs-4">
-          <!-- this paragraph need to be display with width -->
-          Our team consists of five passionate and dedicated members, each
-          bringing unique skills and perspectives to the development of the IT
-          Learning platform. We are committed to creating a comprehensive online
-          learning platform that caters to the needs of learners, instructors,
-          and administrators alike.
-        </p>
-
-        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle" />
-      </div>
-    </div>
-
-    <div class="row gy-4 gx-xxl-5 justify-content-center">
-      <!-- Team Member 1 -->
-      <div class="col-12 col-md-6 col-lg-2">
-        <div
-          class="card border-0 border-bottom border-primary shadow-sm overflow-hidden"
-        >
-          <div class="card-body p-0">
-            <figure class="m-0 p-0">
-              <img
-                class="img-fluid"
-                loading="lazy"
-                src="img/teamMemberAvatar/DuongAvatar.jpg"
-                alt="Duong Duong Avatar"
-              />
-              <figcaption class="m-0 p-4">
-                <h4 class="mb-1">Tran Dang Duong</h4>
-                <p class="text-secondary mb-0">Product Manager</p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal Example</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="span3 well text-center">
+        <a href="#aboutModal" data-toggle="modal" data-target="#myModal">
+          <img
+            src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
+            name="aboutme"
+            width="140"
+            height="140"
+            class="img-circle"
+          />
+        </a>
+        <h3>Joe Sixpack</h3>
+        <em>click my face for more</em>
       </div>
 
-      <!-- Team Member 2 -->
-      <div class="col-12 col-md-6 col-lg-2">
-        <div
-          class="card border-0 border-bottom border-primary shadow-sm overflow-hidden"
-        >
-          <div class="card-body p-0">
-            <figure class="m-0 p-0">
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                &times;
+              </button>
+              <h4 class="modal-title" id="myModalLabel">More About Joe</h4>
+            </div>
+            <div class="modal-body text-center">
               <img
-                class="img-fluid"
-                loading="lazy"
-                src="img/teamMemberAvatar/DuongAvatar.jpg"
-                alt="Cuong Avatar"
+                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
+                name="aboutme"
+                width="140"
+                height="140"
+                class="img-circle"
               />
-              <figcaption class="m-0 p-4">
-                <h4 class="mb-1">Cuong Dinh</h4>
-                <p class="text-secondary mb-0">Devop Engineer</p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-
-      <!-- Team Member 3 -->
-      <div class="col-12 col-md-6 col-lg-2">
-        <div
-          class="card border-0 border-bottom border-primary shadow-sm overflow-hidden"
-        >
-          <div class="card-body p-0">
-            <figure class="m-0 p-0">
-              <img
-                class="img-fluid"
-                loading="lazy"
-                src="img/teamMemberAvatar/DuongAvatar.jpg"
-                alt="Minh Avatar"
-              />
-              <figcaption class="m-0 p-4">
-                <h4 class="mb-1">Minh Nguyen</h4>
-                <p class="text-secondary mb-0">Project Manager</p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-
-      <!-- Team Member 4 -->
-      <div class="col-12 col-md-6 col-lg-2">
-        <div
-          class="card border-0 border-bottom border-primary shadow-sm overflow-hidden"
-        >
-          <div class="card-body p-0">
-            <figure class="m-0 p-0">
-              <img
-                class="img-fluid"
-                loading="lazy"
-                src="img/teamMemberAvatar/DuongAvatar.jpg"
-                alt="Doan Avatar"
-              />
-              <figcaption class="m-0 p-4">
-                <h4 class="mb-1">Doan Nguyen</h4>
-                <p class="text-secondary mb-0">Front-end Developer</p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-
-      <!-- Team Member 5 -->
-      <div class="col-12 col-md-6 col-lg-2">
-        <div
-          class="card border-0 border-bottom border-primary shadow-sm overflow-hidden"
-        >
-          <div class="card-body p-0">
-            <figure class="m-0 p-0">
-              <img
-                class="img-fluid"
-                loading="lazy"
-                src="img/teamMemberAvatar/DuongAvatar.jpg"
-                alt="Huy Avatar"
-              />
-              <figcaption class="m-0 p-4">
-                <h4 class="mb-1">Huy Vo</h4>
-                <p class="text-secondary mb-0">Backend Developer</p>
-              </figcaption>
-            </figure>
+              <h3 class="media-heading">Joe Sixpack <small>USA</small></h3>
+              <span><strong>Skills: </strong></span>
+              <span class="label label-warning">HTML5/CSS</span>
+              <span class="label label-info">Adobe CS 5.5</span>
+              <span class="label label-info">Microsoft Office</span>
+              <span class="label label-success">Windows XP, Vista, 7</span>
+              <hr />
+              <p class="text-left">
+                <strong>Bio: </strong><br />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem
+                dui, tempor sit amet commodo a, vulputate vel tellus.
+              </p>
+            </div>
+            <div class="modal-footer text-center">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                I've heard enough about Joe
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- source: https://bootstrapbrain.com/component/bootstrap-5-team-section-example/ -->
+    <!-- Include jQuery (must be loaded before Bootstrap's JS) -->
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <!-- Include Bootstrap JS (load this after jQuery) -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
