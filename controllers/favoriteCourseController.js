@@ -19,9 +19,9 @@ const getFavoriteCourses = async (req,res) => {
       .populate('courseId', 'name category price description');
       if (favoritecourses.length > 0) {
         return res.status(200).json(favoritecourses);
-    } else {
+      }else {
         return res.status(200).json({ message: "No favorite course" });
-    }
+      }
     } catch(error){
       res.status(500).json({ message: error.message})
     }
