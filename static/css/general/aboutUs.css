@@ -1,18 +1,35 @@
-section {
-  flex: 1 1 calc(50% - 40px);
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
 image {
   border-radius: 50%;
 }
 
-#members-display {
-  width: 100%;
+/* Light grey background for the section */
+#avatar-containers {
+  background-color: #f0f0f0;
+  padding: 30px 0;
+}
+
+/* Avatar container styling */
+.avatar-container {
+  background-color: #fff; /* White background for each card */
+  /* border: 2px solid; */
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Add a slight shadow effect when hovering over avatar containers */
+.avatar-container:hover {
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure avatars are properly rounded */
+.img-circle {
+  object-fit: cover;
+  border: 2px solid; /* Purple border around the avatar image */
+  padding: 3px;
 }
 
 /* Layout:
@@ -20,28 +37,13 @@ Desktop Computers: Multi-column layout.  */
 /* tablets/smartphones: Collapsible into a one-or-two-column layout. */
 /* For Smartphones (767px or lower) */
 @media (max-width: 767px) {
-  #members-display {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
 }
 
 /* For Tablets (768px to 1199px) */
 
 @media (max-width: 1199px) and (min-width: 768px) {
-  #members-display {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
 }
 
 /* For Desktop Computers (1200px or higher) */
 @media (min-width: 1200px) {
-  #members-display {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-  }
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modal Example</title>
+  
     <!-- Include Bootstrap CSS -->
     <link
       href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
@@ -12,105 +12,60 @@
     />
   </head>
   <body>
-    <!-- AVATAR CONTAINERS -->
-
-    <!-- Duong Avatar Container -->
-    <div class="container">
-      <div class="span3 well text-center">
-        <a href="#aboutModal" data-toggle="modal" data-target="#DuongModal">
-          <img
-            src="img/teamMemberAvatar/DuongAvatar.jpg"
-            alt="Duong Avatar"
-            name="aboutme"
-            width="140"
-            height="140"
-            class="img-circle"
-          />
-        </a>
-        <h3>Duong Tran</h3>
-        <h4>Front-end developer</h4>
-        <em>click my avatar for more</em>
-      </div>
-
-      <!-- Cuong Avatar Container  -->
-      <div class="container">
-        <div class="span3 well text-center">
-          <a href="#aboutModal" data-toggle="modal" data-target="#CuongModal">
-            <img
-              src="img/teamMemberAvatar/DuongAvatar.jpg"
-              alt="Cuong Avatar"
-              name="aboutme"
-              width="140"
-              height="140"
-              class="img-circle"
-            />
-          </a>
-          <h3>Cuong Dinh</h3>
-          <h4>Dev Op Engineer</h4>
-          <em>click my avatar for more</em>
-        </div>
-
-        <!-- Minh Avatar Container  -->
-        <div class="container">
-          <div class="span3 well text-center">
-            <a href="#aboutModal" data-toggle="modal" data-target="#MinhModal">
-              <img
-                src="img/teamMemberAvatar/DuongAvatar.jpg"
-                alt="Minh Avatar"
-                name="aboutme"
-                width="140"
-                height="140"
-                class="img-circle"
-              />
+      <!-- AVATAR CONTAINERS -->
+      <section id="avatar-containers" class="container">
+        <div class="row">
+          <!-- Duong Avatar Container -->
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 avatar-container text-center">
+            <a href="#DuongModal" data-toggle="modal">
+              <img src="img/teamMemberAvatar/DuongAvatar.jpg" alt="Duong Avatar" width="140" height="140" class="img-circle" />
+            </a>
+            <h3>Duong Tran</h3>
+            <h4>Front-end Developer</h4>
+            <em>click my avatar for more</em>
+          </div>
+  
+          <!-- Cuong Avatar Container -->
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 avatar-container text-center">
+            <a href="#CuongModal" data-toggle="modal">
+              <img src="img/teamMemberAvatar/DuongAvatar.jpg" alt="Cuong Avatar" width="140" height="140" class="img-circle" />
+            </a>
+            <h3>Cuong Dinh</h3>
+            <h4>Dev Ops Engineer</h4>
+            <em>click my avatar for more</em>
+          </div>
+  
+          <!-- Minh Avatar Container -->
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 avatar-container text-center">
+            <a href="#MinhModal" data-toggle="modal">
+              <img src="img/teamMemberAvatar/DuongAvatar.jpg" alt="Minh Avatar" width="140" height="140" class="img-circle" />
             </a>
             <h3>Minh Nguyen</h3>
             <h4>Project Manager</h4>
             <em>click my avatar for more</em>
           </div>
-
-          <!-- Doan Avatar Container  -->
-          <div class="container">
-            <div class="span3 well text-center">
-              <a
-                href="#aboutModal"
-                data-toggle="modal"
-                data-target="#DoanModal"
-              >
-                <img
-                  src="img/teamMemberAvatar/DuongAvatar.jpg"
-                  alt="Doan Avatar"
-                  name="aboutme"
-                  width="140"
-                  height="140"
-                  class="img-circle"
-                />
-              </a>
-              <h3>Doan Nguyen</h3>
-              <h4>Front-end developer</h4>
-              <em>click my avatar for more</em>
-            </div>
-
-            <!-- Huy Avatar Container  -->
-            <div class="container">
-              <div class="span3 well text-center">
-                <a
-                  href="#aboutModal"
-                  data-toggle="modal"
-                  data-target="#HuyModal"
-                >
-                  <img
-                    src="img/teamMemberAvatar/DuongAvatar.jpg"
-                    alt="Huy Avatar"
-                    name="aboutme"
-                    width="140"
-                    height="140"
-                    class="img-circle"
-                  />
-                </a>
-                <h3>Huy Vo</h3>
-                <h4>Back-end Developer</h4>
-                <em>click my avatar for more</em>
-              </div>
+  
+          <!-- Doan Avatar Container -->
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 avatar-container text-center">
+            <a href="#DoanModal" data-toggle="modal">
+              <img src="img/teamMemberAvatar/DuongAvatar.jpg" alt="Doan Avatar" width="140" height="140" class="img-circle" />
+            </a>
+            <h3>Doan Nguyen</h3>
+            <h4>Front-end Developer</h4>
+            <em>click my avatar for more</em>
+          </div>
+  
+          <!-- Huy Avatar Container -->
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 avatar-container text-center">
+            <a href="#HuyModal" data-toggle="modal">
+              <img src="img/teamMemberAvatar/DuongAvatar.jpg" alt="Huy Avatar" width="140" height="140" class="img-circle" />
+            </a>
+            <h3>Huy Vo</h3>
+            <h4>Back-end Developer</h4>
+            <em>click my avatar for more</em>
+          </div>
+        </div>
+      </section>
 
               <!-- MODALS -->
 
