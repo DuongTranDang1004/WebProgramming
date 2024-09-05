@@ -1,0 +1,155 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-page {
+  width: 90%;
+  margin: 20px auto;
+}
+
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-items {
+  width: 65%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-items h2 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.course-thumbnail {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.item-details {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.item-details h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.item-details p {
+  margin: 5px 0;
+}
+
+.price {
+  color: #e67e22;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.remove-button {
+  background-color: #e74c3c;
+}
+
+.remove-button:hover {
+  background-color: #c0392b;
+}
+
+.saved-for-later {
+  margin-top: 30px;
+}
+
+.saved-for-later h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.cart-summary {
+  width: 30%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary h3 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.totals p {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.checkout-button {
+  background-color: #27ae60;
+}
+
+.checkout-button:hover {
+  background-color: #2ecc71;
+}
+
+@media (max-width: 768px) {
+  .cart-container {
+    flex-direction: column;
+  }
+
+  .cart-items,
+  .cart-summary {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+/* Layout:
+Desktop Computers: Multi-column layout.  */
+/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+/* For Smartphones (767px or lower) */
+@media (max-width: 767px) {
+}
+
+/* For Tablets (768px to 1199px) */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+}
+
+/* For Desktop Computers (1200px or higher) */
+@media (min-width: 1200px) {
+}

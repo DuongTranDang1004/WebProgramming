@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 const InstructorSchema = new mongoose.Schema(
-    {
-        email: {
+    {   email: {
             type: String,
             required: true
         },
@@ -117,12 +116,21 @@ const InstructorSchema = new mongoose.Schema(
             default: 'basic',
             required: true
         },
-
+        createTime: {
+          type: Date,
+          require: true,
+          default: Date.now
+        },
+        Bio: {
+          type: String,
+          require: false,
+        },
         token: {
           type: String,
           default: null,
           required: false
         }
+
     }
 )
 

@@ -66,12 +66,40 @@ const Course = require("../models/courseModel");
 //Get all
 const getCourses = async (req,res) => {
   try {
-    const courses = await Course.find({});
+    const courses = await Course.find({})
+      .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
     res.status(200).json(courses)
-  } catch(error){
-    res.status(500).json({ message: error.message})
+  } catch (error) {
+    res.status(500).json({ message: error.message })
   }
 };
+
+//Get all course that is publish
+const getIsPublishCourses = async (req, res) => {
+  try {
+    const courses = await Course.find({ isPublish: true })
+      .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
+    res.status(200).json(courses)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+//Get all courses by instructor ID
+const getCoursesByInstructorID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const courses = await Course.find({ instructorId: id })
+      .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
+    if (courses.length > 0) {
+      return res.status(200).json(courses);
+    } else {
+      return res.status(200).json({ message: "No courses for this instructor" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
 
 /**
  * @swagger
@@ -138,7 +166,11 @@ const createCourse = async (req, res) => {
  */
 const getCourse = async (req, res) => {
   try {
+<<<<<<<<< Temporary merge branch 1
+    const { id } = req.params;
+=========
     const {id} = req.params;
+>>>>>>>>> Temporary merge branch 2
     const course = await Course.findById(id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
@@ -188,6 +220,10 @@ const getCourse = async (req, res) => {
  */
 const updateCourse = async (req, res) => {
   try {
+<<<<<<<<< Temporary merge branch 1
+    const { id } = req.params;
+    const course = await Course.findByIdAndUpdate(id, req.body, { new: true });
+=========
     const {id} = req.params;
     const course = await Course.findByIdAndUpdate(id, req.body);
 
@@ -224,7 +260,7 @@ const updateCourse = async (req, res) => {
  */
 const deleteCourse = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const course = await Course.findByIdAndDelete(id);
 
     if (!course) {
@@ -243,4 +279,6 @@ module.exports = {
   createCourse,
   updateCourse,
   deleteCourse,
+  getIsPublishCourses,
+  getCoursesByInstructorID
 };

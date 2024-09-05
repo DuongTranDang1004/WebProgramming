@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls input[type="text"] {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.sort-filter {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sort-filter label {
+  margin-right: 5px;
+  color: #555;
+}
+
+.sort-filter select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.transaction-list {
+  margin-top: 20px;
+}
+
+.transaction {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.transaction-info {
+  margin-bottom: 20px;
+}
+
+.transaction-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.transaction-items .item {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.transaction-items .item p {
+  margin: 5px 0;
+  color: #444;
+}
+
+.transaction-items .item:first-child {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+p strong {
+  color: #333;
+}
+
+/* Layout:
+Desktop Computers: Multi-column layout.  */
+/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+/* For Smartphones (767px or lower) */
+@media (max-width: 767px) {
+}
+
+/* For Tablets (768px to 1199px) */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+}
+
+/* For Desktop Computers (1200px or higher) */
+@media (min-width: 1200px) {
+}

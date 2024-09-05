@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 // Define the schema for the FavoriteCourses collection
 const FavoriteCourseSchema = new mongoose.Schema({
   learnerId: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'Learners' 
   },
   courseId: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'Courses' 
   }

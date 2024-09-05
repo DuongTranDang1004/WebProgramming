@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const LearnersSchema = new Schema({
-    _id: {
-        type: Number,  // Use Number since your _id is numeric
-        required: true
-    },
     email: {
         type: String,
         required: true,
