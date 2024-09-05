@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 const InstructorSchema = new mongoose.Schema(
-    {   _id: Number,
-        email: {
+    {   email: {
             type: String,
             required: true
         },
@@ -125,6 +124,11 @@ const InstructorSchema = new mongoose.Schema(
         Bio: {
           type: String,
           require: false,
+        },
+        token: {
+          type: String,
+          default: null,
+          required: false
         }
 
     }

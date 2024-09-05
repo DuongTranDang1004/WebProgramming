@@ -38,6 +38,7 @@ const contactFormRoutes = require("./routes/contactFormRoute");
 const learnerRoutes = require("./routes/learnerRoute");
 const platformAdminRoutes = require("./routes/platformAdminRoute");
 const membershipRoutes = require("./routes/membershipRoute");
+const authRoutes = require("./routes/authenticateRoute");
 
 // Using the controllers as routers
 // app.use("/auth", authRoutes); //authenication has not been done yet
@@ -58,6 +59,7 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/instructors", instructorRoutes);
 app.use("/api/learners", learnerRoutes);
 app.use("/api/platformAdmins", platformAdminRoutes);
+app.use("/api/auth", authRoutes);
 
 // /API: backend end router
 
