@@ -169,7 +169,6 @@
   href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
   rel="stylesheet"
 />
-
 <div id="contact" class="contact-area section-padding">
   <div class="container">
     <div class="section-title text-center">
@@ -188,63 +187,127 @@
             name="enq"
             method="post"
             action="contact.php"
-            onsubmit="return validation();"
+            onsubmit="return validateForm();"
           >
             <div class="row">
+              <!-- Contact Purpose -->
+              <div class="form-group col-md-12">
+                <label for="contactPurpose">Contact Purpose</label>
+                <select name="contactPurpose" class="form-control" required>
+                  <option value="general">General Inquiry</option>
+                  <option value="support">Support</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Name -->
               <div class="form-group col-md-6">
+                <label for="name">Name</label>
                 <input
                   type="text"
                   name="name"
                   class="form-control"
                   placeholder="Name"
-                  required="required"
+                  required
                 />
               </div>
+
+              <!-- Email -->
               <div class="form-group col-md-6">
+                <label for="email">Email</label>
                 <input
                   type="email"
                   name="email"
                   class="form-control"
                   placeholder="Email"
-                  required="required"
+                  required
                 />
               </div>
+
+              <!-- Phone -->
               <div class="form-group col-md-12">
+                <label for="phone">Phone (optional)</label>
                 <input
-                  type="text"
-                  name="subject"
+                  type="tel"
+                  name="phone"
                   class="form-control"
-                  placeholder="Subject"
-                  required="required"
+                  placeholder="Phone"
+                  pattern="[0-9]{9,11}"
                 />
               </div>
+
+              <!-- Preferred Contact Method -->
               <div class="form-group col-md-12">
+                <label>Preferred Contact Method</label><br />
+                <input
+                  type="radio"
+                  name="contactMethod"
+                  value="email"
+                  required
+                />
+                Email
+                <input
+                  type="radio"
+                  name="contactMethod"
+                  value="phone"
+                  required
+                />
+                Phone
+              </div>
+
+              <!-- Contact Days -->
+              <div class="form-group col-md-12">
+                <label>Preferred Contact Days</label><br />
+                <input type="checkbox" name="contactDays" value="Monday" />
+                Monday
+                <input type="checkbox" name="contactDays" value="Tuesday" />
+                Tuesday
+                <input type="checkbox" name="contactDays" value="Wednesday" />
+                Wednesday
+                <input type="checkbox" name="contactDays" value="Thursday" />
+                Thursday
+                <input type="checkbox" name="contactDays" value="Friday" />
+                Friday
+                <input type="checkbox" name="contactDays" value="Saturday" />
+                Saturday
+                <input type="checkbox" name="contactDays" value="Sunday" />
+                Sunday
+              </div>
+
+              <!-- Message -->
+              <div class="form-group col-md-12">
+                <label for="message">Message</label>
                 <textarea
                   rows="6"
                   name="message"
                   class="form-control"
                   placeholder="Your Message"
-                  required="required"
+                  minlength="50"
+                  maxlength="500"
+                  required
                 ></textarea>
               </div>
+
+              <!-- Buttons -->
               <div class="col-md-12 text-center">
+                <button type="reset" class="btn btn-contact-bg">Clear</button>
                 <button
                   type="submit"
                   value="Send message"
                   name="submit"
-                  id="submitButton"
                   class="btn btn-contact-bg"
-                  title="Submit Your Message!"
                 >
-                  Send Message
+                  Send
                 </button>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <!--- END COL -->
+
       <div class="col-lg-5">
+        <!-- Address Information -->
         <div class="single_address">
           <i class="fa fa-map-marker"></i>
           <h4>Our Address</h4>
@@ -266,11 +329,45 @@
           <p>Mon - Fri: 08.00 - 16.00. <br />Sat: 10.00 - 14.00</p>
         </div>
       </div>
-      <!--- END COL -->
     </div>
-    <!--- END ROW -->
   </div>
-  <!--- END CONTAINER -->
 </div>
+
+<!-- JavaScript for validation -->
+<script>
+  function validateForm() {
+    const name = document.forms["enq"]["name"].value;
+    const phone = document.forms["enq"]["phone"].value;
+    const contactMethod = document.forms["enq"]["contactMethod"].value;
+    const days = document.querySelectorAll('input[name="contactDays"]:checked');
+    const message = document.forms["enq"]["message"].value;
+
+    // Name validation: at least 3 letters
+    if (name.length < 3) {
+      alert("Name must contain at least 3 letters.");
+      return false;
+    }
+
+    // Phone validation: if phone is required and selected as contact method
+    if (contactMethod === "phone" && (phone.length < 9 || phone.length > 11)) {
+      alert("Please enter a valid phone number (9 to 11 digits).");
+      return false;
+    }
+
+    // Contact Days validation: at least one checkbox must be selected
+    if (days.length === 0) {
+      alert("Please select at least one contact day.");
+      return false;
+    }
+
+    // Message validation: between 50 and 500 characters
+    if (message.length < 50 || message.length > 500) {
+      alert("Message must contain between 50 and 500 letters.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
 
 <!-- source: https://www.bootdey.com/snippets/view/Get-in-Touch-form -->
