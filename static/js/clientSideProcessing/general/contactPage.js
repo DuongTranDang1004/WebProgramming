@@ -1,3 +1,5 @@
+//Function 1: Input validations for contact page forms
+
 function validateForm() {
   const name = document.forms["enq"]["name"].value;
   const phone = document.forms["enq"]["phone"].value;

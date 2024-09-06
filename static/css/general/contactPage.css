@@ -1,4 +1,81 @@
-/* Style for aligning label vertically in the middle with input */
+/* Start of preferred contact days styling */
+
+/* Checkbox styling from testingCheckbox.html */
+
+/* Default for desktop: Label and checkbox on the same row */
+.checkbox-div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.checkbox-div label {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.checkbox-div input[type="checkbox"] {
+  margin: 0;
+}
+
+#preferred-contact-days {
+  display: flex;
+  justify-content: flex-end;
+}
+#preferred-contact-method {
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Prevent text wrapping */
+  justify-content: space-between; /* Ensure spacing between label and inputs */
+  margin-bottom: 40px; /* Ensure spacing at the bottom */
+}
+
+/* Media query for tablets and smartphones */
+@media (max-width: 1199px) {
+  .checkbox-div {
+    display: block;
+  }
+
+  .checkbox-div label,
+  .checkbox-div input[type="checkbox"] {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+
+/* Adjustments for existing form elements to avoid conflicts */
+
+/* Fieldset styling for overflow management */
+fieldset {
+  overflow: hidden;
+}
+
+/* Ensure preferred-contact-days are displayed properly */
+.preferred-contact-days {
+  margin-bottom: 10%;
+}
+
+/* Existing general label styling */
+label {
+  display: block;
+  padding: 0px 1em 0px 8px;
+}
+
+/* For specific input elements (radio, checkbox) */
+input[type="radio"],
+input.radio {
+  margin: 2px 0 0 2px;
+}
+
+/* Aligning checkbox and radio labels properly */
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  vertical-align: middle; /* Keep middle alignment */
+  height: 100%;
+  font-size: 16px;
+}
+
+/* Existing form-group styling, adjusted to avoid checkbox conflicts */
 .form-group {
   display: flex;
   align-items: center;
@@ -31,10 +108,11 @@ input[type="radio"] {
   margin-right: 5px; /* Less space between the radio button and the label */
 }
 
+/* Aligning radio buttons consistently */
 .radio-group {
   display: flex;
   align-items: center;
-  gap: 15px; /* Adjusts the gap between radio options */
+  gap: 15px;
   font-size: large;
 }
 
@@ -42,8 +120,12 @@ input[type="radio"] {
   margin-left: 5px; /* Ensures labels are closer to the radio buttons */
   font-size: 16px; /* Ensures text is consistent in size */
 }
-.preferred-contact-days {
-  margin-bottom: 10%;
+
+#preferred-contact-days span {
+  font-size: 16px; /* Match the label font size */
+  font-weight: bold; /* Match label font weight */
+  display: inline-block; /* Ensure it's aligned properly with checkboxes */
+  margin-right: 10px; /* Add some space between the span and the checkboxes */
 }
 
 /* Adding vertical space between sections */
@@ -73,7 +155,7 @@ button[type="reset"] {
   color: #fff;
 }
 
-/* single_address section (Our info) */
+/* Single address (Our info) */
 .single_address {
   overflow: hidden;
   margin-bottom: 20px;
@@ -91,11 +173,7 @@ button[type="reset"] {
   float: left;
   margin-right: 14px;
   font-size: 22px;
-  -webkit-box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  -webkit-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
 
@@ -107,20 +185,18 @@ button[type="reset"] {
 .single_address h4 {
   font-size: 18px;
   margin-bottom: 0px;
-  overflow: hidden;
   font-weight: 600;
 }
 
 .single_address p {
-  overflow: hidden;
   margin-top: 5px;
 }
 
+/* Section titles */
 .section-title h1 {
   font-size: 44px;
   font-weight: 500;
   margin-top: 0;
-  position: relative;
   text-transform: capitalize;
   margin-bottom: 15px;
 }
@@ -140,8 +216,9 @@ button[type="reset"] {
   text-align: center !important;
 }
 
-/* Media Query Adjustments for Mobile and Tablets */
+/* Media query for mobile and tablet adjustments */
 @media only screen and (max-width: 768px) {
+  /* Ensure form elements are stacked properly */
   .form-group {
     flex-direction: column;
     align-items: flex-start;
@@ -159,17 +236,20 @@ button[type="reset"] {
     width: 100%;
   }
 
-  /* Aligning checkbox and radio labels properly */
-  input[type="checkbox"] + label,
-  input[type="radio"] + label {
-    margin-right: 5px; /* Less space between the radio button and the label */
-    font-size: 16px;
-  }
-
-  .radio-group,
+  /* Ensure checkboxes and radio buttons stack properly */
   .checkbox-group {
     flex-wrap: wrap;
     gap: 10px;
-    font-size: large;
+  }
+
+  .radio-group,
+  .preferred-contact-days {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .preferred-contact-days label {
+    display: block;
+    margin-top: 10px;
   }
 }

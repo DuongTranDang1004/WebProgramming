@@ -40,7 +40,7 @@ const learnerRoutes = require("./routes/learnerRoute");
 const platformAdminRoutes = require("./routes/platformAdminRoute");
 const membershipRoutes = require("./routes/membershipRoute");
 const authRoutes = require("./routes/authenticateRoute");
-const generalPagesRoutes = require("./routes/generalPagesRoute"); // Import the general pages route
+const generalPagesRoutes = require("./routes/generalPagesRoute");
 
 // Using the controllers as routers
 // app.use("/auth", authRoutes); //authenication has not been done yet
@@ -54,6 +54,7 @@ app.use("/lectures", lectureRoutes);
 app.use("/favoritesCourses", favoriteCourseRoutes);
 app.use("/followingInstructors", followingInstructorRoutes);
 app.use("/memberships", membershipRoutes);
+
 // app.use("/auth", authRoutes); //authenication has not been done yet
 app.use("/api/boughtCourses", boughtCourseRoutes);
 app.use("/api/contactForms", contactFormRoutes);
