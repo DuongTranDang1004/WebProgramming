@@ -1,5 +1,5 @@
 const FollowingInstructor = require("../models/followingInstructorModel");
-
+const mongoose = require('mongoose');
 /**
  * @swagger
  * tags:
@@ -17,31 +17,17 @@ const FollowingInstructor = require("../models/followingInstructorModel");
  *         - learnerId
  *         - instructorId
  *       properties:
- *         _id:
- *           type: string
- *           description: The auto-generated ID of the following instructor record
  *         learnerId:
  *           type: string
  *           description: The ID of the learner following the instructor
- *           example: 60d0fe4f5311236168a105bb
+ *           example: "605c72ef1e7fbb001f6471f6"
  *         instructorId:
  *           type: string
  *           description: The ID of the instructor being followed
- *           example: 60d0fe4f5311236168a109da
- *         createdAt:
- *           type: string
- *           format: date-time
- *           description: The date when the following record was created
- *         updatedAt:
- *           type: string
- *           format: date-time
- *           description: The date when the following record was last updated
+ *           example: "605c72ef1e7fbb001f6471f7"
  *       example:
- *         _id: 60d0fe4f5311236168a109ca
- *         learnerId: 60d0fe4f5311236168a105bb
- *         instructorId: 60d0fe4f5311236168a109da
- *         createdAt: 2024-09-05T14:48:00.000Z
- *         updatedAt: 2024-09-05T14:48:00.000Z
+ *         learnerId: "605c72ef1e7fbb001f6471f6"
+ *         instructorId: "605c72ef1e7fbb001f6471f7"
  */
 
 //Get all
@@ -101,20 +87,29 @@ const getFollowingInstructors = async (req,res) => {
  *       500:
  *         description: Server error
  */
-const getFollowingInstructorsByLearnerID = async (req,res) => {
+const getFollowingInstructorsByLearnerID = async (req, res) => {
   try {
-    const {id} = req.params;
-    const followingInstructors = await FollowingInstructor.find({learnerId: id})
+    const { id } = req.params;
+
+    // Validate ObjectId format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid learnerId format" });
+    }
+
+    const followingInstructors = await FollowingInstructor.find({ learnerId: id })
       .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
+
     if (followingInstructors.length > 0) {
       return res.status(200).json(followingInstructors);
-  } else {
+    } else {
       return res.status(200).json({ message: "No following instructor" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
-  } catch(error){
-    res.status(500).json({ message: error.message})
-  }
-}
+};
+
 
 //Get by ID
 /**

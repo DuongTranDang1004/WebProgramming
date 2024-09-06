@@ -8,30 +8,61 @@ const Lecture = require("../models/lectureModel");
  *     Lecture:
  *       type: object
  *       required:
- *         - title
- *         - description
+ *         - courseId
+ *         - name
+ *         - index
  *       properties:
- *         _id:
+ *         courseId:
  *           type: string
- *           description: The auto-generated id of the lecture
- *         title:
+ *           description: The ID of the course associated with the lecture
+ *           example: "605c72ef1e7fbb001f6471f6"
+ *         name:
  *           type: string
- *           description: The title of the lecture
+ *           description: The name of the lecture
+ *           example: "Introduction to JavaScript"
  *         description:
  *           type: string
- *           description: The description of the lecture
- *         createdAt:
+ *           description: A brief description of the lecture
+ *           example: "This lecture covers the basics of JavaScript programming."
+ *         video:
  *           type: string
- *           format: date-time
- *           description: The date the lecture was created
- *         updatedAt:
- *           type: string
- *           format: date-time
- *           description: The date the lecture was last updated
+ *           description: URL of the lecture video
+ *           example: "https://example.com/videos/intro-to-js.mp4"
+ *         exercise:
+ *           type: object
+ *           properties:
+ *             question:
+ *               type: string
+ *               description: The exercise question
+ *               example: "What is the output of `console.log(2 + '2')`?"
+ *             options:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               description: The options for the exercise question
+ *               example: ["4", "22", "Error", "undefined"]
+ *             correctAnswer:
+ *               type: string
+ *               description: The correct answer to the exercise question
+ *               example: "22"
+ *           required:
+ *             - question
+ *             - options
+ *             - correctAnswer
+ *         index:
+ *           type: integer
+ *           description: The position of the lecture in the course
+ *           example: 1
  *       example:
- *         _id: 60d0fe4f5311236168a109ca
- *         title: Introduction to Programming
- *         description: Learn the basics of programming with this introductory course.
+ *         courseId: "605c72ef1e7fbb001f6471f6"
+ *         name: "Introduction to JavaScript"
+ *         description: "This lecture covers the basics of JavaScript programming."
+ *         video: "https://example.com/videos/intro-to-js.mp4"
+ *         exercise:
+ *           question: "What is the output of `console.log(2 + '2')`?"
+ *           options: ["4", "22", "Error", "undefined"]
+ *           correctAnswer: "22"
+ *         index: 1
  */
 
 /**

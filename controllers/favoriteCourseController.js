@@ -10,37 +10,47 @@ const FavoriteCourse = require("../models/favoriteCourseModel");
 /**
  * @swagger
  * components:
- *   schemas:
- *     FavoriteCourse:
- *       type: object
- *       properties:
- *         _id:
- *           type: string
- *           description: The auto-generated ID of the favorite course
- *           example: 6123dce1e3a7f23241d9c8c1
- *         learnerId:
+ *  schemas:
+ *    FavoriteCourse:
+ *      type: object
+ *      properties:
+ *        _id:
+ *          type: string
+ *          description: The auto-generated ID of the favorite course
+ *          example: 66d94db8191a5611c1f85f95
+ *        learnerId:
  *           type: string
  *           description: The ID of the learner who favorited the course
- *           example: 12345
- *         courseId:
- *           type: string
- *           description: The ID of the favorited course
- *           example: 67890
- *         createdAt:
- *           type: string
- *           format: date-time
- *           description: Timestamp of when the course was added to favorites
- *           example: 2023-08-30T09:12:45.123Z
- *         updatedAt:
- *           type: string
- *           format: date-time
- *           description: Timestamp of when the favorite was last updated
- *           example: 2023-08-30T09:12:45.123Z
+ *           example: 66d94db8191a5611c1f85e5e
+ *        courseId:
+ *           type: object
+ *            properties:
+ *              _id:
+ *                type: string
+ *                description: The ID of the course
+ *                example: 66d94db8191a5611c1f85e6b
+ *              category:
+ *                type: string
+ *                description: The category of the course
+ *                example: data science
+ *              name:
+ *                type: string
+ *                description: The name of the course
+ *                example: Luxurious Frozen Chicken
+ *              price:
+ *                type: number
+ *                format: float
+ *                description: The price of the course
+ *                example: 343
+ *              description:
+ *                type: string
+ *                description: A brief description of the course
+ *                example: Delego cibo turbo vinum. Conatus consuasor compello. Allatus decimus accusamus terga culpa absorbeo assumenda.
  */
 
 /**
  * @swagger
- * /favoritecourses:
+ * /favoritesCourses:
  *   get:
  *     summary: Retrieve a list of all favorite courses
  *     tags: [FavoriteCourses]
@@ -58,9 +68,9 @@ const FavoriteCourse = require("../models/favoriteCourseModel");
  */
 const getFavoriteCourses = async (req, res) => {
   try {
-    const favoritecourses = await FavoriteCourse.find({})
+    const favoriteCourses = await FavoriteCourse.find({})
       .populate('courseId', 'name category price description');
-    res.status(200).json(favoritecourses);
+    res.status(200).json(favoriteCourses);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -68,7 +78,7 @@ const getFavoriteCourses = async (req, res) => {
 
 /**
  * @swagger
- * /favoritecourses/learner/{id}:
+ * /favoritesCourses/learner/{id}:
  *   get:
  *     summary: Retrieve favorite courses by learner ID
  *     tags: [FavoriteCourses]
@@ -96,10 +106,10 @@ const getFavoriteCourses = async (req, res) => {
 const getFavoriteCourseByLearnerID = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoritecourses = await FavoriteCourse.find({ learnerId: id })
+    const favoriteCourses = await FavoriteCourse.find({ learnerId: id })
       .populate('courseId', 'name category price description');
-    if (favoritecourses.length > 0) {
-      return res.status(200).json(favoritecourses);
+    if (favoriteCourses.length > 0) {
+      return res.status(200).json(favoriteCourses);
     } else {
       return res.status(200).json({ message: "No favorite course" });
     }
@@ -110,7 +120,7 @@ const getFavoriteCourseByLearnerID = async (req, res) => {
 
 /**
  * @swagger
- * /favoritecourses/{id}:
+ * /favoritesCourses/{id}:
  *   get:
  *     summary: Retrieve a specific favorite course by ID
  *     tags: [FavoriteCourses]
@@ -136,9 +146,12 @@ const getFavoriteCourseByLearnerID = async (req, res) => {
 const getFavoriteCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoritecourse = await FavoriteCourse.findById(id)
+    const favoriteCourse = await FavoriteCourse.findById(id)
       .populate('courseId', 'name category price description');
-    res.status(200).json(favoritecourse);
+    if (!favoriteCourse) {
+      return res.status(404).json({ message: "Favorite course not found" });
+    }
+    res.status(200).json(favoriteCourse);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -146,7 +159,7 @@ const getFavoriteCourse = async (req, res) => {
 
 /**
  * @swagger
- * /favoritecourses:
+ * /favoritesCourses:
  *   post:
  *     summary: Add a new favorite course
  *     tags: [FavoriteCourses]
@@ -168,8 +181,8 @@ const getFavoriteCourse = async (req, res) => {
  */
 const createFavoriteCourse = async (req, res) => {
   try {
-    const favoritecourse = await FavoriteCourse.create(req.body);
-    res.status(200).json(favoritecourse);
+    const favoriteCourse = await FavoriteCourse.create(req.body);
+    res.status(200).json(favoriteCourse);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -177,7 +190,7 @@ const createFavoriteCourse = async (req, res) => {
 
 /**
  * @swagger
- * /favoritecourses/{id}:
+ * /favoritesCourses/{id}:
  *   put:
  *     summary: Update a favorite course by ID
  *     tags: [FavoriteCourses]
@@ -209,14 +222,13 @@ const createFavoriteCourse = async (req, res) => {
 const updateFavoriteCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoritecourse = await FavoriteCourse.findByIdAndUpdate(id, req.body);
+    const favoriteCourse = await FavoriteCourse.findByIdAndUpdate(id, req.body, { new: true });
 
-    if (!favoritecourse) {
-      return res.status(404).json({ message: "favoritecourse not found" });
+    if (!favoriteCourse) {
+      return res.status(404).json({ message: "Favorite course not found" });
     }
 
-    const updatedFavoriteCourse = await FavoriteCourse.findById(id);
-    res.status(200).json(updatedFavoriteCourse);
+    res.status(200).json(favoriteCourse);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -224,7 +236,7 @@ const updateFavoriteCourse = async (req, res) => {
 
 /**
  * @swagger
- * /favoritecourses/{id}:
+ * /favoritesCourses/{id}:
  *   delete:
  *     summary: Delete a favorite course by ID
  *     tags: [FavoriteCourses]
@@ -246,12 +258,13 @@ const updateFavoriteCourse = async (req, res) => {
 const deleteFavoriteCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoritecourse = await FavoriteCourse.findByIdAndUpdate(id);
+    const favoriteCourse = await FavoriteCourse.findByIdAndDelete(id);
 
-    if (!favoritecourse) {
-      return res.status(404).json({ message: "favoritecourse not found" });
+    if (!favoriteCourse) {
+      return res.status(404).json({ message: "Favorite course not found" });
     }
-    res.status(200).json({ message: "favoritecourse deleted successfully" });
+
+    res.status(200).json({ message: "Favorite course deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -259,9 +272,9 @@ const deleteFavoriteCourse = async (req, res) => {
 
 module.exports = {
   getFavoriteCourses,
+  getFavoriteCourseByLearnerID,
   getFavoriteCourse,
   createFavoriteCourse,
   updateFavoriteCourse,
   deleteFavoriteCourse,
-  getFavoriteCourseByLearnerID,
 };

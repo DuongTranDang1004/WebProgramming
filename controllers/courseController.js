@@ -19,29 +19,53 @@ const Course = require("../models/courseModel");
  *           description: The auto-generated ID of the course
  *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
  *         instructorId:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *           description: The ID of the instructor teaching the course
- *           example: 1
+ *           example: "60c72b2f9b1e8b6a54b7b16a"
  *         category:
  *           type: string
  *           description: The category of the course
- *           example: "front-end"
+ *           enum:
+ *             - "front-end"
+ *             - "back-end"
+ *             - "data science"
+ *             - "AI"
+ *             - "cyber security"
+ *             - "testing"
+ *           example: "AI"
  *         name:
  *           type: string
  *           description: The name of the course
- *           example: "Introduction to Front-End Development"
+ *           example: "Introduction to Artificial Intelligence"
  *         thumbnailImage:
  *           type: string
  *           description: The URL of the course's thumbnail image
- *           example: "https://example.com/course-thumbnail.jpg"
+ *           example: "https://example.com/ai-course-thumbnail.jpg"
  *         price:
  *           type: number
+ *           format: float
  *           description: The price of the course
- *           example: 99.99
+ *           example: 199.99
  *         description:
  *           type: string
  *           description: A brief description of the course
- *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
+ *           example: "This course introduces the basics of AI, including machine learning and neural networks."
+ *         createTime:
+ *           type: string
+ *           format: date-time
+ *           description: The creation time of the course record
+ *           example: "2024-09-05T14:48:00.000Z"
+ *         isPublish:
+ *           type: boolean
+ *           description: Indicates whether the course is published or not
+ *           example: false
+ *       required:
+ *         - name
+ *         - category
+ *         - price
+ *         - description
+ *         - instructorId
  */
 
 /**
@@ -144,6 +168,8 @@ const getCoursesByInstructorID = async (req, res) => {
 
 /**
  * @swagger
+ * /**
+ * @swagger
  * /courses:
  *   post:
  *     summary: Create a new course
@@ -155,7 +181,7 @@ const getCoursesByInstructorID = async (req, res) => {
  *           schema:
  *             $ref: '#/components/schemas/Course'
  *           example:
- *             instructorId: 1
+ *             instructorId: "60c72b2f9b1e8b6a54b7b16a"
  *             category: "AI"
  *             name: "Introduction to Artificial Intelligence"
  *             thumbnailImage: "https://example.com/ai-course-thumbnail.jpg"
