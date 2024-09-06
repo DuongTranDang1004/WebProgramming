@@ -84,7 +84,7 @@ const getInstructors = async (req, res) => {
  *         in: path
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Instructor details
@@ -183,7 +183,7 @@ const deleteInstructor = async (req, res) => {
  *         in: path
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: List of courses for the instructor
