@@ -1,5 +1,4 @@
 const Instructor = require("../models/instructorModel");
-const Course = require("../models/courseModel");
 
 /**
  * @swagger
@@ -66,7 +65,8 @@ const Course = require("../models/courseModel");
  */
 const getInstructors = async (req, res) => {
   try {
-    const instructors = await Instructor.find({});
+    const instructors = await Instructor.find({})
+      .populate("membershipId", "planName planType");
     res.status(200).json(instructors);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -101,7 +101,8 @@ const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
     const { id } = req.params;
-    const instructor = await Instructor.findById(id);
+    const instructor = await Instructor.findById(id)
+      .populate("membershipId", "planName planType");
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -198,20 +199,6 @@ const deleteInstructor = async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-const getCoursesByInstructorId = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const courses = await Course.find({ instructorId: id });
-    if (courses.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No courses found for this instructor" });
-    }
-    res.status(200).json(courses);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 module.exports = {
   getInstructors,
@@ -219,5 +206,4 @@ module.exports = {
   createInstructor,
   updateInstructor,
   deleteInstructor,
-  getCoursesByInstructorId,
 };

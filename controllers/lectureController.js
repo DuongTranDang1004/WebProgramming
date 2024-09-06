@@ -1,4 +1,5 @@
 const Lecture = require("../models/lectureModel");
+const mongoose = require("mongoose");
 
 /**
  * @swagger
@@ -102,7 +103,7 @@ const getLecturesByCourseId = async (req, res) => {
     const { courseId } = req.params;  // Extract courseId from request parameters
 
     // Find lectures by courseId and sort by index
-    const lectures = await Lecture.find({ courseId: mongoose.Types.ObjectId(courseId) })
+    const lectures = await Lecture.find({courseId: courseId})
       .sort({ index: 1 });
 
     if (!lectures || lectures.length === 0) {
