@@ -6,6 +6,10 @@ router.get("/", (req, res) => {
   res.render("general/homepage", {
     title: "Home Page",
     pageStylesheet: "css/general/homepage.css",
+    pageScripts: [
+      "js/clientSideProcessing/general/homepage.js",
+      "js/fetchAPIs/fetchCourses.js",
+    ],
     // layout: "./layouts/default",
   });
 });
@@ -36,6 +40,7 @@ router.get("/contactPage", (req, res) => {
   res.render("general/contactPage", {
     title: "ContactPage",
     pageStylesheet: "css/general/contactPage.css",
+    pageScripts: "js/clientSideProcessing/general/contactPage.js",
   });
 });
 
