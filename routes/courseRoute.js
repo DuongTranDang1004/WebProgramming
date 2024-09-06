@@ -4,6 +4,10 @@ const {getCourse, getCourses, createCourse, updateCourse, deleteCourse, getCours
 
 router.get('/', getCourses);
 
+router.get("/publish", getIsPublishCourses)
+
+router.get("/instructor/:id", getCoursesByInstructorID)
+
 router.get("/:id", getCourse);
 
 router.post("/", createCourse);
@@ -11,9 +15,5 @@ router.post("/", createCourse);
 router.put("/:id", updateCourse);
 
 router.delete("/:id", deleteCourse);
-
-router.get("/publish", getIsPublishCourses)
-
-router.get("instructor/:id", getCoursesByInstructorID)
 
 module.exports = router;

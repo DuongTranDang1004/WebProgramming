@@ -12,6 +12,6 @@ router.put("/:id", updateLecture)
 
 router.delete("/:id", deleteLecture)
 
-router.get("/course/:id", getLecturesByCourseId)
+router.get("/course/:courseId", getLecturesByCourseId)
 
 module.exports = router;

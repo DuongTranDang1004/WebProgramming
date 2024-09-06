@@ -14,10 +14,10 @@ const Course = require("../models/courseModel");
  *     Course:
  *       type: object
  *       properties:
- *         _id:
- *           type: integer
+ *         id:
+ *           type: string
  *           description: The auto-generated ID of the course
- *           example: 1
+ *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
  *         instructorId:
  *           type: integer
  *           description: The ID of the instructor teaching the course
@@ -62,9 +62,7 @@ const Course = require("../models/courseModel");
  *       500:
  *         description: Server error
  */
-
-//Get all
-const getCourses = async (req,res) => {
+const getCourses = async (req, res) => {
   try {
     const courses = await Course.find({})
       .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
@@ -74,7 +72,24 @@ const getCourses = async (req,res) => {
   }
 };
 
-//Get all course that is publish
+/**
+ * @swagger
+ * /courses/publish:
+ *   get:
+ *     summary: Get all published courses
+ *     tags: [Courses]
+ *     responses:
+ *       200:
+ *         description: List of all published courses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       500:
+ *         description: Server error
+ */
 const getIsPublishCourses = async (req, res) => {
   try {
     const courses = await Course.find({ isPublish: true })
@@ -85,7 +100,33 @@ const getIsPublishCourses = async (req, res) => {
   }
 }
 
-//Get all courses by instructor ID
+/**
+ * @swagger
+ * /courses/instructor/{id}:
+ *   get:
+ *     summary: Get all courses by instructor ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The instructor ID
+ *     responses:
+ *       200:
+ *         description: List of courses by instructor ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       404:
+ *         description: No courses found for the instructor
+ *       500:
+ *         description: Server error
+ */
 const getCoursesByInstructorID = async (req, res) => {
   try {
     const { id } = req.params;
@@ -166,11 +207,7 @@ const createCourse = async (req, res) => {
  */
 const getCourse = async (req, res) => {
   try {
-<<<<<<<<< Temporary merge branch 1
     const { id } = req.params;
-=========
-    const {id} = req.params;
->>>>>>>>> Temporary merge branch 2
     const course = await Course.findById(id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
@@ -220,11 +257,7 @@ const getCourse = async (req, res) => {
  */
 const updateCourse = async (req, res) => {
   try {
-<<<<<<<<< Temporary merge branch 1
     const { id } = req.params;
-    const course = await Course.findByIdAndUpdate(id, req.body, { new: true });
-=========
-    const {id} = req.params;
     const course = await Course.findByIdAndUpdate(id, req.body);
 
     if (!course) {

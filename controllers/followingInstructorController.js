@@ -1,6 +1,68 @@
 const FollowingInstructor = require("../models/followingInstructorModel");
 
+/**
+ * @swagger
+ * tags:
+ *   name: FollowingInstructor
+ *   description: API for FollowingInstructor
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     FollowingInstructor:
+ *       type: object
+ *       required:
+ *         - learnerId
+ *         - instructorId
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: The auto-generated ID of the following instructor record
+ *         learnerId:
+ *           type: string
+ *           description: The ID of the learner following the instructor
+ *           example: 60d0fe4f5311236168a105bb
+ *         instructorId:
+ *           type: string
+ *           description: The ID of the instructor being followed
+ *           example: 60d0fe4f5311236168a109da
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date when the following record was created
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date when the following record was last updated
+ *       example:
+ *         _id: 60d0fe4f5311236168a109ca
+ *         learnerId: 60d0fe4f5311236168a105bb
+ *         instructorId: 60d0fe4f5311236168a109da
+ *         createdAt: 2024-09-05T14:48:00.000Z
+ *         updatedAt: 2024-09-05T14:48:00.000Z
+ */
+
 //Get all
+/**
+ * @swagger
+ * /followingInstructors:
+ *   get:
+ *     summary: Get all following instructors
+ *     tags: [FollowingInstructors]
+ *     responses:
+ *       200:
+ *         description: A list of all following instructors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/FollowingInstructor'
+ *       500:
+ *         description: Server error
+ */
 const getFollowingInstructors = async (req,res) => {
   try {
     const followingInstructors = await FollowingInstructor.find({})
@@ -12,6 +74,33 @@ const getFollowingInstructors = async (req,res) => {
 }
 
 //Get all by learnerID
+/**
+ * @swagger
+ * /followingInstructors/learner/{id}:
+ *   get:
+ *     summary: Get all following instructors by learner ID
+ *     tags: [FollowingInstructors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Learner ID
+ *     responses:
+ *       200:
+ *         description: A list of following instructors for the learner
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/FollowingInstructor'
+ *       404:
+ *         description: No following instructor found
+ *       500:
+ *         description: Server error
+ */
 const getFollowingInstructorsByLearnerID = async (req,res) => {
   try {
     const {id} = req.params;
@@ -28,6 +117,29 @@ const getFollowingInstructorsByLearnerID = async (req,res) => {
 }
 
 //Get by ID
+/**
+ * @swagger
+ * /followingInstructors/{id}:
+ *   get:
+ *     summary: Get a following instructor by ID
+ *     tags: [FollowingInstructors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: FollowingInstructor ID
+ *     responses:
+ *       200:
+ *         description: A following instructor object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/FollowingInstructor'
+ *       500:
+ *         description: Server error
+ */
 const getFollowingInstructor = async (req,res) => {
   try {
     const {id} = req.params;
@@ -41,6 +153,28 @@ const getFollowingInstructor = async (req,res) => {
 
 
 //Create
+/**
+ * @swagger
+ * /followingInstructors:
+ *   post:
+ *     summary: Create a following instructor
+ *     tags: [FollowingInstructors]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/FollowingInstructor'
+ *     responses:
+ *       200:
+ *         description: Following instructor created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/FollowingInstructor'
+ *       500:
+ *         description: Server error
+ */
 const createFollowingInstructor = async (req,res) => {
   try {
     const followingInstructor = await FollowingInstructor.create(req.body);
@@ -51,6 +185,37 @@ const createFollowingInstructor = async (req,res) => {
 }
 
 //Update
+/**
+ * @swagger
+ * /followingInstructors/{id}:
+ *   put:
+ *     summary: Update a following instructor
+ *     tags: [FollowingInstructors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: FollowingInstructor ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/FollowingInstructor'
+ *     responses:
+ *       200:
+ *         description: Following instructor updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/FollowingInstructor'
+ *       404:
+ *         description: FollowingInstructor not found
+ *       500:
+ *         description: Server error
+ */
 const updateFollowingInstructor = async (req,res) => {
   try {
     const {id} = req.params;
@@ -68,6 +233,27 @@ const updateFollowingInstructor = async (req,res) => {
 }
 
 //Delete
+/**
+ * @swagger
+ * /followingInstructors/{id}:
+ *   delete:
+ *     summary: Delete a following instructor
+ *     tags: [FollowingInstructors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: FollowingInstructor ID
+ *     responses:
+ *       200:
+ *         description: FollowingInstructor deleted
+ *       404:
+ *         description: FollowingInstructor not found
+ *       500:
+ *         description: Server error
+ */
 const deleteFollowingInstructor = async (req,res) => {
   try {
     const {id} = req.params;

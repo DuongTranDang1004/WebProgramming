@@ -143,6 +143,36 @@ const createInstructor = async (req, res) => {
 };
 
 //Update
+/**
+ * @swagger
+ * /instructors/{id}:
+ *   put:
+ *     summary: Update an existing instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Instructor'
+ *     responses:
+ *       200:
+ *         description: Updated instructor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Instructor'
+ *       404:
+ *         description: Instructor not found
+ *       500:
+ *         description: Internal server error
+ */
 const updateInstructor = async (req, res) => {
   try {
     const { id } = req.param;
@@ -158,6 +188,26 @@ const updateInstructor = async (req, res) => {
 };
 
 //Delete
+/**
+ * @swagger
+ * /instructors/{id}:
+ *   delete:
+ *     summary: Delete an instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Instructor deleted successfully
+ *       404:
+ *         description: Instructor not found
+ *       500:
+ *         description: Internal server error
+ */
 const deleteInstructor = async (req, res) => {
   try {
     const { id } = req.params;

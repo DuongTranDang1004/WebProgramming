@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Lecture = require("../models/lectureModel");
 
 /**
@@ -96,13 +97,57 @@ const getLecture = async (req, res) => {
   }
 };
 
+
 // Function to get lectures by courseId in index order
+/**
+ * @swagger
+ * /lectures/course/{courseId}:
+ *   get:
+ *     summary: Get all lectures by course ID
+ *     tags: [Lectures]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The course ID to get lectures for
+ *     responses:
+ *       200:
+ *         description: List of lectures for the specified course
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: The ID of the lecture
+ *                   courseId:
+ *                     type: string
+ *                     description: The ID of the course the lecture belongs to
+ *                   title:
+ *                     type: string
+ *                     description: The title of the lecture
+ *                   index:
+ *                     type: integer
+ *                     description: The index of the lecture in the course
+ *                   content:
+ *                     type: string
+ *                     description: The content of the lecture
+ *       404:
+ *         description: No lectures found for the specified course
+ *       500:
+ *         description: Server error
+ */
 const getLecturesByCourseId = async (req, res) => {
   try {
     const { courseId } = req.params;  // Extract courseId from request parameters
 
     // Find lectures by courseId and sort by index
-    const lectures = await Lecture.find({ courseId: mongoose.Types.ObjectId(courseId) })
+    const lectures = await Lecture.find({ courseId: new mongoose.Types.ObjectId(courseId) })
       .sort({ index: 1 });
 
     if (!lectures || lectures.length === 0) {
