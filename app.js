@@ -44,23 +44,16 @@ const generalPagesRoutes = require("./routes/generalPagesRoute"); // Import the 
 
 // Using the controllers as routers
 // app.use("/auth", authRoutes); //authenication has not been done yet
-app.use("/boughtCourses", boughtCourseRoutes);
-app.use("/contactForms", contactFormRoutes);
-app.use("/courses", courseRoutes);
-app.use("/instructors", instructorRoutes);
-app.use("/learners", learnerRoutes);
-app.use("/platformAdmins", platformAdminRoutes);
-app.use("/lectures", lectureRoutes);
-app.use("/favoritesCourses", favoriteCourseRoutes);
-app.use("/followingInstructors", followingInstructorRoutes);
-app.use("/memberships", membershipRoutes);
-// app.use("/auth", authRoutes); //authenication has not been done yet
 app.use("/api/boughtCourses", boughtCourseRoutes);
 app.use("/api/contactForms", contactFormRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/instructors", instructorRoutes);
 app.use("/api/learners", learnerRoutes);
 app.use("/api/platformAdmins", platformAdminRoutes);
+app.use("/api/lectures", lectureRoutes);
+app.use("/api/favoritesCourses", favoriteCourseRoutes);
+app.use("/api/followingInstructors", followingInstructorRoutes);
+app.use("/api/memberships", membershipRoutes);
 app.use("/api/auth", authRoutes);
 
 // /API: backend end router
