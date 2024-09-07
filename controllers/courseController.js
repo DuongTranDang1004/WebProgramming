@@ -5,66 +5,45 @@ const Course = require("../models/courseModel");
  *   - name: Courses
  *     description: API for managing courses
  */
-
 /**
  * @swagger
  * components:
- *   schemas:
- *     Course:
- *       type: object
- *       properties:
- *         id:
+ *  schemas:
+ *    FavoriteCourse:
+ *      type: object
+ *      properties:
+ *        _id:
+ *          type: string
+ *          description: The auto-generated ID of the favorite course
+ *          example: 66d94db8191a5611c1f85f95
+ *        learnerId:
  *           type: string
- *           description: The auto-generated ID of the course
- *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
- *         instructorId:
- *           type: string
- *           format: uuid
- *           description: The ID of the instructor teaching the course
- *           example: "60c72b2f9b1e8b6a54b7b16a"
- *         category:
- *           type: string
- *           description: The category of the course
- *           enum:
- *             - front-end
- *             - back-end
- *             - data science
- *             - AI
- *             - cyber security
- *             - testing
- *           example: AI
- *         name:
- *           type: string
- *           description: The name of the course
- *           example: "Introduction to Artificial Intelligence"
- *         thumbnailImage:
- *           type: string
- *           description: The URL of the course's thumbnail image
- *           example: "https://example.com/ai-course-thumbnail.jpg"
- *         price:
- *           type: number
- *           format: float
- *           description: The price of the course
- *           example: 199.99
- *         description:
- *           type: string
- *           description: A brief description of the course
- *           example: "This course introduces the basics of AI, including machine learning and neural networks."
- *         createTime:
- *           type: string
- *           format: date-time
- *           description: The creation time of the course record
- *           example: "2024-09-05T14:48:00.000Z"
- *         isPublish:
- *           type: boolean
- *           description: Indicates whether the course is published or not
- *           example: false
- *       required:
- *         - name
- *         - category
- *         - price
- *         - description
- *         - instructorId
+ *           description: The ID of the learner who favorited the course
+ *           example: 66d94db8191a5611c1f85e5e
+ *        courseId:
+ *           type: object
+ *            properties:
+ *              _id:
+ *                type: string
+ *                description: The ID of the course
+ *                example: 66d94db8191a5611c1f85e6b
+ *              category:
+ *                type: string
+ *                description: The category of the course
+ *                example: data science
+ *              name:
+ *                type: string
+ *                description: The name of the course
+ *                example: Luxurious Frozen Chicken
+ *              price:
+ *                type: number
+ *                format: float
+ *                description: The price of the course
+ *                example: 343
+ *              description:
+ *                type: string
+ *                description: A brief description of the course
+ *                example: Delego cibo turbo vinum. Conatus consuasor compello. Allatus decimus accusamus terga culpa absorbeo assumenda.
  */
 
 /**
