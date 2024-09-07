@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Define the schema for the Lectures collection
 const LectureSchema = new mongoose.Schema({
   courseId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Course' 
+    ref: 'Courses' 
   },
   name: {
     type: String,

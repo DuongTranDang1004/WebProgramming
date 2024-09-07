@@ -29,8 +29,8 @@ const CoursesSchema = new mongoose.Schema({
     required: true,
   },
   instructorId: {
-    type: Number,
-    ref: "Instructor",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Instructors",
     required: true,
   },
   createTime: {

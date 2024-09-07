@@ -1,10 +1,9 @@
 const Course = require("../models/courseModel");
-
 /**
  * @swagger
  * tags:
- *   name: Courses
- *   description: API for managing courses
+ *   - name: Courses
+ *     description: API for managing courses
  */
 
 /**
@@ -14,34 +13,58 @@ const Course = require("../models/courseModel");
  *     Course:
  *       type: object
  *       properties:
- *         _id:
- *           type: integer
+ *         id:
+ *           type: string
  *           description: The auto-generated ID of the course
- *           example: 1
+ *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
  *         instructorId:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *           description: The ID of the instructor teaching the course
- *           example: 1
+ *           example: "60c72b2f9b1e8b6a54b7b16a"
  *         category:
  *           type: string
  *           description: The category of the course
- *           example: "front-end"
+ *           enum:
+ *             - front-end
+ *             - back-end
+ *             - data science
+ *             - AI
+ *             - cyber security
+ *             - testing
+ *           example: AI
  *         name:
  *           type: string
  *           description: The name of the course
- *           example: "Introduction to Front-End Development"
+ *           example: "Introduction to Artificial Intelligence"
  *         thumbnailImage:
  *           type: string
  *           description: The URL of the course's thumbnail image
- *           example: "https://example.com/course-thumbnail.jpg"
+ *           example: "https://example.com/ai-course-thumbnail.jpg"
  *         price:
  *           type: number
+ *           format: float
  *           description: The price of the course
- *           example: 99.99
+ *           example: 199.99
  *         description:
  *           type: string
  *           description: A brief description of the course
- *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
+ *           example: "This course introduces the basics of AI, including machine learning and neural networks."
+ *         createTime:
+ *           type: string
+ *           format: date-time
+ *           description: The creation time of the course record
+ *           example: "2024-09-05T14:48:00.000Z"
+ *         isPublish:
+ *           type: boolean
+ *           description: Indicates whether the course is published or not
+ *           example: false
+ *       required:
+ *         - name
+ *         - category
+ *         - price
+ *         - description
+ *         - instructorId
  */
 
 /**
@@ -62,8 +85,6 @@ const Course = require("../models/courseModel");
  *       500:
  *         description: Server error
  */
-
-//Get all
 const getCourses = async (req, res) => {
   try {
     const courses = await Course.find({}).populate(
@@ -76,7 +97,24 @@ const getCourses = async (req, res) => {
   }
 };
 
-//Get all course that is publish
+/**
+ * @swagger
+ * /courses/publish:
+ *   get:
+ *     summary: Get all published courses
+ *     tags: [Courses]
+ *     responses:
+ *       200:
+ *         description: List of all published courses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       500:
+ *         description: Server error
+ */
 const getIsPublishCourses = async (req, res) => {
   try {
     const courses = await Course.find({ isPublish: true }).populate(
@@ -89,7 +127,33 @@ const getIsPublishCourses = async (req, res) => {
   }
 };
 
-//Get all courses by instructor ID
+/**
+ * @swagger
+ * /courses/instructor/{id}:
+ *   get:
+ *     summary: Get all courses by instructor ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The instructor ID
+ *     responses:
+ *       200:
+ *         description: List of courses by instructor ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       404:
+ *         description: No courses found for the instructor
+ *       500:
+ *         description: Server error
+ */
 const getCoursesByInstructorID = async (req, res) => {
   try {
     const { id } = req.params;
@@ -111,6 +175,8 @@ const getCoursesByInstructorID = async (req, res) => {
 
 /**
  * @swagger
+ * /**
+ * @swagger
  * /courses:
  *   post:
  *     summary: Create a new course
@@ -122,7 +188,7 @@ const getCoursesByInstructorID = async (req, res) => {
  *           schema:
  *             $ref: '#/components/schemas/Course'
  *           example:
- *             instructorId: 1
+ *             instructorId: "60c72b2f9b1e8b6a54b7b16a"
  *             category: "AI"
  *             name: "Introduction to Artificial Intelligence"
  *             thumbnailImage: "https://example.com/ai-course-thumbnail.jpg"
@@ -175,7 +241,6 @@ const createCourse = async (req, res) => {
 const getCourse = async (req, res) => {
   try {
     const { id } = req.params;
-
     const course = await Course.findById(id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
@@ -226,7 +291,7 @@ const getCourse = async (req, res) => {
 const updateCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const course = await Course.findByIdAndUpdate(id, req.body, { new: true });
+    const course = await Course.findByIdAndUpdate(id, req.body);
 
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
