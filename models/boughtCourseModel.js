@@ -5,16 +5,16 @@ const Schema = mongoose.Schema;
 
 const BoughtCoursesSchema = new Schema({
     _id: {
-      type: Number,  // Use Number since your _id is numeric
+      type: mongoose.Schema.Types.ObjectId,  // Use Number since your _id is numeric
       required: true
     },
     learnerId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Learners',
       required: true
     },
     courseId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Courses',
       required: true
     },
@@ -26,7 +26,7 @@ const BoughtCoursesSchema = new Schema({
     lectureCompletionStatus: [
       {
         lectureId: {
-          type: Number,
+          type: String,
           ref: 'Lectures',
           required: true
         },
