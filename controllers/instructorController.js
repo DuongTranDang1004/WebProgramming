@@ -1,5 +1,7 @@
 const Instructor = require("../models/instructorModel");
 const Course = require("../models/courseModel");
+const BoughtCourse = require("../models/boughtCourseModel");
+//const Membership = require("../models/membershipModel");
 
 /**
  * @swagger
@@ -227,6 +229,82 @@ const getCoursesByInstructorId = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /instructors/{id}/earning:
+ *   get:
+ *     summary: Get total earnings of an instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Total earnings of the instructor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalSales:
+ *                   type: number
+ *                   description: The total amount of sales
+ *                 commissionRate:
+ *                   type: number
+ *                   description: The commission rate applied
+ *                 earnings:
+ *                   type: number
+ *                   description: The total earnings after commission
+ *       404:
+ *         description: Instructor or sales data not found
+ *       500:
+ *         description: Internal server error
+ */
+const getInstructorEarnings = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ message: 'Instructor ID is required' });
+  }
+
+  try {
+    // Check if the instructor exists
+    const instructor = await Instructor.findById(id);
+    if (!instructor) {
+      return res.status(404).json({ message: "Instructor not found" });
+    }
+
+    // Fetch all bought courses related to the instructor
+    const boughtCourses = await BoughtCourse.find({ instructorId: id });
+
+    if (boughtCourses.length === 0) {
+      return res.status(404).json({ message: "No courses sold by this instructor" });
+    }
+
+    // Calculate total sales
+    const totalSales = boughtCourses.reduce((sum, course) => sum + course.price, 0);
+
+    // Get the latest membership commission rate
+    //const latestMembership = await Membership.findOne().sort({ createdAt: -1 });
+    const latestMembership = 0;
+    const commissionRate = latestMembership ? latestMembership.commissionRate : 0.10; // Default to 10% if no membership found
+
+    // Calculate earnings after applying the commission
+    const earnings = totalSales * (1 - commissionRate);
+
+    res.status(200).json({
+      totalSales,
+      commissionRate,
+      earnings
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getInstructors,
   getInstructorById,
@@ -234,4 +312,5 @@ module.exports = {
   updateInstructor,
   deleteInstructor,
   getCoursesByInstructorId,
+  getInstructorEarnings
 };

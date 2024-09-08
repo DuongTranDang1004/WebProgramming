@@ -38,6 +38,8 @@ const courseRoutes = require("./routes/courseRoute");
 const instructorRoutes = require("./routes/instructorRoute");
 const learnerRoutes = require("./routes/learnerRoute");
 const platformAdminRoutes = require("./routes/platformAdminRoute");
+const transactionRoutes = require('./routes/transactionRoute');
+const cartRoutes = require('./routes/cartRoute');
 
 // API paths (backend/server)
 // app.use("/auth", authRoutes); //authenication has not been done yet
@@ -47,6 +49,8 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/instructors", instructorRoutes);
 app.use("/api/learners", learnerRoutes);
 app.use("/api/platformAdmins", platformAdminRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/cart', cartRoutes);
 
 // /API: backend end router
 
