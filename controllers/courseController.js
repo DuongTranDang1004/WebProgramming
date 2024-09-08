@@ -1,47 +1,49 @@
 const Course = require("../models/courseModel");
-
 /**
  * @swagger
  * tags:
- *   name: Courses
- *   description: API for managing courses
+ *   - name: Courses
+ *     description: API for managing courses
  */
-
 /**
  * @swagger
  * components:
- *   schemas:
- *     Course:
- *       type: object
- *       properties:
- *         id:
+ *  schemas:
+ *    FavoriteCourse:
+ *      type: object
+ *      properties:
+ *        _id:
+ *          type: string
+ *          description: The auto-generated ID of the favorite course
+ *          example: 66d94db8191a5611c1f85f95
+ *        learnerId:
  *           type: string
- *           description: The auto-generated ID of the course
- *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
- *         instructorId:
- *           type: integer
- *           description: The ID of the instructor teaching the course
- *           example: 1
- *         category:
- *           type: string
- *           description: The category of the course
- *           example: "front-end"
- *         name:
- *           type: string
- *           description: The name of the course
- *           example: "Introduction to Front-End Development"
- *         thumbnailImage:
- *           type: string
- *           description: The URL of the course's thumbnail image
- *           example: "https://example.com/course-thumbnail.jpg"
- *         price:
- *           type: number
- *           description: The price of the course
- *           example: 99.99
- *         description:
- *           type: string
- *           description: A brief description of the course
- *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
+ *           description: The ID of the learner who favorited the course
+ *           example: 66d94db8191a5611c1f85e5e
+ *        courseId:
+ *           type: object
+ *            properties:
+ *              _id:
+ *                type: string
+ *                description: The ID of the course
+ *                example: 66d94db8191a5611c1f85e6b
+ *              category:
+ *                type: string
+ *                description: The category of the course
+ *                example: data science
+ *              name:
+ *                type: string
+ *                description: The name of the course
+ *                example: Luxurious Frozen Chicken
+ *              price:
+ *                type: number
+ *                format: float
+ *                description: The price of the course
+ *                example: 343
+ *              description:
+ *                type: string
+ *                description: A brief description of the course
+ *                example: Delego cibo turbo vinum. Conatus consuasor compello. Allatus decimus accusamus terga culpa absorbeo assumenda.
  */
 
 /**
@@ -64,7 +66,10 @@ const Course = require("../models/courseModel");
  */
 const getCourses = async (req, res) => {
   try {
-    courses = await Course.find({});
+    const courses = await Course.find({}).populate(
+      "instructorId",
+      "profilePicture firstName lastName jobTitle Bio"
+    );
     res.status(200).json(courses);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -72,6 +77,84 @@ const getCourses = async (req, res) => {
 };
 
 /**
+ * @swagger
+ * /courses/publish:
+ *   get:
+ *     summary: Get all published courses
+ *     tags: [Courses]
+ *     responses:
+ *       200:
+ *         description: List of all published courses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       500:
+ *         description: Server error
+ */
+const getIsPublishCourses = async (req, res) => {
+  try {
+    const courses = await Course.find({ isPublish: true }).populate(
+      "instructorId",
+      "profilePicture firstName lastName jobTitle Bio"
+    );
+    res.status(200).json(courses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * @swagger
+ * /courses/instructor/{id}:
+ *   get:
+ *     summary: Get all courses by instructor ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The instructor ID
+ *     responses:
+ *       200:
+ *         description: List of courses by instructor ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       404:
+ *         description: No courses found for the instructor
+ *       500:
+ *         description: Server error
+ */
+const getCoursesByInstructorID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const courses = await Course.find({ instructorId: id }).populate(
+      "instructorId",
+      "profilePicture firstName lastName jobTitle Bio"
+    );
+    if (courses.length > 0) {
+      return res.status(200).json(courses);
+    } else {
+      return res
+        .status(200)
+        .json({ message: "No courses for this instructor" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * @swagger
+ * /**
  * @swagger
  * /courses:
  *   post:
@@ -84,7 +167,7 @@ const getCourses = async (req, res) => {
  *           schema:
  *             $ref: '#/components/schemas/Course'
  *           example:
- *             instructorId: 1
+ *             instructorId: "60c72b2f9b1e8b6a54b7b16a"
  *             category: "AI"
  *             name: "Introduction to Artificial Intelligence"
  *             thumbnailImage: "https://example.com/ai-course-thumbnail.jpg"
@@ -241,4 +324,6 @@ module.exports = {
   createCourse,
   updateCourse,
   deleteCourse,
+  getIsPublishCourses,
+  getCoursesByInstructorID,
 };

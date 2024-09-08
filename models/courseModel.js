@@ -29,10 +29,28 @@ const CoursesSchema = new mongoose.Schema({
     required: true,
   },
   instructorId: {
-    type: Number,
-    ref: "Instructor",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Instructors",
     required: true,
   },
+  createTime: {
+    type: Date,
+    default: Date.now  // Automatically sets the current date and time when a new document is created
+  },
+  isPublish: {
+    type: Boolean,
+    default: false,
+    validate: {
+      validator: function (value) {
+        // Prevent changing isPublish from true to false
+        if (this.isPublish && !value) {
+          return false;
+        }
+        return true;
+      },
+      message: "isPublish cannot be set to false once it has been set to true"
+    }
+  }
 });
 
 const Courses = mongoose.model("Courses", CoursesSchema, "Courses");

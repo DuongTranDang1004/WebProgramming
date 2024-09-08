@@ -1,0 +1,86 @@
+/* Our theme primary colors, ensure high contrast:  */
+/* #6D28D9 (purple) , #FFFFFF (white), #1F2937 (dark blue) */
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ffffff; /* White background for the main content */
+  color: #1f2937; /* Dark blue text color */
+}
+#logo {
+  width: 50px;
+  height: 50px;
+  /* //set this to be always eqaul to the height of the nav bar  */
+}
+#topNav {
+  background-color: #6d28d9;
+}
+
+.nav-link {
+  color: white;
+}
+.btn-outline-success {
+  color: white;
+}
+
+/* 
+Main content style */
+
+/* Input Form */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #1f2937; /* Dark blue text color */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #6d28d9; /* Purple border */
+  border-radius: 4px;
+  background-color: #ffffff; /* White input background */
+  color: #1f2937; /* Dark blue text color */
+}
+
+/* Footer Styling */
+footer {
+  width: 100%;
+  color: #ffffff; /* White text color */
+  padding: 20px;
+  text-align: center;
+}
+footer div {
+  width: 100%;
+}
+footer a {
+  color: #ffffff; /* White text color for footer links */
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+
+/* Here are some areas where different UI component arrangements may be needed based on the device type:
+
+Navigation Menu Bar:
+Desktop Computers: Always-visible horizontal navigation menu.
+Tablets/Smartphones: Alternating between visible and hidden vertical navigation menu.
+
+Input Form:
+Desktop Computers: A label and its linked input field must be positioned on the same row.
+Tablets/Smartphones: The label and input field should be placed on different rows.
+
+Layout:
+Desktop Computers: Multi-column layout. */
+/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+
+/* For Smartphones (767px or lower) */

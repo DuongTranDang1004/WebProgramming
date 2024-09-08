@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PlatformAdminsSchema = new Schema({
-  _id: {
-    type: Number, // Assuming the _id is a number based on your sample data
-    required: true
-  },
   email: {
     type: String,
     required: true,

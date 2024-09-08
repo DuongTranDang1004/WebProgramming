@@ -1,7 +1,7 @@
 const Instructor = require("../models/instructorModel");
 const Course = require("../models/courseModel");
 const BoughtCourse = require("../models/boughtCourseModel");
-//const Membership = require("../models/membershipModel");
+const Membership = require("../models/membershipModel");
 
 /**
  * @swagger
@@ -19,49 +19,34 @@ const BoughtCourse = require("../models/boughtCourseModel");
  *       properties:
  *         _id:
  *           type: integer
- *           description: The auto-generated ID of the instructor
+ *           description: The auto-generated ID of the course
  *           example: 1
- *         email:
+ *         instructorId:
+ *           type: integer
+ *           description: The ID of the instructor teaching the course
+ *           example: 1
+ *         category:
  *           type: string
- *           description: The email of the instructor
- *           example: "jane.doe@example.com"
- *         password:
+ *           description: The category of the course
+ *           example: "front-end"
+ *         name:
  *           type: string
- *           description: The hashed password of the instructor
- *           example: "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36Pz7dp62ptDXY1dRg/IXHy"
- *         profilePicture:
+ *           description: The name of the course
+ *           example: "Introduction to Front-End Development"
+ *         thumbnailImage:
  *           type: string
- *           description: The URL of the instructor's profile picture
- *           example: "https://example.com/images/profile.jpg"
- *         firstName:
+ *           description: The URL of the course's thumbnail image
+ *           example: "https://example.com/course-thumbnail.jpg"
+ *         price:
+ *           type: number
+ *           description: The price of the course
+ *           example: 99.99
+ *         description:
  *           type: string
- *           description: The first name of the instructor
- *           example: "Jane"
- *         lastName:
- *           type: string
- *           description: The last name of the instructor
- *           example: "Doe"
- *         address:
- *           type: string
- *           description: The street address of the instructor
- *           example: "456 Elm St"
- *         city:
- *           type: string
- *           description: The city of the instructor
- *           example: "Anytown"
- *         zipcode:
- *           type: string
- *           description: The postal/zip code of the instructor
- *           example: "67890"
- *         country:
- *           type: string
- *           description: The country code of the instructor
- *           example: "US"
- *         phone:
- *           type: string
- *           description: The phone number of the instructor
- *           example: "+1 987-654-3210"
+ *           description: A brief description of the course
+ *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
  */
+
 
 /**
  * @swagger
@@ -101,7 +86,7 @@ const getInstructors = async (req, res) => {
  *         in: path
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Instructor details
@@ -117,6 +102,7 @@ const getInstructors = async (req, res) => {
 const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
+    const { id } = req.params;
     const instructor = await Instructor.findById(id);
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
@@ -159,6 +145,36 @@ const createInstructor = async (req, res) => {
 };
 
 //Update
+/**
+ * @swagger
+ * /instructors/{id}:
+ *   put:
+ *     summary: Update an existing instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Instructor'
+ *     responses:
+ *       200:
+ *         description: Updated instructor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Instructor'
+ *       404:
+ *         description: Instructor not found
+ *       500:
+ *         description: Internal server error
+ */
 const updateInstructor = async (req, res) => {
   try {
     const { id } = req.param;
@@ -174,9 +190,29 @@ const updateInstructor = async (req, res) => {
 };
 
 //Delete
+/**
+ * @swagger
+ * /instructors/{id}:
+ *   delete:
+ *     summary: Delete an instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Instructor deleted successfully
+ *       404:
+ *         description: Instructor not found
+ *       500:
+ *         description: Internal server error
+ */
 const deleteInstructor = async (req, res) => {
   try {
-    const { id } = req.param;
+    const { id } = req.params;
     const instructor = await Instructor.findByIdAndUpdate(id);
 
     if (!instructor) {
@@ -199,7 +235,7 @@ const deleteInstructor = async (req, res) => {
  *         in: path
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: List of courses for the instructor
@@ -288,9 +324,8 @@ const getInstructorEarnings = async (req, res) => {
     const totalSales = boughtCourses.reduce((sum, course) => sum + course.price, 0);
 
     // Get the latest membership commission rate
-    //const latestMembership = await Membership.findOne().sort({ createdAt: -1 });
-    const latestMembership = 0;
-    const commissionRate = latestMembership ? latestMembership.commissionRate : 0.10; // Default to 10% if no membership found
+    const latestMembership = await Membership.findOne().sort({ createdAt: -1 });
+    const commissionRate = latestMembership ? latestMembership.commissionFee : 0.10; // Default to 10% if no membership found
 
     // Calculate earnings after applying the commission
     const earnings = totalSales * (1 - commissionRate);

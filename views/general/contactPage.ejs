@@ -1,0 +1,225 @@
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<div id="contact" class="contact-area section-padding">
+  <div class="container">
+    <div class="section-title text-center">
+      <h1>Get in Touch</h1>
+      <p>We love to hear from you</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="contact">
+          <form
+            class="form"
+            name="enq"
+            method="post"
+            action="contact.php"
+            onsubmit="return validateForm();"
+          >
+            <div class="row">
+              <!-- Contact Purpose -->
+              <div class="form-group col-md-12">
+                <label for="contactPurpose">Contact Purpose</label>
+                <select name="contactPurpose" class="form-control" required>
+                  <option value="general">General Inquiry</option>
+                  <option value="support">Support</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Name -->
+              <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+
+              <!-- Email -->
+              <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+
+              <!-- Phone -->
+              <div class="form-group col-md-12">
+                <label for="phone">Phone (optional)</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  class="form-control"
+                  placeholder="Phone"
+                  pattern="[0-9]{9,11}"
+                />
+              </div>
+
+              <!-- Preferred Contact Method -->
+              <div id="preferred-contact-method" class="form-group col-md-12">
+                <label> Preferred Contact Method </label><br />
+                <div class="radio-group">
+                  <input
+                    type="radio"
+                    name="contactMethod"
+                    value="email"
+                    required
+                  />
+                  Email
+                  <input
+                    type="radio"
+                    name="contactMethod"
+                    value="phone"
+                    required
+                  />
+                  Phone
+                </div>
+              </div>
+
+              <!--Prefered Contact Day(s)  -->
+              <div id="preferred-contact-days">
+                <span>Prefered Contact Day(s)</span>
+
+                <form>
+                  <div class="checkbox-div">
+                    <label for="monday">Monday</label>
+                    <input
+                      type="checkbox"
+                      id="monday"
+                      name="days"
+                      value="monday"
+                    />
+                  </div>
+
+                  <div class="checkbox-div">
+                    <label for="tuesday">Tuesday</label>
+                    <input
+                      type="checkbox"
+                      id="tuesday"
+                      name="days"
+                      value="tuesday"
+                    />
+                  </div>
+
+                  <div class="checkbox-div">
+                    <label for="wednesday">Wednesday</label>
+                    <input
+                      type="checkbox"
+                      id="wednesday"
+                      name="days"
+                      value="wednesday"
+                    />
+                  </div>
+
+                  <div class="checkbox-div">
+                    <label for="thursday">Thursday</label>
+                    <input
+                      type="checkbox"
+                      id="thursday"
+                      name="days"
+                      value="thursday"
+                    />
+                  </div>
+
+                  <div class="checkbox-div">
+                    <label for="friday">Friday</label>
+                    <input
+                      type="checkbox"
+                      id="friday"
+                      name="days"
+                      value="friday"
+                    />
+                  </div>
+
+                  <div class="checkbox-div">
+                    <label for="saturday">Saturday</label>
+                    <input
+                      type="checkbox"
+                      id="saturday"
+                      name="days"
+                      value="saturday"
+                    />
+                  </div>
+
+                  <div class="checkbox-div">
+                    <label for="sunday">Sunday</label>
+                    <input
+                      type="checkbox"
+                      id="sunday"
+                      name="days"
+                      value="sunday"
+                    />
+                  </div>
+                </form>
+              </div>
+
+              <!-- Message -->
+              <div id="message-section " class="form-group col-md-12">
+                <label for="message">Message</label>
+                <textarea
+                  rows="6"
+                  name="message"
+                  class="form-control"
+                  placeholder="Your Message"
+                  minlength="50"
+                  maxlength="500"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Buttons -->
+              <div class="col-md-12 text-center">
+                <button type="reset" class="btn btn-contact-bg">Clear</button>
+                <button
+                  type="submit"
+                  value="Send message"
+                  name="submit"
+                  class="btn btn-contact-bg"
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <!-- Address Information -->
+        <div class="single_address">
+          <i class="fa fa-map-marker"></i>
+          <h4>Our Address</h4>
+          <p>702 Nguyen Van Linh, Saigon</p>
+        </div>
+        <div class="single_address">
+          <i class="fa fa-envelope"></i>
+          <h4>Send your message</h4>
+          <p>ITLearning@gmail.com</p>
+        </div>
+        <div class="single_address">
+          <i class="fa fa-phone"></i>
+          <h4>Call us on</h4>
+          <p>(+1) 517 397 7100</p>
+        </div>
+        <div class="single_address">
+          <i class="fa fa-clock-o"></i>
+          <h4>Work Time</h4>
+          <p>Mon - Fri: 08.00 - 16.00. <br />Sat: 10.00 - 14.00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- source: https://www.bootdey.com/snippets/view/Get-in-Touch-form -->

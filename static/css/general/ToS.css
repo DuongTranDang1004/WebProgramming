@@ -1,0 +1,27 @@
+/* For desktops: 3 columns */
+@media (min-width: 1200px) {
+  .multi-column {
+    column-count: 3;
+    column-gap: 40px;
+  }
+}
+
+/* For tablets: 2 columns */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .multi-column {
+    column-count: 2;
+    column-gap: 20px;
+  }
+}
+
+/* For smartphones: 1 column */
+@media (max-width: 767px) {
+  .multi-column {
+    column-count: 1;
+  }
+}
+
+h1,
+h3 {
+  color: #007bff;
+}
