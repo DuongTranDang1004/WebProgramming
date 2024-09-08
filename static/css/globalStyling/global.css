@@ -78,6 +78,23 @@ form.d-flex .form-control {
   z-index: 1000; /* Ensure it's on top */
 }
 
+.d-flex {
+  align-items: center;
+  justify-content: flex-end;
+}
+#nav-search-input.me-2 {
+  height: 50px !important;
+  font-size: larger;
+}
+
+#nav-button {
+  height: 50px;
+  font-size: larger;
+}
+.nav-item {
+  font-size: larger !important;
+}
+
 /* Input Form */
 .form-group {
   margin-bottom: 15px;
