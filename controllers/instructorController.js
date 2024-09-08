@@ -47,7 +47,6 @@ const Membership = require("../models/membershipModel");
  *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
  */
 
-
 /**
  * @swagger
  * /instructors:
@@ -68,7 +67,10 @@ const Membership = require("../models/membershipModel");
  */
 const getInstructors = async (req, res) => {
   try {
-    const instructors = await Instructor.find({});
+    const instructors = await Instructor.find({}).populate(
+      "membershipId",
+      "planName planType"
+    );
     res.status(200).json(instructors);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -103,7 +105,10 @@ const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
     const { id } = req.params;
-    const instructor = await Instructor.findById(id);
+    const instructor = await Instructor.findById(id).populate(
+      "membershipId",
+      "planName planType"
+    );
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -303,7 +308,7 @@ const getInstructorEarnings = async (req, res) => {
   const { id } = req.params;
 
   if (!id) {
-    return res.status(400).json({ message: 'Instructor ID is required' });
+    return res.status(400).json({ message: "Instructor ID is required" });
   }
 
   try {
@@ -317,15 +322,22 @@ const getInstructorEarnings = async (req, res) => {
     const boughtCourses = await BoughtCourse.find({ instructorId: id });
 
     if (boughtCourses.length === 0) {
-      return res.status(404).json({ message: "No courses sold by this instructor" });
+      return res
+        .status(404)
+        .json({ message: "No courses sold by this instructor" });
     }
 
     // Calculate total sales
-    const totalSales = boughtCourses.reduce((sum, course) => sum + course.price, 0);
+    const totalSales = boughtCourses.reduce(
+      (sum, course) => sum + course.price,
+      0
+    );
 
     // Get the latest membership commission rate
     const latestMembership = await Membership.findOne().sort({ createdAt: -1 });
-    const commissionRate = latestMembership ? latestMembership.commissionFee : 0.10; // Default to 10% if no membership found
+    const commissionRate = latestMembership
+      ? latestMembership.commissionFee
+      : 0.1; // Default to 10% if no membership found
 
     // Calculate earnings after applying the commission
     const earnings = totalSales * (1 - commissionRate);
@@ -333,7 +345,7 @@ const getInstructorEarnings = async (req, res) => {
     res.status(200).json({
       totalSales,
       commissionRate,
-      earnings
+      earnings,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -347,5 +359,5 @@ module.exports = {
   updateInstructor,
   deleteInstructor,
   getCoursesByInstructorId,
-  getInstructorEarnings
+  getInstructorEarnings,
 };

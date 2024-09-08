@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 const Lecture = require("../models/lectureModel");
+const mongoose = require("mongoose");
 
 /**
  * @swagger
@@ -128,7 +128,6 @@ const getLecture = async (req, res) => {
   }
 };
 
-
 // Function to get lectures by courseId in index order
 /**
  * @swagger
@@ -175,14 +174,17 @@ const getLecture = async (req, res) => {
  */
 const getLecturesByCourseId = async (req, res) => {
   try {
-    const { courseId } = req.params;  // Extract courseId from request parameters
+    const { courseId } = req.params; // Extract courseId from request parameters
 
     // Find lectures by courseId and sort by index
-    const lectures = await Lecture.find({ courseId: new mongoose.Types.ObjectId(courseId) })
-      .sort({ index: 1 });
+    const lectures = await Lecture.find({ courseId: courseId }).sort({
+      index: 1,
+    });
 
     if (!lectures || lectures.length === 0) {
-      return res.status(404).json({ message: 'No lectures found for this course' });
+      return res
+        .status(404)
+        .json({ message: "No lectures found for this course" });
     }
 
     return res.status(200).json(lectures);
@@ -221,7 +223,7 @@ const createLecture = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-}
+};
 
 /**
  * @swagger
@@ -310,5 +312,5 @@ module.exports = {
   createLecture,
   updateLecture,
   deleteLecture,
-  getLecturesByCourseId
+  getLecturesByCourseId,
 };
