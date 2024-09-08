@@ -13,6 +13,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+/* 
+Main content style */
 main {
   /* flex-grow: 1; */
   flex: 1;
@@ -21,6 +23,7 @@ main {
   height: 60vh;
 }
 
+/* Header Style */
 header {
   height: 10vh;
 }
@@ -71,8 +74,9 @@ form.d-flex .form-control {
   max-width: 300px; /* Set a reasonable maximum width */
 }
 
-/* 
-Main content style */
+.navbar-collapse {
+  z-index: 1000; /* Ensure it's on top */
+}
 
 /* Input Form */
 .form-group {
