@@ -38,6 +38,8 @@ const boughtCourseRoutes = require("./routes/boughtCourseRoute");
 const contactFormRoutes = require("./routes/contactFormRoute");
 const learnerRoutes = require("./routes/learnerRoute");
 const platformAdminRoutes = require("./routes/platformAdminRoute");
+const transactionRoutes = require('./routes/transactionRoute');
+const cartRoutes = require('./routes/cartRoute');
 const membershipRoutes = require("./routes/membershipRoute");
 const authRoutes = require("./routes/authenticateRoute");
 const generalPagesRoutes = require("./routes/generalPagesRoute");
@@ -63,6 +65,8 @@ app.use("/api/instructors", instructorRoutes);
 app.use("/api/learners", learnerRoutes);
 app.use("/api/platformAdmins", platformAdminRoutes);
 app.use("/api/auth", authRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/cart', cartRoutes);
 
 // /API: backend end router
 
