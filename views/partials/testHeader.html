@@ -13,10 +13,10 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+      <div id="topNav" class="container-fluid">
         <a class="navbar-brand" href="#">
           <img
-            src="/static/img/logo/mockLogo.jpg"
+            src="/static/img/logo/mockLogo.jpg "
             alt=""
             width="30"
             height="24"
@@ -24,6 +24,7 @@
           />
           IT Learning
         </a>
+
         <button
           class="navbar-toggler"
           type="button"
@@ -38,19 +39,49 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="aboutUs">About Us</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item dropdown">
               <a
-                class="nav-link disabled"
+                class="nav-link dropdown-toggle"
                 href="#"
-                tabindex="-1"
-                aria-disabled="true"
-                >Disabled</a
+                id="navbarScrollingDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
+                Browse
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarScrollingDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="#"
+                    >Browse Courses by Category</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Browse Courses by Name</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Browse Intructors</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pricing">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="myAccount">My Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faq">FAQs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contactPage">Contact</a>
             </li>
           </ul>
           <form class="d-flex">
@@ -67,6 +98,9 @@
         </div>
       </div>
     </nav>
+
+    <!-- //get back the color and visual on github -->
+    <!-- //change link name -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

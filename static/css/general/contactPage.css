@@ -1,3 +1,23 @@
+/* Input Form */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #1f2937; /* Dark blue text color */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #6d28d9; /* Purple border */
+  border-radius: 4px;
+  background-color: #ffffff; /* White input background */
+  color: #1f2937; /* Dark blue text color */
+}
+
 /* Start of preferred contact days styling */
 
 /* Checkbox styling from testingCheckbox.html */

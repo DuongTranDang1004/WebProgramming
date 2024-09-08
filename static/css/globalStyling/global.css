@@ -2,16 +2,30 @@
 /* #6D28D9 (purple) , #FFFFFF (white), #1F2937 (dark blue) */
 /* Base Styles */
 body {
-  /* font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  bottom: 0;
+  height: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
   background-color: #ffffff; /* White background for the main content */
-  /* color: #1f2937; Dark blue text color */
+  color: #1f2937;
+}
+main {
+  flex-grow: 1;
 }
 
 #logo {
 }
+nav {
+  margin: 0;
+  padding: 0;
+}
+#topNav button {
+  background: green;
+}
+
 #topNav {
   background-color: #6d28d9;
 }
@@ -21,6 +35,9 @@ body {
 }
 .btn-outline-success {
   color: white;
+}
+form.d-flex .form-control {
+  max-width: 300px; /* Set a reasonable maximum width */
 }
 
 /* 
@@ -48,9 +65,10 @@ Main content style */
 
 /* Footer Styling */
 footer {
+  margin-top: auto;
   width: 100%;
   color: #ffffff; /* White text color */
-  padding: 20px;
+  bottom: 0;
   text-align: center;
 }
 footer div {
