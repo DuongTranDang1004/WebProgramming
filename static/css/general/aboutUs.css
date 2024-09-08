@@ -14,7 +14,7 @@ image {
 
 /* Avatar container styling */
 .avatar-container {
-  height: 80%;
+  height: 300px;
   background-color: #fff; /* White background for each card */
   border: 2px solid;
   padding: 15px;

@@ -156,6 +156,11 @@ input[type="radio"] {
 }
 
 /* Button styling */
+
+#form-buttons-div {
+  margin-bottom: 5%;
+}
+
 button[type="submit"],
 button[type="reset"] {
   padding: 12px 20px;
