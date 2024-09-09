@@ -28,7 +28,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger 
 app.use(require("./middlewares/authenticate"));
 
 // Importing route groups
-// const authRoutes = require("./controllers/authController");
 const courseRoutes = require("./routes/courseRoute");
 const instructorRoutes = require("./routes/instructorRoute");
 const lectureRoutes = require("./routes/lectureRoute");
