@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+// for page scripts: include fetchAPi first, then client side processing later
+
 // Root path (homepage)
 router.get("/", (req, res) => {
   res.render("general/homepage", {
@@ -15,6 +17,7 @@ router.get("/aboutUs", (req, res) => {
   res.render("general/aboutUs", {
     title: "About Us",
     pageStylesheet: "css/general/aboutUs.css",
+    pageScripts: ["js/clientSideProcessing/general/homepage.js"],
   });
 });
 
