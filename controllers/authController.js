@@ -60,7 +60,7 @@ async function login(req, res) {
     }
     // Finally, check if the admin exists
     let foundAdmin = null;
-    (await Admin.find({})).forEach(admin => {
+    (await PlatformAdmin.find({})).forEach(admin => {
         if (admin.email === email && admin.password === password)
             foundAdmin = admin;
     });
