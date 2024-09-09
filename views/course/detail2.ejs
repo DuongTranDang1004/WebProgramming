@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Detail Page</title>
+    <title><%= course.name %> - Course Detail</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
     <div class="container mx-auto py-8" id="course-container">
-        <!-- Content will be dynamically inserted here -->
+        <!-- Course details and lectures will be dynamically inserted here -->
     </div>
 
     <div id="footer" class="bg-gray-800 text-white py-10">
@@ -21,9 +21,9 @@
                     Top companies choose ITLearning to build in-demand career skills.
                 </h4>
                 <div class="flex justify-center lg:justify-end space-x-6">
-                    <img src="../../static/img/company.png" alt="Volkswagen" class="h-16 w-16" />
-                    <img src="../../static/img/company2.svg" alt="Box" class="h-16 w-16" />
-                    <img src="../../static/img/company1.png" alt="NetApp" class="h-16 w-16" />
+                    <img src="/static/img/company.png" alt="Volkswagen" class="h-16 w-16" />
+                    <img src="/static/img/company2.svg" alt="Box" class="h-16 w-16" />
+                    <img src="/static/img/company1.png" alt="NetApp" class="h-16 w-16" />
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
             <!-- Bottom Section: Logo and Copyright -->
             <div class="flex flex-col sm:flex-row justify-between items-center border-t border-gray-700 pt-6">
                 <div class="flex items-center space-x-4 mb-4 sm:mb-0">
-                    <img src="../../static/img/Logo.png" alt="Logo" class="h-10 w-10" />
+                    <img src="/static/img/Logo.png" alt="Logo" class="h-10 w-10" />
                     <span>&copy; 2024 ITLearning. All Rights Reserved.</span>
                 </div>
                 <div>
@@ -70,41 +70,12 @@
             }
             return formattedPrice;
         }
-        const instructorId = "66dec08e67051c61b4917bd2";
-        const apiBaseUrl = 'http://localhost:3000';
 
-        // Function to fetch course details and lectures
-        async function fetchCourseDetails() {
-            try {
-                // Fetch courses by instructor ID
-                const courseResponse = await fetch(`${apiBaseUrl}/courses/instructor/${instructorId}`);
-                if (!courseResponse.ok) throw new Error('Failed to fetch course details');
-                const courseData = await courseResponse.json();
+        const course =  JSON.stringify(course) ;
+        const lectures = JSON.stringify(lectures) ;
 
-                // Filter only published courses
-                const publishedCourses = courseData.filter(course => course.isPublish);
-
-                if (publishedCourses.length > 0) {
-                    // Fetch and display course details for the first published course
-                    const course = publishedCourses[0];
-                    displayCourseDetails(course);
-
-                    // Fetch lectures by course ID
-                    const lecturesResponse = await fetch(`${apiBaseUrl}/lectures/course/${course._id}`);
-                    if (!lecturesResponse.ok) throw new Error('Failed to fetch lectures');
-                    const lecturesData = await lecturesResponse.json();
-                    displayCourseLectures(lecturesData);
-                } else {
-                    document.getElementById('course-container').innerHTML = '<p>No published courses found.</p>';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('course-container').innerHTML = '<p>Failed to load course data.</p>';
-            }
-        }
-
-        // Function to display course details
-        function displayCourseDetails(course) {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display course details
             const courseContainer = document.getElementById('course-container');
             courseContainer.innerHTML = `
                 <!-- Breadcrumb -->
@@ -151,11 +122,11 @@
                         <button class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Buy now</button>
                         <p class="text-gray-500 mt-2">&copy; Certified by ITLearning</p>
                         <div class="mt-6">
-                            <h4 class="font-semibold">This course include:</h4>
+                            <h4 class="font-semibold">This course includes:</h4>
                             <ul class="mt-2 space-y-2 text-gray-700">
                                 <li>✔️ 30 minutes videos</li>
                                 <li>✔️ Quizzes</li>
-                                <li>✔️ Full access on many devices: indlude phone, tablet and laptops</li>
+                                <li>✔️ Full access on many devices: include phone, tablet, and laptops</li>
                                 <li>✔️ Lifetime access</li>
                                 <li>✔️ Certificate</li>
                             </ul>
@@ -163,12 +134,10 @@
                     </div>
                 </div>
             `;
-        }
 
-        // Function to display course lectures
-        function displayCourseLectures(lectures) {
+            // Display course lectures
             const lectureCount = lectures.length;
-            const lectureTotalTime = lectureCount*30;
+            const lectureTotalTime = lectureCount * 30;
             const lecturesContainer = document.getElementById('course-lectures');
 
             const courseContentContainer = document.createElement('div');
@@ -186,17 +155,14 @@
                 lectureItem.classList.add('bg-gray-100', 'p-4', 'rounded-lg');
                 lectureItem.innerHTML = `
                     <h3 class="text-lg font-semibold">${lecture.name}</h3>
-                    <p class="text-gray-600 mb-4"> 1 lectures • 30 mins </p>
+                    <p class="text-gray-600 mb-4"> 1 lecture • 30 mins </p>
                 `;
                 lectureList.appendChild(lectureItem);
             });
 
             // Insert lectures content into the course details before the "Add to cart" section
             lecturesContainer.appendChild(courseContentContainer);
-        }
-
-        // Fetch the course details when the page loads
-        document.addEventListener('DOMContentLoaded', fetchCourseDetails);
+        });
     </script>
 </body>
 
