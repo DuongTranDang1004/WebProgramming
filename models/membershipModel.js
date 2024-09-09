@@ -15,7 +15,7 @@ const membershipSchema = new mongoose.Schema({
     planType: {
         type: String,
         enum: ['Monthly', 'Yearly'],
-        required: false
+        required: false,
     },
     commissionFee: {
         type: Number,
@@ -56,7 +56,7 @@ const membershipSchema = new mongoose.Schema({
     },
     startDate: {
         type: Date,
-        required: false
+        required: false,
     },
     endDate: {
         type: Date,

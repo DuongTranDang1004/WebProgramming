@@ -27,8 +27,21 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger 
 // Authenticate middleware
 app.use(require("./middlewares/authenticate"));
 
+// Set EJS as the templating engine to render partial views from "views" folder
+app.set("view engine", "ejs");
+//SERVE STATIC FILES (ORDER IS IMPORTANT)
+//Serve all files form static directory. Then remove all the prefix "/static" from all the routes
+app.use(express.static(path.join(__dirname, "static")));
+// Serve static html files from "views" directory. Then remove all the prefix "/views" from all the routes
+app.use(express.static(path.join(__dirname, "views")));
+// This line configures the directory where your EJS (or other view engine) templates are located. Express uses this path to look for view files when you call res.render().
+app.set("views", path.join(__dirname, "views"));
+
+app.use(expressLayouts); //use the expressLayout package
+//Set the default layout
+app.set("layout", "layouts/default");
+
 // Importing route groups
-// const authRoutes = require("./controllers/authController");
 const courseRoutes = require("./routes/courseRoute");
 const instructorRoutes = require("./routes/instructorRoute");
 const lectureRoutes = require("./routes/lectureRoute");
@@ -38,12 +51,17 @@ const boughtCourseRoutes = require("./routes/boughtCourseRoute");
 const contactFormRoutes = require("./routes/contactFormRoute");
 const learnerRoutes = require("./routes/learnerRoute");
 const platformAdminRoutes = require("./routes/platformAdminRoute");
+const transactionRoutes = require("./routes/transactionRoute");
+const cartRoutes = require("./routes/cartRoute");
 const membershipRoutes = require("./routes/membershipRoute");
 const authRoutes = require("./routes/authenticateRoute");
-const generalPagesRoutes = require("./routes/generalPagesRoute"); // Import the general pages route
+const generalPagesRoutes = require("./routes/generalPagesRoute");
 
 // Using the controllers as routers
+
+//VIEW PATHS
 // app.use("/auth", authRoutes); //authenication has not been done yet
+app.use("/", generalPagesRoutes);
 app.use("/boughtCourses", boughtCourseRoutes);
 app.use("/contactForms", contactFormRoutes);
 app.use("/courses", courseRoutes);
@@ -54,14 +72,23 @@ app.use("/lectures", lectureRoutes);
 app.use("/favoritesCourses", favoriteCourseRoutes);
 app.use("/followingInstructors", followingInstructorRoutes);
 app.use("/memberships", membershipRoutes);
+
 // app.use("/auth", authRoutes); //authenication has not been done yet
+
+//API PATHS
 app.use("/api/boughtCourses", boughtCourseRoutes);
 app.use("/api/contactForms", contactFormRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/instructors", instructorRoutes);
 app.use("/api/learners", learnerRoutes);
 app.use("/api/platformAdmins", platformAdminRoutes);
+app.use("/api/lectures", lectureRoutes);
+app.use("/api/favoritesCourses", favoriteCourseRoutes);
+app.use("/api/followingInstructors", followingInstructorRoutes);
+app.use("/api/memberships", membershipRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/cart", cartRoutes);
 
 // /API: backend end router
 
@@ -91,6 +118,8 @@ app.set("layout", "layouts/default");
 //GENERAL PAGES
 // Use the general pages routes
 app.use("/", generalPagesRoutes);
+app.use("/admin", require("./routes/adminPageRoute"));
+
 
 // //BrowseCourse path
 // app.get("/browseCourses", (req, res) => {

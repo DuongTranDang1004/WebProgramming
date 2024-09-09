@@ -30,8 +30,12 @@
     <!-- global css for all the pages that use this layout  -->
     <link rel="stylesheet" href="/css/globalStyling/global.css" />
     <!-- custom css sheet for specific pages (pass in as para when render as app.js ) -->
+    <!--  (auto add leading '/') -->
     <% if (typeof pageStylesheet !== 'undefined') { %>
-    <link rel="stylesheet" href="<%= pageStylesheet %>" />
+    <link
+      rel="stylesheet"
+      href="<%= pageStylesheet.startsWith('/') ? pageStylesheet : '/' + pageStylesheet %>"
+    />
     <% } %>
     <!-- import library for icons -->
     <link
@@ -62,9 +66,15 @@
       crossorigin="anonymous"
     ></script>
 
+    <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+
     <!-- global javascript  -->
     <!-- <script src="/js/clientSideProcessing/globalProcessing.js"></script> -->
 
-    <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+    <!-- Custom JavaScript for specific pages (auto add leading '/') (pass as pageScript property) -->
+    <% if (Array.isArray(pageScripts)) { %> <%
+    pageScripts.forEach(function(script) { %>
+    <script src="<%= script.startsWith('/') ? script : '/' + script %>"></script>
+    <% }); %> <% } %>
   </body>
 </html>

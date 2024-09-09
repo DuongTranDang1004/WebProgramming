@@ -162,12 +162,12 @@ const createTransaction = async (req, res) => {
     const boughtCourse = new BoughtCourses({
       learnerId,
       courseId,
+      instructorId: null, // You might want to add this field
       startDate: transactionDate,
       boughtDateTime: transactionDate,
       endDate: null,
-      lectureCompletionStatus: [],
-      completionDateTime: null,
-      generateCertificate: false,
+      courseCompletionStatus: false,
+      isCertificate: false,
     });
 
     await boughtCourse.save();

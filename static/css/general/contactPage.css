@@ -1,82 +1,280 @@
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  margin: 20px;
+/* Input Form */
+.form-group {
+  margin-bottom: 15px;
 }
-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-label {
+
+.form-group label {
   display: block;
-  margin-top: 10px;
-  font-weight: bold;
+  margin-bottom: 5px;
+  color: #1f2937; /* Dark blue text color */
 }
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-textarea,
-select {
+
+.form-group input {
   width: 100%;
   padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #6d28d9; /* Purple border */
   border-radius: 4px;
+  background-color: #ffffff; /* White input background */
+  color: #1f2937; /* Dark blue text color */
 }
-textarea {
-  resize: vertical;
-}
-.radio-group,
-.checkbox-group {
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-.radio-group input,
-.checkbox-group input {
-  margin-right: 10px;
-}
-.buttons {
+
+/* Start of preferred contact days styling */
+
+/* Checkbox styling from testingCheckbox.html */
+
+/* Default for desktop: Label and checkbox on the same row */
+.checkbox-div {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
-button {
-  padding: 10px 20px;
+
+.checkbox-div label {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.checkbox-div input[type="checkbox"] {
+  margin: 0;
+}
+
+#preferred-contact-days {
+  display: flex;
+  justify-content: flex-end;
+}
+#preferred-contact-method {
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Prevent text wrapping */
+  justify-content: space-between; /* Ensure spacing between label and inputs */
+  margin-bottom: 40px; /* Ensure spacing at the bottom */
+}
+
+/* Media query for tablets and smartphones */
+@media (max-width: 1199px) {
+  .checkbox-div {
+    display: block;
+  }
+
+  .checkbox-div label,
+  .checkbox-div input[type="checkbox"] {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+
+/* Adjustments for existing form elements to avoid conflicts */
+
+/* Fieldset styling for overflow management */
+fieldset {
+  overflow: hidden;
+}
+
+/* Ensure preferred-contact-days are displayed properly */
+.preferred-contact-days {
+  margin-bottom: 10%;
+}
+
+/* Existing general label styling */
+label {
+  display: block;
+  padding: 0px 1em 0px 8px;
+}
+
+/* For specific input elements (radio, checkbox) */
+input[type="radio"],
+input.radio {
+  margin: 2px 0 0 2px;
+}
+
+/* Aligning checkbox and radio labels properly */
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  vertical-align: middle; /* Keep middle alignment */
+  height: 100%;
+  font-size: 16px;
+}
+
+/* Existing form-group styling, adjusted to avoid checkbox conflicts */
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: inline-block;
+  width: 30%;
+  font-size: 16px;
+  height: 60px; /* Matches the height of the input field */
+  line-height: 60px; /* Vertically centers the label text */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea,
+.form-group select {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+/* Fixing the gap between radio buttons and their labels */
+input[type="radio"] {
+  margin-right: 5px; /* Less space between the radio button and the label */
+}
+
+/* Aligning radio buttons consistently */
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: large;
+}
+
+.radio-group label {
+  margin-left: 5px; /* Ensures labels are closer to the radio buttons */
+  font-size: 16px; /* Ensures text is consistent in size */
+}
+
+#preferred-contact-days span {
+  font-size: 16px; /* Match the label font size */
+  font-weight: bold; /* Match label font weight */
+  display: inline-block; /* Ensure it's aligned properly with checkboxes */
+  margin-right: 10px; /* Add some space between the span and the checkboxes */
+}
+
+/* Adding vertical space between sections */
+#preferred-contact-method,
+#preferred-contact-days,
+#message-section {
+  margin-bottom: 40px; /* Space between the different sections */
+}
+
+/* Button styling */
+
+#form-buttons-div {
+  margin-bottom: 5%;
+}
+
+button[type="submit"],
+button[type="reset"] {
+  padding: 12px 20px;
   font-size: 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
+
 button[type="submit"] {
   background-color: #28a745;
   color: #fff;
 }
+
 button[type="reset"] {
   background-color: #dc3545;
   color: #fff;
 }
 
-/* Layout:
-Desktop Computers: Multi-column layout.  */
-/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
-/* 
-Input Form:
-Desktop Computers: A label and its linked input field must be positioned on the same row.
-Tablets/Smartphones: The label and input field should be placed on different rows. */
-
-/* For Smartphones (767px or lower) */
-@media (max-width: 767px) {
+/* Single address (Our info) */
+.single_address {
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding-left: 40px;
 }
 
-/* For Tablets (768px to 1199px) */
-
-@media (max-width: 1199px) and (min-width: 768px) {
+.single_address i {
+  background: #f6f6f6;
+  color: #7564e5;
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  float: left;
+  margin-right: 14px;
+  font-size: 22px;
+  box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
 }
 
-/* For Desktop Computers (1200px or higher) */
-@media (min-width: 1200px) {
+.single_address:hover i {
+  background: #7564e5;
+  color: #fff;
+}
+
+.single_address h4 {
+  font-size: 18px;
+  margin-bottom: 0px;
+  font-weight: 600;
+}
+
+.single_address p {
+  margin-top: 5px;
+}
+
+/* Section titles */
+.section-title h1 {
+  font-size: 44px;
+  font-weight: 500;
+  margin-top: 0;
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
+
+.section-title p {
+  padding: 0 10px;
+  width: 70%;
+  margin: auto;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  margin-bottom: 60px;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* Media query for mobile and tablet adjustments */
+@media only screen and (max-width: 768px) {
+  /* Ensure form elements are stacked properly */
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    width: 100%;
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+  }
+
+  /* Ensure checkboxes and radio buttons stack properly */
+  .checkbox-group {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .radio-group,
+  .preferred-contact-days {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .preferred-contact-days label {
+    display: block;
+    margin-top: 10px;
+  }
 }
