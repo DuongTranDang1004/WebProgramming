@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Define the schema for the Lectures collection
 const LectureSchema = new mongoose.Schema({
   courseId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Course' 
+    ref: 'Courses' 
   },
   name: {
     type: String,
@@ -14,12 +15,12 @@ const LectureSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: false,
+    required: true,
     trim: true
   },
   video: {
     type: String,
-    required: false,
+    required: true,
     trim: true
   },
   exercise: {
@@ -28,7 +29,7 @@ const LectureSchema = new mongoose.Schema({
       options: { type: [String], required: true },
       correctAnswer: { type: String, required: true }
     },
-    required: false
+    required: true
   },
   index: {
     type: Number,

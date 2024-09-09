@@ -6,9 +6,9 @@ const password = "fighting";
 
 // MongoDB connection URL to the desired database
 //Connection to physical server database
-// const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
 //Connection to localhost database for testing purpose
-const connectionStringURL = `mongodb://localhost:27017/`;
+// const connectionStringURL = `mongodb://localhost:27017/`;
 
 const dbName = "ITLearning";
 
@@ -115,7 +115,7 @@ async function generateSampleData() {
 
     // Generate and insert sample data for Learners
     let learnerData = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 500; i++) {
       learnerData.push({
         email: faker.internet.email(),
         password: faker.internet.password(12),
@@ -156,7 +156,7 @@ async function generateSampleData() {
     // Generate and insert sample data for Lectures
     let lectureData = [];
     for (let i = 0; i < 30; i++) {
-      let numberLecture = faker.number.int({ min: 1, max: 15 });
+      let numberLecture = faker.number.int({ min: 1, max: 2 });
       for (let index = 1; index <= numberLecture; index++) {
         lectureData.push({
           courseId: (await courses.find().toArray())[i]._id,
@@ -225,16 +225,9 @@ async function generateSampleData() {
     let boughtCourseData = [];
     for (let i = 0; i < 30; i++) {
       let lectureCompletionStatus = [];
-      for (let j = 1; j <= 5; j++) {
-        lectureCompletionStatus.push({
-          lectureId: (await lectures.find().toArray())[Math.floor(Math.random() * 30)]._id,
-          completeStatus: faker.datatype.boolean(),
-        });
-      }
-
       boughtCourseData.push({
-        learnerId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
-        courseId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        learnerId: (await learners.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        courseId: (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id,
         boughtDateTime: truncateToMinute(faker.date.recent()),
         lectureCompletionStatus: lectureCompletionStatus,
         completionDateTime: faker.helpers.maybe(

@@ -1,5 +1,7 @@
 const Instructor = require("../models/instructorModel");
 const Course = require("../models/courseModel");
+const BoughtCourse = require("../models/boughtCourseModel");
+const Membership = require("../models/membershipModel");
 
 /**
  * @swagger
@@ -45,7 +47,6 @@ const Course = require("../models/courseModel");
  *           example: "This course covers the basics of front-end development, including HTML, CSS, and JavaScript."
  */
 
-
 /**
  * @swagger
  * /instructors:
@@ -66,7 +67,10 @@ const Course = require("../models/courseModel");
  */
 const getInstructors = async (req, res) => {
   try {
-    const instructors = await Instructor.find({});
+    const instructors = await Instructor.find({}).populate(
+      "membershipId",
+      "planName planType"
+    );
     res.status(200).json(instructors);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -84,7 +88,7 @@ const getInstructors = async (req, res) => {
  *         in: path
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Instructor details
@@ -101,7 +105,10 @@ const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
     const { id } = req.params;
-    const instructor = await Instructor.findById(id);
+    const instructor = await Instructor.findById(id).populate(
+      "membershipId",
+      "planName planType"
+    );
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -143,6 +150,36 @@ const createInstructor = async (req, res) => {
 };
 
 //Update
+/**
+ * @swagger
+ * /instructors/{id}:
+ *   put:
+ *     summary: Update an existing instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Instructor'
+ *     responses:
+ *       200:
+ *         description: Updated instructor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Instructor'
+ *       404:
+ *         description: Instructor not found
+ *       500:
+ *         description: Internal server error
+ */
 const updateInstructor = async (req, res) => {
   try {
     const { id } = req.param;
@@ -158,6 +195,26 @@ const updateInstructor = async (req, res) => {
 };
 
 //Delete
+/**
+ * @swagger
+ * /instructors/{id}:
+ *   delete:
+ *     summary: Delete an instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Instructor deleted successfully
+ *       404:
+ *         description: Instructor not found
+ *       500:
+ *         description: Internal server error
+ */
 const deleteInstructor = async (req, res) => {
   try {
     const { id } = req.params;
@@ -183,7 +240,7 @@ const deleteInstructor = async (req, res) => {
  *         in: path
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: List of courses for the instructor
@@ -213,6 +270,88 @@ const getCoursesByInstructorId = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /instructors/{id}/earning:
+ *   get:
+ *     summary: Get total earnings of an instructor by ID
+ *     tags: [Instructors]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Total earnings of the instructor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalSales:
+ *                   type: number
+ *                   description: The total amount of sales
+ *                 commissionRate:
+ *                   type: number
+ *                   description: The commission rate applied
+ *                 earnings:
+ *                   type: number
+ *                   description: The total earnings after commission
+ *       404:
+ *         description: Instructor or sales data not found
+ *       500:
+ *         description: Internal server error
+ */
+const getInstructorEarnings = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ message: "Instructor ID is required" });
+  }
+
+  try {
+    // Check if the instructor exists
+    const instructor = await Instructor.findById(id);
+    if (!instructor) {
+      return res.status(404).json({ message: "Instructor not found" });
+    }
+
+    // Fetch all bought courses related to the instructor
+    const boughtCourses = await BoughtCourse.find({ instructorId: id });
+
+    if (boughtCourses.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No courses sold by this instructor" });
+    }
+
+    // Calculate total sales
+    const totalSales = boughtCourses.reduce(
+      (sum, course) => sum + course.price,
+      0
+    );
+
+    // Get the latest membership commission rate
+    const latestMembership = await Membership.findOne().sort({ createdAt: -1 });
+    const commissionRate = latestMembership
+      ? latestMembership.commissionFee
+      : 0.1; // Default to 10% if no membership found
+
+    // Calculate earnings after applying the commission
+    const earnings = totalSales * (1 - commissionRate);
+
+    res.status(200).json({
+      totalSales,
+      commissionRate,
+      earnings,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getInstructors,
   getInstructorById,
@@ -220,4 +359,5 @@ module.exports = {
   updateInstructor,
   deleteInstructor,
   getCoursesByInstructorId,
+  getInstructorEarnings,
 };

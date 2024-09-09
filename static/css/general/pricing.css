@@ -1,15 +1,5 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .container {
-  width: 80%;
+  width: 100%;
   max-width: 1200px;
   margin: 40px auto;
   text-align: center;
@@ -80,6 +70,19 @@ p {
   margin-right: 10px;
   color: rgb(123, 220, 101);
 }
+.card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .card button {
   background-color: rgb(147 51 234);
   color: white;
@@ -87,9 +90,13 @@ p {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 12px;
   width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  margin-top: auto;
 }
+
 .card button:hover {
   background-color: #0056b3;
 }
@@ -129,14 +136,28 @@ p {
 Desktop Computers: Multi-column layout.  */
 /* tablets/smartphones: Collapsible into a one-or-two-column layout. */
 /* For Smartphones (767px or lower) */
+/* Responsive Layouts */
+
+/* For desktops: 3 columns */
+/* Start CSS Grid */
+
 @media (max-width: 767px) {
+  .pricing-cards {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(1, 1fr); /* 1 column on mobile */
+    justify-content: center;
+  }
 }
 
-/* For Tablets (768px to 1199px) */
-
-@media (max-width: 1199px) and (min-width: 768px) {
+@media (min-width: 768px) {
+  .pricing-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+  }
 }
 
-/* For Desktop Computers (1200px or higher) */
 @media (min-width: 1200px) {
+  .pricing-cards {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+  }
 }

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getLearners,
-  getLearner,
+  getLearnerById,
   createLearner,
   updateLearner,
   deleteLearner,
@@ -11,7 +11,7 @@ const {
 //path for learner CRUD operations
 router.get("/", getLearners);
 
-router.get("/:id", getLearner);
+router.get("/:id", getLearnerById);
 
 router.post("/", createLearner);
 

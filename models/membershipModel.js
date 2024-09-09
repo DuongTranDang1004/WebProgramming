@@ -8,30 +8,59 @@ const membershipSchema = new mongoose.Schema({
     },
     planName: {
         type: String,
+        enum: ['Basic', 'Saving', 'Premium'],
+        default: 'Basic',
         required: true
     },
     planType: {
         type: String,
         enum: ['Monthly', 'Yearly'],
-        required: true
+        required: false,
     },
     commissionFee: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
+        default: function() {
+            switch (this.planName) {
+                case 'Saving':
+                    return 5;
+                case 'Premium':
+                    return 2;
+                // Add other cases as needed
+                default:
+                    return 0;
+            }
+        }
     },
     price: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
+        default: function() {
+            if (this.planName === 'Saving') {
+                if (this.planType === 'Monthly') {
+                    return 20;
+                } else if (this.planType === 'Yearly') {
+                    return 200;
+                }
+            } else if (this.planName === 'Premium') {
+                if (this.planType === 'Monthly') {
+                    return 30;
+                } else if (this.planType === 'Yearly') {
+                    return 300;
+                }
+            }
+            return 0;
+        }
     },
     startDate: {
         type: Date,
-        required: true
+        required: false,
     },
     endDate: {
         type: Date,
-        required: true,
+        required: false,
         default: function () {
             const startDate = this.startDate;
             if (this.planType === 'Monthly') {
@@ -44,7 +73,7 @@ const membershipSchema = new mongoose.Schema({
     paymentMethod: {
         type: String,
         enum: ['Card', 'PayPal'],
-        required: true
+        required: false
     },
     cardNumber: {
         type: String,

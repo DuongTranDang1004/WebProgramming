@@ -1,4 +1,5 @@
 const Learners = require("../models/learnerModel");
+const mongoose = require('mongoose');
 
 /**
  * @swagger
@@ -15,9 +16,9 @@ const Learners = require("../models/learnerModel");
  *       type: object
  *       properties:
  *         _id:
- *           type: integer
+ *           type: ObjectID
  *           description: The auto-generated ID of the learner
- *           example: 1
+ *           example: 60dcf1b5b5f7c5f3b4b3b1a1
  *         email:
  *           type: string
  *           description: The email of the learner
@@ -58,11 +59,15 @@ const Learners = require("../models/learnerModel");
  *           type: string
  *           description: The phone number of the learner
  *           example: "+1 987-654-3210"
+ *         createdDate:
+ *           type: Date
+ *           description: The date when the learner was created
+ *           example: "2021-06-30T12:45:00.000Z"
  */
 
 /**
  * @swagger
- * /learners:
+ * /api/learners:
  *   get:
  *     summary: Get all learners
  *     tags: [Learners]
@@ -90,7 +95,7 @@ const getLearners = async (req, res) => {
 
 /**
  * @swagger
- * /learners/{id}:
+ * /api/learners/{id}:
  *   get:
  *     summary: Get a learner by ID
  *     tags: [Learners]
@@ -98,9 +103,9 @@ const getLearners = async (req, res) => {
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
- *         description: The learner ID
+ *         description: The learner ID (MongoDB ObjectId).
  *     responses:
  *       200:
  *         description: A learner by ID
@@ -114,15 +119,19 @@ const getLearners = async (req, res) => {
  *         description: Internal server error
  */
 // Get learner by ID
-const getLearner = async (req, res) => {
+const getLearnerById = async (req, res) => {
   try {
     const { id } = req.params;
-    const learner = await Learners.findById(id);
+    
+    // Ensure that the id is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid learner ID" });
+    }
 
+    const learner = await Learners.findById(id);
     if (!learner) {
       return res.status(404).json({ message: "Learner not found" });
     }
-
     res.status(200).json(learner);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -131,7 +140,7 @@ const getLearner = async (req, res) => {
 
 /**
  * @swagger
- * /learners:
+ * /api/learners:
  *   post:
  *     summary: Create a new learner
  *     tags: [Learners]
@@ -166,7 +175,7 @@ const createLearner = async (req, res) => {
 
 /**
  * @swagger
- * /learners/{id}:
+ * /api/learners/{id}:
  *   put:
  *     summary: Update a learner by ID
  *     tags: [Learners]
@@ -174,9 +183,9 @@ const createLearner = async (req, res) => {
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
- *         description: The learner ID
+ *         description: The learner ID follow Mongo ObjectID
  *     requestBody:
  *       required: true
  *       content:
@@ -218,7 +227,7 @@ const updateLearner = async (req, res) => {
 
 /**
  * @swagger
- * /learners/{id}:
+ * /api/learners/{id}:
  *   delete:
  *     summary: Delete a learner by ID
  *     tags: [Learners]
@@ -226,9 +235,9 @@ const updateLearner = async (req, res) => {
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
- *         description: The learner ID
+ *         description: The learner ID MongoDB ObjectID
  *     responses:
  *       200:
  *         description: Learner deleted successfully
@@ -255,7 +264,7 @@ const deleteLearner = async (req, res) => {
 
 module.exports = {
   getLearners,
-  getLearner,
+  getLearnerById,
   createLearner,
   updateLearner,
   deleteLearner,

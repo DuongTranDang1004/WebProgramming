@@ -1,7 +1,6 @@
 // models/courseModel.js
 
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
 const CoursesSchema = new mongoose.Schema({
   name: {
@@ -29,8 +28,8 @@ const CoursesSchema = new mongoose.Schema({
     required: true,
   },
   instructorId: {
-    type: Number,
-    ref: "Instructor",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Instructors",
     required: true,
   },
   createTime: {
