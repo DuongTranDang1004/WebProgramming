@@ -27,6 +27,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger 
 // Authenticate middleware
 app.use(require("./middlewares/authenticate"));
 
+// Set EJS as the templating engine to render partial views from "views" folder
+app.set("view engine", "ejs");
 //SERVE STATIC FILES (ORDER IS IMPORTANT)
 //Serve all files form static directory. Then remove all the prefix "/static" from all the routes
 app.use(express.static(path.join(__dirname, "static")));
@@ -34,8 +36,7 @@ app.use(express.static(path.join(__dirname, "static")));
 app.use(express.static(path.join(__dirname, "views")));
 // This line configures the directory where your EJS (or other view engine) templates are located. Express uses this path to look for view files when you call res.render().
 app.set("views", path.join(__dirname, "views"));
-// Set EJS as the templating engine to render partial views from "views" folder
-app.set("view engine", "ejs");
+
 app.use(expressLayouts); //use the expressLayout package
 //Set the default layout
 app.set("layout", "layouts/default");

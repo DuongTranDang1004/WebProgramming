@@ -25,10 +25,10 @@ router.delete("/:id", deleteLearner);
 router.get("/favoriteCourses/:id", (req, res) => {
   res.render("learner/favCourses", {
     title: "Favorite Courses",
-    pageStylesheet: "css/learner/favCourses",
+    pageStylesheet: "css/learner/favCourses.css",
     pageScripts: [
-      "js/clientSideProcessing/learner/",
-      "js/fetchAPIs/fetchCourses.js",
+      "js/clientSideProcessing/learner/favCourses.js",
+      "js/fetchAPIs/learner/favCourses.js",
     ],
   });
 });

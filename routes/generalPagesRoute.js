@@ -6,10 +6,7 @@ router.get("/", (req, res) => {
   res.render("general/homepage", {
     title: "Home Page",
     pageStylesheet: "css/general/homepage.css",
-    pageScripts: [
-      "js/clientSideProcessing/general/homepage.js",
-      "js/fetchAPIs/fetchCourses.js",
-    ],
+    pageScripts: ["js/clientSideProcessing/general/homepage.js"],
     // layout: "./layouts/default",
   });
 });
