@@ -27,6 +27,20 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger 
 // Authenticate middleware
 app.use(require("./middlewares/authenticate"));
 
+// Set EJS as the templating engine to render partial views from "views" folder
+app.set("view engine", "ejs");
+//SERVE STATIC FILES (ORDER IS IMPORTANT)
+//Serve all files form static directory. Then remove all the prefix "/static" from all the routes
+app.use(express.static(path.join(__dirname, "static")));
+// Serve static html files from "views" directory. Then remove all the prefix "/views" from all the routes
+app.use(express.static(path.join(__dirname, "views")));
+// This line configures the directory where your EJS (or other view engine) templates are located. Express uses this path to look for view files when you call res.render().
+app.set("views", path.join(__dirname, "views"));
+
+app.use(expressLayouts); //use the expressLayout package
+//Set the default layout
+app.set("layout", "layouts/default");
+
 // Importing route groups
 const courseRoutes = require("./routes/courseRoute");
 const instructorRoutes = require("./routes/instructorRoute");
@@ -44,7 +58,24 @@ const authRoutes = require("./routes/authenticateRoute");
 const generalPagesRoutes = require("./routes/generalPagesRoute");
 
 // Using the controllers as routers
+
+//VIEW PATHS
 // app.use("/auth", authRoutes); //authenication has not been done yet
+app.use("/", generalPagesRoutes);
+app.use("/boughtCourses", boughtCourseRoutes);
+app.use("/contactForms", contactFormRoutes);
+app.use("/courses", courseRoutes);
+app.use("/instructors", instructorRoutes);
+app.use("/learners", learnerRoutes);
+app.use("/platformAdmins", platformAdminRoutes);
+app.use("/lectures", lectureRoutes);
+app.use("/favoritesCourses", favoriteCourseRoutes);
+app.use("/followingInstructors", followingInstructorRoutes);
+app.use("/memberships", membershipRoutes);
+
+// app.use("/auth", authRoutes); //authenication has not been done yet
+
+//API PATHS
 app.use("/api/boughtCourses", boughtCourseRoutes);
 app.use("/api/contactForms", contactFormRoutes);
 app.use("/api/courses", courseRoutes);
