@@ -87,6 +87,8 @@ app.set("layout", "layouts/default");
 //GENERAL PAGES
 // Use the general pages routes
 app.use("/", generalPagesRoutes);
+app.use("/admin", require("./routes/adminPageRoute"));
+
 
 // //BrowseCourse path
 // app.get("/browseCourses", (req, res) => {
