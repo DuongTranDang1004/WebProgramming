@@ -1,4 +1,5 @@
 const Lecture = require("../models/lectureModel");
+const fs = require('fs');
 const mongoose = require("mongoose");
 
 /**
@@ -306,6 +307,39 @@ const deleteLecture = async (req, res) => {
   }
 };
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './static/videos/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.params.id + "." + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+  }
+});
+const uploadVideo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const lecture = await Lecture.findById({ _id: id });
+    if (!lecture) {
+      return res.status(404).json({ message: "Lecture not found" });
+    }
+    const upload = multer({ storage: storage }).single('video');
+    upload(req, res, function (err) {
+      console.log(req.file);
+      if (err) {
+        return res.status(500).json({ message: err.message });
+      }
+    });
+    // Get file name from  /static/videos/ which start with id
+    const filename = fs.readdirSync('./static/videos/').find(file => file.startsWith(id));
+    lecture.video = "/videos/" + filename;
+    lecture.save();
+    return res.status(200).json({ lecture });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   getLecture,
   getLectures,
@@ -313,4 +347,5 @@ module.exports = {
   updateLecture,
   deleteLecture,
   getLecturesByCourseId,
+  uploadVideo,
 };

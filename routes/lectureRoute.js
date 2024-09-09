@@ -7,6 +7,7 @@ const {
   updateLecture,
   deleteLecture,
   getLecturesByCourseId,
+  uploadVideo
 } = require("../controllers/lectureController");
 const { markLectureComplete } = require("../controllers/markController");
 
@@ -22,6 +23,9 @@ router.delete("/:id", deleteLecture);
 
 router.get("/course/:courseId", getLecturesByCourseId);
 
+router.post("/upload/:id", uploadVideo)
+
+module.exports = router;
 router.post("/markLecture", markLectureComplete);
 
 module.exports = router;

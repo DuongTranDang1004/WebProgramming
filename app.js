@@ -42,8 +42,6 @@ app.use(expressLayouts); //use the expressLayout package
 app.set("layout", "layouts/default");
 
 // Importing route groups
-// const authRoutes = require("./controllers/authController");
-
 const courseRoutes = require("./routes/courseRoute");
 const instructorRoutes = require("./routes/instructorRoute");
 const lectureRoutes = require("./routes/lectureRoute");
@@ -84,9 +82,51 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/instructors", instructorRoutes);
 app.use("/api/learners", learnerRoutes);
 app.use("/api/platformAdmins", platformAdminRoutes);
+app.use("/api/lectures", lectureRoutes);
+app.use("/api/favoritesCourses", favoriteCourseRoutes);
+app.use("/api/followingInstructors", followingInstructorRoutes);
+app.use("/api/memberships", membershipRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/cart", cartRoutes);
+
+// /API: backend end router
+
+//SERVE STATIC FILES (ORDER IS IMPORTANT)
+
+//Serve all files form static directory. Then remove all the prefix "/static" from all the routes
+app.use(express.static(path.join(__dirname, "static")));
+// Serve static html files from "views" directory. Then remove all the prefix "/views" from all the routes
+app.use(express.static(path.join(__dirname, "views")));
+// This line configures the directory where your EJS (or other view engine) templates are located. Express uses this path to look for view files when you call res.render().
+app.set("views", path.join(__dirname, "views"));
+
+//Duong mofidication start
+
+// Set EJS as the templating engine to render partial views from "views" folder
+app.set("view engine", "ejs");
+app.use(expressLayouts); //use the expressLayout package
+
+//Set the default layout
+app.set("layout", "layouts/default");
+
+//View Paths (front-end/client)
+
+// Render custom layouts in the routes
+//later on we should define the routers for these routes
+
+//GENERAL PAGES
+// Use the general pages routes
+app.use("/", generalPagesRoutes);
+app.use("/admin", require("./routes/adminPageRoute"));
+
+
+// //BrowseCourse path
+// app.get("/browseCourses", (req, res) => {
+//   res.sendFile(path.join(__dirname, "views", "general", "browseCourses.html"));
+// });
+
+//Duong modification end
 
 // Start the server, run at local first, then deploy on https://itlearning.ddns.net/ later on
 app.listen(port, host, async () => {
