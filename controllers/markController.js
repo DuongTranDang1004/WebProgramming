@@ -122,7 +122,8 @@ async function markLectureComplete(req, res) {
     );
 
     if (allLecturesComplete) {
-      boughtCourse.completionDateTime = new Date();
+      boughtCourse.courseCompletionStatus = true
+      boughtCourse.endDate = new Date()
     }
 
     // Save the updated bought course
