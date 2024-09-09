@@ -66,7 +66,8 @@ const Course = require("../models/courseModel");
  */
 const getInstructors = async (req, res) => {
   try {
-    const instructors = await Instructor.find({});
+    const instructors = await Instructor.find({})
+      .populate("membershipId", "planName planType");
     res.status(200).json(instructors);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -101,7 +102,8 @@ const getInstructorById = async (req, res) => {
   const { id } = req.params;
   try {
     const { id } = req.params;
-    const instructor = await Instructor.findById(id);
+    const instructor = await Instructor.findById(id)
+      .populate("membershipId", "planName planType");
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
@@ -222,46 +224,6 @@ const deleteInstructor = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /instructors/{id}/courses:
- *   get:
- *     summary: Get courses by instructor ID
- *     tags: [Instructors]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: List of courses for the instructor
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Course'
- *       404:
- *         description: No courses found for this instructor
- *       500:
- *         description: Internal server error
- */
-const getCoursesByInstructorId = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const courses = await Course.find({ instructorId: id });
-    if (courses.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No courses found for this instructor" });
-    }
-    res.status(200).json(courses);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 module.exports = {
   getInstructors,
@@ -269,5 +231,4 @@ module.exports = {
   createInstructor,
   updateInstructor,
   deleteInstructor,
-  getCoursesByInstructorId,
 };

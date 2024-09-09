@@ -110,10 +110,9 @@ const InstructorSchema = new mongoose.Schema(
             required: true
         },
 
-        membership: {
-            type: String,
-            enum: ['basic', 'silver', 'gold', 'diamond'],
-            default: 'basic',
+        membershipId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Membership",
             required: true
         },
         createTime: {
