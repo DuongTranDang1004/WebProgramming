@@ -54,6 +54,7 @@ async function generateSampleData() {
       favoriteCourses.deleteMany({}),
       followingInstructors.deleteMany({}),
       boughtCourses.deleteMany({}),
+      memberships.deleteMany({})
     ]);
 
     console.log("Collections emptied successfully.");
@@ -101,12 +102,6 @@ async function generateSampleData() {
           "testing",
         ]),
         status: faker.helpers.arrayElement(["active", "inactive"]),
-        membership: faker.helpers.arrayElement([
-          "basic",
-          "silver",
-          "gold",
-          "diamond",
-        ]),
         createTime: new Date(Date.now()),
         Bio: Math.floor(Math.random() * 2) % 2 ? faker.lorem.paragraphs() : null,
       });
@@ -225,16 +220,21 @@ async function generateSampleData() {
     let boughtCourseData = [];
     for (let i = 0; i < 30; i++) {
       let lectureCompletionStatus = [];
+      let selectCourse = (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id;
+      let selectInstructor = (await courses.findOne({ _id: selectCourse })).instructorId;
       boughtCourseData.push({
         learnerId: (await learners.find().toArray())[Math.floor(Math.random() * 30)]._id,
-        courseId: (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        courseId: selectCourse,
+        instructorId: selectInstructor,
         boughtDateTime: truncateToMinute(faker.date.recent()),
         lectureCompletionStatus: lectureCompletionStatus,
         completionDateTime: faker.helpers.maybe(
           () => truncateToMinute(faker.date.recent()),
           { probability: 0.3 }
         ),
-        generateCertificate: faker.datatype.boolean(),
+        isCertificate: faker.datatype.boolean(),
+        endDate: null,
+        courseCompletionStatus: false,
       });
     }
     await boughtCourses.insertMany(boughtCourseData);
@@ -258,6 +258,12 @@ async function generateSampleData() {
       });
     };
     await memberships.insertMany(membershipData);
+    const membershipsData = (await memberships.find().toArray());
+    for (let index = 0; index < membershipsData.length; index++) {
+      let instructor = await instructors.findOne({ _id: membershipsData[index].instructorId });
+      instructor.membershipId = membershipsData[index]._id;
+      await instructors.updateOne({ _id: membershipsData[index].instructorId }, { $set: instructor });
+    }
 
     console.log("Sample data inserted successfully!");
   } catch (err) {
