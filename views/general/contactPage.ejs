@@ -11,13 +11,12 @@
     <div class="row">
       <div class="col-lg-7">
         <div class="contact">
-          <form
-            class="form"
-            name="enq"
-            method="post"
-            action="contact.php"
-            onsubmit="return validateForm();"
-          >
+          <!-- When this form is submitted, call js function for input validation, then fetch API to create form object -->
+
+          <form class="form" name="enq" method="post" onsubmit="return submitForm();">
+            <!-- Form fields go here -->
+          </form>
+          
             <div class="row">
               <!-- Contact Purpose -->
               <div class="form-group col-md-12">
