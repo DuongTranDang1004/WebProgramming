@@ -26,7 +26,7 @@ router.get("/favoriteCourses/:id", (req, res) => {
   res.render("learner/favCourses", {
     title: "Favorite Courses",
     pageStylesheet: "css/learner/favCourses.css",
-    pageScripts: ["js/learner/favCourses.js"],
+    pageScript: "js/learner/favCourses.js",
   });
 });
 
@@ -35,7 +35,7 @@ router.get("/favoriteInstructors/:id", (req, res) => {
   res.render("learner/favInstructors", {
     title: "Favorite Courses",
     pageStylesheet: "css/learner/favInstructors.css",
-    pageScripts: ["js/learner/favInstructors.js"],
+    pageScript: "js/learner/favInstructors.js",
   });
 });
 
@@ -44,7 +44,7 @@ router.get("/order/:id", (req, res) => {
   res.render("learner/order", {
     title: "Order Placement",
     pageStylesheet: "css/learner/order",
-    pageScripts: ["js/learner/order.js"],
+    pageScript: "js/learner/order.js",
   });
 });
 
@@ -53,7 +53,7 @@ router.get("/account/:id", (req, res) => {
   res.render("learner/account", {
     title: "My Account",
     pageStylesheet: "css/learner/account",
-    pageScripts: ["js/learner/account.js"],
+    pageScript: "js/learner/account.js",
   });
 });
 
@@ -62,7 +62,7 @@ router.get("/myCourses/:id", (req, res) => {
   res.render("learner/myCourses", {
     title: "My Courses",
     pageStylesheet: "css/learner/myCourses.css",
-    pageScripts: ["js/learner/myCourses.js"],
+    pageScript: "js/learner/myCourses.js",
   });
 });
 
@@ -71,7 +71,7 @@ router.get("/myProfile/:id", (req, res) => {
   res.render("learner/myProfile", {
     title: "My Profile",
     pageStylesheet: "css/learner/myProfile",
-    pageScripts: ["js/learner/myProfile.js"],
+    pageScript: "js/learner/myProfile.js",
   });
 });
 
@@ -80,7 +80,7 @@ router.get("/transactions/:id", (req, res) => {
   res.render("learner/transactions", {
     title: "My Past Transactions",
     pageStylesheet: "css/learner/transactions",
-    pageScripts: ["js/learner/transactions.js"],
+    pageScript: "js/learner/transactions.js",
   });
 });
 
