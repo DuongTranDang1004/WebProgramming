@@ -1,50 +1,53 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Extract the learnerId from the URL
-  const url = window.location.pathname; // Get the path part of the URL
-  const learnerId = url.split("/")[3]; // Assuming the id is the 4th part of the URL
-  const apiUrl = `/followingInstructors/learner/${learnerId}`; // Update to your API endpoint
-
-  // Fetch the list of favorite instructors
-  fetch(apiUrl)
-    .then((response) => {
+document.addEventListener("DOMContentLoaded", async function () {
+  // Function to fetch favorite instructors by learnerId
+  const fetchFavoriteInstructors = async (learnerId) => {
+    try {
+      const response = await fetch(
+        `/api/followingInstructors/learner/${learnerId}`
+      );
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Failed to fetch favorite instructors");
       }
-      return response.json();
-    })
-    .then((data) => {
-      renderInstructors(data);
-    })
-    .catch((error) => {
-      console.error("There was a problem with the fetch operation:", error);
-    });
-});
+      return await response.json(); // Assuming the response is in JSON format
+    } catch (error) {
+      console.error("Error fetching instructors:", error);
+    }
+  };
 
-function renderInstructors(instructors) {
-  const instructorList = document.getElementById("favorite-instructors");
-  instructorList.innerHTML = ""; // Clear any existing content
+  // Render function for favorite instructors
+  const renderFavoriteInstructors = (instructors) => {
+    const favoriteInstructorsContainer = document.getElementById(
+      "favorite-instructors"
+    );
+    favoriteInstructorsContainer.innerHTML = ""; // Clear previous content
 
-  instructors.forEach((instructor) => {
-    // Assuming each `instructor` object contains instructor's course details in `courseId`
-    const course = instructor.courseId;
-
-    // Dynamically create an instructor div
-    const instructorDiv = document.createElement("div");
-    instructorDiv.classList.add("instructor");
-
-    // Assuming the avatar is a URL you can replace the placeholder with actual instructor avatar URL.
-    instructorDiv.innerHTML = `
-        <div class="instructor-info">
-          <img src="https://via.placeholder.com/150" alt="${course.name}" class="instructor-avatar" />
-          <div class="instructor-details">
-            <h3>${course.name}</h3> <!-- Replace with instructor's name -->
-            <p>Specialization: ${course.category}</p> <!-- Replace with instructor's specialization -->
-            <p>Description: ${course.description}</p> <!-- Replace with course description -->
-          </div>
+    instructors.forEach((instructor) => {
+      const instructorHTML = `
+        <div class="instructor-item">
+          <img src="${instructor.instructorId.profilePicture}" alt="${instructor.instructorId.firstName} ${instructor.instructorId.lastName}" />
+          <h2>${instructor.instructorId.firstName} ${instructor.instructorId.lastName}</h2>
+          <h3>${instructor.instructorId.jobTitle}</h3>
+          <p>${instructor.instructorId.Bio}</p>
         </div>
       `;
+      favoriteInstructorsContainer.innerHTML += instructorHTML;
+    });
+  };
 
-    // Append the new instructor div to the instructor list
-    instructorList.appendChild(instructorDiv);
-  });
-}
+  // Extract the learnerId from the URL (assumed to be the last part of the URL)
+  const urlSegments = window.location.pathname.split("/");
+  const learnerId = urlSegments[urlSegments.length - 1]; // Get the last segment of the URL
+
+  console.log("Extracted learnerId:", learnerId); // Verify that the learnerId is correct
+
+  // Fetch the favorite instructors using the extracted learnerId
+  const favoriteInstructors = await fetchFavoriteInstructors(learnerId);
+
+  if (favoriteInstructors && favoriteInstructors.length > 0) {
+    // Render favorite instructors
+    renderFavoriteInstructors(favoriteInstructors);
+  } else {
+    document.getElementById("favorite-instructors").innerHTML =
+      "<p>No favorite instructors found</p>";
+  }
+});
