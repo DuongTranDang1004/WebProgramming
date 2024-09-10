@@ -29,7 +29,7 @@ const ContactFormsSchema = new Schema(
       enum: ["email", "phone"], // Assuming the preferred contact method can be either 'email' or 'phone'
     },
     contactDays: {
-      type: String,
+      type: [String], // Define it as an array of strings
       required: true,
     },
     message: {

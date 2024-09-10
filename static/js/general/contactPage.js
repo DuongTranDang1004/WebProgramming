@@ -33,7 +33,7 @@ function validateForm() {
   return true;
 }
 
-// Function 2: Serialize form data and fetch the API
+// Function 2: Serialize form data and fetch the API to submit form
 async function submitForm() {
   // Prevent form submission if validation fails
   if (!validateForm()) {
@@ -58,6 +58,9 @@ async function submitForm() {
     replyMessage:
       "Thank you for reaching out. We will get back to you shortly.",
   };
+
+  // Log the request body to check the output before sending it to the API
+  console.log("Request body:", data);
 
   // Send the data using Fetch API
   try {
