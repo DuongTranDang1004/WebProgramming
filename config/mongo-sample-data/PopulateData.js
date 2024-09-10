@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const { faker } = require("@faker-js/faker");
+const { faker, fa } = require("@faker-js/faker");
 
 const username = "cosc2430";
 const password = "fighting";
@@ -91,7 +91,7 @@ async function generateSampleData() {
         zipcode: faker.location.zipCode(),
         country: faker.location.countryCode(),
         phone: faker.phone.number(),
-        schoolOrCompanyName: faker.company.name(),
+        schoolOrCompanyName: faker.company.name() + " University",
         jobTitle: faker.person.jobTitle(),
         specialization: faker.helpers.arrayElement([
           "front-end",
@@ -143,7 +143,8 @@ async function generateSampleData() {
         thumbnailImage: faker.image.url(),
         price: faker.commerce.price(),
         description: faker.lorem.paragraph(),
-        isPublish: Math.floor(Math.random() * 2) % 2 ? true : false
+        isPublish: Math.floor(Math.random() * 2) % 2 ? true : false,
+        createTime: faker.date.recent(),
       });
     }
     await courses.insertMany(courseData);
