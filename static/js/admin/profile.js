@@ -20,3 +20,8 @@ async function getAdminData() {
 }
 
 getAdminData()
+
+
+function redirectToUpdate() {
+    window.location.href = "/admin/update"
+}
