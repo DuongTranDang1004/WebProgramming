@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       const courseHTML = `
           <div class="bought-course-item">
             <h2>${course.courseInfo.name}</h2>
-            <h3>${course.instructorId.firstName} ${course.instructorId.lastName}</h3>
             <img src="https://picsum.photos/seed/${course._id}/640/480" alt="Course Image">
           </div>
         `;
@@ -43,7 +42,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       const courseHTML = `
           <div class="learning-course-item">
             <h2>${course.courseInfo.name}</h2>
-            <h3>${course.instructorId.firstName} ${course.instructorId.lastName}</h3>
             <img src="https://picsum.photos/seed/${course._id}/640/480" alt="Course Image">
             <h3>Progress: ${progress}%</h3>
           </div>
@@ -63,9 +61,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       const courseHTML = `
           <div class="completed-course-item">
             <h2>${course.courseInfo.name}</h2>
-            <h3>${course.instructorId.firstName} ${
-        course.instructorId.lastName
-      }</h3>
             <img src="https://picsum.photos/seed/${
               course._id
             }/640/480" alt="Course Image">
