@@ -58,4 +58,26 @@ router.get("/management/learners/:learnerID", (req, res) => {
   });
 });
 
+router.get("/management/instructors/", (req, res) => {
+  res.render("admin/management/instructors", {
+    title: "Instructors Management",
+    pageScripts: [
+      "/js/admin/permission.js",
+      "/js/admin/management/instructors.js",
+    ],
+    pageStylesheet: "css/admin/management/instructors.css",
+  });
+});
+
+router.get("/management/instructors/:instructorID", (req, res) => {
+  res.render("admin/management/editInstructor", {
+    title: "Instructor Management",
+    pageScripts: [
+      "/js/admin/permission.js",
+      "/js/admin/management/editInstructor.js",
+    ],
+    pageStylesheet: "css/admin/management/editInstructor.css",
+  });
+});
+
 module.exports = router;

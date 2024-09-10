@@ -2,7 +2,7 @@ const target = window.location.href.split("/").at(window.location.href.split("/"
 
 async function fillData() {
     const token = localStorage.getItem("token");
-    const response = await fetch(`/api/learners/${target}`, {
+    const response = await fetch(`/api/instructors/${target}`, {
         method: "GET",
         headers: {"Authorization": token}
     });
@@ -17,6 +17,10 @@ async function fillData() {
     document.getElementById("country").value = data.country;
     document.getElementById("zipcode").value = data.zipcode;
     document.getElementById("phone").value = data.phone;
+    document.getElementById("school").value = data.schoolOrCompanyName;
+    document.getElementById("title").value = data.jobTitle;
+    document.getElementById("specialization").value = data.specialization;
+    document.getElementById("bio").value = data.bio || "";
 }
 fillData();
 
@@ -31,13 +35,16 @@ async function updateProfile() {
         country: document.getElementById("country").value,
         zipcode: document.getElementById("zipcode").value,
         phone: document.getElementById("phone").value,
+        schoolOrCompanyName: document.getElementById("school").value,
+        jobTitle: document.getElementById("title").value,
+        specialization: document.getElementById("specialization").value,
+        bio: document.getElementById("bio").value
     }
-    console.log(data)
     const token = localStorage.getItem("token");
-    const response = await fetch(`/api/learners/${target}`, {
+    const response = await fetch(`/api/instructors/${target}`, {
         method: "PUT",
         headers: {"Authorization": token, "Content-Type": "application/json"},
         body: JSON.stringify(data)
     });
-    window.location.href = "/admin/management/learners";
+    window.location.href = "/admin/management/instructors";
 }
