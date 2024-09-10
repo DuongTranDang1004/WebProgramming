@@ -34,7 +34,11 @@ function validateForm() {
 }
 
 // Function 2: Serialize form data and fetch the API to submit form
-async function submitForm() {
+async function submitForm(e) {
+  //pass in the event as the para
+  // Prevent the default form submission
+
+  e.preventDefault();
   // Prevent form submission if validation fails
   if (!validateForm()) {
     return false;
