@@ -1,11 +1,5 @@
 const FollowingInstructor = require("../models/followingInstructorModel");
 const mongoose = require("mongoose");
-/**
- * @swagger
- * tags:
- *   name: FollowingInstructor
- *   description: API for FollowingInstructor
- */
 
 /**
  * @swagger
