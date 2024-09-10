@@ -8,7 +8,7 @@ const {
   deleteLearner,
 } = require("../controllers/learnerController");
 
-//path for learner CRUD operations (Leaner API)
+//path for learner CRUD operations (Leaner API) => only these  paths would have the prefix /api
 router.get("/", getLearners);
 
 router.get("/:id", getLearnerById);
