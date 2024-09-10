@@ -1,0 +1,25 @@
+.admin-nav {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 1%;
+}
+
+
+.pair-data {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+
+    @media (max-width: 1199px) {
+        flex-direction: column;
+    }
+}
+
+.data {
+    padding: 4px;
+    width: 50%;
+
+    @media (max-width: 1199px) {
+        width: 100%;
+    }
+}
