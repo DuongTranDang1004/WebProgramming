@@ -39,8 +39,8 @@ router.get("/favoriteInstructors/:id", (req, res) => {
     title: "Favorite Courses",
     pageStylesheet: "css/learner/favInstructors.css",
     pageScripts: [
-      "js/clientSideProcessing/learner/favInstructors.js",
       "js/fetchAPIs/learner/favInstructors.js",
+      "js/clientSideProcessing/learner/favInstructors.js",
     ],
   });
 });
@@ -51,8 +51,8 @@ router.get("/order/:id", (req, res) => {
     title: "Order Placement",
     pageStylesheet: "css/learner/order",
     pageScripts: [
-      "js/clientSideProcessing/learner/order.js",
       "js/fetchAPIs/learner/order.js",
+      "js/clientSideProcessing/learner/order.js",
     ],
   });
 });
@@ -63,8 +63,8 @@ router.get("/account/:id", (req, res) => {
     title: "My Account",
     pageStylesheet: "css/learner/account",
     pageScripts: [
-      "js/clientSideProcessing/learner/account.js",
       "js/fetchAPIs/learner/account.js",
+      "js/clientSideProcessing/learner/account.js",
     ],
   });
 });
@@ -75,8 +75,8 @@ router.get("/myCourses/:id", (req, res) => {
     title: "My Courses",
     pageStylesheet: "css/learner/myCourses",
     pageScripts: [
-      "js/clientSideProcessing/learner/myCourses.js",
       "js/fetchAPIs/learner/myCourses.js",
+      "js/clientSideProcessing/learner/myCourses.js",
     ],
   });
 });
@@ -87,8 +87,8 @@ router.get("/myProfile/:id", (req, res) => {
     title: "My Profile",
     pageStylesheet: "css/learner/myProfile",
     pageScripts: [
-      "js/clientSideProcessing/learner/myProfile.js",
       "js/fetchAPIs/learner/myProfile.js",
+      "js/clientSideProcessing/learner/myProfile.js",
     ],
   });
 });
@@ -99,8 +99,8 @@ router.get("/transactions/:id", (req, res) => {
     title: "My Past Transactions",
     pageStylesheet: "css/learner/transactions",
     pageScripts: [
-      "js/clientSideProcessing/learner/transactions.js",
       "js/fetchAPIs/learner/transactions.js",
+      "js/clientSideProcessing/learner/transactions.js",
     ],
   });
 });
