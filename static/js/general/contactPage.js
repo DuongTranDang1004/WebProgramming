@@ -52,9 +52,9 @@ async function submitForm() {
     preferredContactMethod: formData.get("contactMethod"),
     contactDays: Array.from(
       document.querySelectorAll('input[name="days"]:checked')
-    ).map((checkbox) => checkbox.value),
+    ).map((checkbox) => checkbox.value), // This should be an array
     message: formData.get("message"),
-    status: "pending", // Default status
+    status: "pending", // Make sure to include this field
     replyMessage:
       "Thank you for reaching out. We will get back to you shortly.",
   };

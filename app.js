@@ -120,7 +120,6 @@ app.set("layout", "layouts/default");
 app.use("/", generalPagesRoutes);
 app.use("/admin", require("./routes/adminPageRoute"));
 
-
 // //BrowseCourse path
 // app.get("/browseCourses", (req, res) => {
 //   res.sendFile(path.join(__dirname, "views", "general", "browseCourses.html"));
