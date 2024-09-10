@@ -80,4 +80,26 @@ router.get("/management/instructors/:instructorID", (req, res) => {
   });
 });
 
+router.get("/management/courses/", (req, res) => {
+  res.render("admin/management/courses", {
+    title: "Courses Management",
+    pageScripts: [
+      "/js/admin/permission.js",
+      "/js/admin/management/courses.js",
+    ],
+    pageStylesheet: "css/admin/management/courses.css",
+  });
+});
+
+router.get("/management/courses/:courseID", (req, res) => {
+  res.render("admin/management/editCourse", {
+    title: "Course Management",
+    pageScripts: [
+      "/js/admin/permission.js",
+      "/js/admin/management/editCourse.js",
+    ],
+    pageStylesheet: "css/admin/management/editCourse.css",
+  });
+});
+
 module.exports = router;
