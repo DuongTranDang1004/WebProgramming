@@ -31,12 +31,11 @@
     <link rel="stylesheet" href="/css/globalStyling/global.css" />
     <!-- custom css sheet for specific pages (pass in as para when render as app.js ) -->
     <!--  (auto add leading '/') -->
+
     <% if (typeof pageStylesheet !== 'undefined') { %>
-    <link
-      rel="stylesheet"
-      href="<%= pageStylesheet.startsWith('/') ? pageStylesheet : '/' + pageStylesheet %>"
-    />
+    <link rel="stylesheet" href="<%= pageStylesheet %>" />
     <% } %>
+
     <!-- import library for icons -->
     <link
       rel="stylesheet"

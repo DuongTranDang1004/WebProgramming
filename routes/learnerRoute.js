@@ -73,7 +73,7 @@ router.get("/account/:id", (req, res) => {
 router.get("/myCourses/:id", (req, res) => {
   res.render("learner/myCourses", {
     title: "My Courses",
-    pageStylesheet: "css/learner/myCourses",
+    pageStylesheet: "css/learner/myCourses.css",
     pageScripts: [
       "js/fetchAPIs/learner/myCourses.js",
       "js/clientSideProcessing/learner/myCourses.js",
