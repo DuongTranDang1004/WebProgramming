@@ -144,13 +144,14 @@ const getTransactionsByUserId = async (req, res) => {
  *         description: Bad request
  */
 const createTransaction = async (req, res) => {
-  const { learnerId, courseId, amount, transactionDate, paymentMethod } = req.body;
+  const { learnerId, courseId, instructorId, amount, transactionDate, paymentMethod } = req.body;
 
   try {
     // Create the transaction
     const transaction = new Transactions({
       learnerId,
       courseId,
+      instructorId,
       amount,
       transactionDate,
       paymentMethod,
@@ -162,7 +163,7 @@ const createTransaction = async (req, res) => {
     const boughtCourse = new BoughtCourses({
       learnerId,
       courseId,
-      instructorId: null, // You might want to add this field
+      instructorId, // You might want to add this field
       startDate: transactionDate,
       boughtDateTime: transactionDate,
       endDate: null,
