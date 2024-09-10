@@ -102,19 +102,6 @@
                 <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
                 <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
               </ul>
-      
-              <!-- <form class="flex items-center space-x-2">
-                <input
-                  class="form-input border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-                  id="nav-search-input"
-                  type="search"
-                  placeholder="Type Course Names"
-                  aria-label="Search"
-                />
-                <button class="btn bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600" id="nav-button" type="submit">
-                  Search
-                </button>
-              </form> -->
             </div>
           </div>
       
@@ -141,18 +128,6 @@
                 <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
                 <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
               </ul>
-              <!-- <form class="flex flex-col space-y-4 p-4">
-                <input
-                  class="form-input border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-                  id="nav-search-input"
-                  type="search"
-                  placeholder="Type Course Names"
-                  aria-label="Search"
-                />
-                <button class="btn bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600" id="nav-button" type="submit">
-                  Search
-                </button>
-              </form> -->
             </div>
           </div>
         </nav>
@@ -296,6 +271,7 @@
     </div>
 
     <script>
+        const instructorId = '66e07cb88a0cafe880f72d2c';
         document.addEventListener('DOMContentLoaded', () => {
             const path = window.location.pathname.split('/').pop().split('.')[0]; // Get the base filename without extension
             document.querySelectorAll('#sidebar .sidebar-item').forEach(item => {
@@ -320,7 +296,7 @@
         });
 
         function fetchCourses(sortOrder) {
-            fetch('http://localhost:3000/courses/instructor/66dec08e67051c61b4917bd2')
+            fetch(`http://localhost:3000/courses/instructor/${instructorId}`)
                 .then(response => response.json())
                 .then(data => {
                     // Sort courses based on selected sort order

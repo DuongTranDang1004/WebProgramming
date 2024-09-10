@@ -168,17 +168,9 @@
                     </ul>
                 </div>
                 <!-- Purchase Details Section -->
-                <div id="purchase-details" class="tab-content">
-                    <h2 class="text-xl font-semibold mb-4">Current plan</h2>
-                    <p class="mb-4">Pro - Student</p>
-                    <h3 class="text-lg font-semibold mb-2">Active subscriptions</h3>
-                    <p class="mb-4">Billed annually</p>
-                    <p class="mb-4">Last charged December 29, 2023</p>
-                    <p class="mb-4">Estimated payment scheduled for December 26, 2024</p>
-                    <h3 class="text-lg font-semibold mb-2">Payment method</h3>
-                    <p class="mb-4">VISA •••• 7189 <a href="#" class="text-blue-600 hover:underline">Update</a></p>
-                    <h3 class="text-lg font-semibold mb-2">Need a break?</h3>
-                    <p class="text-blue-600"><a href="#" class="hover:underline">I want to end my subscription</a></p>
+                <div id="plan-details" class="tab-content">
+                  <!-- Plan details will be injected here -->
+                  <p>Loading plan details...</p>
                 </div>
                 <!-- Billing History Section -->
                 <div id="billing-history" class="tab-content hidden">
@@ -292,6 +284,41 @@
                 $('#' + tab_id.replace('tab-', '')).removeClass('hidden');
             });
         });
+
+        function fetchMembershipDetails() {
+            const apiUrl = 'http://localhost:3000/memberships/instructor/66e00d8d87e60487ea39c25a';
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const planDetails = data[0];  // Assuming the first plan is the active one
+                    const planDetailsElement = document.getElementById('plan-details');
+                    
+                    // Build the HTML for the plan details
+                    const htmlContent = `
+                      <h2 class="text-xl font-semibold mb-4">Current plan</h2>
+                      <p class="mb-4">${planDetails.planName} - Instructor</p>
+                      <h3 class="text-lg font-semibold mb-2">Active subscriptions</h3>
+                      <p class="mb-4">Billed ${planDetails.planType}</p>
+                      <p class="mb-4"><strong>Commission Fee:</strong> ${planDetails.commissionFee * 100}%</p>
+                      <p class="mb-4"><strong>Price:</strong> $${planDetails.price}</p>
+                      <p class="mb-4">Last charged ${new Date(planDetails.startDate).toLocaleDateString()}</p>
+                      <p class="mb-4">Estimated payment scheduled for ${new Date(planDetails.endDate).toLocaleDateString()}</p>
+                      <h3 class="text-lg font-semibold mb-2">Payment method</h3>
+                      <p class="mb-4">${planDetails.paymentMethod} •••• ${planDetails.cardNumber.slice(-4)} <a href="#" class="text-blue-600 hover:underline">Update</a></p>
+                      <h3 class="text-lg font-semibold mb-2">Need a break?</h3>
+                      <p class="text-blue-600"><a href="#" class="hover:underline">I want to end my subscription</a></p>
+                    `;
+                    
+                    // Inject the HTML into the DOM
+                    planDetailsElement.innerHTML = htmlContent;
+                })
+                .catch(error => {
+                    console.error('Error fetching membership details:', error);
+                });
+        }
+
+        // Call the function when the page loads
+        window.onload = fetchMembershipDetails;
     </script>
 </body>
 

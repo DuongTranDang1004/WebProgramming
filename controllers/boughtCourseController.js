@@ -92,7 +92,8 @@ const getBoughtCourses = async (req, res) => {
   try {
     const courses = await BoughtCourses.find({})
       .populate('learnerId', 'firstName lastName email')
-      .populate('courseId', 'name category price');
+      .populate('courseId', 'name category price')
+      .populate('instructorId', 'firstName lastName email');
     res.status(200).json(courses);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching courses' });
@@ -135,8 +136,8 @@ const getBoughtCourse = async (req, res) => {
 
     const boughtCourse = await BoughtCourses.findById(id)
       .populate('learnerId', 'firstName lastName email')
-      .populate('courseId', 'name category price');
-
+      .populate('courseId', 'name category price')
+      .populate('instructorId', 'firstName lastName email');
     if (!boughtCourse) {
       return res.status(404).json({ message: "Bought course not found" });
     }
@@ -224,7 +225,6 @@ const updateBoughtCourse = async (req, res) => {
     const updatedCourse = await BoughtCourses.findByIdAndUpdate(id, req.body, { new: true })
       .populate('learnerId', 'firstName lastName email')
       .populate('courseId', 'name category price');
-
     if (!updatedCourse) {
       return res.status(404).json({ message: "Bought course not found" });
     }
