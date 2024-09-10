@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head >
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin profile</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/static/css/admin/adminDetail.css" />
 </head>
 
 <body>
-    <div>
-        <div class="w-full flex justify-evenly pt-4">
+    <div style="height: 100%;">
+        <div class="admin-nav">
             <div>
                 <a href="/admin/profile" class="">
                     <span class="text-4xl font-bold">Admin Profile</span>
@@ -32,14 +31,14 @@
         </div>
 
         <div class="profile-page">
-            <div class="flex justify-between items-center mb-10">
-                <div class="text-4xl font-semibold">Profile</div>
-                <button class="bg-purple-700 text-white px-4 py-2 rounded">
+            <div class="profile-header">
+                <div class="text-6xl font-semibold mt-8">Profile</div>
+                <button class="bg-purple-700 text-white px-4 py-2 rounded text-2xl">
                     Update profile
                 </button>
             </div>
 
-            <div class="flex m-32 p-4 bg-gray-100 rounded-lg">
+            <div class="profile-content">
                 <img src="" alt="Admin profile image" id="admin-image" class="admin-image">
                 <div class="ml-10 w-full flex justify-center items-center">
                     <div class="label">
@@ -62,42 +61,6 @@
                         <p class="text-4xl text-gray-500" id="zipcode">Zipcode:</p>
                         <p class="text-4xl text-gray-500" id="phone">Phone:</p>
                     </div>
-                    <!-- <div class="flex">
-                        <div class="text-4xl font-semibold w-48">First name:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="first_name">John</div>
-                    </div>
-                    <div class="flex">
-                        <div class="text-4xl font-semibold w-32">Last name:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="last_name">Doe</div>
-                    </div>
-                    <div class="flex">
-                        <div class="text-4xl font-semibold w-32">Email:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="email">
-                            admin@itlearning.ddns.net
-                        </div>
-                    </div>
-                    <div class="flex">
-                        <div class="text-4xl font-semibold w-32">Address:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="address">
-                            702 Nguyen Van Linh Street, Tan Hung Ward, District 7
-                        </div>
-                    </div>
-                    <div class="flex">
-                        <div class="text-4xl font-semibold w-32">City:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="city">Ho Chi Minh City</div>
-                    </div>
-                    <div class="flex">
-                        <div class="text-4xl font-semibold w-32">Country:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="country">Vietnam</div>
-                    </div>
-                    <div class="flex">
-                        <div class="text-4xl font-semibold w-32">Zipcode:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="zipcode">70000</div>
-                    </div>
-                    <div class="flex">
-                        <div class="text-4xl font-semibold w-32">Phone:</div>
-                        <div class="text-4xl text-gray-500 w-4/5" id="phone">02837761300</div>
-                    </div> -->
                 </div>
             </div>
         </div>

@@ -34,10 +34,8 @@ function login () {
         if (data.admin) {
             localStorage.setItem('role', 'admin');
             localStorage.setItem("id", data.admin._id);
+            window.location.href = "/admin/dashboard"
         }
-
-        // Redirect to home page
-        window.location.href = '/';
     })
     .catch((error) => {
         console.error('Error:', error);
