@@ -23,6 +23,39 @@ router.get("/profile", (req, res) => {
     ],
     pageStylesheet: "css/admin/profile.css",
   });
-})
+});
+
+router.get("/update", (req, res) => {
+  res.render("admin/updateProfile", {
+    title: "Update admin profile",
+    pageScripts: [
+      "/js/admin/permission.js",
+      "/js/admin/updateProfile.js",
+    ],
+    pageStylesheet: "css/admin/updateProfile.css",
+  })
+});
+
+router.get("/management/learners", (req, res) => {
+  res.render("admin/management/learners", {
+    title: "Learners Management",
+    pageScripts: [
+      "/js/admin/permission.js",
+      "/js/admin/management/learners.js",
+    ],
+    pageStylesheet: "css/admin/management/learners.css",
+  });
+});
+
+router.get("/management/learners/:learnerID", (req, res) => {
+  res.render("admin/management/editLearner", {
+    title: "Learners Management",
+    pageScripts: [
+      "/js/admin/permission.js",
+      "/js/admin/management/editLearner.js",
+    ],
+    pageStylesheet: "css/admin/management/editLearner.css",
+  });
+});
 
 module.exports = router;

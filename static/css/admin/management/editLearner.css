@@ -50,6 +50,7 @@
     flex-direction: row;
     padding: 1% 2%;
     align-items: center;
+
     @media (max-width: 1199px) {
         flex-direction: column;
         align-items: flex-start;
@@ -62,13 +63,15 @@
     text-align: right;
     padding-right: 1%;
     font-size: 150%;
+
     @media (max-width: 1199px) {
         text-align: left;
         width: 100%;
     }
 }
 
-.data input, .data select {
+.data input,
+.data select {
     width: 100%;
     padding: 1% 2%;
     font-size: 150%;
@@ -89,6 +92,7 @@
     padding: 1% 2%;
     margin-bottom: 1%;
 }
+
 .update-btn button:hover {
     background-color: #6351ce;
     color: white;
