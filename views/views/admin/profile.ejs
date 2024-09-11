@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+</head>
+
+<body>
+    <div style="height: 100%;">
+        <div class="admin-nav">
+            <div>
+                <a href="/admin/profile" class="">
+                    <span class="text-4xl font-bold">Admin Profile</span>
+                </a>
+            </div>
+            <div class="management-dropdown">
+                <button class="text-4xl">Admin Management</button>
+                <div class="dropdown-content">
+                    <a href="/admin/management/learners" class="text-4xl">Learners</a>
+                    <a href="/admin/management/instructors" class="text-4xl">Instructors</a>
+                    <a href="/admin/management/courses" class="text-4xl">Courses</a>
+                </div>
+            </div>
+            <div>
+                <a href="/admin/dashboard" class="">
+                    <span class="text-4xl">Admin Dashboard</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="profile-page">
+            <div class="profile-header">
+                <div class="text-6xl font-semibold mt-8">Profile</div>
+                <button class="bg-purple-700 text-white px-4 py-2 rounded text-2xl" onclick="redirectToUpdate()">
+                    Update profile
+                </button>
+            </div>
+
+            <div class="profile-content">
+                <img src="" alt="Admin profile image" id="admin-image" class="admin-image">
+                <div class="ml-10 w-full flex justify-center items-center">
+                    <div class="label">
+                        <p class="text-4xl text-gray-500 text-right">First name:</p>
+                        <p class="text-4xl text-gray-500 text-right">Last name:</p>
+                        <p class="text-4xl text-gray-500 text-right">Email:</p>
+                        <p class="text-4xl text-gray-500 text-right">Address:</p>
+                        <p class="text-4xl text-gray-500 text-right">City:</p>
+                        <p class="text-4xl text-gray-500 text-right">Country:</p>
+                        <p class="text-4xl text-gray-500 text-right">Zipcode:</p>
+                        <p class="text-4xl text-gray-500 text-right">Phone:</p>
+                    </div>
+                    <div class="data">
+                        <p class="text-4xl text-gray-500" id="first_name">First name:</p>
+                        <p class="text-4xl text-gray-500" id="last_name">Last name:</p>
+                        <p class="text-4xl text-gray-500" id="email">Email:</p>
+                        <p class="text-4xl text-gray-500" id="address">Address:</p>
+                        <p class="text-4xl text-gray-500" id="city">City:</p>
+                        <p class="text-4xl text-gray-500" id="country">Country:</p>
+                        <p class="text-4xl text-gray-500" id="zipcode">Zipcode:</p>
+                        <p class="text-4xl text-gray-500" id="phone">Phone:</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+/* Our theme primary colors, ensure high contrast:  */
+/* #6D28D9 (purple) , #FFFFFF (white), #1F2937 (dark blue) */
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: #ffffff; /* White background for the main content */
+
+  display: flex;
+  flex-direction: column;
+}
+/* 
+Main content style */
+main {
+  /* flex-grow: 1; */
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  height: 60vh;
+}
+
+/* Header Style */
+header {
+  height: 10vh;
+}
+.navbar-brand {
+  color: white;
+}
+.active {
+  color: white;
+}
+
+#logo {
+  vertical-align: middle;
+}
+nav {
+  margin: 0;
+  padding: 0;
+  background: #1c2331;
+  height: 100%;
+}
+.navbar {
+  margin: 0;
+  padding: 0;
+}
+#topNav button {
+  background: green;
+}
+
+#topNav {
+  background: #1c2331;
+}
+.navbar-nav .nav-link:hover {
+  color: #6351ce;
+}
+/* Change color when the item is clicked (active/focus) */
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link:active,
+.navbar-nav .nav-link.active {
+  color: #6351ce;
+}
+
+.nav-link {
+  color: white;
+}
+.btn-outline-success {
+  color: white;
+}
+form.d-flex .form-control {
+  max-width: 300px; /* Set a reasonable maximum width */
+}
+
+.navbar-collapse {
+  z-index: 1000; /* Ensure it's on top */
+}
+
+.d-flex {
+  align-items: center;
+  justify-content: flex-end;
+}
+#nav-search-input.me-2 {
+  height: 50px !important;
+  font-size: larger;
+}
+
+#nav-button {
+  height: 50px;
+  font-size: larger;
+}
+.nav-item {
+  font-size: larger !important;
+}
+
+/* Input Form */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #1f2937; /* Dark blue text color */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #6d28d9; /* Purple border */
+  border-radius: 4px;
+  background-color: #ffffff; /* White input background */
+  color: #1f2937; /* Dark blue text color */
+}
+
+/* Footer Styling */
+footer {
+  height: 30vh;
+  margin-top: auto;
+  width: 100%;
+  color: #ffffff; /* White text color */
+  background-color: #1c2331;
+  bottom: 0;
+  text-align: center;
+}
+footer div {
+  width: 100%;
+}
+footer a {
+  color: #ffffff; /* White text color for footer links */
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+
+/* Here are some areas where different UI component arrangements may be needed based on the device type:
+
+Navigation Menu Bar:
+Desktop Computers: Always-visible horizontal navigation menu.
+Tablets/Smartphones: Alternating between visible and hidden vertical navigation menu.
+
+Input Form:
+Desktop Computers: A label and its linked input field must be positioned on the same row.
+Tablets/Smartphones: The label and input field should be placed on different rows.
+
+Layout:
+Desktop Computers: Multi-column layout. */
+/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+
+/* For Smartphones (767px or lower) */
+
+/* For Smartphones (767px or lower) */

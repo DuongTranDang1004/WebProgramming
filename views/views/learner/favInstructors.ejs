@@ -1,0 +1,20 @@
+<div class="favorites-page">
+  <aside class="sidebar">
+    <h2>Favorite Instructors</h2>
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search by specialization..."
+      oninput="filterInstructors()"
+    />
+    <button class="button" onclick="addFavoriteInstructor()">
+      Add Instructor
+    </button>
+  </aside>
+
+  <div class="favorites-content">
+    <div id="favorite-instructors" class="instructor-list">
+      <!-- Favorite instructors will be dynamically inserted here -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/admin/dashboard.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+
+<body>
+    <div>
+        <div class="admin-nav">
+            <div>
+                <a href="/admin/profile" class="">
+                    <span class="text-4xl">Admin Profile</span>
+                </a>
+            </div>
+            <div class="management-dropdown">
+                <button class="text-4xl">Admin Management</button>
+                <div class="dropdown-content">
+                    <a href="/admin/management/learners" class="text-4xl">Learners</a>
+                    <a href="/admin/management/instructors" class="text-4xl">Instructors</a>
+                    <a href="/admin/management/courses" class="text-4xl">Courses</a>
+                </div>
+            </div>
+            <div>
+                <a href="/admin/dashboard" class="">
+                    <span class="text-4xl font-bold">Admin Dashboard</span>
+                </a>
+            </div>
+        </div>
+        <div class="p-4 flex-grow w-full">
+            <div class="flex justify-between items-center mb-10">
+                <div class="text-6xl font-semibold w-full"><center>Dashboard</center></div>
+            </div>
+
+            <div class="bg-gray-100 rounded-lg w-full">
+                <div class="pair-data">
+                    <div class="data">
+                        <div class="chart-section">
+                            <div class="flex justify-center">
+                                <h3 class="text-xl font-semibold">Active users today</h3>
+                            </div>
+                            <canvas id="active-users-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="data">
+                        <div class="chart-section">
+                            <div class="flex justify-center">
+                                <h3 class="text-xl font-semibold">New user</h3>
+                            </div>
+                            <canvas id="new-users-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair-data">
+                    <div class="data">
+                        <div class="chart-section">
+                            <div class="flex justify-center">
+                                <h3 class="text-xl font-semibold">Bought courses</h3>
+                            </div>
+                            <canvas id="bought-courses-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="data">
+                        <div class="chart-section">
+                            <div class="flex justify-center">
+                                <h3 class="text-xl font-semibold">New courses</h3>
+                            </div>
+                            <canvas id="new-courses-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair-data">
+                    <div class="data">
+                        <div class="chart-section">
+                            <div class="flex justify-center">
+                                <h3 class="text-xl font-semibold">Most bought courses</h3>
+                            </div>
+                            <canvas id="most-bought-courses-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="data">
+                        <div class="chart-section">
+                            <div class="flex justify-center">
+                                <h3 class="text-xl font-semibold">Best instructors</h3>
+                            </div>
+                            <canvas id="best-instructor-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin/dashboard.js"></script>
+</body>
+
+
+</html>

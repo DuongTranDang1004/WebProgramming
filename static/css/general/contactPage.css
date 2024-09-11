@@ -6,16 +6,20 @@
 .form-group label {
   display: block;
   margin-bottom: 5px;
-  color: #1f2937; /* Dark blue text color */
+  color: #1f2937;
+  /* Dark blue text color */
 }
 
 .form-group input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #6d28d9; /* Purple border */
+  border: 1px solid #6d28d9;
+  /* Purple border */
   border-radius: 4px;
-  background-color: #ffffff; /* White input background */
-  color: #1f2937; /* Dark blue text color */
+  background-color: #ffffff;
+  /* White input background */
+  color: #1f2937;
+  /* Dark blue text color */
 }
 
 /* Start of preferred contact days styling */
@@ -42,12 +46,16 @@
   display: flex;
   justify-content: flex-end;
 }
+
 #preferred-contact-method {
   display: flex;
   align-items: center;
-  white-space: nowrap; /* Prevent text wrapping */
-  justify-content: space-between; /* Ensure spacing between label and inputs */
-  margin-bottom: 40px; /* Ensure spacing at the bottom */
+  white-space: nowrap;
+  /* Prevent text wrapping */
+  justify-content: space-between;
+  /* Ensure spacing between label and inputs */
+  margin-bottom: 40px;
+  /* Ensure spacing at the bottom */
 }
 
 /* Media query for tablets and smartphones */
@@ -88,9 +96,10 @@ input.radio {
 }
 
 /* Aligning checkbox and radio labels properly */
-input[type="checkbox"] + label,
-input[type="radio"] + label {
-  vertical-align: middle; /* Keep middle alignment */
+input[type="checkbox"]+label,
+input[type="radio"]+label {
+  vertical-align: middle;
+  /* Keep middle alignment */
   height: 100%;
   font-size: 16px;
 }
@@ -107,8 +116,10 @@ input[type="radio"] + label {
   display: inline-block;
   width: 30%;
   font-size: 16px;
-  height: 60px; /* Matches the height of the input field */
-  line-height: 60px; /* Vertically centers the label text */
+  height: 60px;
+  /* Matches the height of the input field */
+  line-height: 60px;
+  /* Vertically centers the label text */
 }
 
 .form-group input[type="text"],
@@ -125,7 +136,8 @@ input[type="radio"] + label {
 
 /* Fixing the gap between radio buttons and their labels */
 input[type="radio"] {
-  margin-right: 5px; /* Less space between the radio button and the label */
+  margin-right: 5px;
+  /* Less space between the radio button and the label */
 }
 
 /* Aligning radio buttons consistently */
@@ -137,22 +149,35 @@ input[type="radio"] {
 }
 
 .radio-group label {
-  margin-left: 5px; /* Ensures labels are closer to the radio buttons */
-  font-size: 16px; /* Ensures text is consistent in size */
+  margin-left: 5px;
+  /* Ensures labels are closer to the radio buttons */
+  font-size: 16px;
+  /* Ensures text is consistent in size */
+}
+
+#preferred-contact-days {
+  align-items: center;
+  white-space: nowrap;
+  justify-content: space-between;
 }
 
 #preferred-contact-days span {
-  font-size: 16px; /* Match the label font size */
-  font-weight: bold; /* Match label font weight */
-  display: inline-block; /* Ensure it's aligned properly with checkboxes */
-  margin-right: 10px; /* Add some space between the span and the checkboxes */
+  font-size: 16px;
+  /* Match the label font size */
+  font-weight: bold;
+  /* Match label font weight */
+  display: inline-block;
+  /* Ensure it's aligned properly with checkboxes */
+  margin-right: 10px;
+  /* Add some space between the span and the checkboxes */
 }
 
 /* Adding vertical space between sections */
 #preferred-contact-method,
 #preferred-contact-days,
 #message-section {
-  margin-bottom: 40px; /* Space between the different sections */
+  margin-bottom: 40px;
+  /* Space between the different sections */
 }
 
 /* Button styling */
@@ -243,6 +268,7 @@ button[type="reset"] {
 
 /* Media query for mobile and tablet adjustments */
 @media only screen and (max-width: 768px) {
+
   /* Ensure form elements are stacked properly */
   .form-group {
     flex-direction: column;

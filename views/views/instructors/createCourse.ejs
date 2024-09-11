@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-1/5 bg-gray-900 text-white p-6 border-r min-h-screen fixed">
+            <h2 class="text-2xl font-semibold mb-6">Create your content</h2>
+            <ul>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none" id="curriculum-btn"
+                        data-target="curriculum">Curriculum</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="landing-page">Course landing page</button>
+                </li>
+            </ul>
+            <h2 class="text-2xl font-semibold mb-6">Publish your course</h2>
+            <ul>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="pricing">Pricing</button>
+                </li>
+                <li class="mb-4">
+                    <button class="sidebar-link text-left w-full text-gray-300 hover:text-white focus:outline-none"
+                        data-target="messages">Course messages</button>
+                </li>
+            </ul>
+            <button class="bg-purple-600 text-white w-full py-3 mt-6 hover:bg-purple-700 transition-colors"
+                onclick="createCourse()">Submit</button>
+        </aside>
+        <!-- Main content -->
+        <main class="w-4/5 ml-auto p-6">
+            <div id="curriculum" class="content-section">
+                <div class="container mx-auto px-6 py-8"> <!-- Adjusted padding -->
+                    <div class="flex justify-between items-center mb-6"> <!-- Adjusted margin -->
+                        <h1 class="text-3xl font-bold">Curriculum</h1> <!-- Increased text size -->
+                        <button class="btn bg-gray-300 text-gray-700 px-5 py-3 rounded">Bulk Uploader</button>
+                        <!-- Adjusted colors and padding -->
+                    </div>
+
+                    <div class="bg-gray-100 p-5 mb-6 rounded-lg"> <!-- Adjusted padding and border radius -->
+                        <p class="text-base">Here’s where you add course content—like lectures, course sections,
+                            assignments, and more. Click a + icon on the left to get started.</p>
+                        <!-- Adjusted text size -->
+                        <button class="btn bg-black text-white px-5 py-2.5 rounded mt-3">Dismiss</button>
+                        <!-- Adjusted padding -->
+                    </div>
+
+                    <p class="text-base mb-4">Start putting together your course by creating sections, lectures, and
+                        practice (quizzes, coding exercises, and assignments).</p>
+
+                    <div class="bg-green-100 p-5 mb-6 rounded-lg">
+                        <p class="text-green-600 text-base">Check out the latest creation flow improvements, new
+                            question types, and AI-assisted features in practice tests.</p>
+                        <button class="btn bg-black text-white px-5 py-2.5 rounded mt-3">Dismiss</button>
+                    </div>
+
+                    <div class="bg-gray-200 p-5 mb-6 rounded-lg relative"> <!-- Adjusted padding and border radius -->
+                        <h3 class="text-lg font-bold" id="section-title">Unpublished Section: Introduction</h3>
+
+                        <!-- Dropdown menu with close button -->
+                        <div class="relative inline-block mt-2"> <!-- Added margin for better alignment -->
+                            <div id="dropdown-menu"
+                                class="hidden bg-white border border-gray-300 rounded shadow-lg p-2 inline-block">
+                                <button id="lecture-btn"
+                                    class="dropdown-item bg-gray-100 text-gray-800 px-5 py-2 rounded mb-2">+
+                                    Lecture</button>
+                            </div>
+                            <button id="close-dropdown" class="ml-4 text-gray-700 align-middle">X</button>
+                        </div>
+                    </div>
+
+                    <!-- Section for displaying lectures -->
+                    <div id="lectures-container" class="mt-4">
+                        <!-- Lectures will be added here dynamically -->
+                    </div>
+
+                    <!-- Lecture form -->
+                    <div id="lecture-form" class="hidden bg-white p-5 border border-gray-300 rounded-lg shadow-lg">
+                        <h4 class="text-lg font-bold mb-4">Add Lecture</h4>
+                        <input type="text" id="lecture-name" placeholder="Enter Lecture Name"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+                        <textarea id="lecture-description" placeholder="Enter Lecture Description"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg"></textarea>
+                        <input type="text" id="lecture-video" placeholder="Enter Video Link"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+                        <div id="quiz-container" class="mb-4"></div>
+                        <button id="add-quiz" class="btn bg-blue-500 text-white px-5 py-2.5 rounded mb-4">+
+                            Quiz</button>
+                        <button id="close-lecture-form"
+                            class="btn bg-gray-300 text-gray-700 px-5 py-2.5 rounded">X</button>
+                    </div>
+
+                    <!-- Quiz form (dynamically added) -->
+                    <template id="quiz-form-template">
+                        <div class="quiz-form bg-white p-5 border border-gray-300 rounded-lg shadow-lg mb-4">
+                            <h5 class="text-lg font-bold mb-2">Quiz</h5>
+                            <input type="text" class="w-full p-2 mb-2 border border-gray-300 rounded-lg"
+                                placeholder="Enter Quiz Title" />
+                            <input type="text" class="w-full p-2 mb-2 border border-gray-300 rounded-lg"
+                                placeholder="Correct Answer" />
+                            <input type="text" class="w-full p-2 mb-2 border border-gray-300 rounded-lg"
+                                placeholder="Incorrect Answer 1" />
+                            <input type="text" class="w-full p-2 mb-2 border border-gray-300 rounded-lg"
+                                placeholder="Incorrect Answer 2" />
+                            <input type="text" class="w-full p-2 mb-2 border border-gray-300 rounded-lg"
+                                placeholder="Incorrect Answer 3" />
+                        </div>
+                    </template>
+
+                    <!-- Section form -->
+                    <div id="section-form" class="hidden bg-white p-5 mt-5 border border-gray-300 rounded-lg shadow-lg">
+                        <h4 class="text-lg font-bold mb-4">Add Section</h4>
+                        <input type="text" id="section-name" placeholder="Enter Section Name"
+                            class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+                        <div class="flex justify-end">
+                            <button id="cancel-section"
+                                class="btn bg-gray-300 text-gray-700 px-5 py-2.5 rounded mr-2">Cancel</button>
+                            <button id="add-section" class="btn bg-blue-500 text-white px-5 py-2.5 rounded" id="section-btn">Add
+                                Section</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="landing-page" class="content-section">
+                <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+                    <h1 class="text-2xl font-bold mb-4">Course landing page</h1>
+                    <p class="text-gray-600 mb-6">
+                        Your course landing page is crucial to your success on Udemy. If it’s done right, it can also
+                        help you
+                        gain visibility in search engines like Google. As you complete this section, think about
+                        creating a
+                        compelling Course Landing Page that demonstrates why someone would want to enroll in your
+                        course.
+                    </p>
+
+                    <form>
+                        <div class="mb-6">
+                            <label for="title" class="block text-lg font-medium text-gray-700 mb-2">Course title</label>
+                            <input type="text" id="title"
+                                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+                                maxlength="58">
+                            <p class="text-sm text-gray-500 mt-1">You should aim for a title of attention-grabbing,
+                                informative,
+                                and optimized for search.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="subtitle" class="block text-lg font-medium text-gray-700 mb-2">Course
+                                subtitle</label>
+                            <input type="text" id="title"
+                                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+                                maxlength="120">
+                            <p class="text-sm text-gray-500 mt-1">Use 2-3 related keywords, and mention 2-4 of the most
+                                important areas that you cover during your course.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="category" class="block text-lg font-medium text-gray-700 mb-2">Course
+                                Category</label>
+                            <input type="text" id="category"
+                                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="description" class="block text-lg font-medium text-gray-700 mb-2">Course
+                                description</label>
+                            <textarea id="description" rows="4"
+                                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Description should have a minimum of 200 words.</p>
+                        </div>
+
+                        <!-- <div class="mb-6">
+                            <label class="block text-lg font-medium text-gray-700 mb-2">Basic info</label>
+                            <div class="flex space-x-4">
+                                <select id="language"
+                                    class="w-1/2 border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option>English (US)</option>
+                                    <option>Spanish</option>
+                                    <option>French</option>
+                                </select>
+                                <select id="level"
+                                    class="w-1/2 border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option>Select Level</option>
+                                    <option>Beginner</option>
+                                    <option>Intermediate</option>
+                                    <option>Advanced</option>
+                                </select>
+                            </div>
+                        </div> -->
+
+                        <div class="mb-6">
+                            <label for="image" class="block text-lg font-medium text-gray-700 mb-2">Course image</label>
+                            <input type="file" id="image"
+                                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            <p class="text-sm text-gray-500 mt-1">Upload your course image here. It must meet our course
+                                image
+                                quality standards to be accepted.</p>
+                        </div>
+
+                        <!-- <div class="mb-6">
+                            <label for="video" class="block text-lg font-medium text-gray-700 mb-2">Promotional video</label>
+                            <input type="file" id="video"
+                                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            <p class="text-sm text-gray-500 mt-1">Your promo video is a quick and compelling way for students to
+                                preview what they’ll learn in your course.</p>
+                        </div> -->
+
+                        <button type="submit"
+                            class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:outline-none">Save</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <div id="pricing" class="content-section">
+                <h1 class="text-2xl font-semibold mb-4">Pricing</h1>
+                <!-- Warning Alert -->
+                <div id="warning-alert" class="bg-yellow-200 p-4 mb-6 rounded-lg">
+                    <p class="text-yellow-800 text-base">Please finish your premium application. You'll be able to set
+                        your price once your payout method is approved.</p>
+                </div>
+
+                <form id="pricing-form" class="bg-white p-6 border border-gray-300 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-4">Set Course Price</h2>
+                    <p class="text-base mb-4">Please select the currency and the price tier for your course. If you’d
+                        like to offer your course for free, it must have a total video length of less than 2 hours.
+                        Also, courses with practice tests cannot be free.</p>
+
+                    <!-- Price Input -->
+                    <div class="mb-4">
+                        <label for="currency" class="block text-lg font-medium mb-2">Currency</label>
+                        <select id="currency" name="currency" class="w-full p-2 border border-gray-300 rounded-lg">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY</option>
+                            <!-- Add more currencies as needed -->
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="price" class="block text-lg font-medium mb-2">Price</label>
+                        <input type="text" id="price" name="price" placeholder="Enter course price"
+                            class="w-full p-2 border border-gray-300 rounded-lg" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="price-tier" class="block text-lg font-medium mb-2">Price Tier</label>
+                        <select id="price-tier" name="price-tier" class="w-full p-2 border border-gray-300 rounded-lg">
+                            <option value="basic">Basic</option>
+                            <option value="standard">Standard</option>
+                            <option value="premium">Premium</option>
+                            <!-- Add more price tiers as needed -->
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn bg-blue-500 text-white px-5 py-2.5 rounded">Save Pricing</button>
+                </form>
+            </div>
+            <div id="messages" class="content-section">
+                <h1 class="text-2xl font-semibold mb-4">Course messages</h1>
+                <p>Content about course messages...</p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
