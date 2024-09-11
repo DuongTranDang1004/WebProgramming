@@ -65,9 +65,9 @@ app.use("/", generalPagesRoutes);
 app.use("/boughtCourses", boughtCourseRoutes);
 app.use("/contactForms", contactFormRoutes);
 app.use("/courses", courseRoutes);
-app.use("/instructors", instructorRoutes);
+app.use("/instructors", require("./routes/instructorPageRoute"));
 app.use("/learners", learnerRoutes);
-app.use("/platformAdmins", platformAdminRoutes);
+app.use("/admin", require("./routes/adminPageRoute"));
 app.use("/lectures", lectureRoutes);
 app.use("/favoritesCourses", favoriteCourseRoutes);
 app.use("/followingInstructors", followingInstructorRoutes);
@@ -118,7 +118,6 @@ app.set("layout", "layouts/default");
 //GENERAL PAGES
 // Use the general pages routes
 app.use("/", generalPagesRoutes);
-app.use("/admin", require("./routes/adminPageRoute"));
 
 
 // //BrowseCourse path
