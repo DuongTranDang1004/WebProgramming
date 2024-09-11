@@ -68,8 +68,10 @@ const FavoriteCourse = require("../models/favoriteCourseModel");
  */
 const getFavoriteCourses = async (req, res) => {
   try {
-    const favoriteCourses = await FavoriteCourse.find({})
-      .populate('courseId', 'name category price description');
+    const favoriteCourses = await FavoriteCourse.find({}).populate(
+      "courseId",
+      "name category price description"
+    );
     res.status(200).json(favoriteCourses);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -106,8 +108,9 @@ const getFavoriteCourses = async (req, res) => {
 const getFavoriteCourseByLearnerID = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoriteCourses = await FavoriteCourse.find({ learnerId: id })
-      .populate('courseId', 'name category price description');
+    const favoriteCourses = await FavoriteCourse.find({
+      learnerId: id,
+    }).populate("courseId", "name category price description");
     if (favoriteCourses.length > 0) {
       return res.status(200).json(favoriteCourses);
     } else {
@@ -146,8 +149,10 @@ const getFavoriteCourseByLearnerID = async (req, res) => {
 const getFavoriteCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoriteCourse = await FavoriteCourse.findById(id)
-      .populate('courseId', 'name category price description');
+    const favoriteCourse = await FavoriteCourse.findById(id).populate(
+      "courseId",
+      "name category price description"
+    );
     if (!favoriteCourse) {
       return res.status(404).json({ message: "Favorite course not found" });
     }
@@ -222,7 +227,11 @@ const createFavoriteCourse = async (req, res) => {
 const updateFavoriteCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoriteCourse = await FavoriteCourse.findByIdAndUpdate(id, req.body, { new: true });
+    const favoriteCourse = await FavoriteCourse.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true }
+    );
 
     if (!favoriteCourse) {
       return res.status(404).json({ message: "Favorite course not found" });
@@ -269,6 +278,33 @@ const deleteFavoriteCourse = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+/**
+ * @swagger
+ * /favoritesCourses/rank:
+ *   get:
+ *     summary: Get a ranked list of favorite courses based on the number of favorites
+ *     tags: [FavoriteCourses]
+ *     responses:
+ *       200:
+ *         description: A ranked list of courses based on the number of favorites
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: The ID of the course
+ *                     example: "66d94db8191a5611c1f85e6b"
+ *                   favoriteCount:
+ *                     type: integer
+ *                     description: The number of times the course has been favorited
+ *                     example: 10
+ *       500:
+ *         description: Internal server error
+ */
 
 async function rankFavoriteCourse(req, res) {
   try {
@@ -277,17 +313,33 @@ async function rankFavoriteCourse(req, res) {
         // Group by courseId and count the number of favorites
         $group: {
           _id: "$courseId",
-          favoriteCount: { $sum: 1 } // Increment count for each favorite
-        }
+          favoriteCount: { $sum: 1 }, // Increment count for each favorite
+        },
       },
       {
         // Sort the results by favoriteCount in descending order
-        $sort: { favoriteCount: -1 }
-      }
-    ])
-    res.status(200).json(rankedCourses)
+        $sort: { favoriteCount: -1 },
+      },
+      {
+        // Lookup to fetch course details from the Courses collection
+        $lookup: {
+          from: "Courses", // Courses collection
+          localField: "_id", // _id from the previous $group (which is courseId)
+          foreignField: "_id", // course _id in the Courses collection
+          as: "courseDetails", // The output field that will contain course data
+        },
+      },
+      {
+        // Unwind the course details array to convert it into an object
+        $unwind: "$courseDetails",
+      },
+    ]);
+    res.status(200).json(rankedCourses);
   } catch (error) {
-    res.status(500).json({ message: 'An error occurred while ranking favorite courses.', error: error.message });
+    res.status(500).json({
+      message: "An error occurred while ranking favorite courses.",
+      error: error.message,
+    });
   }
 }
 
@@ -298,5 +350,5 @@ module.exports = {
   createFavoriteCourse,
   updateFavoriteCourse,
   deleteFavoriteCourse,
-  rankFavoriteCourse
+  rankFavoriteCourse,
 };
