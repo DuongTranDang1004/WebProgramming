@@ -1,131 +1,155 @@
+/* Main Content Styles */
 .main-content {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: #f0f2f5;
     width: 100%;
     height: 100%;
-}
-
-.admin-nav {
-    display: flex;
-    justify-content: space-evenly;
-    padding-top: 1%;
-
-    @media (max-width: 1199px) {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-.profile-page {
-    width: 100%;
-    height: 100%;
-    padding: 0 10%;
-}
-
-.profile-header {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-}
-
-.profile-header button {
-    width: max-content;
-}
-
-
-.profile-content {
-    margin: 2%;
-    padding: 4px;
-    background-color: rgb(226 232 240);
-    border-radius: 25px;
-}
-
-
-.data {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    padding: 1% 2%;
-    align-items: center;
-    @media (max-width: 1199px) {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
-.data label {
-    width: 25%;
-    font-weight: bolder;
-    text-align: right;
-    padding-right: 1%;
-    font-size: 150%;
-    @media (max-width: 1199px) {
-        text-align: left;
-        width: 100%;
-    }
-}
-
-.data input, .data select {
-    width: 100%;
-    padding: 1% 2%;
-    font-size: 150%;
-    border-radius: 25px;
-}
-
-
-.update-btn {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.update-btn button {
-    font-size: 200%;
-    background-color: #b0a4f2;
-    border-radius: 25px;
-    padding: 1% 2%;
-    margin-bottom: 1%;
-}
-.update-btn button:hover {
-    background-color: #6351ce;
-    color: white;
 }
 
 /* Dropdown button */
 .management-dropdown {
     position: relative;
     display: inline-block;
-}
-
-/* Hide dropdown content */
-.dropdown-content {
+  }
+  /* Hide dropdown content */
+  .dropdown-content {
     display: none;
     position: absolute;
     z-index: 1;
     background-color: #f1f1f1;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 1% 5%;
-}
-
-.dropdown-content a {
+  }
+  .dropdown-content a {
     display: block;
-}
-
-/* Show the dropdown menu when hover */
-.management-dropdown:hover .dropdown-content {
+  }
+  /* Show the dropdown menu when hover */
+  .management-dropdown:hover .dropdown-content {
     display: block;
     /* background-color: white; */
-}
-
-/* Set dropdown-content when hover to white */
-.dropdown-content a:hover {
+  }
+  /* Set dropdown-content when hover to white */
+  .dropdown-content a:hover {
     color: black;
     font-weight: bold;
+  }
+  .dropdown:hover button {
+    background-color: #b1b1b1;
+  }
+
+/* Layout for profile page */
+.profile-page {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 0.375rem;
 }
 
-.dropdown:hover button {
-    background-color: #b1b1b1;
+.profile-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-header h1 {
+    font-size: 3rem;
+    font-weight: 600; /* Tailwind's font-semibold */
+    color: #1f2937; /* Tailwind's text-gray-800 */
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column; /* Default vertical layout */
+    gap: 1rem;
+}
+
+.profile-content .data {
+    display: flex;
+    flex-direction: column; /* Vertical alignment by default */
+    gap: 0.5rem;
+}
+
+.profile-content .data label {
+    font-weight: 700; /* Tailwind's font-bold */
+    color: #374151; /* Tailwind's text-gray-700 */
+}
+
+.profile-content .data input, .profile-content .data select {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db; /* Tailwind's border-gray-300 */
+    border-radius: 0.375rem;
+    width: 100%;
+}
+
+.profile-content .data input:focus, .profile-content .data select:focus {
+    border-color: #6366f1; /* Tailwind's focus:border-indigo-500 */
+    outline: none;
+}
+
+.update-btn {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.update-btn button {
+    padding: 0.75rem 2rem; /* More padding for better appearance */
+    background-color: #6366f1; /* Tailwind's bg-indigo-500 */
+    color: #fff;
+    font-size: 1.125rem;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+}
+
+.update-btn button:hover {
+    background-color: #4f46e5; /* Tailwind's hover:bg-indigo-600 */
+}
+
+/* Media query for larger screens */
+@media (min-width: 1200px) {
+
+    .profile-content {
+        flex-direction: row; /* Horizontal layout for profile fields */
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center; /* Centering form items */
+    }
+
+    .profile-content .data {
+        flex: 1 1 calc(50% - 1rem); /* Two items per row with some gap */
+        display: flex;
+        flex-direction: column; /* Column layout for label and input */
+        align-items: stretch;
+    }
+
+    .profile-content .data:last-child {
+        flex: 1 1 100%; /* Full width for last item */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .profile-content .data label {
+        text-align: left;
+        padding-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-content .data input, .profile-content .data select {
+        width: 100%;
+    }
+
+    .update-btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+        grid-column: span 2; /* Full width in grid layout */
+    }
+
+    .update-btn button {
+        width: auto; /* Ensure button size adapts */
+    }
 }

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const courseId = urlParams.get('courseId'); // Get the courseId parameter
     console.log(courseId);
@@ -33,141 +33,173 @@ links.forEach(link => {
     });
 });
 
-document.getElementById('curriculum-btn').addEventListener('click', function () {
-    var dropdownMenu = document.getElementById('dropdown-menu');
-    dropdownMenu.classList.toggle('hidden');
-});
 
-// Close dropdown menu
-document.getElementById('close-dropdown').addEventListener('click', function () {
-    var dropdownMenu = document.getElementById('dropdown-menu');
-    dropdownMenu.classList.add('hidden');
-});
+const courseId = '66e07cb88a0cafe880f72f39';
+let currentIndex = 1; // Initialize index for new lectures
+let isEdit = false;
+let currentEditId = null;
 
-// Show lecture form
-document.getElementById('lecture-btn').addEventListener('click', function () {
-    document.getElementById('dropdown-menu').classList.add('hidden');
-    document.getElementById('lecture-form').classList.remove('hidden');
-});
+const lectureList = document.getElementById('lectureBody');
+const lectureModal = document.getElementById('lectureModal');
+const modalTitle = document.getElementById('modalTitle');
+const lectureTitleInput = document.getElementById('lectureTitle');
+const lectureDescriptionInput = document.getElementById('lectureDescription');
+const videoInput = document.getElementById('lectureVideo');
+const quizQuestionInput = document.getElementById('quizQuestion');
+const answerInputs = [document.getElementById('answer1'), document.getElementById('answer2'), document.getElementById('answer3')];
+const correctAnswerInput = document.getElementById('correctAnswer');
 
-// Add quiz button
-document.getElementById('add-quiz').addEventListener('click', function () {
-    const template = document.getElementById('quiz-form-template').content.cloneNode(true);
-    document.getElementById('quiz-container').appendChild(template);
-});
+async function getLecture() {
+    try {
+        const response = await fetch(`http://localhost:3000/lectures/course/${courseId}`);
+        const data = await response.json();
 
-// Close lecture form
-document.getElementById('close-lecture-form').addEventListener('click', function () {
-    document.getElementById('lecture-form').classList.add('hidden');
-});
-
-// Add section
-document.getElementById('section-btn').addEventListener('click', function () {
-    document.getElementById('dropdown-menu').classList.add('hidden');
-    document.getElementById('section-form').classList.remove('hidden');
-});
-
-// Add section
-document.getElementById('add-section').addEventListener('click', function () {
-const sectionName = document.getElementById('section-name').value;
-if (sectionName) {
-    const sectionTitle = document.getElementById('section-title');
-    sectionTitle.textContent = `Unpublished Section: ${sectionName}`;
-    document.getElementById('section-form').classList.add('hidden');
+        lectureList.innerHTML = '';
+        data.forEach(lecture => {
+            const newRow = document.createElement('tr');
+            newRow.dataset.id = lecture._id;
+            newRow.classList.add('border-b', 'border-gray-200', 'hover:bg-gray-100');
+            newRow.innerHTML = `
+                <td class="py-3 px-6">
+                    <video class="w-24 h-auto" controls>
+                        <source src="${lecture.video}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </td>
+                <td class="py-3 px-6">${lecture.name}</td>
+                <td class="py-3 px-6 text-center">
+                    <button class="editLectureBtn px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-yellow-600 mx-2">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="deleteLectureBtn px-4 py-2 bg-gray-300 text-white rounded-lg hover:bg-red-600">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </td>
+            `;
+            lectureList.appendChild(newRow);
+            addEventListeners(newRow);
+        });
+    } catch (error) {
+        console.error('Error fetching lectures:', error);
+    }
 }
-});
 
-// Hide section form
-document.getElementById('cancel-section').addEventListener('click', function () {
-    document.getElementById('section-form').classList.add('hidden');
-});
+function addEventListeners(row) {
+    const editButton = row.querySelector('.editLectureBtn');
+    const deleteButton = row.querySelector('.deleteLectureBtn');
+    const lectureId = row.dataset.id;
 
-// Function to handle lecture submission (for sidebar button)
-document.getElementById('sidebar-submit-button').addEventListener('click', function () {
-// Handle lecture submission here
-});
+    editButton.addEventListener('click', () => editLecture(lectureId));
+    deleteButton.addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete this lecture?')) {
+            deleteLecture(lectureId);
+        }
+    });
+}
 
+async function editLecture(lectureId) {
+    try {
+        const response = await fetch(`http://localhost:3000/lectures/${lectureId}`);
+        const lecture = await response.json();
 
-function createCourse() {
+        lectureTitleInput.value = lecture.name;
+        lectureDescriptionInput.value = lecture.description;
+        videoInput.value = lecture.video;
+        quizQuestionInput.value = lecture.exercise.question;
+        answerInputs[0].value = lecture.exercise.options[0];
+        answerInputs[1].value = lecture.exercise.options[1];
+        answerInputs[2].value = lecture.exercise.options[2];
+        correctAnswerInput.value = lecture.exercise.correctAnswer;
 
-    // Fetch the number of lectures for the course
-        fetch(`http://localhost:3000/lectures/course/{courseId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch lectures. Response status: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-                const lectures = Array.isArray(data) ? data : [];;
-                const lectureCount = lectures.length; // If no lectures, length will be 0
-                console.log(`Number of lectures: ${lectureCount}`); 
-            }).catch(error => {
-                console.error('Error fetching lectures:', error);
-            });
-
-    // Proceed with lecture creation after fetching the lecture count
-
-    const name = document.querySelector('#lecture-name');
-    const description = document.querySelector('#lecture-description');
-    const video = document.querySelector('#video');
-    const exerciseQuestion = document.querySelector('#quiz-title');
-    const incorrectAnswer1 = document.querySelector('#incorrect-answer-1');
-    const incorrectAnswer2 = document.querySelector('#incorrect-answer-2');
-    const incorrectAnswer3 = document.querySelector('#incorrect-answer-3');
-    const correctAnswer = document.getElementById('correct-answer');
-
-    // Check if all elements exist
-    if (!name || !description || !video || !exerciseQuestion || !incorrectAnswer1 || !incorrectAnswer2 || !incorrectAnswer3 || !correctAnswer) {
-        console.error('One or more elements could not be found in the DOM. Please check your element IDs.');
-        return;  // Stop the function if any element is not found
+        isEdit = true;
+        currentEditId = lectureId;
+        modalTitle.textContent = 'Edit Lecture';
+        lectureModal.classList.remove('hidden');
+    } catch (error) {
+        console.error('Error fetching lecture details:', error);
     }
 
-    const nameValue = name.value;
-    const descriptionValue = description.value;
-    const videoValue = video.value;
-    const exerciseQuestionValue = exerciseQuestion.value;
-    const options = [
-        incorrectAnswer1.value,
-        incorrectAnswer2.value,
-        incorrectAnswer3.value
-    ];
-    const correctAnswerValue = correctAnswer.value;
+    console.log(lectureId);
+}
 
-    // Construct the exercise if it exists
-    const exercise = exerciseQuestionValue ? {
-        question: exerciseQuestionValue,
-        options,
-        correctAnswer: correctAnswerValue
-    } : null;
-
-    // Construct the lecture data
-    const lectureData = {
-        courseId,
-        name: nameValue,
-        description: descriptionValue,
-        video: videoValue,
-        exercise,
-        index: lectureCount + 1,
+async function saveLecture() {
+    const lecture = {
+        courseId: courseId,
+        name: lectureTitleInput.value,
+        description: lectureDescriptionInput.value,
+        video: videoInput.value,
+        exercise: {
+            question: quizQuestionInput.value,
+            options: answerInputs.map(input => input.value),
+            correctAnswer: correctAnswerInput.value
+        },
+        index: currentIndex // Use currentIndex for new lectures
     };
 
-    // Send POST request to create the lecture
-    fetch('http://localhost:3000/lectures', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(lectureData),
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+    const url = isEdit
+        ? `http://localhost:3000/lectures/${currentEditId}`
+        : `http://localhost:3000/lectures`;
+    const method = isEdit ? 'PUT' : 'POST';
+
+    try {
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(lecture)
         });
-    /* })
-    .catch(error => {
-        console.error('Error fetching lectures:', error);
-    }); */
+
+        if (response.ok) {
+            alert(isEdit ? 'Lecture updated successfully!' : 'Lecture added successfully!');
+            getLecture();
+            closeModal();
+        } else {
+            alert('Failed to save lecture. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error saving lecture:', error);
+    }
 }
+
+async function deleteLecture(lectureId) {
+
+
+    try {
+        const response = await fetch(`http://localhost:3000/lectures/${lectureId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            alert('Lecture deleted successfully!');
+            getLecture();
+        } else {
+            alert('Failed to delete lecture. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error deleting lecture:', error);
+    }
+}
+
+function closeModal() {
+    lectureModal.classList.add('hidden');
+    isEdit = false;
+    currentEditId = null;
+    lectureTitleInput.value = '';
+    lectureDescriptionInput.value = '';
+    videoInput.value = '';
+    quizQuestionInput.value = '';
+    answerInputs.forEach(input => input.value = '');
+    correctAnswerInput.value = '';
+}
+
+document.getElementById('addLectureBtn').addEventListener('click', () => {
+    modalTitle.textContent = 'Add Lecture';
+    lectureModal.classList.remove('hidden');
+    currentIndex++; // Increment index for new lectures
+});
+
+document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+document.getElementById('saveLectureBtn').addEventListener('click', saveLecture);
+
+getLecture();

@@ -1,63 +1,136 @@
+/* Base styles for the layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navigation Bar Styling */
 .admin-nav {
     display: flex;
-    justify-content: space-evenly;
-    padding-top: 1%;
-
-    @media (max-width: 1199px) {
-        flex-direction: column;
-        align-items: center;
-    }
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2d3748; /* Tailwind's bg-gray-800 */
+    color: #ffffff;
+    padding: 1rem 2rem;
 }
 
-/* Dropdown button */
+.admin-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 1rem;
+}
+
+.admin-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Dropdown Menu Styling */
 .management-dropdown {
     position: relative;
-    display: inline-block;
 }
 
-/* Hide dropdown content */
+.management-dropdown button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
-    z-index: 1;
-    background-color: #f1f1f1;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    padding: 1% 5%;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    color: #333333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    min-width: 10rem;
+    z-index: 10;
 }
 
 .dropdown-content a {
     display: block;
+    padding: 0.5rem 1rem;
+    color: #333333;
+    text-decoration: none;
+    font-size: 1rem;
 }
 
-/* Show the dropdown menu when hover */
+.dropdown-content a:hover {
+    background-color: #f1f5f9; /* Light gray background on hover */
+    color: #000000;
+    font-weight: bold;
+}
+
 .management-dropdown:hover .dropdown-content {
     display: block;
-    /* background-color: white; */
 }
 
-/* Set dropdown-content when hover to white */
-.dropdown-content a:hover {
-    color: black;
-    font-weight: bold;
-}
-
-.dropdown:hover button {
-    background-color: #b1b1b1;
-}
-
-
+/* Header for the management section */
 .management-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 2% 0;
-    font-size: 300%;
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 2.5rem;
     font-weight: bold;
+    color: #2d3748; /* Tailwind's text-gray-800 */
 }
 
-
+/* Table Styling */
 .management-table {
     width: 100%;
-    font-size: 200%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    color: #333333;
+    margin-top: 1rem;
+}
+
+.management-table th, .management-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0; /* Light gray border */
+    text-align: left;
+}
+
+.management-table th {
+    background-color: #edf2f7; /* Light gray background */
+    font-weight: bold;
+}
+
+.management-table tr:nth-child(even) {
+    background-color: #f9fafb; /* Alternating row colors */
+}
+
+.management-table tr:hover {
+    background-color: #e2e8f0; /* Hover effect */
+}
+
+/* Responsive Design */
+@media (max-width: 1199px) {
+    .admin-nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 1rem;
+    }
+
+    .admin-nav a {
+        margin: 0.5rem 0;
+    }
+
+    .management-header {
+        font-size: 2rem;
+    }
+
+    .management-table {
+        font-size: 0.875rem;
+    }
+
+    .management-table th, .management-table td {
+        padding: 0.5rem;
+    }
 }
