@@ -6,9 +6,9 @@ const password = "fighting";
 
 // MongoDB connection URL to the desired database
 //Connection to physical server database
-const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+// const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
 //Connection to localhost database for testing purpose
-// const connectionStringURL = `mongodb://localhost:27017/`;
+const connectionStringURL = `mongodb://localhost:27017/`;
 
 const dbName = "ITLearning";
 

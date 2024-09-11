@@ -41,6 +41,7 @@ const getAllBoughtCoursesByLearnerID = async (req, res) => {
     const boughtCourses = await BoughtCourses.find({ learnerId })
       .populate("courseId", "name category price") // Populate the existing 'courseId' field
       .populate("instructorId", "firstName lastName email"); // Populate instructor details
+    //check it again
 
     // If no bought courses are found
     if (!boughtCourses || boughtCourses.length === 0) {
