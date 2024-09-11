@@ -64,7 +64,7 @@ app.use("/auth", require("./routes/authPageRoute"));
 app.use("/", generalPagesRoutes);
 app.use("/boughtCourses", boughtCourseRoutes);
 app.use("/contactForms", contactFormRoutes);
-app.use("/courses", courseRoutes);
+app.use("/courses", require("./routes/coursesPageRoute"));
 app.use("/instructors", require("./routes/instructorPageRoute"));
 app.use("/learners", learnerRoutes);
 app.use("/admin", require("./routes/adminPageRoute"));

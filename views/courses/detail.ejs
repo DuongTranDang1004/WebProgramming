@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITLearning Instructor Page</title>
+    <title>Course Detail Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-white">
-
+<body class="bg-gray-100">
     <header>
         <nav class="bg-white border-b shadow">
-            <div id="topNav" class="container mx-auto flex justify-between items-center py-4 px-2 lg:px-8">
-                <img id="logo" src="/img/headerlogo.png" alt="IT Learning Logo" class="w-35 h-12" />
+            <div id="topNav" class="container mx-auto flex justify-between items-center py-4 px-4 lg:px-8">
+                <a class="flex items-center" href="/">
+                    <img id="logo" src="/img/Logo.png" alt="IT Learning Logo" class="w-8 h-8 mr-2" />
+                    <span class="font-bold text-xl text-gray-700">IT Learning</span>
+                </a>
 
                 <button class="lg:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-400"
                     type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
@@ -49,6 +51,16 @@
                         <li><a class="hover:text-blue-500" href="/faq">FAQs</a></li>
                         <li><a class="hover:text-blue-500" href="/contactPage">Contact</a></li>
                     </ul>
+
+                    <form class="flex items-center space-x-2">
+                        <input
+                            class="form-input border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                            id="nav-search-input" type="search" placeholder="Type Course Names" aria-label="Search" />
+                        <button class="btn bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600"
+                            id="nav-button" type="submit">
+                            Search
+                        </button>
+                    </form>
                 </div>
             </div>
 
@@ -79,102 +91,25 @@
                         <li><a class="hover:text-blue-500" href="/faq">FAQs</a></li>
                         <li><a class="hover:text-blue-500" href="/contactPage">Contact</a></li>
                     </ul>
+                    <form class="flex flex-col space-y-4 p-4">
+                        <input
+                            class="form-input border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                            id="nav-search-input" type="search" placeholder="Type Course Names" aria-label="Search" />
+                        <button class="btn bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600"
+                            id="nav-button" type="submit">
+                            Search
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="flex flex-1">
-        <!-- Include Sidebar Component -->
-        <div id="sidebar" class="bg-gray-800 h-screen w-16">
-            <!-- <div class="mb-5 text-white text-2xl sidebar-logo">
-                <img src="../../static/img/Logo.png" class="logo" alt="Logo">
-                <h6 class="font-medium pl-1">ITLearning</h6>
-            </div> -->
-            <ul>
-                <li class="mb-6 sidebar-item">
-                    <a href="/instructors/home" class="text-white flex items-center">
-                        <img src="/img/graduate.png" class="icon" alt="Courses Icon">
-                        <span class="text">Courses</span>
-                    </a>
-                </li>
-                <li class="mb-6 sidebar-item">
-                    <a href="/instructors/message" class="text-white flex items-center">
-                        <img src="/img/comment.png" class="icon" alt="Communication Icon">
-                        <span class="text">Communication</span>
-                    </a>
-                </li>
-                <li class="mb-6 sidebar-item">
-                    <a href="/instructors/performance" class="text-white flex items-center">
-                        <img src="/img/statistics.png" class="icon" alt="Performance Icon">
-                        <span class="text">Performance</span>
-                    </a>
-                </li>
-                <li class="mb-6 sidebar-item">
-                    <a href="/instructors/tools" class="text-white flex items-center">
-                        <img src="/img/wrench.png" class="icon" alt="Tools Icon">
-                        <span class="text">Tools</span>
-                    </a>
-                </li>
-                <li class="mb-6 sidebar-item">
-                    <a href="/instructors/resources" class="text-white flex items-center">
-                        <img src="/img/question.png" class="icon" alt="Resources Icon">
-                        <span class="text">Resources</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
 
-        <!-- Main Content -->
-        <div class="flex-1 p-10">
-            <div class="flex justify-between items-center mb-10">
-                <div class="text-xl font-semibold">Courses</div>
-                <button class="bg-purple-700 text-white px-4 py-2 rounded"
-                    onClick="window.location.href='addNewCourse.html';">New Course</button>
-            </div>
-
-            <div class="bg-white p-5 rounded shadow-sm">
-                <div class="flex items-center justify-between mb-4">
-                    <input type="text" class="border border-gray-300 rounded p-2 w-1/2"
-                        placeholder="Search your courses">
-                    <select id="sort-select" class="border border-gray-300 rounded p-2 ml-4">
-                        <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>
-                    </select>
-                </div>
-
-                <div class="p-4 bg-gray-100 rounded mb-4">
-                    <span class="text-sm">New</span>
-                    <p class="mt-2 text-sm">We upgraded practice tests so you can upgrade yours.</p>
-                    <div class="flex items-center justify-between mt-2">
-                        <a href="#" class="text-purple-700">Learn more</a>
-                        <a href="#" class="text-gray-500">Dismiss</a>
-                    </div>
-                </div>
-
-                <!-- editted course (link to addNewCoursePage)  -->
-                <!-- Course List -->
-                <div id="course-list" class="border p-4 rounded mb-4">
-                    <!-- Courses will be dynamically inserted here -->
-                </div>
-
-                <div class="mt-10">
-                    <div class="text-lg font-semibold mb-5">Based on your experience, we think these resources will be helpful.</div>
-                    <div class="bg-white p-5 rounded shadow-sm flex items-center">
-                        <div class="mr-4">
-                            <img src="https://via.placeholder.com/100" alt="Create Course">
-                        </div>
-                        <div>
-                            <p class="font-semibold">Create an Engaging Course</p>
-                            <p class="text-sm text-gray-700">Whether you've been teaching for years or are teaching for the first time...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container mx-auto py-8" id="course-container">
+        <!-- Content will be dynamically inserted here -->
     </div>
 
-    <!-- Include Footer Component -->
     <div id="footer" class="bg-gray-800 text-white py-10">
         <div class="container mx-auto px-4">
             <!-- Top Section: Companies & Slogan -->
