@@ -320,15 +320,26 @@ async function rankFavoriteCourse(req, res) {
         // Sort the results by favoriteCount in descending order
         $sort: { favoriteCount: -1 },
       },
+      {
+        // Lookup to fetch course details from the Courses collection
+        $lookup: {
+          from: "Courses", // Courses collection
+          localField: "_id", // _id from the previous $group (which is courseId)
+          foreignField: "_id", // course _id in the Courses collection
+          as: "courseDetails", // The output field that will contain course data
+        },
+      },
+      {
+        // Unwind the course details array to convert it into an object
+        $unwind: "$courseDetails",
+      },
     ]);
     res.status(200).json(rankedCourses);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "An error occurred while ranking favorite courses.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "An error occurred while ranking favorite courses.",
+      error: error.message,
+    });
   }
 }
 

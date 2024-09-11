@@ -309,6 +309,19 @@ async function rankFollowingInstructors(req, res) {
         // Sort the results by followerCount in descending order
         $sort: { followerCount: -1 },
       },
+      {
+        // Lookup to fetch instructor details from the Instructors collection
+        $lookup: {
+          from: "Instructors", // Name of the Instructors collection
+          localField: "_id", // _id is the instructorId from the group stage
+          foreignField: "_id", // Match with the _id in the Instructors collection
+          as: "instructorDetails", // The output array containing instructor info
+        },
+      },
+      {
+        // Unwind the instructor details to convert array into object
+        $unwind: "$instructorDetails",
+      },
     ]);
     res.status(200).json(rankedInstructors);
   } catch (error) {

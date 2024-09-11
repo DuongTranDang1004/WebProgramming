@@ -6,6 +6,8 @@ router.get('/', getFollowingInstructors);
 
 router.get("/rank", rankFollowingInstructors)
 
+router.get("/learner/:id", getFollowingInstructorsByLearnerID)
+
 router.get("/:id", getFollowingInstructor);
 
 router.post("/", createFollowingInstructor);
@@ -13,7 +15,5 @@ router.post("/", createFollowingInstructor);
 router.put("/:id", updateFollowingInstructor);
 
 router.delete("/:id", deleteFollowingInstructor);
-
-router.get("/learner/:id", getFollowingInstructorsByLearnerID)
 
 module.exports = router;
