@@ -1,80 +1,73 @@
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  background-color: #f9f9f9;
 }
 
-.cart-page {
-  width: 90%;
-  margin: 20px auto;
+h2,
+h3 {
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .cart-container {
   display: flex;
   justify-content: space-between;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .cart-items {
-  width: 65%;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.cart-items h2 {
-  border-bottom: 2px solid #333;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  flex: 2;
+  margin-right: 30px;
 }
 
 .cart-item {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
 }
 
 .course-thumbnail {
-  width: 150px;
-  height: 100px;
-  object-fit: cover;
-}
-
-.item-details {
-  flex-grow: 1;
-  margin-left: 20px;
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 10px;
 }
 
 .item-details h3 {
-  margin: 0 0 10px 0;
-  font-size: 18px;
+  margin-bottom: 10px;
+  color: #222;
 }
 
 .item-details p {
   margin: 5px 0;
+  color: #666;
 }
 
 .price {
-  color: #e67e22;
   font-weight: bold;
-  font-size: 18px;
+  color: #007bff;
 }
 
 .item-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  margin-left: auto;
 }
 
 .button {
+  padding: 10px 20px;
   background-color: #007bff;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 8px 12px;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  font-size: 14px;
 }
 
 .button:hover {
@@ -82,74 +75,43 @@ body {
 }
 
 .remove-button {
-  background-color: #e74c3c;
+  background-color: #dc3545;
 }
 
 .remove-button:hover {
-  background-color: #c0392b;
+  background-color: #c82333;
 }
 
+/* Saved for Later Section */
 .saved-for-later {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .saved-for-later h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
+  color: #555;
 }
 
+/* Cart Summary Styles */
 .cart-summary {
-  width: 30%;
-  background-color: #fff;
+  flex: 1;
+  border: 1px solid #ddd;
   padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.cart-summary h3 {
-  border-bottom: 2px solid #333;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #f8f9fa;
 }
 
 .totals p {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.totals span {
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
 .checkout-button {
-  background-color: #27ae60;
-}
-
-.checkout-button:hover {
-  background-color: #2ecc71;
-}
-
-@media (max-width: 768px) {
-  .cart-container {
-    flex-direction: column;
-  }
-
-  .cart-items,
-  .cart-summary {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-}
-
-/* Layout:
-Desktop Computers: Multi-column layout.  */
-/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
-/* For Smartphones (767px or lower) */
-@media (max-width: 767px) {
-}
-
-/* For Tablets (768px to 1199px) */
-
-@media (max-width: 1199px) and (min-width: 768px) {
-}
-
-/* For Desktop Computers (1200px or higher) */
-@media (min-width: 1200px) {
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
 }

@@ -43,7 +43,7 @@ router.get("/favoriteInstructors/:id", (req, res) => {
 router.get("/order/:id", (req, res) => {
   res.render("learner/order", {
     title: "Order Placement",
-    pageStylesheet: "css/learner/order",
+    pageStylesheet: "css/learner/order.css",
     pageScript: "js/learner/order.js",
   });
 });

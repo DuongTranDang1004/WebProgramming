@@ -15,9 +15,7 @@ dotenv.config({ path: "./config/.env", override: true });
 
 const app = express();
 const port = process.env.APP_PORT || 3000;
-// const host = process.env.APP_HOST || "localhost";
-
-const host = "localhost:27017";
+const host = process.env.APP_HOST || "localhost";
 
 //Use middlewares and modules for the app
 app.use(express.json()); // Middleware for parsing JSON from response body
