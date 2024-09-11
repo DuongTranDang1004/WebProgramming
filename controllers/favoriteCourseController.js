@@ -270,6 +270,27 @@ const deleteFavoriteCourse = async (req, res) => {
   }
 };
 
+async function rankFavoriteCourse(req, res) {
+  try {
+    const rankedCourses = await FavoriteCourse.aggregate([
+      {
+        // Group by courseId and count the number of favorites
+        $group: {
+          _id: "$courseId",
+          favoriteCount: { $sum: 1 } // Increment count for each favorite
+        }
+      },
+      {
+        // Sort the results by favoriteCount in descending order
+        $sort: { favoriteCount: -1 }
+      }
+    ])
+    res.status(200).json(rankedCourses)
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred while ranking favorite courses.', error: error.message });
+  }
+}
+
 module.exports = {
   getFavoriteCourses,
   getFavoriteCourseByLearnerID,
@@ -277,4 +298,5 @@ module.exports = {
   createFavoriteCourse,
   updateFavoriteCourse,
   deleteFavoriteCourse,
+  rankFavoriteCourse
 };

@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {getFollowingInstructors, getFollowingInstructor, createFollowingInstructor, updateFollowingInstructor, deleteFollowingInstructor, getFollowingInstructorsByLearnerID} = require("../controllers/followingInstructorController");
+const {getFollowingInstructors, getFollowingInstructor, createFollowingInstructor, updateFollowingInstructor, deleteFollowingInstructor, getFollowingInstructorsByLearnerID,rankFollowingInstructors} = require("../controllers/followingInstructorController");
 
 router.get('/', getFollowingInstructors);
+
+router.get("/rank", rankFollowingInstructors)
 
 router.get("/:id", getFollowingInstructor);
 
