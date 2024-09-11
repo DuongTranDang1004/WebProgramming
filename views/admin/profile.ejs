@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head >
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin profile</title>
+    <title>Admin Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
-    <!-- Custom CSS -->
 </head>
 
-<body>
-    <div style="height: 100%;">
-        <div class="admin-nav">
-            <div>
-                <a href="/admin/profile" class="">
-                    <span class="text-4xl font-bold">Admin Profile</span>
-                </a>
-            </div>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navigation Bar -->
+        <nav class="bg-gray-800 text-white p-4 flex justify-between items-center">
+            <a href="/admin/profile" class="text-2xl font-bold">Admin Profile</a>
             <div class="management-dropdown">
-                <button class="text-4xl">Admin Management</button>
-                <div class="dropdown-content">
-                    <a href="/admin/management/learners" class="text-4xl">Learners</a>
-                    <a href="/admin/management/instructors" class="text-4xl">Instructors</a>
-                    <a href="/admin/management/courses" class="text-4xl">Courses</a>
+                <button class="text-2xl font-bold">Admin Management</button>
+                <div class="dropdown-content absolute right-0 w-48 bg-white text-black shadow-lg rounded">
+                    <a href="/admin/management/learners" class="px-4 py-2 text-lg hover:bg-gray-100">Learners</a>
+                    <a href="/admin/management/instructors" class="px-4 py-2 text-lg hover:bg-gray-100">Instructors</a>
+                    <a href="/admin/management/courses" class="px-4 py-2 text-lg hover:bg-gray-100">Courses</a>
                 </div>
             </div>
-            <div>
-                <a href="/admin/dashboard" class="">
-                    <span class="text-4xl">Admin Dashboard</span>
-                </a>
-            </div>
-        </div>
+            <a href="/admin/dashboard" class="text-2xl font-bold">Admin Dashboard</a>
+        </nav>
 
-        <div class="profile-page">
-            <div class="profile-header">
-                <div class="text-6xl font-semibold mt-8">Profile</div>
-                <button class="bg-purple-700 text-white px-4 py-2 rounded text-2xl" onclick="redirectToUpdate()">
-                    Update profile
-                </button>
-            </div>
-
-            <div class="profile-content">
-                <img src="" alt="Admin profile image" id="admin-image" class="admin-image">
-                <div class="ml-10 w-full flex justify-center items-center">
-                    <div class="label">
-                        <p class="text-4xl text-gray-500 text-right">First name:</p>
-                        <p class="text-4xl text-gray-500 text-right">Last name:</p>
-                        <p class="text-4xl text-gray-500 text-right">Email:</p>
-                        <p class="text-4xl text-gray-500 text-right">Address:</p>
-                        <p class="text-4xl text-gray-500 text-right">City:</p>
-                        <p class="text-4xl text-gray-500 text-right">Country:</p>
-                        <p class="text-4xl text-gray-500 text-right">Zipcode:</p>
-                        <p class="text-4xl text-gray-500 text-right">Phone:</p>
-                    </div>
-                    <div class="data">
-                        <p class="text-4xl text-gray-500" id="first_name">First name:</p>
-                        <p class="text-4xl text-gray-500" id="last_name">Last name:</p>
-                        <p class="text-4xl text-gray-500" id="email">Email:</p>
-                        <p class="text-4xl text-gray-500" id="address">Address:</p>
-                        <p class="text-4xl text-gray-500" id="city">City:</p>
-                        <p class="text-4xl text-gray-500" id="country">Country:</p>
-                        <p class="text-4xl text-gray-500" id="zipcode">Zipcode:</p>
-                        <p class="text-4xl text-gray-500" id="phone">Phone:</p>
+        <!-- Profile Section -->
+        <main class="flex-1 p-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <header class="flex justify-between items-center border-b pb-4 mb-6">
+                    <h1 class="text-4xl font-semibold">Profile</h1>
+                    <button class="bg-purple-700 text-white px-6 py-2 rounded text-xl hover:bg-purple-800 transition" onclick="redirectToUpdate()">
+                        Update Profile
+                    </button>
+                </header>
+                
+                <div class="flex items-center space-x-8">
+                    <img src="" alt="Admin profile image" id="admin-image" class="w-32 h-32 rounded-full object-cover bg-gray-300">
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-right font-medium text-lg">First name:</div>
+                            <div id="first_name" class="text-lg text-gray-600">First name</div>
+                            <div class="text-right font-medium text-lg">Last name:</div>
+                            <div id="last_name" class="text-lg text-gray-600">Last name</div>
+                            <div class="text-right font-medium text-lg">Email:</div>
+                            <div id="email" class="text-lg text-gray-600">Email</div>
+                            <div class="text-right font-medium text-lg">Address:</div>
+                            <div id="address" class="text-lg text-gray-600">Address</div>
+                            <div class="text-right font-medium text-lg">City:</div>
+                            <div id="city" class="text-lg text-gray-600">City</div>
+                            <div class="text-right font-medium text-lg">Country:</div>
+                            <div id="country" class="text-lg text-gray-600">Country</div>
+                            <div class="text-right font-medium text-lg">Zipcode:</div>
+                            <div id="zipcode" class="text-lg text-gray-600">Zipcode</div>
+                            <div class="text-right font-medium text-lg">Phone:</div>
+                            <div id="phone" class="text-lg text-gray-600">Phone</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 </body>
 

@@ -11,26 +11,18 @@
 
 <body>
     <div>
-        <div class="admin-nav">
-            <div>
-                <a href="/admin/profile" class="">
-                    <span class="text-4xl">Admin Profile</span>
-                </a>
-            </div>
+        <nav class="bg-gray-800 text-white p-4 flex justify-between items-center">
+            <a href="/admin/profile" class="text-2xl font-bold">Admin Profile</a>
             <div class="management-dropdown">
-                <button class="text-4xl font-bold">Admin Management</button>
-                <div class="dropdown-content">
-                    <a href="/admin/management/learners" class="text-4xl">Learners</a>
-                    <a href="/admin/management/instructors" class="text-4xl">Instructors</a>
-                    <a href="/admin/management/courses" class="text-4xl">Courses</a>
+                <button class="text-2xl font-bold">Admin Management</button>
+                <div class="dropdown-content absolute right-0 w-48 bg-white text-black shadow-lg rounded">
+                    <a href="/admin/management/learners" class="px-4 py-2 text-lg hover:bg-gray-100">Learners</a>
+                    <a href="/admin/management/instructors" class="px-4 py-2 text-lg hover:bg-gray-100">Instructors</a>
+                    <a href="/admin/management/courses" class="px-4 py-2 text-lg hover:bg-gray-100">Courses</a>
                 </div>
             </div>
-            <div>
-                <a href="/admin/dashboard" class="">
-                    <span class="text-4xl">Admin Dashboard</span>
-                </a>
-            </div>
-        </div>
+            <a href="/admin/dashboard" class="text-2xl font-bold">Admin Dashboard</a>
+        </nav>
         <div>
             <div class="management-header">Courses management</div>
             <table class="management-table">
