@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +10,25 @@
         #footer {
             text-align: center;
         }
+
         #sidebar {
             transition: width 0.3s ease;
             width: 3.7rem;
             padding-top: 10px;
         }
+
         #sub-sidebar {
             width: 14rem;
             padding-top: 2.5rem;
         }
+
         #sub-sidebar li:hover {
             font-weight: 700;
         }
+
         #sidebar:hover {
-            width: 16rem; /* Adjust width as needed */
+            width: 16rem;
+            /* Adjust width as needed */
         }
         #sidebar .sidebar-logo {
             display: flex;
@@ -33,6 +39,7 @@
             overflow: hidden;
             cursor: pointer;
         }
+
         #sidebar .sidebar-item {
             display: flex;
             align-items: center;
@@ -40,13 +47,16 @@
             transition: padding 0.3s ease;
             padding-left: 1rem;
         }
+
         #sidebar .sidebar-item .text {
             display: none;
         }
+
         #sidebar:hover .sidebar-item .text {
             display: inline;
             margin-left: 0.75rem;
         }
+
         #sidebar .sidebar-item:hover {
             padding-left: 1rem;
             background-color: rgba(255, 255, 255, 0.2);
@@ -56,14 +66,21 @@
             width: 47px;
             height: 47px;
         }
+
         .icon {
-            width: 24px; /* Adjust size as needed */
-            height: 24px; /* Adjust size as needed */
+            width: 24px;
+            /* Adjust size as needed */
+            height: 24px;
+            /* Adjust size as needed */
         }
+
         #sidebar .sidebar-item.active {
-            background-color: rgba(255, 255, 255, 0.2); /* Background color */
-            color: #e5e7eb; /* Light text color */
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Background color */
+            color: #e5e7eb;
+            /* Light text color */
         }
+
         .content {
             flex-grow: 1;
             padding: 20px;
@@ -106,12 +123,14 @@
             font-size: 1rem;
             margin-top: 5px;
         }
+
         .card-subtext {
             display: block;
             color: #999;
             font-size: 0.875rem;
             margin-top: 5px;
         }
+
         .chart-container {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -201,82 +220,82 @@
         }
     </style>
 </head>
+
 <body class="bg-white">
 
     <header>
         <nav class="bg-white border-b shadow">
-          <div id="topNav" class="container mx-auto flex justify-between items-center py-4 px-2 lg:px-8">
-              <img
-                id="logo"
-                src="../../static/img/headerlogo.png"
-                alt="IT Learning Logo"
-                class="w-35 h-12"
-              />
-      
-            <button
-              class="lg:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-400"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarTogglerDemo01"
-              aria-controls="navbarTogglerDemo01"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <svg class="fill-current h-5 w-5" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 5h20v2H0V8zm0 5h20v2H0v-2z"/></svg>
-            </button>
-      
-            <div class="hidden lg:flex space-x-8 items-center">
-              <ul class="flex space-x-6 text-gray-700 font-semibold">
-                <li><a class="hover:text-blue-500" href="/">Home</a></li>
-                <li><a class="hover:text-blue-500" href="aboutUs">About Us</a></li>
-                <li class="relative group">
-                  <a class="hover:text-blue-500 flex items-center cursor-pointer">
-                    Browse
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            <div id="topNav" class="container mx-auto flex justify-between items-center py-4 px-2 lg:px-8">
+                <img id="logo" src="../../static/img/headerlogo.png" alt="IT Learning Logo" class="w-35 h-12" />
+
+                <button class="lg:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-400"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <svg class="fill-current h-5 w-5" viewBox="0 0 20 20">
+                        <path d="M0 3h20v2H0V3zm0 5h20v2H0V8zm0 5h20v2H0v-2z" />
                     </svg>
-                  </a>
-                  <ul class="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1 text-sm">
-                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Category</a></li>
-                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Name</a></li>
-                    <li class="border-t"><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Instructors</a></li>
-                  </ul>
-                </li>
-                <li><a class="hover:text-blue-500" href="pricing">Pricing</a></li>
-                <li><a class="hover:text-blue-500" href="/">My Account</a></li>
-                <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
-                <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
-              </ul>
+                </button>
+
+                <div class="hidden lg:flex space-x-8 items-center">
+                    <ul class="flex space-x-6 text-gray-700 font-semibold">
+                        <li><a class="hover:text-blue-500" href="/">Home</a></li>
+                        <li><a class="hover:text-blue-500" href="aboutUs">About Us</a></li>
+                        <li class="relative group">
+                            <a class="hover:text-blue-500 flex items-center cursor-pointer">
+                                Browse
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </a>
+                            <ul class="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1 text-sm">
+                                <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Category</a>
+                                </li>
+                                <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Name</a>
+                                </li>
+                                <li class="border-t"><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse
+                                        Instructors</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="hover:text-blue-500" href="pricing">Pricing</a></li>
+                        <li><a class="hover:text-blue-500" href="/">My Account</a></li>
+                        <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
+                        <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-          </div>
-      
-          <div class="lg:hidden">
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-              <ul class="flex flex-col space-y-4 p-4">
-                <li><a class="hover:text-blue-500" href="/">Home</a></li>
-                <li><a class="hover:text-blue-500" href="aboutUs">About Us</a></li>
-                <li class="relative group">
-                  <a class="hover:text-blue-500 flex items-center cursor-pointer">
-                    Browse
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                  </a>
-                  <ul class="mt-2 space-y-2">
-                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Category</a></li>
-                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Name</a></li>
-                    <li class="border-t"><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Instructors</a></li>
-                  </ul>
-                </li>
-                <li><a class="hover:text-blue-500" href="pricing">Pricing</a></li>
-                <li><a class="hover:text-blue-500" href="/">My Account</a></li>
-                <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
-                <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
-              </ul>
+
+            <div class="lg:hidden">
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <ul class="flex flex-col space-y-4 p-4">
+                        <li><a class="hover:text-blue-500" href="/">Home</a></li>
+                        <li><a class="hover:text-blue-500" href="aboutUs">About Us</a></li>
+                        <li class="relative group">
+                            <a class="hover:text-blue-500 flex items-center cursor-pointer">
+                                Browse
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </a>
+                            <ul class="mt-2 space-y-2">
+                                <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Category</a>
+                                </li>
+                                <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Name</a>
+                                </li>
+                                <li class="border-t"><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse
+                                        Instructors</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="hover:text-blue-500" href="pricing">Pricing</a></li>
+                        <li><a class="hover:text-blue-500" href="/">My Account</a></li>
+                        <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
+                        <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-          </div>
         </nav>
-      </header>
+    </header>
 
     <div id="content" class="flex flex-1">
         <!-- Include Sidebar Component -->
@@ -412,8 +431,8 @@
         </div>
     </div>
 
-   <!-- Include Footer Component -->
-   <div id="footer" class="bg-gray-800 text-white py-10">
+    <!-- Include Footer Component -->
+    <div id="footer" class="bg-gray-800 text-white py-10">
         <div class="container mx-auto px-4">
             <!-- Top Section: Companies & Slogan -->
             <div class="flex flex-col lg:flex-row justify-between items-center mb-8">
@@ -500,4 +519,5 @@
     </script>
 
 </body>
+
 </html>
