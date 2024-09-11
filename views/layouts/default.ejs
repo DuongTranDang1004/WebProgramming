@@ -72,7 +72,7 @@
     <!-- <script src="/js/clientSideProcessing/globalProcessing.js"></script> -->
 
     <!-- Custom JavaScript for specific pages (auto add leading '/') (pass as pageScript property) -->
-    <% if (Array.isArray(pageScripts)) { %> <%
+    <% if (typeof pageScripts !== 'undefined' && Array.isArray(pageScripts)) { %> <%
     pageScripts.forEach(function(script) { %>
     <script src="<%= script.startsWith('/') ? script : '/' + script %>"></script>
     <% }); %> <% } %>
