@@ -31,12 +31,11 @@
     <link rel="stylesheet" href="/css/globalStyling/global.css" />
     <!-- custom css sheet for specific pages (pass in as para when render as app.js ) -->
     <!--  (auto add leading '/') -->
+
     <% if (typeof pageStylesheet !== 'undefined') { %>
-    <link
-      rel="stylesheet"
-      href="<%= pageStylesheet.startsWith('/') ? pageStylesheet : '/' + pageStylesheet %>"
-    />
+    <link rel="stylesheet" href="/<%= pageStylesheet %>" />
     <% } %>
+
     <!-- import library for icons -->
     <link
       rel="stylesheet"
@@ -68,13 +67,12 @@
 
     <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
 
-    <!-- global javascript  -->
-    <!-- <script src="/js/clientSideProcessing/globalProcessing.js"></script> -->
+    <!-- global javascript (to handle event for header nav bar)  -->
+    <!-- <script src="js/clientSideProcessing/globalProcessing.js"></script> -->
 
-    <!-- Custom JavaScript for specific pages (auto add leading '/') (pass as pageScript property) -->
-    <% if (Array.isArray(pageScripts)) { %> <%
-    pageScripts.forEach(function(script) { %>
-    <script src="<%= script.startsWith('/') ? script : '/' + script %>"></script>
-    <% }); %> <% } %>
+    <!-- Custom JavaScript for specific pages (auto add leading '/') -->
+    <% if (typeof pageScript !== 'undefined') { %>
+    <script src="<%= pageScript.startsWith('/') ? pageScript : '/' + pageScript %>"></script>
+    <% } %>
   </body>
 </html>

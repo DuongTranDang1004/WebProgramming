@@ -6,9 +6,9 @@ const password = "fighting";
 
 // MongoDB connection URL to the desired database
 //Connection to physical server database
-const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+// const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
 //Connection to localhost database for testing purpose
-// const connectionStringURL = `mongodb://localhost:27017/`;
+const connectionStringURL = `mongodb://localhost:27017/`;
 
 const dbName = "ITLearning";
 
@@ -54,7 +54,7 @@ async function generateSampleData() {
       favoriteCourses.deleteMany({}),
       followingInstructors.deleteMany({}),
       boughtCourses.deleteMany({}),
-      memberships.deleteMany({})
+      memberships.deleteMany({}),
     ]);
 
     console.log("Collections emptied successfully.");
@@ -103,7 +103,8 @@ async function generateSampleData() {
         ]),
         status: faker.helpers.arrayElement(["active", "inactive"]),
         createTime: new Date(Date.now()),
-        Bio: Math.floor(Math.random() * 2) % 2 ? faker.lorem.paragraphs() : null,
+        Bio:
+          Math.floor(Math.random() * 2) % 2 ? faker.lorem.paragraphs() : null,
       });
     }
     await instructors.insertMany(instructorData);
@@ -130,7 +131,9 @@ async function generateSampleData() {
     let courseData = [];
     for (let i = 0; i < 30; i++) {
       courseData.push({
-        instructorId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        instructorId: (await instructors.find().toArray())[
+          Math.floor(Math.random() * 30)
+        ]._id,
         category: faker.helpers.arrayElement([
           "front-end",
           "back-end",
@@ -164,7 +167,7 @@ async function generateSampleData() {
             options: ["option1", "option2", "option3"],
             correctAnswer: "option1",
           },
-          index: index
+          index: index,
         });
       }
     }
@@ -201,8 +204,12 @@ async function generateSampleData() {
     let favoriteCourseData = [];
     for (let i = 0; i < 30; i++) {
       favoriteCourseData.push({
-        learnerId: (await learners.find().toArray())[Math.floor(Math.random() * 30)]._id,
-        courseId: (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        learnerId: (await learners.find().toArray())[
+          Math.floor(Math.random() * 30)
+        ]._id,
+        courseId: (await courses.find().toArray())[
+          Math.floor(Math.random() * 30)
+        ]._id,
       });
     }
     await favoriteCourses.insertMany(favoriteCourseData);
@@ -211,8 +218,12 @@ async function generateSampleData() {
     let followingInstructorData = [];
     for (let i = 0; i < 30; i++) {
       followingInstructorData.push({
-        learnerId: (await learners.find().toArray())[Math.floor(Math.random() * 30)]._id,
-        instructorId: (await instructors.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        learnerId: (await learners.find().toArray())[
+          Math.floor(Math.random() * 30)
+        ]._id,
+        instructorId: (await instructors.find().toArray())[
+          Math.floor(Math.random() * 30)
+        ]._id,
       });
     }
     await followingInstructors.insertMany(followingInstructorData);
@@ -221,10 +232,15 @@ async function generateSampleData() {
     let boughtCourseData = [];
     for (let i = 0; i < 30; i++) {
       let lectureCompletionStatus = [];
-      let selectCourse = (await courses.find().toArray())[Math.floor(Math.random() * 30)]._id;
-      let selectInstructor = (await courses.findOne({ _id: selectCourse })).instructorId;
+      let selectCourse = (await courses.find().toArray())[
+        Math.floor(Math.random() * 30)
+      ]._id;
+      let selectInstructor = (await courses.findOne({ _id: selectCourse }))
+        .instructorId;
       boughtCourseData.push({
-        learnerId: (await learners.find().toArray())[Math.floor(Math.random() * 30)]._id,
+        learnerId: (await learners.find().toArray())[
+          Math.floor(Math.random() * 30)
+        ]._id,
         courseId: selectCourse,
         instructorId: selectInstructor,
         boughtDateTime: truncateToMinute(faker.date.recent()),
@@ -244,26 +260,43 @@ async function generateSampleData() {
     instructorData = await instructors.find().toArray();
     for (let index = 0; index < instructorData.length; index++) {
       let planType = Math.floor(Math.random() * 2) % 2 ? "Monthly" : "Yearly";
-      let startDate = new Date(Date.now())
+      let startDate = new Date(Date.now());
       let paymentMethod = Math.floor(Math.random() * 2) % 2 ? "Card" : "Paypal";
       membershipData.push({
         instructorId: instructorData[index]._id,
-        planName: "Gold",
+        planName: "Gold", //this should be random
         planType: planType,
         commissionFee: 0.2,
         price: planType == "Monthly" ? 20 : 200,
         startDate: startDate,
-        endDate: planType == "Monthly" ? new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate()) : new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate()),
+        endDate:
+          planType == "Monthly"
+            ? new Date(
+                startDate.getFullYear(),
+                startDate.getMonth() + 1,
+                startDate.getDate()
+              )
+            : new Date(
+                startDate.getFullYear() + 1,
+                startDate.getMonth(),
+                startDate.getDate()
+              ),
         paymentMethod: paymentMethod,
-        cardNumber: paymentMethod == "Card" ? faker.finance.creditCardNumber() : null
+        cardNumber:
+          paymentMethod == "Card" ? faker.finance.creditCardNumber() : null,
       });
-    };
+    }
     await memberships.insertMany(membershipData);
-    const membershipsData = (await memberships.find().toArray());
+    const membershipsData = await memberships.find().toArray();
     for (let index = 0; index < membershipsData.length; index++) {
-      let instructor = await instructors.findOne({ _id: membershipsData[index].instructorId });
+      let instructor = await instructors.findOne({
+        _id: membershipsData[index].instructorId,
+      });
       instructor.membershipId = membershipsData[index]._id;
-      await instructors.updateOne({ _id: membershipsData[index].instructorId }, { $set: instructor });
+      await instructors.updateOne(
+        { _id: membershipsData[index].instructorId },
+        { $set: instructor }
+      );
     }
 
     console.log("Sample data inserted successfully!");

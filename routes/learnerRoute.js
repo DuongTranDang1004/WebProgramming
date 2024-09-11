@@ -8,7 +8,7 @@ const {
   deleteLearner,
 } = require("../controllers/learnerController");
 
-//path for learner CRUD operations (Leaner API)
+//path for learner CRUD operations (Leaner API) => only these  paths would have the prefix /api
 router.get("/", getLearners);
 
 router.get("/:id", getLearnerById);
@@ -26,10 +26,7 @@ router.get("/favoriteCourses/:id", (req, res) => {
   res.render("learner/favCourses", {
     title: "Favorite Courses",
     pageStylesheet: "css/learner/favCourses.css",
-    pageScripts: [
-      "js/clientSideProcessing/learner/favCourses.js",
-      "js/fetchAPIs/learner/favCourses.js",
-    ],
+    pageScript: "js/learner/favCourses.js",
   });
 });
 
@@ -37,7 +34,8 @@ router.get("/favoriteCourses/:id", (req, res) => {
 router.get("/favoriteInstructors/:id", (req, res) => {
   res.render("learner/favInstructors", {
     title: "Favorite Courses",
-    pageStylesheet: "css/learner/favInstructors",
+    pageStylesheet: "css/learner/favInstructors.css",
+    pageScript: "js/learner/favInstructors.js",
   });
 });
 
@@ -45,7 +43,8 @@ router.get("/favoriteInstructors/:id", (req, res) => {
 router.get("/order/:id", (req, res) => {
   res.render("learner/order", {
     title: "Order Placement",
-    pageStylesheet: "css/learner/order",
+    pageStylesheet: "css/learner/order.css",
+    pageScript: "js/learner/order.js",
   });
 });
 
@@ -54,6 +53,7 @@ router.get("/account/:id", (req, res) => {
   res.render("learner/account", {
     title: "My Account",
     pageStylesheet: "css/learner/account",
+    pageScript: "js/learner/account.js",
   });
 });
 
@@ -61,7 +61,8 @@ router.get("/account/:id", (req, res) => {
 router.get("/myCourses/:id", (req, res) => {
   res.render("learner/myCourses", {
     title: "My Courses",
-    pageStylesheet: "css/learner/myCourses",
+    pageStylesheet: "css/learner/myCourses.css",
+    pageScript: "js/learner/myCourses.js",
   });
 });
 
@@ -70,6 +71,7 @@ router.get("/myProfile/:id", (req, res) => {
   res.render("learner/myProfile", {
     title: "My Profile",
     pageStylesheet: "css/learner/myProfile",
+    pageScript: "js/learner/myProfile.js",
   });
 });
 
@@ -78,6 +80,7 @@ router.get("/transactions/:id", (req, res) => {
   res.render("learner/transactions", {
     title: "My Past Transactions",
     pageStylesheet: "css/learner/transactions",
+    pageScript: "js/learner/transactions.js",
   });
 });
 

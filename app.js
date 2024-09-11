@@ -59,7 +59,7 @@ const generalPagesRoutes = require("./routes/generalPagesRoute");
 // Using the controllers as routers
 
 //VIEW PATHS
-app.use("/auth", require("./routes/authPageRoute")); 
+app.use("/auth", require("./routes/authPageRoute"));
 app.use("/", generalPagesRoutes);
 app.use("/boughtCourses", boughtCourseRoutes);
 app.use("/contactForms", contactFormRoutes);
