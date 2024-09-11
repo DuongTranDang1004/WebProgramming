@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     );
     const learningCoursesContainer = document.getElementById(
       "display-learning-courses"
-    ); // Fixed ID spelling
+    );
     const completedCoursesContainer = document.getElementById(
       "display-completed-courses"
     );
@@ -40,6 +40,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     learningCoursesContainer.innerHTML = "";
     completedCoursesContainer.innerHTML = "";
     certificateContainer.innerHTML = "";
+
+    // Add headers for each section
+    boughtCoursesContainer.innerHTML += `<h1>All of my bought courses</h1>`;
+    learningCoursesContainer.innerHTML += `<h1>Learning / On-Progress Courses</h1>`;
+    completedCoursesContainer.innerHTML += `<h1>Completed Courses</h1>`;
+    certificateContainer.innerHTML += `<h1>Certificates</h1>`;
 
     courses.forEach((course) => {
       const courseName = course.courseInfo.name;
