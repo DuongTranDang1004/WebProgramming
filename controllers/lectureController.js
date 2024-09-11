@@ -316,6 +316,7 @@ const storage = multer.diskStorage({
     cb(null, req.params.id + "." + file.originalname.split('.')[file.originalname.split('.').length - 1]);
   }
 });
+
 const uploadVideo = async (req, res) => {
   try {
     const { id } = req.params;

@@ -140,6 +140,11 @@ input[type="radio"] {
   margin-left: 5px; /* Ensures labels are closer to the radio buttons */
   font-size: 16px; /* Ensures text is consistent in size */
 }
+#preferred-contact-days {
+  align-items: center;
+  white-space: nowrap;
+  justify-content: space-between;
+}
 
 #preferred-contact-days span {
   font-size: 16px; /* Match the label font size */

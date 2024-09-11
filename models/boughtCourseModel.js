@@ -5,10 +5,6 @@ const Schema = mongoose.Schema;
 
 const BoughtCoursesSchema = new Schema(
   {
-    _id: {
-      type: mongoose.Schema.Types.ObjectId, // Use Number since your _id is numeric
-      required: true,
-    },
     learnerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Learners",
@@ -21,7 +17,7 @@ const BoughtCoursesSchema = new Schema(
     },
     instructorId: {
       // t his will be use to track the Instructor earning stuff
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Instructors",
       required: true,
     },

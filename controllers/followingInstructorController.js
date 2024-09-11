@@ -1,11 +1,5 @@
 const FollowingInstructor = require("../models/followingInstructorModel");
-const mongoose = require('mongoose');
-/**
- * @swagger
- * tags:
- *   name: FollowingInstructor
- *   description: API for FollowingInstructor
- */
+const mongoose = require("mongoose");
 
 /**
  * @swagger
@@ -49,15 +43,17 @@ const mongoose = require('mongoose');
  *       500:
  *         description: Server error
  */
-const getFollowingInstructors = async (req,res) => {
+const getFollowingInstructors = async (req, res) => {
   try {
-    const followingInstructors = await FollowingInstructor.find({})
-    .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
-    res.status(200).json(followingInstructors)
-  } catch(error){
-    res.status(500).json({ message: error.message})
+    const followingInstructors = await FollowingInstructor.find({}).populate(
+      "instructorId",
+      "profilePicture firstName lastName jobTitle Bio"
+    );
+    res.status(200).json(followingInstructors);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 //Get all by learnerID
 /**
@@ -96,8 +92,12 @@ const getFollowingInstructorsByLearnerID = async (req, res) => {
       return res.status(400).json({ message: "Invalid learnerId format" });
     }
 
-    const followingInstructors = await FollowingInstructor.find({ learnerId: id })
-      .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
+    const followingInstructors = await FollowingInstructor.find({
+      learnerId: id,
+    }).populate(
+      "instructorId",
+      "profilePicture firstName lastName jobTitle Bio"
+    );
 
     if (followingInstructors.length > 0) {
       return res.status(200).json(followingInstructors);
@@ -109,7 +109,6 @@ const getFollowingInstructorsByLearnerID = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 //Get by ID
 /**
@@ -135,17 +134,18 @@ const getFollowingInstructorsByLearnerID = async (req, res) => {
  *       500:
  *         description: Server error
  */
-const getFollowingInstructor = async (req,res) => {
+const getFollowingInstructor = async (req, res) => {
   try {
-    const {id} = req.params;
-    const followingInstructor = await FollowingInstructor.findById(id)
-      .populate('instructorId', 'profilePicture firstName lastName jobTitle Bio');
-    res.status(200).json(followingInstructor)
-  } catch(error){
-    res.status(500).json({ message: error.message})
+    const { id } = req.params;
+    const followingInstructor = await FollowingInstructor.findById(id).populate(
+      "instructorId",
+      "profilePicture firstName lastName jobTitle Bio"
+    );
+    res.status(200).json(followingInstructor);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
-
+};
 
 //Create
 /**
@@ -170,14 +170,14 @@ const getFollowingInstructor = async (req,res) => {
  *       500:
  *         description: Server error
  */
-const createFollowingInstructor = async (req,res) => {
+const createFollowingInstructor = async (req, res) => {
   try {
     const followingInstructor = await FollowingInstructor.create(req.body);
-    res.status(200).json(FollowingInstructor)
-  } catch (error){
-    res.status(500).json({message: error.message})
+    res.status(200).json(FollowingInstructor);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 //Update
 /**
@@ -211,21 +211,24 @@ const createFollowingInstructor = async (req,res) => {
  *       500:
  *         description: Server error
  */
-const updateFollowingInstructor = async (req,res) => {
+const updateFollowingInstructor = async (req, res) => {
   try {
-    const {id} = req.params;
-    const followingInstructor = await FollowingInstructor.findByIdAndUpdate(id, req.body);
+    const { id } = req.params;
+    const followingInstructor = await FollowingInstructor.findByIdAndUpdate(
+      id,
+      req.body
+    );
 
-    if (!FollowingInstructor){
-      return res.status(404).json({message: "FollowingInstructor not found"});
+    if (!FollowingInstructor) {
+      return res.status(404).json({ message: "FollowingInstructor not found" });
     }
 
     const updatedFollowingInstructor = await FollowingInstructor.findById(id);
     res.status(200).json(updatedFollowingInstructor);
-  } catch(error){
-    res.status(500).json({message: error.message});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 //Delete
 /**
@@ -249,19 +252,21 @@ const updateFollowingInstructor = async (req,res) => {
  *       500:
  *         description: Server error
  */
-const deleteFollowingInstructor = async (req,res) => {
+const deleteFollowingInstructor = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const followingInstructor = await FollowingInstructor.findByIdAndUpdate(id);
 
-    if(!followingInstructor){
-      return res.status(404).json({message: "FollowingInstructor not found"})
+    if (!followingInstructor) {
+      return res.status(404).json({ message: "FollowingInstructor not found" });
     }
-    res.status(200).json({message: "FollowingInstructor deleted successfully"})
-  }catch(error){
-    res.status(500).json({message: error.message})
+    res
+      .status(200)
+      .json({ message: "FollowingInstructor deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 async function rankFollowingInstructors(req, res) {
   try {
@@ -270,18 +275,20 @@ async function rankFollowingInstructors(req, res) {
         // Group by instructorId and count the number of followers
         $group: {
           _id: "$instructorId",
-          followerCount: { $sum: 1 }  // Count each occurrence of instructorId
-        }
+          followerCount: { $sum: 1 }, // Count each occurrence of instructorId
+        },
       },
       {
         // Sort the results by followerCount in descending order
-        $sort: { followerCount: -1 }
-      }
+        $sort: { followerCount: -1 },
+      },
     ]);
-    res.status(200).json(rankedInstructors)
+    res.status(200).json(rankedInstructors);
   } catch (error) {
     // Handle any errors
-    res.status(500).json({ message: 'An error occurred', error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 }
 
@@ -292,5 +299,5 @@ module.exports = {
   updateFollowingInstructor,
   deleteFollowingInstructor,
   getFollowingInstructorsByLearnerID,
-  rankFollowingInstructors
-}
+  rankFollowingInstructors,
+};
