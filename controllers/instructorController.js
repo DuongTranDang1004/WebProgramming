@@ -182,7 +182,7 @@ const createInstructor = async (req, res) => {
  */
 const updateInstructor = async (req, res) => {
   try {
-    const { id } = req.param;
+    const { id } = req.params;
     const instructor = await Instructor.findByIdAndUpdate(id, req.body);
 
     if (!instructor) {
@@ -218,7 +218,7 @@ const updateInstructor = async (req, res) => {
 const deleteInstructor = async (req, res) => {
   try {
     const { id } = req.params;
-    const instructor = await Instructor.findByIdAndUpdate(id);
+    const instructor = await Instructor.findByIdAndDelete(id);
 
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });

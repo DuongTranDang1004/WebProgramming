@@ -214,11 +214,9 @@ const updateLearner = async (req, res) => {
       new: true,
       runValidators: true,
     });
-
     if (!updatedLearner) {
       return res.status(404).json({ message: "Learner not found" });
     }
-
     res.status(200).json(updatedLearner);
   } catch (error) {
     res.status(400).json({ error: error.message });
