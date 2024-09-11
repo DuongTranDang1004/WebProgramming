@@ -13,19 +13,18 @@ const { markLectureComplete } = require("../controllers/markController");
 
 router.get("/", getLectures);
 
-router.get("/:id", getLecture);
+router.post("/markLecture", markLectureComplete);
+
+router.get("/course/:courseId", getLecturesByCourseId);
+
+router.post("/upload/:id", uploadVideo);
 
 router.post("/", createLecture);
+
+router.get("/:id", getLecture);
 
 router.put("/:id", updateLecture);
 
 router.delete("/:id", deleteLecture);
-
-router.get("/course/:courseId", getLecturesByCourseId);
-
-router.post("/upload/:id", uploadVideo)
-
-module.exports = router;
-router.post("/markLecture", markLectureComplete);
 
 module.exports = router;

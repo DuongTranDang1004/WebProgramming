@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .active-tab {
-            background-color: #6b46c1;
+            background-color: rgb(126 34 206);
             color: white;
             border-radius: 10px;
         }
@@ -20,7 +20,7 @@
         }
 
         .header {
-            background-color: #6b46c1;
+            background-color: rgb(126 34 206);
         }
 
         .header h1 {
@@ -28,7 +28,7 @@
         }
 
         .footer {
-            background-color: #6b46c1;
+            background-color: rgb(126 34 206);
             color: white;
             padding: 1rem;
             text-align: center;
@@ -46,18 +46,105 @@
 
 <body class="bg-gray-100 font-sans">
     <!-- Header -->
-    <header class="header p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold">Your Service</h1>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="#" class="text-white hover:text-gray-200">Home</a></li>
-                    <li><a href="#" class="text-white hover:text-gray-200">About</a></li>
-                    <li><a href="#" class="text-white hover:text-gray-200">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <header>
+        <nav class="bg-white border-b shadow">
+          <div id="topNav" class="container mx-auto flex justify-between items-center py-4 px-2 lg:px-8">
+              <img
+                id="logo"
+                src="../../static/img/headerlogo.png"
+                alt="IT Learning Logo"
+                class="w-35 h-12"
+              />
+      
+            <button
+              class="lg:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-400"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarTogglerDemo01"
+              aria-controls="navbarTogglerDemo01"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <svg class="fill-current h-5 w-5" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 5h20v2H0V8zm0 5h20v2H0v-2z"/></svg>
+            </button>
+      
+            <div class="hidden lg:flex space-x-8 items-center">
+              <ul class="flex space-x-6 text-gray-700 font-semibold">
+                <li><a class="hover:text-blue-500" href="/">Home</a></li>
+                <li><a class="hover:text-blue-500" href="aboutUs">About Us</a></li>
+                <li class="relative group">
+                  <a class="hover:text-blue-500 flex items-center cursor-pointer">
+                    Browse
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </a>
+                  <ul class="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1 text-sm">
+                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Category</a></li>
+                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Name</a></li>
+                    <li class="border-t"><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Instructors</a></li>
+                  </ul>
+                </li>
+                <li><a class="hover:text-blue-500" href="pricing">Pricing</a></li>
+                <li><a class="hover:text-blue-500" href="/">My Account</a></li>
+                <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
+                <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
+              </ul>
+      
+              <!-- <form class="flex items-center space-x-2">
+                <input
+                  class="form-input border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                  id="nav-search-input"
+                  type="search"
+                  placeholder="Type Course Names"
+                  aria-label="Search"
+                />
+                <button class="btn bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600" id="nav-button" type="submit">
+                  Search
+                </button>
+              </form> -->
+            </div>
+          </div>
+      
+          <div class="lg:hidden">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <ul class="flex flex-col space-y-4 p-4">
+                <li><a class="hover:text-blue-500" href="/">Home</a></li>
+                <li><a class="hover:text-blue-500" href="aboutUs">About Us</a></li>
+                <li class="relative group">
+                  <a class="hover:text-blue-500 flex items-center cursor-pointer">
+                    Browse
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </a>
+                  <ul class="mt-2 space-y-2">
+                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Category</a></li>
+                    <li><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Courses by Name</a></li>
+                    <li class="border-t"><a class="block px-4 py-2 hover:bg-gray-200" href="#">Browse Instructors</a></li>
+                  </ul>
+                </li>
+                <li><a class="hover:text-blue-500" href="pricing">Pricing</a></li>
+                <li><a class="hover:text-blue-500" href="/">My Account</a></li>
+                <li><a class="hover:text-blue-500" href="faq">FAQs</a></li>
+                <li><a class="hover:text-blue-500" href="contactPage">Contact</a></li>
+              </ul>
+              <!-- <form class="flex flex-col space-y-4 p-4">
+                <input
+                  class="form-input border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                  id="nav-search-input"
+                  type="search"
+                  placeholder="Type Course Names"
+                  aria-label="Search"
+                />
+                <button class="btn bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600" id="nav-button" type="submit">
+                  Search
+                </button>
+              </form> -->
+            </div>
+          </div>
+        </nav>
+      </header> 
 
     <div class="container mx-auto my-8">
         <div class="flex">
@@ -81,17 +168,9 @@
                     </ul>
                 </div>
                 <!-- Purchase Details Section -->
-                <div id="purchase-details" class="tab-content">
-                    <h2 class="text-xl font-semibold mb-4">Current plan</h2>
-                    <p class="mb-4">Pro - Student</p>
-                    <h3 class="text-lg font-semibold mb-2">Active subscriptions</h3>
-                    <p class="mb-4">Billed annually</p>
-                    <p class="mb-4">Last charged December 29, 2023</p>
-                    <p class="mb-4">Estimated payment scheduled for December 26, 2024</p>
-                    <h3 class="text-lg font-semibold mb-2">Payment method</h3>
-                    <p class="mb-4">VISA •••• 7189 <a href="#" class="text-blue-600 hover:underline">Update</a></p>
-                    <h3 class="text-lg font-semibold mb-2">Need a break?</h3>
-                    <p class="text-blue-600"><a href="#" class="hover:underline">I want to end my subscription</a></p>
+                <div id="plan-details" class="tab-content">
+                  <!-- Plan details will be injected here -->
+                  <p>Loading plan details...</p>
                 </div>
                 <!-- Billing History Section -->
                 <div id="billing-history" class="tab-content hidden">
@@ -205,6 +284,41 @@
                 $('#' + tab_id.replace('tab-', '')).removeClass('hidden');
             });
         });
+
+        function fetchMembershipDetails() {
+            const apiUrl = 'http://localhost:3000/memberships/instructor/66e00d8d87e60487ea39c25a';
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const planDetails = data[0];  // Assuming the first plan is the active one
+                    const planDetailsElement = document.getElementById('plan-details');
+                    
+                    // Build the HTML for the plan details
+                    const htmlContent = `
+                      <h2 class="text-xl font-semibold mb-4">Current plan</h2>
+                      <p class="mb-4">${planDetails.planName} - Instructor</p>
+                      <h3 class="text-lg font-semibold mb-2">Active subscriptions</h3>
+                      <p class="mb-4">Billed ${planDetails.planType}</p>
+                      <p class="mb-4"><strong>Commission Fee:</strong> ${planDetails.commissionFee * 100}%</p>
+                      <p class="mb-4"><strong>Price:</strong> $${planDetails.price}</p>
+                      <p class="mb-4">Last charged ${new Date(planDetails.startDate).toLocaleDateString()}</p>
+                      <p class="mb-4">Estimated payment scheduled for ${new Date(planDetails.endDate).toLocaleDateString()}</p>
+                      <h3 class="text-lg font-semibold mb-2">Payment method</h3>
+                      <p class="mb-4">${planDetails.paymentMethod} •••• ${planDetails.cardNumber.slice(-4)} <a href="#" class="text-blue-600 hover:underline">Update</a></p>
+                      <h3 class="text-lg font-semibold mb-2">Need a break?</h3>
+                      <p class="text-blue-600"><a href="#" class="hover:underline">I want to end my subscription</a></p>
+                    `;
+                    
+                    // Inject the HTML into the DOM
+                    planDetailsElement.innerHTML = htmlContent;
+                })
+                .catch(error => {
+                    console.error('Error fetching membership details:', error);
+                });
+        }
+
+        // Call the function when the page loads
+        window.onload = fetchMembershipDetails;
     </script>
 </body>
 
