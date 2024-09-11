@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+</head>
+
+<body>
+    <div style="height: 100%;">
+        <div class="admin-nav">
+            <div>
+                <a href="/admin/profile" class="">
+                    <span class="text-4xl">Admin Profile</span>
+                </a>
+            </div>
+            <div class="management-dropdown">
+                <button class="text-4xl font-bold">Admin Management</button>
+                <div class="dropdown-content">
+                    <a href="/admin/management/learners" class="text-4xl">Learners</a>
+                    <a href="/admin/management/instructors" class="text-4xl">Instructors</a>
+                    <a href="/admin/management/courses" class="text-4xl">Courses</a>
+                </div>
+            </div>
+            <div>
+                <a href="/admin/dashboard" class="">
+                    <span class="text-4xl">Admin Dashboard</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="profile-page">
+            <div class="profile-header">
+                <div class="text-6xl font-semibold mt-8">Update course</div>
+            </div>
+
+            <div class="profile-content">
+                <div class="data">
+                    <label>Name: </label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="data">
+                    <label>Category: </label>
+                    <input type="text" id="category" required>
+                </div>
+                <div class="data">
+                    <label>price: </label>
+                    <input type="number" id="price" required>
+                </div>
+                <div class="data">
+                    <label>Description: </label>
+                    <textarea type="text" id="description" required></textarea>
+                </div>
+                <div class="data">
+                    <label>Public: </label>
+                    <input type="checkbox" id="public" required>
+                </div>
+                <div class="update-btn">
+                    <button onclick="updateCourse()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
