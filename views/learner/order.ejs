@@ -3,7 +3,7 @@
     <!-- Cart Items Section -->
     <div class="cart-items">
       <h2>My Cart</h2>
-      <div class="cart-item">
+      <div class="cart-item" id="cart-item-list">
         <img
           src="course-thumbnail.jpg"
           alt="Course Thumbnail"
@@ -20,18 +20,11 @@
         </div>
       </div>
     </div>
-
-    <!-- Cart Summary Section -->
-    <aside class="cart-summary">
-      <div class="totals">
-        <p>Subtotal: <span>$99.99</span></p>
-        <p>Shipping: <span>Calculate Above</span></p>
-        <p>Sales Tax: <span>Calculate Above</span></p>
-        <p>Total: <span>$99.99</span></p>
-      </div>
-
-      <button class="button checkout-button">Begin Checkout</button>
-    </aside>
+    <button class="button checkout-button">Begin Checkout</button>
+    <!-- Add the missing cart-summary here -->
+    <div id="cart-summary" class="summary">
+      <!-- The cart summary (total, shipping, etc.) will be dynamically added here -->
+    </div>
   </div>
 </section>
 
