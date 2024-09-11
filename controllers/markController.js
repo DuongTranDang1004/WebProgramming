@@ -101,7 +101,7 @@ async function markLectureComplete(req, res) {
 
     // Update the lecture completion status for the specific lecture
     let lectureCompletionUpdated = false;
-    boughtCourse.lectureCompletionStatus.forEach((lectureStatus) => {
+    boughtCourse.completedLectures.forEach((lectureStatus) => {
       if (lectureStatus.lectureId.toString() === lectureId.toString()) {
         lectureStatus.completeStatus = true;
         lectureCompletionUpdated = true;
@@ -110,20 +110,23 @@ async function markLectureComplete(req, res) {
 
     if (!lectureCompletionUpdated) {
       // Push into the lectureCompletionStatus if not already marked as complete
-      boughtCourse.lectureCompletionStatus.push({
+      boughtCourse.completedLectures.push({
         lectureId: lectureId,
         completeStatus: true,
       });
     }
 
-    // Check if all lectures are complete
-    const allLecturesComplete = boughtCourse.lectureCompletionStatus.every(
-      (lectureStatus) => lectureStatus.completeStatus
-    );
+    //Get all lecture by course id
+    const totalLectures = await Lecture.find({ courseId: boughtCourse.courseId });
 
-    if (allLecturesComplete) {
-      boughtCourse.completionDateTime = new Date();
-    }
+    // Check if all lectures are complete
+    const allLecturesComplete = totalLectures.every((lec) =>
+      boughtCourse.completedLectures.some(
+        (completedLec) =>
+          completedLec.lectureId.toString() === lec._id.toString() &&
+          completedLec.completeStatus === true
+      )
+    );
 
     // Save the updated bought course
     await boughtCourse.save();
