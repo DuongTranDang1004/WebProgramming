@@ -9,6 +9,7 @@ router.get("/billing", (req, res) => {
       "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js",
       "/js/instructors/accountBilling.js",
     ],
+    pageStylesheet: "css/instructors/accountBilling.css",
   });
 });
 
@@ -49,6 +50,7 @@ router.get("/home", (req, res) => {
       "/js/instructors/permission.js",
       "/js/instructors/instructorHome.js",
     ],
+    pageStylesheet: "css/instructors/instructorHome.css",
   });
 });
 
