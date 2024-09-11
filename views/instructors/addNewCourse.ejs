@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans antialiased">
+
+    <!-- Banner -->
+    <div class="bg-white flex p-2">
+        <img src="/img/headerlogo.png" alt="Logo" width="120px" height="150px"
+            class="border-r-2 border-purple-400 pr-2">
+        <div class="flex items-center pl-5 flex-col flex-wrap">
+            <h1>Step 1 of 5</h1>
+            <h5 class=""><a href="#" class="text-purple-500 text-lg font-semibold">Exit</a></h5>
+        </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-8">
+        <!-- Step 1 -->
+        <div id="step-1" class="step">
+            <h2 class="text-2xl font-semibold mb-6">How about a working title?</h2>
+            <p class="text-gray-600 mb-4">It's ok if you can't think of a good title now. You can change it later.</p>
+            <input type="text" placeholder="e.g. Learn Photoshop CS6 from Scratch"
+                class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                maxlength="60">
+            <div class="flex justify-between items-center mt-4">
+                <button class="bg-gray-200 text-gray-600 py-2 px-4 rounded-lg" disabled>Previous</button>
+                <button class="bg-purple-600 text-white py-2 px-4 rounded-lg" onclick="nextStep(2)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step-2" class="step hidden">
+            <h2 class="text-2xl font-semibold mb-6">What category best fits the knowledge you'll share?</h2>
+            <p class="text-gray-600 mb-4">If you're not sure about the right category, you can change it later.</p>
+            <select class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                <option value="front-end">Front-end</option>
+                <option value="back-end">Back-end</option>
+                <option value="data science">Data Science</option>
+                <option value="AI">AI</option>
+                <option value="cyber security">Cyber Security</option>
+                <option value="testing">Testing</option>
+                <!-- Add more options as needed -->
+            </select>
+            <div class="flex justify-between items-center mt-4">
+                <button class="bg-gray-200 text-gray-600 py-2 px-4 rounded-lg" onclick="prevStep(1)">Previous</button>
+                <button class="bg-purple-600 text-white py-2 px-4 rounded-lg" onclick="nextStep(3)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Upload Image -->
+        <div id="step-3" class="step hidden">
+            <h2 class="text-2xl font-semibold mb-6">Upload an image for your course</h2>
+            <p class="text-gray-600 mb-4">Choose an image that represents your course. This will be displayed to
+                potential students.</p>
+            <input type="file"
+                class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+            <div class="flex justify-between items-center mt-4">
+                <button class="bg-gray-200 text-gray-600 py-2 px-4 rounded-lg" onclick="prevStep(2)">Previous</button>
+                <button class="bg-purple-600 text-white py-2 px-4 rounded-lg" onclick="nextStep(4)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Add Description -->
+        <div id="step-4" class="step hidden">
+            <h2 class="text-2xl font-semibold mb-6">Add a description for your course</h2>
+            <p class="text-gray-600 mb-4">Write a brief description about your course. You can update it later if
+                needed.</p>
+            <textarea
+                placeholder="e.g. This course will teach you how to master Photoshop from the basics to advanced techniques."
+                class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                rows="5"></textarea>
+            <div class="flex justify-between items-center mt-4">
+                <button class="bg-gray-200 text-gray-600 py-2 px-4 rounded-lg" onclick="prevStep(3)">Previous</button>
+                <button class="bg-purple-600 text-white py-2 px-4 rounded-lg" onclick="nextStep(5)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 5 (was Step 3) -->
+        <div id="step-5" class="step hidden">
+            <h2 class="text-2xl font-semibold mb-6">How much time can you spend creating your course per week?</h2>
+            <p class="text-gray-600 mb-4">There's no wrong answer. We can help you achieve your goals even if you don't
+                have much time.</p>
+            <div class="space-y-4">
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="time" value="0-2 hours" class="form-radio h-5 w-5 text-purple-600">
+                    <span class="text-gray-700">I’m very busy right now (0-2 hours)</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="time" value="2-4 hours" class="form-radio h-5 w-5 text-purple-600">
+                    <span class="text-gray-700">I’ll work on this on the side (2-4 hours)</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="time" value="5+ hours" class="form-radio h-5 w-5 text-purple-600">
+                    <span class="text-gray-700">I have lots of flexibility (5+ hours)</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="time" value="undecided" class="form-radio h-5 w-5 text-purple-600">
+                    <span class="text-gray-700">I haven’t yet decided if I have time</span>
+                </label>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+                <button class="bg-gray-200 text-gray-600 py-2 px-4 rounded-lg" onclick="prevStep(4)">Previous</button>
+                <button class="bg-purple-600 text-white py-2 px-4 rounded-lg" onclick="addNewCourse()">Create
+                    Course</button>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
