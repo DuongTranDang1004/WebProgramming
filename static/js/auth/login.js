@@ -30,6 +30,7 @@ function login () {
         if (data.instructor) {
             localStorage.setItem('role', 'instructor');
             localStorage.setItem("id", data.instructor._id);
+            window.location.href = "/instructors/home"
         }
         if (data.admin) {
             localStorage.setItem('role', 'admin');
