@@ -267,6 +267,33 @@ const deleteFollowingInstructor = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+/**
+ * @swagger
+ * /followingInstructors/rank:
+ *   get:
+ *     summary: Get a ranked list of instructors based on the number of followers
+ *     tags: [FollowingInstructors]
+ *     responses:
+ *       200:
+ *         description: A ranked list of instructors based on the number of followers
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: The ID of the instructor
+ *                     example: "605c72ef1e7fbb001f6471f7"
+ *                   followerCount:
+ *                     type: integer
+ *                     description: The number of followers
+ *                     example: 42
+ *       500:
+ *         description: Server error
+ */
 
 async function rankFollowingInstructors(req, res) {
   try {
