@@ -15,7 +15,9 @@ dotenv.config({ path: "./config/.env", override: true });
 
 const app = express();
 const port = process.env.APP_PORT || 3000;
-const host = process.env.APP_HOST || "localhost";
+// const host = process.env.APP_HOST || "localhost";
+
+const host = "localhost:27017";
 
 //Use middlewares and modules for the app
 app.use(express.json()); // Middleware for parsing JSON from response body
@@ -60,7 +62,7 @@ const generalPagesRoutes = require("./routes/generalPagesRoute");
 // Using the controllers as routers
 
 //VIEW PATHS
-app.use("/auth", require("./routes/authPageRoute")); 
+app.use("/auth", require("./routes/authPageRoute"));
 app.use("/", generalPagesRoutes);
 app.use("/boughtCourses", boughtCourseRoutes);
 app.use("/contactForms", contactFormRoutes);
