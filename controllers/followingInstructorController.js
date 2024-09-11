@@ -267,6 +267,31 @@ const deleteFollowingInstructor = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+async function rankFollowingInstructors(req, res) {
+  try {
+    const rankedInstructors = await FollowingInstructor.aggregate([
+      {
+        // Group by instructorId and count the number of followers
+        $group: {
+          _id: "$instructorId",
+          followerCount: { $sum: 1 }, // Count each occurrence of instructorId
+        },
+      },
+      {
+        // Sort the results by followerCount in descending order
+        $sort: { followerCount: -1 },
+      },
+    ]);
+    res.status(200).json(rankedInstructors);
+  } catch (error) {
+    // Handle any errors
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+}
+
 module.exports = {
   getFollowingInstructors,
   getFollowingInstructor,
@@ -274,4 +299,5 @@ module.exports = {
   updateFollowingInstructor,
   deleteFollowingInstructor,
   getFollowingInstructorsByLearnerID,
+  rankFollowingInstructors,
 };
