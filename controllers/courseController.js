@@ -221,11 +221,17 @@ const getCourse = async (req, res) => {
   try {
     const { id } = req.params;
     const course = await Course.findById(id);
+
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
+
     res.status(200).json(course);
   } catch (error) {
+    // Log the error stack trace to the console
+    console.error("Error fetching course:", error.stack);
+
+    // Return a generic error message to the client
     res.status(500).json({ message: error.message });
   }
 };

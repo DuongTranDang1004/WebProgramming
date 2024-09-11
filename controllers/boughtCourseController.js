@@ -1,5 +1,96 @@
 const BoughtCourses = require("../models/boughtCourseModel");
 const mongoose = require("mongoose");
+const Courses = require("../models/courseModel");
+
+/**
+ * @swagger
+ * /api/boughtCourses/learnerWithThumbnail/{learnerId}:
+ *   get:
+ *     summary: Get all bought courses by a specific learner ID including course thumbnail
+ *     tags: [BoughtCourses]
+ *     parameters:
+ *       - in: path
+ *         name: learnerId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the learner whose courses are being fetched
+ *     responses:
+ *       200:
+ *         description: A list of bought courses for the learner including thumbnail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/BoughtCourse'
+ *       404:
+ *         description: No courses found for this learner
+ *       500:
+ *         description: Internal server error
+ */
+// Function to get all bought courses by learnerId with course thumbnails
+const getAllBoughtCoursesByLearnerIdWithThumbnail = async (req, res) => {
+  try {
+    const learnerId = req.params.learnerId;
+
+    // Validate learnerId format
+    if (!mongoose.Types.ObjectId.isValid(learnerId)) {
+      return res.status(400).json({ message: "Invalid Learner ID" });
+    }
+
+    // Use `new` when creating ObjectId
+    const boughtCoursesWithThumbnail = await BoughtCourses.aggregate([
+      {
+        $match: { learnerId: new mongoose.Types.ObjectId(learnerId) }, // Correct use of new
+      },
+      {
+        $lookup: {
+          from: "Courses", // Lookup from the Courses collection
+          localField: "courseId", // The field from BoughtCourses to match
+          foreignField: "_id", // The field from Courses to match
+          as: "courseInfo", // Alias the result as courseInfo
+        },
+      },
+      {
+        $unwind: "$courseInfo", // Unwind the courseInfo array to flatten the structure
+      },
+      {
+        $project: {
+          _id: 1,
+          learnerId: 1,
+          instructorId: 1,
+          boughtDateTime: 1,
+          lectureCompletionStatus: 1,
+          completionDateTime: 1,
+          isCertificate: 1,
+          endDate: 1,
+          courseCompletionStatus: 1,
+          startDate: 1,
+          completedLectures: 1,
+          "courseInfo._id": 1,
+          "courseInfo.name": 1,
+          "courseInfo.category": 1,
+          "courseInfo.price": 1,
+          "courseInfo.thumbnailImage": 1, // Include thumbnailImage explicitly
+        },
+      },
+    ]);
+
+    // Return the list of bought courses with the thumbnail field included
+    res.status(200).json(boughtCoursesWithThumbnail);
+  } catch (error) {
+    console.trace("Error occurred:", error);
+    res.status(500).json({
+      error: "An error occurred while fetching courses",
+      message: error.message,
+      stack:
+        process.env.NODE_ENV === "development"
+          ? error.stack
+          : "Stack trace is hidden in production",
+    });
+  }
+};
 
 /**
  * @swagger
@@ -507,4 +598,5 @@ module.exports = {
   startTrial,
   purchaseCourse,
   getAllBoughtCoursesByLearnerID,
+  getAllBoughtCoursesByLearnerIdWithThumbnail,
 };

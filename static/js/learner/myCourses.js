@@ -12,20 +12,51 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   };
 
+  // Function to fetch course details by courseId (in order to get details like thumbnail)
+  const fetchCourseDetails = async (courseId) => {
+    try {
+      const response = await fetch(`/api/courses/${courseId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch course details");
+      }
+      return await response.json(); // Return detailed course info
+    } catch (error) {
+      console.error(`Error fetching course ${courseId}:`, error);
+    }
+  };
+
+  // Function to fetch all bought courses and add additional details like thumbnail
+  const getBoughtCoursesWithDetails = async (learnerId) => {
+    const boughtCourses = await fetchBoughtCourses(learnerId);
+    const detailedCourses = [];
+
+    for (let boughtCourse of boughtCourses) {
+      const courseDetails = await fetchCourseDetails(boughtCourse.courseId); // Fetch detailed course info for each courseId
+      if (courseDetails) {
+        detailedCourses.push({
+          courseInfo: courseDetails, // Store detailed course info like name, thumbnail
+          ...boughtCourse, // Include any other data from boughtCourse
+        });
+      }
+    }
+
+    return detailedCourses; // Return all courses with detailed info
+  };
+
   // Render function for bought courses
   const renderBoughtCourses = (courses) => {
     const boughtCoursesContainer = document.getElementById(
       "display-bought-courses"
     );
-    boughtCoursesContainer.innerHTML = ""; // Clear previous content
+    boughtCoursesContainer.innerHTML = "<h1>All of my bought courses</h1>"; // Clear previous content
 
     courses.forEach((course) => {
       const courseHTML = `
-          <div class="bought-course-item">
-            <h2>${course.courseInfo.name}</h2>
-            <img src="https://picsum.photos/seed/${course._id}/640/480" alt="Course Image">
-          </div>
-        `;
+        <div class="bought-course-item">
+          <h2 id="course-name">${course.courseInfo.name}</h2>
+          <img id="thumbnail-image" src="${course.courseInfo.thumbnail}" alt="Course Image">
+        </div>
+      `;
       boughtCoursesContainer.innerHTML += courseHTML;
     });
   };
@@ -38,14 +69,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     learningCoursesContainer.innerHTML = ""; // Clear previous content
 
     courses.forEach((course) => {
-      const progress = Math.floor(Math.random() * 100); // You can calculate real progress
+      const progress = Math.floor(Math.random() * 100); // You can calculate real progress if you have the data
       const courseHTML = `
-          <div class="learning-course-item">
-            <h2>${course.courseInfo.name}</h2>
-            <img src="https://picsum.photos/seed/${course._id}/640/480" alt="Course Image">
-            <h3>Progress: ${progress}%</h3>
-          </div>
-        `;
+        <div class="learning-course-item">
+          <h2 id="course-name">${course.courseInfo.name}</h2>
+          <img id="thumbnail-image" src="${course.courseInfo.thumbnail}" alt="Course Image">
+          <h3 id="learning-progress">Progress: ${progress}%</h3>
+        </div>
+      `;
       learningCoursesContainer.innerHTML += courseHTML;
     });
   };
@@ -58,17 +89,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     completedCoursesContainer.innerHTML = ""; // Clear previous content
 
     courses.forEach((course) => {
+      const completionDate = new Date(
+        course.completionDateTime
+      ).toLocaleDateString();
       const courseHTML = `
-          <div class="completed-course-item">
-            <h2>${course.courseInfo.name}</h2>
-            <img src="https://picsum.photos/seed/${
-              course._id
-            }/640/480" alt="Course Image">
-            <h3>Completion Date: ${new Date(
-              course.completionDateTime
-            ).toLocaleDateString()}</h3>
-          </div>
-        `;
+        <div class="completed-course-item">
+          <h2 id="course-name">${course.courseInfo.name}</h2>
+          <img id="thumbnail-image" src="${course.courseInfo.thumbnail}" alt="Course Image">
+          <h3 id="completion-date">Completion Date: ${completionDate}</h3>
+        </div>
+      `;
       completedCoursesContainer.innerHTML += courseHTML;
     });
   };
@@ -79,20 +109,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     certificatesContainer.innerHTML = ""; // Clear previous content
 
     courses.forEach((course) => {
+      const completionDate = new Date(
+        course.completionDateTime
+      ).toLocaleDateString();
       const certHTML = `
-          <div class="cert-item">
-            <img id="IT-learning-logo" src="https://picsum.photos/seed/cert${
-              course._id
-            }/640/480" alt="Certificate Image">
-            <h1>Completion Certificate</h1>
-            <h4>has been presented to</h4>
-            <h2 id="learnerName">Your Name</h2>
-            <h4>on ${new Date(
-              course.completionDateTime
-            ).toLocaleDateString()}</h4>
-            <h2>to the Course of <span>${course.courseInfo.name}</span></h2>
-          </div>
-        `;
+        <div class="cert-item">
+          <img id="IT-learning-logo" src="/img/Logo.png" alt="Certificate Image" width="50" height="50">
+          <h1>Completion Certificate</h1>
+          <h4>has been presented to</h4>
+          <h2 id="learnerName">Your Name</h2>
+          <h4>on ${completionDate}</h4>
+          <h2>to the Course of <span>${course.courseInfo.name}</span></h2>
+        </div>
+      `;
       certificatesContainer.innerHTML += certHTML;
     });
   };
@@ -103,24 +132,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   console.log("Extracted learnerId:", learnerId); // Verify that the learnerId is correct
 
-  // Fetch the bought courses using the extracted learnerId
-  const boughtCourses = await fetchBoughtCourses(learnerId);
+  // Fetch the bought courses with details using the extracted learnerId
+  const boughtCoursesWithDetails = await getBoughtCoursesWithDetails(learnerId);
 
-  if (boughtCourses) {
+  if (boughtCoursesWithDetails) {
     // Distinguish between courses
-    const allBoughtCourses = boughtCourses; // All bought courses
-    const learningCourses = boughtCourses.filter(
+    const learningCourses = boughtCoursesWithDetails.filter(
       (course) => !course.courseCompletionStatus
     ); // Courses that are in progress
-    const completedCourses = boughtCourses.filter(
+    const completedCourses = boughtCoursesWithDetails.filter(
       (course) => course.courseCompletionStatus
     ); // Completed courses
-    const certificateCourses = boughtCourses.filter(
+    const certificateCourses = boughtCoursesWithDetails.filter(
       (course) => course.isCertificate
     ); // Courses with certificates
 
-    // Render courses
-    renderBoughtCourses(allBoughtCourses);
+    // Render courses in the correct sections
+    renderBoughtCourses(boughtCoursesWithDetails);
     renderLearningCourses(learningCourses);
     renderCompletedCourses(completedCourses);
     renderCertificates(certificateCourses);

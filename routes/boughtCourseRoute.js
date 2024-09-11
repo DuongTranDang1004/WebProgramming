@@ -8,7 +8,8 @@ const {
   deleteBoughtCourse,
   startTrial,
   purchaseCourse,
-  getAllBoughtCoursesByLearnerID, // Import the function
+  getAllBoughtCoursesByLearnerID,
+  getAllBoughtCoursesByLearnerIdWithThumbnail,
 } = require("../controllers/boughtCourseController");
 
 router.get("/", getBoughtCourses);
@@ -19,5 +20,10 @@ router.delete("/:id", deleteBoughtCourse);
 router.post("/start-trial", startTrial); // Route to start a trial
 router.put("/purchase/:id", purchaseCourse); // Route to purchase the trial
 router.get("/learner/:learnerId", getAllBoughtCoursesByLearnerID);
+
+router.get(
+  "/learnerWithThumbnail/:learnerId",
+  getAllBoughtCoursesByLearnerIdWithThumbnail
+);
 
 module.exports = router;
