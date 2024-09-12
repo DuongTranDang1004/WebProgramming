@@ -12,49 +12,51 @@
         <div id="cart-items"></div>
 
         <div class="mt-4">
-            <h2 class="text-xl font-semibold">Total: $<span id="total-price">0</span></h2>
+            <h2 class="text-xl font-semibold">Total: <span id="total-price"></span>.000 vnd</h2>
+            <p class="text-sm text-gray-500 mb-6">By completing your purchase, you agree to these <a href="#" class="text-blue-600 underline">Terms of Service</a>.</p>
+            <button id="completeCheckoutBtn" class="bg-purple-700 text-white font-semibold py-3 rounded-lg hover:bg-purple-500 transition">
+                Complete Checkout
+            </button>
         </div>
     </div>
 
     <script>
-    // Retrieve the cart items from localStorage
     console.log('LocalStorage:', localStorage);
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     console.log('Cart Items:', cart);
-    
+
     const cartItemsContainer = document.getElementById('cart-items');
     const totalPriceElement = document.getElementById('total-price');
 
-    // If the cart is empty
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
     } else {
         let total = 0;
 
-        // Loop through the cart items and create HTML to display them
         cart.forEach((item, index) => {
             total += parseFloat(item.price);
 
             const cartItemHTML = `
                 <div class="flex justify-between items-center border-b py-2">
+                    <div class="mb-6">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-auto rounded-lg shadow-lg" style="width: 50px; height: 50px; object-fit: cover;">
+                    </div>
                     <span>${item.name}</span>
-                    <span>$${item.price}</span>
-                    <button class="remove-item text-red-500" data-index="${index}">Remove</button>
+                    <span>${item.price}vnd</span>
+                    <button class="remove-item bg-purple-700 text-white font-semibold py-3 rounded-lg hover:bg-purple-300 transition" data-index="${index}">Remove</button>
                 </div>
             `;
             cartItemsContainer.innerHTML += cartItemHTML;
         });
 
-        // Update the total price
         totalPriceElement.innerText = total.toFixed(2);
     }
 
-    // Add event listeners for the remove buttons
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', function() {
             const index = this.getAttribute('data-index');
-            cart.splice(index, 1); // Remove the item from the cart array
+            cart.splice(index, 1); 
 
             // Update localStorage and reload the page to update the cart display
             localStorage.setItem('cart', JSON.stringify(cart));

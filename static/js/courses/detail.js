@@ -123,6 +123,7 @@ async function displayCourseDetails(course) {
             const courseId = course._id;
             const courseName = course.name;
             const coursePrice = course.price;
+            const courseImage = course.thumbnailImage;
             
             // Get the existing cart from localStorage or set it as an empty array
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -131,7 +132,8 @@ async function displayCourseDetails(course) {
             cart.push({
                 id: courseId,
                 name: courseName,
-                price: coursePrice
+                price: coursePrice,
+                image: courseImage
             });
     
             // Save the updated cart back to localStorage

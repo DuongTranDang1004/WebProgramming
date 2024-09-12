@@ -19,8 +19,8 @@ document.querySelectorAll('.lecture-link').forEach(link => {
 });
 
 const urlParams = new URLSearchParams(window.location.search);
-const courseId = "66e07cb88a0cafe880f72f51";
-const boughtCourseId = "66e07cb98a0cafe880f72fe3"; // Replace with dynamic value if needed
+const courseId = "66e2ca31196d825b16fc3687";
+const boughtCourseId = "66e2ca32196d825b16fc3716"; // Replace with dynamic value if needed
 
 if (courseId) {
     fetchCourseDetails();
@@ -117,7 +117,7 @@ function fetchLectureDetails(lectureId) {
             fetch(`/api/boughtCourses/${boughtCourseId}`)
                 .then(response => response.json())
                 .then(boughtCourse => {
-                    const lectureStatus = boughtCourse.lectureCompletionStatus.find(status => status.lectureId === lectureId);
+                    const lectureStatus = boughtCourse.completedLectures.find(status => status.lectureId === lectureId);
 
                     const exerciseForm = document.getElementById('exerciseForm');
                     const submitButton = exerciseForm.querySelector('button[type="submit"]');
@@ -168,6 +168,7 @@ function fetchLectureDetails(lectureId) {
                                         resultElement.classList.add('text-red-600');
                                     }
                                     // Disable the submit button after submission
+                                    console.log('Answer received')
                                     submitButton.disabled = true;
                                 })
                                 .catch(error => {
