@@ -17,7 +17,10 @@ router.get("/aboutUs", (req, res) => {
   res.render("general/aboutUs", {
     title: "About Us",
     pageStylesheet: "css/general/aboutUs.css",
-    pageScripts: ["/js/globalProcessing.js"],
+    pageScripts: [
+      "/js/globalProcessing.js",
+      "/js/general/aboutUs.js",
+    ],
   });
 });
 
