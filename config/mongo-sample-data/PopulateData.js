@@ -42,6 +42,7 @@ async function generateSampleData() {
     const followingInstructors = db.collection("FollowingInstructors");
     const boughtCourses = db.collection("BoughtCourses");
     const memberships = db.collection("Membership");
+    const transactions = db.collection("Transactions");
 
     // Empty the collections before inserting new data
     await Promise.all([
@@ -55,6 +56,7 @@ async function generateSampleData() {
       followingInstructors.deleteMany({}),
       boughtCourses.deleteMany({}),
       memberships.deleteMany({}),
+      transactions.deleteMany({}),
     ]);
 
     console.log("Collections emptied successfully.");
@@ -298,6 +300,49 @@ async function generateSampleData() {
         { $set: instructor }
       );
     }
+
+    // Generate and insert sample data for Transactions
+    let transactionData = [];
+    for (let i = 0; i < 30; i++) {
+      // Select a random learner and a random course
+      const learner = (await learners.find().toArray())[
+        Math.floor(Math.random() * 500)
+      ];
+      const course = (await courses.find().toArray())[
+        Math.floor(Math.random() * 30)
+      ];
+
+      // Optionally generate certificate details
+      const hasCertificate = Math.random() < 0.5; // 50% chance of having a certificate
+      const certificateName = hasCertificate
+        ? faker.commerce.productName() + " Certificate"
+        : null;
+      const certificatePrice = hasCertificate ? course.price * 0.1 : 0;
+
+      transactionData.push({
+        learnerId: learner._id.toString(), // Reference to learner
+        totalAmount: course.price + certificatePrice, // Course price + certificate price
+        transactionDate: truncateToMinute(faker.date.recent()), // Use recent date for transaction
+        paymentMethod: faker.helpers.arrayElement([
+          "VISA",
+          "Mastercard",
+          "Bank Transfer",
+          "Momo",
+        ]),
+        transactionItems: [
+          {
+            courseId: course._id.toString(), // Reference to course
+            certificateName: certificateName,
+            certificatePrice: certificatePrice,
+          },
+        ],
+      });
+    }
+
+    await transactions.insertMany(transactionData);
+
+    console.log("Sample data for transactions inserted successfully!");
+    
 
     console.log("Sample data inserted successfully!");
   } catch (err) {

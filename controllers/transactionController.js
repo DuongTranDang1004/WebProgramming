@@ -1,46 +1,56 @@
-const Transactions = require("../models/transactionModel");
-const BoughtCourses = require("../models/boughtCourseModel");
-const mongoose = require("mongoose");
+const Transaction = require("../models/transactionModel");
+const Learner = require("../models/learnerModel");
+const Course = require("../models/courseModel");
 
 /**
  * @swagger
  * tags:
- *   name: Transactions
- *   description: API for managing transactions
+ *   - name: Transactions
+ *     description: API for managing transactions
  */
 
 /**
  * @swagger
  * components:
- *   schemas:
- *     Transactions:
- *       type: object
- *       properties:
- *         id:
- *           type: string
- *           description: The auto-generated ID of the transaction
- *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
- *         learnerId:
- *           type: string
- *           description: The ID of the learner
- *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
- *         courseId:
- *           type: string
- *           description: The ID of the course
- *           example: "64e1a5f9f5e1a5f9f5e1a5f9"
- *         amount:
- *           type: number
- *           description: The price of the course mentioned in the transaction
- *           example: 99.99
- *         transactionDate:
- *           type: string
- *           format: date-time
- *           description: The date of the transaction
- *           example: "2024-08-15T10:00:00Z"
- *         paymentMethod:
- *           type: string
- *           description: The method for payment
- *           example: "Momo"
+ *  schemas:
+ *    Transaction:
+ *      type: object
+ *      properties:
+ *        _id:
+ *          type: string
+ *          description: The auto-generated ID of the transaction
+ *        learnerId:
+ *          type: string
+ *          description: The ID of the learner who made the transaction
+ *        totalAmount:
+ *          type: number
+ *          description: The total amount of the transaction
+ *        transactionDate:
+ *          type: string
+ *          format: date-time
+ *          description: The date the transaction was made
+ *        paymentMethod:
+ *          type: string
+ *          description: The payment method used in the transaction
+ *          enum:
+ *            - VISA
+ *            - Mastercard
+ *            - Bank Transfer
+ *            - Momo
+ *        transactionItems:
+ *          type: array
+ *          items:
+ *            type: object
+ *            properties:
+ *              courseId:
+ *                type: string
+ *                description: The ID of the course purchased
+ *              certificateName:
+ *                type: string
+ *                description: The name of the certificate (if any)
+ *              certificatePrice:
+ *                type: number
+ *                description: The price of the certificate (if any)
  */
 
 /**
@@ -57,123 +67,22 @@ const mongoose = require("mongoose");
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Transactions'
+ *                 $ref: '#/components/schemas/Transaction'
  *       500:
  *         description: Server error
  */
 const getTransactions = async (req, res) => {
   try {
-    const transactions = await Transactions.find({})
-      .populate('learnerId', 'firstName lastName email')
-      .populate('courseId', 'name category price'); // Populate course data
+    const transactions = await Transaction.find()
+      .populate({
+        path: "learnerId",
+        select: "firstName lastName email",
+      })
+      .populate({
+        path: "transactionItems.courseId",
+        select: "name category price",
+      });
     res.status(200).json(transactions);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-/**
- * @swagger
- * /api/transactions/user/{userId}:
- *   get:
- *     summary: Get all transactions for a specific user
- *     tags: [Transactions]
- *     parameters:
- *       - in: path
- *         name: userId
- *         schema:
- *           type: string
- *         required: true
- *         description: The user ID
- *     responses:
- *       200:
- *         description: List of transactions for the user
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Transactions'
- *       500:
- *         description: Server error
- */
-const getTransactionsByUserId = async (req, res) => {
-  const { userId } = req.params;
-
-  try {
-    const transactions = await Transactions.find({ learnerId: userId })
-      .populate('learnerId', 'firstName lastName email')
-      .populate('courseId', 'name category price'); // Populate course data
-
-    if (!transactions.length) {
-      return res.status(404).json({ message: "No transactions found for this user" });
-    }
-
-    res.status(200).json(transactions);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-/**
- * @swagger
- * /api/transactions:
- *   post:
- *     summary: Create a new transaction
- *     tags: [Transactions]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Transactions'
- *           example:
- *             learnerId: "64e1a5f9f5e1a5f9f5e1a5f9"
- *             courseId: "64e1a5f9f5e1a5f9f5e1a5f9"
- *             amount: 99.99
- *             transactionDate: "2024-08-15T10:00:00Z"
- *             paymentMethod: "Momo"
- *     responses:
- *       201:
- *         description: Transaction created successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Transactions'
- *       400:
- *         description: Bad request
- */
-const createTransaction = async (req, res) => {
-  const { learnerId, courseId, instructorId, amount, transactionDate, paymentMethod } = req.body;
-
-  try {
-    // Create the transaction
-    const transaction = new Transactions({
-      learnerId,
-      courseId,
-      instructorId,
-      amount,
-      transactionDate,
-      paymentMethod,
-    });
-
-    await transaction.save();
-
-    // Automatically create a row in the BoughtCourses model after a transaction
-    const boughtCourse = new BoughtCourses({
-      learnerId,
-      courseId,
-      instructorId, // You might want to add this field
-      startDate: transactionDate,
-      boughtDateTime: transactionDate,
-      endDate: null,
-      courseCompletionStatus: false,
-      isCertificate: false,
-    });
-
-    await boughtCourse.save();
-
-    res.status(201).json(transaction);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -183,7 +92,7 @@ const createTransaction = async (req, res) => {
  * @swagger
  * /api/transactions/{id}:
  *   get:
- *     summary: Get transaction by ID
+ *     summary: Get a transaction by ID
  *     tags: [Transactions]
  *     parameters:
  *       - in: path
@@ -194,23 +103,28 @@ const createTransaction = async (req, res) => {
  *         description: The transaction ID
  *     responses:
  *       200:
- *         description: The transaction details
+ *         description: The transaction details by ID
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Transactions'
+ *               $ref: '#/components/schemas/Transaction'
  *       404:
  *         description: Transaction not found
  *       500:
  *         description: Server error
  */
-const getTransactionsById = async (req, res) => {
-  const { id } = req.params;
-
+const getTransaction = async (req, res) => {
   try {
-    const transaction = await Transactions.findById(id)
-      .populate('learnerId', 'firstName lastName email')
-      .populate('courseId', 'name category price'); // Populate course data
+    const { id } = req.params;
+    const transaction = await Transaction.findById(id)
+      .populate({
+        path: "learnerId",
+        select: "firstName lastName email",
+      })
+      .populate({
+        path: "transactionItems.courseId",
+        select: "name category price",
+      });
 
     if (!transaction) {
       return res.status(404).json({ message: "Transaction not found" });
@@ -222,9 +136,118 @@ const getTransactionsById = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /api/transactions:
+ *   post:
+ *     summary: Create a new transaction and associated bought courses
+ *     tags: [Transactions]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Transaction'
+ *     responses:
+ *       201:
+ *         description: Transaction and bought courses created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
+ *       400:
+ *         description: Bad request
+ */
+const createTransaction = async (req, res) => {
+  try {
+    // Validate learner and course IDs before creating a transaction
+    const learner = await Learner.findById(req.body.learnerId);
+    if (!learner) {
+      return res.status(404).json({ message: "Learner not found" });
+    }
+
+    // Validate each course in transactionItems
+    const transactionItems = req.body.transactionItems;
+    for (const item of transactionItems) {
+      const course = await Course.findById(item.courseId);
+      if (!course) {
+        return res
+          .status(404)
+          .json({ message: `Course not found for ID: ${item.courseId}` });
+      }
+    }
+
+    // Create the transaction
+    const transaction = new Transaction(req.body);
+    const savedTransaction = await transaction.save();
+
+    // For each transaction item, create a corresponding bought course
+    const boughtCoursesPromises = transactionItems.map(async (item) => {
+      const boughtCourse = new BoughtCourse({
+        learnerId: req.body.learnerId,
+        courseId: item.courseId,
+        instructorId: (await Course.findById(item.courseId)).instructorId, // Get instructorId from course
+        startDate: new Date(),
+        boughtDateTime: new Date(),
+        courseCompletionStatus: false, // Default to not completed
+        isCertificate: !!item.certificateName, // If there's a certificate, mark as true
+      });
+
+      return boughtCourse.save();
+    });
+
+    // Wait for all bought courses to be saved
+    await Promise.all(boughtCoursesPromises);
+
+    // Respond with the created transaction and bought courses
+    res.status(201).json({
+      transaction: savedTransaction,
+      message: "Transaction and associated bought courses created successfully",
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+/**
+ * @swagger
+ * /api/transactions/{id}:
+ *   delete:
+ *     summary: Delete a transaction by ID
+ *     tags: [Transactions]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The transaction ID
+ *     responses:
+ *       200:
+ *         description: Transaction deleted successfully
+ *       404:
+ *         description: Transaction not found
+ *       500:
+ *         description: Server error
+ */
+const deleteTransaction = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const transaction = await Transaction.findByIdAndDelete(id);
+
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found" });
+    }
+
+    res.status(200).json({ message: "Transaction deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getTransactions,
-  getTransactionsByUserId,
+  getTransaction,
   createTransaction,
-  getTransactionsById,
+  deleteTransaction,
 };

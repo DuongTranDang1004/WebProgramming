@@ -1,5 +1,6 @@
 const BoughtCourse = require('../models/boughtCourseModel');
 const Transaction = require('../models/transactionModel');
+const Course = require('../models/courseModel');
 const mongoose = require('mongoose');
 
 /**
@@ -25,7 +26,9 @@ const mongoose = require('mongoose');
  *                   properties:
  *                     courseId:
  *                       type: string
- *                     amount:
+ *                     certificateName:
+ *                       type: string
+ *                     certificatePrice:
  *                       type: number
  *                     paymentMethod:
  *                       type: string
@@ -39,58 +42,81 @@ const mongoose = require('mongoose');
  *         description: Internal server error
  */
 const purchaseCart = async (req, res) => {
-  const { learnerId, courses } = req.body;
+  const { learnerId, courses, paymentMethod } = req.body;
 
-  if (!learnerId || !Array.isArray(courses) || courses.length === 0) {
-    return res.status(400).json({ message: 'learnerId and courses are required' });
+  // Validate input
+  if (!learnerId || !Array.isArray(courses) || courses.length === 0 || !paymentMethod) {
+    return res.status(400).json({ message: 'learnerId, courses, and paymentMethod are required' });
   }
 
   const session = await mongoose.startSession();
   session.startTransaction();
+
   try {
-    const boughtCourses = [];
-    const transactions = [];
+    const transactionItems = [];
+    let totalAmount = 0;
 
+    // Validate each course and calculate total amount
     for (const course of courses) {
-      const { courseId, amount, paymentMethod } = course;
+      const { courseId, certificateName, certificatePrice } = course;
+      const courseDetails = await Course.findById(courseId);
 
-      // Create a new BoughtCourse entry
-      const boughtCourse = new BoughtCourses({
-        learnerId,
+      if (!courseDetails) {
+        throw new Error(`Course not found for ID: ${courseId}`);
+      }
+
+      // Calculate the total price for the transaction, including the course price and optional certificate price
+      totalAmount += courseDetails.price;
+      if (certificatePrice) {
+        totalAmount += certificatePrice;
+      }
+
+      // Add transaction item
+      transactionItems.push({
         courseId,
-        instructorId: course.instructorId, // Assuming course has instructorId info
-        startDate: Date.now(),
-        boughtDateTime: Date.now(),
-        courseCompletionStatus: false,
-        isCertificate: false,
+        certificateName: certificateName || null,
+        certificatePrice: certificatePrice || 0,
       });
-
-      await boughtCourse.save({ session });
-
-      // Create a new Transaction entry
-      const transaction = new Transactions({
-        learnerId,
-        courseId,
-        amount,
-        paymentMethod,
-        transactionDate: Date.now(),
-      });
-
-      await transaction.save({ session });
-
-      boughtCourses.push(boughtCourse);
-      transactions.push(transaction);
     }
 
+    // Create a new Transaction entry
+    const transaction = new Transaction({
+      learnerId,
+      totalAmount,
+      paymentMethod,
+      transactionItems,
+    });
+
+    const savedTransaction = await transaction.save({ session });
+
+    // Create BoughtCourse entries for each course in the cart
+    const boughtCoursesPromises = courses.map(async (course) => {
+      const { courseId, certificateName } = course;
+      const boughtCourse = new BoughtCourse({
+        learnerId,
+        courseId,
+        instructorId: (await Course.findById(courseId)).instructorId,
+        startDate: new Date(),
+        boughtDateTime: new Date(),
+        courseCompletionStatus: false, // Default to not completed
+        isCertificate: !!certificateName, // If there's a certificate, mark as true
+      });
+      return boughtCourse.save({ session });
+    });
+
+    // Wait for all bought courses to be saved
+    await Promise.all(boughtCoursesPromises);
+
+    // Commit the transaction
     await session.commitTransaction();
     session.endSession();
 
     return res.status(201).json({
       message: 'Courses purchased successfully',
-      boughtCourses,
-      transactions,
+      transaction: savedTransaction,
     });
   } catch (error) {
+    // Abort the transaction in case of error
     await session.abortTransaction();
     session.endSession();
     return res.status(500).json({ message: error.message });
