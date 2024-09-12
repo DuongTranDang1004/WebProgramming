@@ -32,6 +32,17 @@ router.get("/browseCoursesByName", (req, res) => {
   });
 });
 
+//browseCoursesByCategory
+
+router.get("/browseCoursesByCategory", (req, res) => {
+  res.render("general/browseCoursesByCategory", {
+    title: "Browse Courses By Category",
+    pageStylesheet: "css/general/browseCoursesByCategory.css",
+    pageScript: "js/general/browseCoursesByCategory.js",
+    layout: "./layouts/homepage",
+  });
+});
+
 // contactPage
 router.get("/contactPage", (req, res) => {
   res.render("general/contactPage", {
