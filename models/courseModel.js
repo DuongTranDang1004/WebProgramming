@@ -36,6 +36,10 @@ const CoursesSchema = new mongoose.Schema({
     type: Date,
     default: Date.now  // Automatically sets the current date and time when a new document is created
   },
+  thumbnailImage: {
+    type: String,
+    required: false
+  },
   isPublish: {
     type: Boolean,
     default: false,
