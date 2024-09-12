@@ -19,10 +19,10 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                             <li>
-                                <a class="dropdown-item" href="browseCoursesByCategory">Browse Courses by Category</a>
+                                <a class="dropdown-item" href="/browseCoursesByCategory">Browse Courses by Category</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="browseCoursesByName">Browse Courses by Name</a>
+                                <a class="dropdown-item" href="/browseCoursesByName">Browse Courses by Name</a>
                             </li>
                         </ul>
                     </li>
@@ -61,6 +61,7 @@
         const role = localStorage.getItem("role");
         if (role && role == "admin") window.location.href = "/admin/profile";
         if (role && role == "instructor") window.location.href = "/instructors/profile";
+        if (role && role == "learner") window.location.href = `/learners/myCourses/${localStorage.getItem("id")}`;
     });
 
     if (!localStorage.getItem("id")) {
