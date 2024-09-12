@@ -52,7 +52,7 @@ router.get("/order/:id", (req, res) => {
 router.get("/account/:id", (req, res) => {
   res.render("learner/account", {
     title: "My Account",
-    pageStylesheet: "css/learner/account",
+    pageStylesheet: "css/learner/account.css",
     pageScripts: ["/js/learner/account.js"],
   });
 });
@@ -66,20 +66,11 @@ router.get("/myCourses/:id", (req, res) => {
   });
 });
 
-// Learner My Profile
-router.get("/myProfile/:id", (req, res) => {
-  res.render("learner/myProfile", {
-    title: "My Profile",
-    pageStylesheet: "css/learner/myProfile",
-    pageScripts: ["/js/learner/myProfile.js"],
-  });
-});
-
 // Past transaction
 router.get("/transactions/:id", (req, res) => {
   res.render("learner/transactions", {
     title: "My Past Transactions",
-    pageStylesheet: "css/learner/transactions",
+    pageStylesheet: "css/learner/transactions.css",
     pageScripts: ["/js/learner/transactions.js"],
   });
 });

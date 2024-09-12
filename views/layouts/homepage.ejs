@@ -27,10 +27,7 @@
       rel="stylesheet"
     />
 
-    <!-- global css for all the pages that use this layout  -->
     <link rel="stylesheet" href="/css/globalStyling/global.css" />
-    <!-- custom css sheet for specific pages (pass in as para when render as app.js ) -->
-    <!--  (auto add leading '/') -->
 
     <% if (typeof pageStylesheet !== 'undefined') { %>
     <link rel="stylesheet" href="/<%= pageStylesheet %>" />
@@ -68,6 +65,9 @@
     <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
 
     <% if (typeof pageScript !== 'undefined') { %>
+    <script>
+      console.log("Page Script:", "<%= pageScript %>");
+    </script>
     <script src="/<%= pageScript %>"></script>
     <% } %>
   </body>
