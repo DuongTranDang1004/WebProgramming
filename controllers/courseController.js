@@ -1,4 +1,5 @@
 const Course = require("../models/courseModel");
+const Instructor = require("../models/instructorModel")
 /**
  * @swagger
  * tags:
@@ -276,13 +277,25 @@ const getCourse = async (req, res) => {
 const updateCourse = async (req, res) => {
   try {
     const { id } = req.params;
-    const course = await Course.findByIdAndUpdate(id, req.body);
 
+    // Find the course by ID
+    const course = await Course.findById(id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    res.status(200).json(course);
+    // Find the instructor and populate their membership details
+    const instructor = await Instructor.findById(course.instructorId).populate('membershipId');
+
+    // Check if the instructor's membership plan is either "Saving" or "Premium"
+    if (!instructor || (instructor.membershipId.planName !== 'Saving' && instructor.membershipId.planName !== 'Premium')) {
+      return res.status(403).json({ message: "Only instructors with Saving or Premium membership can update the course" });
+    }
+
+    // Proceed with the course update
+    const updatedCourse = await Course.findByIdAndUpdate(id, req.body, { new: true });
+
+    res.status(200).json(updatedCourse);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
