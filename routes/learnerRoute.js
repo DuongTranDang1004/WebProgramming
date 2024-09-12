@@ -52,7 +52,7 @@ router.get("/order/:id", (req, res) => {
 router.get("/account/:id", (req, res) => {
   res.render("learner/account", {
     title: "My Account",
-    pageStylesheet: "css/learner/account",
+    pageStylesheet: "css/learner/account.css",
     pageScripts: ["/js/learner/account.js"],
   });
 });
@@ -63,15 +63,6 @@ router.get("/myCourses/:id", (req, res) => {
     title: "My Courses",
     pageStylesheet: "css/learner/myCourses.css",
     pageScripts: ["/js/learner/myCourses.js"],
-  });
-});
-
-// Learner My Profile
-router.get("/myProfile/:id", (req, res) => {
-  res.render("learner/myProfile", {
-    title: "My Profile",
-    pageStylesheet: "css/learner/myProfile.css",
-    pageScripts: ["/js/learner/myProfile.js"],
   });
 });
 
