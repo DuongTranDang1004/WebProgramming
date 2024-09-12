@@ -1,158 +1,196 @@
-/* Our theme primary colors, ensure high contrast:  */
-/* #6D28D9 (purple) , #FFFFFF (white), #1F2937 (dark blue) */
-/* Base Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  bottom: 0;
-  min-height: 100vh;
-  box-sizing: border-box;
-  background-color: #ffffff; /* White background for the main content */
-
-  display: flex;
-  flex-direction: column;
-}
-/* 
-Main content style */
-main {
-  /* flex-grow: 1; */
-  flex: 1;
-  margin: 0;
-  padding: 0;
-  height: 60vh;
-}
-
-/* Header Style */
+/* General Header Styles */
 header {
-  height: 10vh;
-}
-.navbar-brand {
-  color: white;
-}
-.active {
-  color: white;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
 }
 
-#logo {
-  vertical-align: middle;
-}
-nav {
-  margin: 0;
-  padding: 0;
-  background: #1c2331;
-  height: 100%;
-}
 .navbar {
-  margin: 0;
   padding: 0;
 }
-#topNav button {
-  background: green;
-}
 
-#topNav {
-  background: #1c2331;
-}
-.navbar-nav .nav-link:hover {
-  color: #6351ce;
-}
-/* Change color when the item is clicked (active/focus) */
-.navbar-nav .nav-link:focus,
-.navbar-nav .nav-link:active,
-.navbar-nav .nav-link.active {
-  color: #6351ce;
-}
-
-.nav-link {
-  color: white;
-}
-.btn-outline-success {
-  color: white;
-}
-form.d-flex .form-control {
-  max-width: 300px; /* Set a reasonable maximum width */
-}
-
-.navbar-collapse {
-  z-index: 1000; /* Ensure it's on top */
-}
-
-.d-flex {
+.container-fluid {
+  display: flex;
   align-items: center;
-  justify-content: flex-end;
-}
-#nav-search-input.me-2 {
-  height: 50px !important;
-  font-size: larger;
+  justify-content: space-between;
 }
 
-#nav-button {
-  height: 50px;
-  font-size: larger;
-}
-.nav-item {
-  font-size: larger !important;
+.navbar-brand {
+  display: flex;
+  align-items: center;
 }
 
-/* Input Form */
-.form-group {
-  margin-bottom: 15px;
+/* Container Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: #1f2937; /* Dark blue text color */
+/* Logo Styles */
+#logo {
+  width: 80px; 
+  height: auto; 
 }
 
-.form-group input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #6d28d9; /* Purple border */
+/* Navbar Button (Mobile Menu) Styles */
+button {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #ffffff; /* White input background */
-  color: #1f2937; /* Dark blue text color */
+  background-color: #ffffff;
+  color: #333;
+  cursor: pointer;
 }
 
-/* Footer Styling */
-footer {
-  height: 30vh;
-  margin-top: auto;
-  width: 100%;
-  color: #ffffff; /* White text color */
-  background-color: #1c2331;
-  bottom: 0;
-  text-align: center;
+button svg {
+  width: 20px;
+  height: 20px;
 }
-footer div {
-  width: 100%;
+
+/* Desktop Menu Styles */
+.lg\:hidden {
+  display: none;
 }
-footer a {
-  color: #ffffff; /* White text color for footer links */
+
+.lg\:flex {
+  display: flex;
+}
+
+.space-x-8 {
+  margin-right: -2rem;
+}
+
+.space-x-8 > * + * {
+  margin-left: 2rem;
+}
+
+.text-gray-700 {
+  color: #4a4a4a;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  position: relative;
+}
+
+a {
+  color: #007bff;
   text-decoration: none;
 }
 
-footer a:hover {
-  text-decoration: underline;
+a:hover {
+  color: #0056b3;
 }
 
-/* Responsive Styles */
+/* Dropdown Menu Styles */
+.group:hover .group-hover\:block {
+  display: block;
+}
 
-/* Here are some areas where different UI component arrangements may be needed based on the device type:
+.group-hover\:block {
+  display: none;
+}
 
-Navigation Menu Bar:
-Desktop Computers: Always-visible horizontal navigation menu.
-Tablets/Smartphones: Alternating between visible and hidden vertical navigation menu.
+.bg-white {
+  background-color: #ffffff;
+}
 
-Input Form:
-Desktop Computers: A label and its linked input field must be positioned on the same row.
-Tablets/Smartphones: The label and input field should be placed on different rows.
+.shadow-lg {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-Layout:
-Desktop Computers: Multi-column layout. */
-/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
+.rounded {
+  border-radius: 8px;
+}
 
-/* For Smartphones (767px or lower) */
+.mt-1 {
+  margin-top: 0.25rem;
+}
 
-/* For Smartphones (767px or lower) */
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.border-t {
+  border-top: 1px solid #ddd;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.hover\:bg-gray-200:hover {
+  background-color: #f7f7f7;
+}
+
+/* Mobile Menu Styles */
+.collapse {
+  display: none;
+}
+
+.navbar-collapse {
+  display: block;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.lg\:hidden {
+  display: none;
+}
+
+.lg\:flex {
+  display: flex;
+}
+
+@media (min-width: 1024px) {
+  .lg\:hidden {
+    display: none;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+}
+
+@media (max-width: 1023px) {
+  .lg\:hidden {
+    display: flex;
+  }
+
+  .lg\:flex {
+    display: none;
+  }
+}

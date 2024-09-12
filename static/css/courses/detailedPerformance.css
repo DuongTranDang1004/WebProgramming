@@ -1,0 +1,40 @@
+/* Add transition to sidebar */
+.sidebar {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-hidden {
+    transform: translateX(-100%);
+}
+
+@media (max-width: 767px) {
+
+    /* For smartphones, hide sidebar initially */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar-active {
+        transform: translateX(0);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+
+    /* For tablets, hide sidebar initially */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar-active {
+        transform: translateX(0);
+    }
+}
+
+@media (min-width: 1200px) {
+
+    /* For desktops, sidebar is shown by default */
+    .sidebar-active {
+        transform: translateX(0);
+    }
+}

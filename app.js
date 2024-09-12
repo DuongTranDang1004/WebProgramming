@@ -60,11 +60,11 @@ const generalPagesRoutes = require("./routes/generalPagesRoute");
 // Using the controllers as routers
 
 //VIEW PATHS
-app.use("/auth", require("./routes/authPageRoute")); 
+app.use("/auth", require("./routes/authPageRoute"));
 app.use("/", generalPagesRoutes);
 app.use("/boughtCourses", boughtCourseRoutes);
 app.use("/contactForms", contactFormRoutes);
-app.use("/courses", courseRoutes);
+app.use("/courses", require("./routes/coursesPageRoute"));
 app.use("/instructors", require("./routes/instructorPageRoute"));
 app.use("/learners", learnerRoutes);
 app.use("/admin", require("./routes/adminPageRoute"));
@@ -118,7 +118,6 @@ app.set("layout", "layouts/default");
 //GENERAL PAGES
 // Use the general pages routes
 app.use("/", generalPagesRoutes);
-
 
 // //BrowseCourse path
 // app.get("/browseCourses", (req, res) => {

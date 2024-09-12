@@ -1,4 +1,61 @@
-/* For desktops: 3 columns */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+.container {
+  padding: 40px 15px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #15002e;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.25rem;
+  color: #a047e8;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.multi-column {
+  column-count: 1;
+  column-gap: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.multi-column ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.multi-column ul li {
+  margin-bottom: 10px;
+}
+
 @media (min-width: 1200px) {
   .multi-column {
     column-count: 3;
@@ -6,7 +63,6 @@
   }
 }
 
-/* For tablets: 2 columns */
 @media (min-width: 768px) and (max-width: 1199px) {
   .multi-column {
     column-count: 2;
@@ -14,14 +70,8 @@
   }
 }
 
-/* For smartphones: 1 column */
 @media (max-width: 767px) {
   .multi-column {
     column-count: 1;
   }
-}
-
-h1,
-h3 {
-  color: #007bff;
 }
