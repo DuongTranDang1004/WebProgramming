@@ -75,6 +75,14 @@ router.get("/myProfile/:id", (req, res) => {
   });
 });
 
+router.get("/myCart/:id", (req, res) => {
+  res.render("learner/myCart", {
+    title: "My Cart",
+    pageStylesheet: "css/learner/myCart",
+    pageScripts: ["/js/learner/myCart.js"],
+  });
+});
+
 // Past transaction
 router.get("/transactions/:id", (req, res) => {
   res.render("learner/transactions", {
