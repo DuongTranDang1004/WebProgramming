@@ -163,7 +163,7 @@ async function generateSampleData() {
           courseId: (await courses.find().toArray())[i]._id,
           name: faker.company.catchPhrase(),
           description: faker.lorem.paragraph(),
-          video: faker.internet.url(),
+          video: "/video/NGGYU.webm",
           exercise: {
             question: faker.lorem.sentence(),
             options: ["option1", "option2", "option3"],

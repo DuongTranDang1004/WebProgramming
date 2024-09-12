@@ -34,6 +34,9 @@
                         <!-- need js function to check if user has login, and which role ?  -->
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="my-courses">My courses</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/faq">FAQs</a>
                     </li>
                     <li class="nav-item">
@@ -61,6 +64,13 @@
         const role = localStorage.getItem("role");
         if (role && role == "admin") window.location.href = "/admin/profile";
         if (role && role == "instructor") window.location.href = "/instructors/profile";
+        if (role && role == "learner") window.location.href = `/myAccount`;
+    });
+
+    document.getElementById("my-courses").addEventListener("click", () => {
+        const role = localStorage.getItem("role");
+        if (role && role == "admin") alert("You must be logged in as an learner to access this page.")
+        if (role && role == "instructor") alert("You must be logged in as an learner to access this page.")
         if (role && role == "learner") window.location.href = `/learners/myCourses/${localStorage.getItem("id")}`;
     });
 
