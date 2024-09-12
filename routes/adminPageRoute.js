@@ -17,10 +17,7 @@ router.get("/dashboard", (req, res) => {
 router.get("/profile", (req, res) => {
   res.render("admin/profile", {
     title: "Admin Profile",
-    pageScripts: [
-      "/js/admin/permission.js",
-      "/js/admin/profile.js",
-    ],
+    pageScripts: ["/js/admin/permission.js", "/js/admin/profile.js"],
     pageStylesheet: "css/admin/profile.css",
   });
 });
@@ -28,12 +25,9 @@ router.get("/profile", (req, res) => {
 router.get("/update", (req, res) => {
   res.render("admin/updateProfile", {
     title: "Update admin profile",
-    pageScripts: [
-      "/js/admin/permission.js",
-      "/js/admin/updateProfile.js",
-    ],
+    pageScripts: ["/js/admin/permission.js", "/js/admin/updateProfile.js"],
     pageStylesheet: "css/admin/updateProfile.css",
-  })
+  });
 });
 
 router.get("/management/learners", (req, res) => {
@@ -83,10 +77,7 @@ router.get("/management/instructors/:instructorID", (req, res) => {
 router.get("/management/courses/", (req, res) => {
   res.render("admin/management/courses", {
     title: "Courses Management",
-    pageScripts: [
-      "/js/admin/permission.js",
-      "/js/admin/management/courses.js",
-    ],
+    pageScripts: ["/js/admin/permission.js", "/js/admin/management/courses.js"],
     pageStylesheet: "css/admin/management/courses.css",
   });
 });
