@@ -70,7 +70,15 @@ async function handleCheckout() {
         instructorId,
         amount: price,
         transactionDate: new Date().toISOString(),
-        paymentMethod: paymentMethod.value // Ensure this is a string
+        paymentMethod: paymentMethod.value, // Ensure this is a string
+        transactionItems: [
+            {
+                courseId,
+                certificateName: '',
+                certificatePrice: 0
+            }
+        ],
+        totalAmount: price
     };
 
     try {
@@ -91,6 +99,7 @@ async function handleCheckout() {
 
         const data = await response.json();
         alert(`Checkout successful! ${data.message}`);
+        window.location.href = `/learners/myCourses/${learnerId}`;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         alert('Checkout failed. Please try again.');

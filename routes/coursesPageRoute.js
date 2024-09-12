@@ -11,7 +11,7 @@ router.get("/detail/:courseID", (req, res) => {
   });
 });
 
-router.get("/detailedPerformance", (req, res) => {
+router.get("/detailedPerformance/:courseID", (req, res) => {
   res.render("courses/detailedPerformance", {
     title: "Course Detail Performance",
     pageScripts: [
