@@ -23,8 +23,6 @@ async function loadCheckoutData() {
     const boughtCourseID = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
     const boughtCourse = await (await fetch(`/api/boughtCourses/${boughtCourseID}`, { method: "GET" })).json();
     const course = await (await fetch(`/api/courses/${boughtCourse.courseId._id}`, { method: "GET" })).json();
-    console.log(course);
-
 
     document.getElementById('order-details').innerHTML = `
         <h2 class="text-2xl font-semibold mb-4">Order Details</h2>
@@ -35,7 +33,7 @@ async function loadCheckoutData() {
                 <h3 class="text-lg font-semibold">${course.name} Certificate</h3>
             </div>
             </div>
-            <span class="text-lg">${formatPrice(course.price)}</span>
+            <span class="text-lg">${formatPrice(500)}</span>
         </div>
         `;
 
@@ -43,11 +41,11 @@ async function loadCheckoutData() {
         <h2 class="text-xl font-bold mb-6">Summary</h2>
         <div class="flex justify-between mb-4">
             <span class="text-gray-700 text-lg">Original Price:</span>
-            <span class="font-medium text-lg text-gray-700">${formatPrice(course.price)} đ</span>
+            <span class="font-medium text-lg text-gray-700">${formatPrice(500)} đ</span>
         </div>
         <div class="flex justify-between mb-6">
             <span class="text-lg font-semibold text-gray-700">Total:</span>
-            <span class="text-lg font-semibold text-gray-700">${formatPrice(course.price)} đ</span>
+            <span class="text-lg font-semibold text-gray-700">${formatPrice(500)} đ</span>
         </div>
         <p class="text-sm text-gray-500 mb-6">By completing your purchase, you agree to these <a href="#" class="text-blue-600 underline">Terms of Service</a>.</p>
         <button id="completeCheckoutBtn" class="w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
@@ -57,8 +55,9 @@ async function loadCheckoutData() {
 }
 
 async function handleCheckout() {
-    const { courseId, instructorId } = getQueryParams();
-    const price = parseFloat(new URLSearchParams(window.location.search).get('price'));
+    const boughtCourseID = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
+    const boughtCourse = await (await fetch(`/api/boughtCourses/${boughtCourseID}`, { method: "GET" })).json();
+    const course = await (await fetch(`/api/courses/${boughtCourse.courseId._id}`, { method: "GET" })).json();
 
     const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
     if (!paymentMethod) {
@@ -67,12 +66,16 @@ async function handleCheckout() {
     }
 
     const transactionData = {
-        learnerId,
-        courseId,
-        instructorId,
-        amount: price,
-        transactionDate: new Date().toISOString(),
-        paymentMethod: paymentMethod.value // Ensure this is a string
+        learnerId: boughtCourse.learnerId._id,
+        transactionItems: [
+            {
+                courseId: boughtCourse.courseId._id,
+                certificateName: `${course.name} Certificate`,
+                certificatePrice: 500
+            }
+        ],
+        paymentMethod: paymentMethod.value,
+        totalAmount: 500
     };
 
     try {
@@ -93,13 +96,14 @@ async function handleCheckout() {
 
         const data = await response.json();
         alert(`Checkout successful! ${data.message}`);
+        window.location.href = `/learners/myCourses/${boughtCourse.learnerId._id}`;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         alert('Checkout failed. Please try again.');
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadCheckoutData();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadCheckoutData();
     document.getElementById('completeCheckoutBtn').addEventListener('click', handleCheckout);
 });

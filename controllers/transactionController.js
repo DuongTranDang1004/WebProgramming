@@ -1,6 +1,7 @@
 const Transaction = require("../models/transactionModel");
 const Learner = require("../models/learnerModel");
 const Course = require("../models/courseModel");
+const BoughtCourse = require("../models/boughtCourseModel");
 
 /**
  * @swagger
