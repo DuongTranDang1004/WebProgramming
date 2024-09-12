@@ -24,3 +24,28 @@ document.getElementById("yearly-btn").addEventListener("click", function() {
     // Hide month
     document.getElementById("monthly").hidden = true;
 });
+
+
+document.getElementById("basic-monthly").addEventListener("click", function() {
+    window.location.href = "/instructors/payment?plan=basic-monthly";
+});
+
+document.getElementById("saving-monthly").addEventListener("click", function() {
+    window.location.href = "/instructors/payment?plan=saving-monthly";
+});
+
+document.getElementById("premium-monthly").addEventListener("click", function() {
+    window.location.href = "/instructors/payment?plan=premium-monthly";
+});
+
+document.getElementById("basic-yearly").addEventListener("click", function() {
+    window.location.href = "/instructors/payment?plan=basic-yearly";
+});
+
+document.getElementById("saving-yearly").addEventListener("click", function() {
+    window.location.href = "/instructors/payment?plan=saving-yearly";
+});
+
+document.getElementById("premium-yearly").addEventListener("click", function() {
+    window.location.href = "/instructors/payment?plan=premium-yearly";
+});
