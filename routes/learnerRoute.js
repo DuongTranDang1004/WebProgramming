@@ -70,7 +70,7 @@ router.get("/myCourses/:id", (req, res) => {
 router.get("/myProfile/:id", (req, res) => {
   res.render("learner/myProfile", {
     title: "My Profile",
-    pageStylesheet: "css/learner/myProfile",
+    pageStylesheet: "css/learner/myProfile.css",
     pageScripts: ["/js/learner/myProfile.js"],
   });
 });
@@ -79,7 +79,7 @@ router.get("/myProfile/:id", (req, res) => {
 router.get("/transactions/:id", (req, res) => {
   res.render("learner/transactions", {
     title: "My Past Transactions",
-    pageStylesheet: "css/learner/transactions",
+    pageStylesheet: "css/learner/transactions.css",
     pageScripts: ["/js/learner/transactions.js"],
   });
 });
