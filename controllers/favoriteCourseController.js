@@ -19,33 +19,33 @@ const FavoriteCourse = require("../models/favoriteCourseModel");
  *          description: The auto-generated ID of the favorite course
  *          example: 66d94db8191a5611c1f85f95
  *        learnerId:
- *           type: string
- *           description: The ID of the learner who favorited the course
- *           example: 66d94db8191a5611c1f85e5e
+ *          type: string
+ *          description: The ID of the learner who favorited the course
+ *          example: 66d94db8191a5611c1f85e5e
  *        courseId:
- *           type: object
- *            properties:
- *              _id:
- *                type: string
- *                description: The ID of the course
- *                example: 66d94db8191a5611c1f85e6b
- *              category:
- *                type: string
- *                description: The category of the course
- *                example: data science
- *              name:
- *                type: string
- *                description: The name of the course
- *                example: Luxurious Frozen Chicken
- *              price:
- *                type: number
- *                format: float
- *                description: The price of the course
- *                example: 343
- *              description:
- *                type: string
- *                description: A brief description of the course
- *                example: Delego cibo turbo vinum. Conatus consuasor compello. Allatus decimus accusamus terga culpa absorbeo assumenda.
+ *          type: object
+ *          properties:
+ *            _id:
+ *              type: string
+ *              description: The ID of the course
+ *              example: 66d94db8191a5611c1f85e6b
+ *            category:
+ *              type: string
+ *              description: The category of the course
+ *              example: data science
+ *            name:
+ *              type: string
+ *              description: The name of the course
+ *              example: Luxurious Frozen Chicken
+ *            price:
+ *              type: number
+ *              format: float
+ *              description: The price of the course
+ *              example: 343
+ *            description:
+ *              type: string
+ *              description: A brief description of the course
+ *              example: Delego cibo turbo vinum. Conatus consuasor compello. Allatus decimus accusamus terga culpa absorbeo assumenda.
  */
 
 /**
