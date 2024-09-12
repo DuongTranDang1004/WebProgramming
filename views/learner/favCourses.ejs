@@ -21,7 +21,7 @@
       </select>
     </div>
     <!-- Add Course Button -->
-    <button onclick="addCourse()" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300">
+    <button href="#" class="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors duration-300">
       Add Course
     </button>
   </div>
@@ -55,48 +55,67 @@
     container.innerHTML = ''; // Clear previous content
 
     courses.forEach(course => {
-      const randomReviews = Math.floor(Math.random() * 5000); // Generate random reviews
-      const courseCard = `
-        <div class="border border-gray-200 rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
-          <img src="${course.courseId.thumbnailImage}" alt="Course Image" class="w-full h-48 object-cover rounded-lg mb-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">${course.courseId.name}</h3>
-          <p class="text-gray-600 mb-2">by ${course.courseId.instructorId}</p>
-          <div class="flex items-center mb-2">
-            <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 17.75L5.47 21.25L6.72 14L1 9.19L8.37 8.39L12 2L15.63 8.39L23 9.19L17.28 14L18.53 21.25L12 17.75Z"></path>
-            </svg>
-            <span class="text-gray-600 ml-2">(${randomReviews} reviews)</span>
-          </div>
-          <p class="text-xl font-bold text-gray-800 mb-4">$${course.courseId.price}</p>
-          <button onclick="removeCourse(${course.courseId._id})" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors duration-300">
-            Remove from Favorites
-          </button>
-        </div>
-      `;
-      container.innerHTML += courseCard;
+        const randomReviews = Math.floor(Math.random() * 5000); // Generate random reviews
+        const courseCard = `
+            <div class="border border-gray-200 rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
+                <img src="${course.courseId.thumbnailImage || 'default.jpg'}" alt="Course Image" class="w-full h-48 object-cover rounded-lg mb-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">${course.courseId.name}</h3>
+                <p class="text-gray-600 mb-2">by ${course.courseId.instructorId || 'Unknown'}</p>
+                <div class="flex items-center mb-2">
+                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 17.75L5.47 21.25L6.72 14L1 9.19L8.37 8.39L12 2L15.63 8.39L23 9.19L17.28 14L18.53 21.25L12 17.75Z"></path>
+                    </svg>
+                    <span class="text-gray-600 ml-2">(${randomReviews} reviews)</span>
+                </div>
+                <p class="text-xl font-bold text-gray-800 mb-4">$${course.courseId.price}</p>
+                <button class="delete-course hover:bg-purple-700 hover:text-white py-2 px-4 rounded-lg hover:border-solid border-2 border-purple-600 text-purple transition-colors duration-300" data-id="${course._id}">
+                    Remove from Favorites
+                </button>
+            </div>
+        `;
+        container.innerHTML += courseCard;
     });
-  }
 
-  // Function to add a course
-  function addCourse() {
-    const newCourse = {
-      courseId: {
-        _id: courses.length + 1,
-        name: prompt('Enter course name:'),
-        instructorId: prompt('Enter instructor name:'),
-        price: parseFloat(prompt('Enter course price:')),
-        thumbnailImage: 'https://via.placeholder.com/300x200'
-      }
-    };
-    courses.push(newCourse);
-    renderCourses();
-  }
+    // Reattach event listeners after rendering
+    document.querySelectorAll('.delete-course').forEach(button => {
+        button.addEventListener('click', function() {
+            const favoriteCourseId = this.dataset.id; // Get the favoriteCourseId from the button
+            removeCourse(favoriteCourseId);
+        });
+    });
+}
 
-  // Function to remove a course
-  function removeCourse(id) {
-    courses = courses.filter(course => course.courseId._id !== id);
-    renderCourses();
-  }
+
+  // Function to remove a favorite course
+  async function removeCourse(favoriteCourseId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/favoritesCourses/${favoriteCourseId}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to remove course from favorites');
+        }
+        // Re-fetch and render courses after removal
+        const urlSegments = window.location.pathname.split("/");
+        const learnerId = urlSegments[urlSegments.length - 1]; // Extract learnerId from URL
+        courses = await fetchFavoriteCourses(learnerId);
+        renderCourses();
+
+        alert('Course removed from favorites');
+    } catch (error) {
+        console.error('Error removing course:', error);
+    }
+}
+
+
+  // Event delegation for dynamically added buttons
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('delete-course')) {
+      const courseId = event.target.dataset.id;
+      removeCourse(courseId);
+    }
+  });
 
   // Function to sort courses
   function sortCourses() {

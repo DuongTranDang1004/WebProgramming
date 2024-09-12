@@ -33,7 +33,6 @@ router.get("/favoriteCourses/:id", (req, res) => {
 router.get("/favoriteInstructors/:id", (req, res) => {
   res.render("learner/favInstructors", {
     title: "Favorite Courses",
-    pageStylesheet: "css/learner/favInstructors.css",
     pageScripts: ["/js/learner/favInstructors.js"],
   });
 });

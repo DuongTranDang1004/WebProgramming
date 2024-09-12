@@ -174,6 +174,30 @@ async function displayCourseDetails(course) {
         });
         window.location.href = `/learners/myCourses/${learner._id}`;
     });
+
+    document.getElementById('favoriteBtn').addEventListener('click', async () => {
+        try {
+            const favoriteData = {
+                learnerId: learner._id,
+                courseId: course._id
+            };
+
+            await fetch(`http://localhost:3000/api/favoritesCourses`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(favoriteData),
+            });
+
+            // Update the heart icon to reflect favorited status
+            document.getElementById('heartIcon').classList.add('text-red-600');
+            alert('Course added to favorites');
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+            alert('Failed to add course to favorites');
+        }
+    });
 }
 
 // Function to display course lectures
