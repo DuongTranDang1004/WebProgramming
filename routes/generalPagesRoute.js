@@ -8,9 +8,8 @@ router.get("/", (req, res) => {
   res.render("general/homepage", {
     title: "Home Page",
     pageStylesheet: "css/general/homepage.css",
-
-    pageScripts: ["/js/general/homepage.js"],
-    // layout: "./layouts/default",
+    pageScript: "js/general/homepage.js",
+    layout: "./layouts/homepage",
   });
 });
 // About us
