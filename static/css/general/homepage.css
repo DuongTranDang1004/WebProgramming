@@ -55,11 +55,27 @@ h1 {
   .section .item {
     width: 48%; /* On tablet, items will take 48% of the width */
   }
+  #new-instructor-list,
+  #new-courses-list,
+  #featured-course-list,
+  #featured-instructor-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* Responsive styles for mobile (576px and below) */
 @media (max-width: 576px) {
   .section .item {
     width: 100%; /* On mobile, items will take 100% of the width */
+  }
+  #new-instructor-list,
+  #new-courses-list,
+  #featured-course-list,
+  #featured-instructor-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
