@@ -71,13 +71,13 @@
     <!-- <script src="js/clientSideProcessing/globalProcessing.js"></script> -->
 
     <!-- Custom JavaScript for specific pages (auto add leading '/') -->
-    <!-- <% if (typeof pageScript !== 'undefined') { %>
-    <script src="<%= pageScript.startsWith('/') ? pageScript : '/' + pageScript %>"></script> -->
-
-    <% } %> <% if (typeof pageScripts !=='undefined' &&
-    Array.isArray(pageScripts)) { %> <% pageScripts.forEach(function(script) {
-    %>
-    <script src="<%= script.startsWith('/') ? script : '/' + script %>"></script>
-    <% }); %> <% } %>
+    <% if (typeof pageScript !== 'undefined') { %>
+      <script src="<%= pageScript.startsWith('/') ? pageScript : '/' + pageScript %>"></script>
+    <% } %>
+    <% if (typeof pageScripts !=='undefined' &&
+      Array.isArray(pageScripts)) { %> <% pageScripts.forEach(function(script) {
+        %> <script src="<%= script.startsWith('/') ? script : '/' + script %>"></script><% });
+      %> 
+    <% } %>
   </body>
 </html>
