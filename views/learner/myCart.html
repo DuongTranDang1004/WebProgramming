@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart Page</title>
+  <script src="cart.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto mt-10">
+    <div class="flex shadow-md my-10">
+      <!-- Cart Items Section -->
+      <div class="w-3/4 bg-white px-10 py-10">
+        <div class="flex justify-between border-b pb-8">
+          <h1 class="font-semibold text-2xl">Shopping Cart</h1>
+          <h2 class="font-semibold text-2xl" id="cart-items-count">0 Items</h2>
+        </div>
+        <div class="flex mt-10 mb-5">
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
+          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
+          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items" class="cart-items">
+          <!-- Individual Cart Item -->
+        </div>
+
+        <a href="#" class="flex font-semibold text-indigo-600 text-sm mt-10">
+          <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H416c17.674 0 32-14.326 32-32s-14.326-32-32-32H134.059l73.144-73.143c12.497-12.497 12.497-32.759 0-45.255s-32.759-12.497-45.255 0l-128 128c-12.497 12.497-12.497 32.759 0 45.255l128 128c12.497 12.497 32.759 12.497 45.255 0s12.497-32.759 0-45.255L134.059 296z"/></svg>
+          Continue Shopping
+        </a>
+      </div>
+
+      <!-- Summary Section -->
+      <div id="cart-summary" class="w-1/4 px-8 py-10 bg-gray-200">
+        <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
+        <div class="flex justify-between mt-10 mb-5">
+          <span class="font-semibold text-sm uppercase">Items</span>
+          <span class="font-semibold text-sm" id="summary-items-count">0</span>
+        </div>
+        <div class="flex justify-between mt-10 mb-5">
+          <span class="font-semibold text-sm uppercase">Subtotal</span>
+          <span class="font-semibold text-sm" id="summary-subtotal">$0.00</span>
+        </div>
+        <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

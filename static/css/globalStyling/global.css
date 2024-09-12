@@ -76,6 +76,16 @@ button svg {
   font-weight: 600;
 }
 
+.company img {
+  height: 64px;
+  width: 64px;
+
+}
+.footerLogo img {
+  height: 40px;
+  width: 40px;
+}
+
 ul {
   list-style: none;
   padding: 0;
