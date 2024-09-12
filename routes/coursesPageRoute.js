@@ -28,4 +28,13 @@ router.get("/pay", (req, res) => {
   });
 });
 
+router.get("/buyCert/:boughtCourseID", (req, res) => {
+  res.render("courses/buyCert", {
+    title: "Buy Certificate",
+    pageScripts: [
+      "/js/courses/buyCert.js",
+    ],
+  });
+});
+
 module.exports = router;
