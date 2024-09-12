@@ -1,14 +1,14 @@
 const { MongoClient } = require("mongodb");
-const { faker, fa } = require("@faker-js/faker");
+const { faker } = require("@faker-js/faker");
 
 const username = "cosc2430";
 const password = "fighting";
 
 // MongoDB connection URL to the desired database
 //Connection to physical server database
-// const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
+const connectionStringURL = `mongodb://${username}:${password}@itlearning.ddns.net:27017/`;
 //Connection to localhost database for testing purpose
-const connectionStringURL = `mongodb://localhost:27017/`;
+// const connectionStringURL = `mongodb://localhost:27017/`;
 
 const dbName = "ITLearning";
 
@@ -85,7 +85,7 @@ async function generateSampleData() {
       instructorData.push({
         email: faker.internet.email(),
         password: faker.internet.password(12),
-        profilePicture: faker.image.avatar(),
+        profilePicture: faker.image.avatarGitHub(),
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
         address: faker.location.streetAddress(),
@@ -117,7 +117,7 @@ async function generateSampleData() {
       learnerData.push({
         email: faker.internet.email(),
         password: faker.internet.password(12),
-        profilePicture: faker.image.avatar(),
+        profilePicture: faker.image.avatarGitHub(),
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
         address: faker.location.streetAddress(),

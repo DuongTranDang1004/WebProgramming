@@ -4,34 +4,59 @@ const plan = {
     "basic-monthly": {
         name: "Basic",
         price: 0,
-        billing: "monthly"
+        billing: "Monthly",
     },
     "saving-monthly": {
         name: "Saving",
         price: 20,
-        billing: "monthly"
+        billing: "Monthly",
     },
     "premium-monthly": {
         name: "Premium",
-        price: 50,
-        billing: "monthly"
+        price: 30,
+        billing: "Monthly",
     },
     "basic-yearly": {
         name: "Basic",
         price: 0,
-        billing: "yearly"
+        billing: "Yearly",
     },
     "saving-yearly": {
         name: "Saving",
         price: 200,
-        billing: "yearly"
+        billing: "Yearly",
     },
     "premium-yearly": {
         name: "Premium",
-        price: 500,
-        billing: "yearly"
+        price: 300,
+        billing: "Yearly",
     }
 }
 
+
 document.getElementById("plan-name").innerText = `${plan[planName].name} ${plan[planName].billing}`;
 document.getElementById("price").innerText = `$${plan[planName].price}`;
+
+document.getElementById("pay-btn").addEventListener("click", async () => {
+    const data = {
+        instructorId: localStorage.getItem("id"),
+        planName: plan[planName].name,
+        planType: plan[planName].billing,
+        paymentMethod: "Card",
+        cardNumber: document.getElementById("card-number").value.toString(),
+    }
+    const response = await fetch("/api/memberships/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    if (response.status === 200) {
+        alert("Payment successful!");
+        window.location.href = "/instructors/home";
+    } else {
+        const message = await response.json();
+        alert("Payment failed!");
+    }
+});
