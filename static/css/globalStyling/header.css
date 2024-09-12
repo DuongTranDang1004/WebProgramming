@@ -1,0 +1,26 @@
+#my-account-btn {
+    cursor: pointer;
+}
+
+#my-account-btn:hover {
+    cursor: pointer;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-and-log-out {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-and-log-out button {
+    margin: 0 4px;
+}
