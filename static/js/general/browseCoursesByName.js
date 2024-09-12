@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Step 1: Fetch the courses from the API
   const fetchCourses = async () => {
     try {
-      const response = await fetch("/courses");
+      const response = await fetch("/api/courses");
       if (!response.ok) {
         throw new Error("Failed to fetch courses");
       }
