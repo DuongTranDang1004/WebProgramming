@@ -6,6 +6,7 @@ router.get("/detail/:courseID", (req, res) => {
     title: "Course Detail",
     pageScripts: [
       "/js/courses/detail.js",
+      "/js/courses/permission.js",
     ],
   });
 });
@@ -24,6 +25,7 @@ router.get("/pay", (req, res) => {
     title: "Course Payment",
     pageScripts: [
       "/js/courses/pay.js",
+      "/js/courses/permission.js",
     ],
   });
 });
@@ -33,6 +35,7 @@ router.get("/buyCert/:boughtCourseID", (req, res) => {
     title: "Buy Certificate",
     pageScripts: [
       "/js/courses/buyCert.js",
+      "/js/courses/permission.js",
     ],
   });
 });
