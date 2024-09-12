@@ -166,8 +166,7 @@ input[type="radio"] {
   margin-bottom: 5%;
 }
 
-button[type="submit"],
-button[type="reset"] {
+.submit-btn, .clear-btn {
   padding: 12px 20px;
   font-size: 16px;
   border: none;
