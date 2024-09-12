@@ -78,7 +78,7 @@ router.get("/pricing", (req, res) => {
   res.render("general/pricing", {
     title: "Pricing",
     pageStylesheet: "css/general/pricing.css",
-    pageScripts: ["/js/globalProcessing.js"],
+    pageScripts: ["/js/globalProcessing.js", "js/general/pricing.js"],
   });
 });
 // privacy
