@@ -26,6 +26,7 @@ function login () {
         if (data.learner) {
             localStorage.setItem('role', 'learner');
             localStorage.setItem("id", data.learner._id);
+            window.location.href = `/learners/myCourses/${data.learner._id}`;
         }
         if (data.instructor) {
             localStorage.setItem('role', 'instructor');

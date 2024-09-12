@@ -103,6 +103,7 @@ async function displayCourseDetails(course) {
                     </button>
                 </div>
                 <button id="buyNowBtn" class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Buy now</button>
+                <button id="tryBtn" class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Or may be give it a try?</button>
                 <p class="text-gray-500 mt-2">&copy; Certified by ITLearning</p>
                 <div class="mt-6">
                     <h4 class="font-semibold">This course include:</h4>
@@ -154,6 +155,24 @@ async function displayCourseDetails(course) {
         payUrl.searchParams.append('courseImg', courseImg);
 
         window.location.href = payUrl.toString();
+    });
+
+    const learner = await (await fetch(`/api/learners/${localStorage.getItem("id")}`, { method: "GET" })).json();
+    document.getElementById('tryBtn').addEventListener('click', async () => {
+        const data = {
+            learnerId: learner._id,
+            courseId: courseId,
+            instructorId: instructor._id,
+            endDate: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+        }
+        await fetch(`/api/boughtCourses/`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        window.location.href = `/learners/myCourses/${learner._id}`;
     });
 }
 

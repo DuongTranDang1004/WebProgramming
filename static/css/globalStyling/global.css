@@ -30,8 +30,8 @@ header {
 
 /* Logo Styles */
 #logo {
-  width: 80px; 
-  height: auto; 
+  width: 80px;
+  height: auto;
 }
 
 /* Navbar Button (Mobile Menu) Styles */
@@ -79,7 +79,6 @@ button svg {
 .company img {
   height: 64px;
   width: 64px;
-
 }
 .footerLogo img {
   height: 40px;
@@ -203,4 +202,11 @@ a:hover {
   .lg\:flex {
     display: none;
   }
+}
+
+
+html, body {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }

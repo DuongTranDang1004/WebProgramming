@@ -4,6 +4,7 @@ const {
   getTransaction,
   createTransaction,
   deleteTransaction,
+  getTransactionsByLearnerId,
 } = require("../controllers/transactionController");
 
 const router = express.Router();
@@ -87,5 +88,34 @@ router.post("/", createTransaction);
  *         description: Server error
  */
 router.delete("/:id", deleteTransaction);
+
+/**
+ * @swagger
+ * /api/transactions/learner/{learnerId}:
+ *   get:
+ *     summary: Get transactions by learner ID
+ *     tags: [Transactions]
+ *     parameters:
+ *       - in: path
+ *         name: learnerId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the learner to get transactions for
+ *     responses:
+ *       200:
+ *         description: List of transactions for the specified learner
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       404:
+ *         description: No transactions found for the specified learner
+ *       500:
+ *         description: Server error
+ */
+router.get("/learner/:learnerId", getTransactionsByLearnerId);
 
 module.exports = router;

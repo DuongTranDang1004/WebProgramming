@@ -1,85 +1,88 @@
 <header id="default-header">
-  <nav
-    class="navbar navbar-expand-lg navbar-light navbar-static-top"
-    style="margin: 0"
-  >
-    <div id="topNav" class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img
-          id="logo"
-          src="/img/headerlogo.png"
-          alt="IT Learning Logo"
-          class="d-inline-block"
-        />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarTogglerDemo01"
-        aria-controls="navbarTogglerDemo01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="aboutUs">About Us</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarScrollingDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Browse
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li>
-                <a class="dropdown-item" href="#">Browse Courses by Category</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Browse Courses by Name</a>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Browse Intructors</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pricing">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">My Account</a>
-            <!-- need js function to check if user has login, and which role ?  -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="faq">FAQs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contactPage">Contact</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            id="nav-search-input"
-            type="search"
-            placeholder="Type Course Names"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" id="nav-button" type="submit">
-            Search
-          </button>
-        </form>
-      </div>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-static-top" style="margin: 0">
+        <div id="topNav" class="container-fluid">
+        <a class="navbar-brand" href="/"> <img id="logo" src="/img/headerlogo.png" alt="IT Learning Logo" class="d-inline-block"/> </a>
+
+        <div class="collapse navbar-collapse nav-bar" id="navbarTogglerDemo01">
+            <div class="selection">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutUs">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Browse
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li>
+                                <a class="dropdown-item" href="browseCoursesByCategory">Browse Courses by Category</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="browseCoursesByName">Browse Courses by Name</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="my-account-btn">My Account</a>
+                        <!-- need js function to check if user has login, and which role ?  -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contactPage">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="search-and-log-out">
+                <form class="search-form" id="search-form">
+                    <input class="form-control me-2" id="nav-search-input" type="search" placeholder="Type Course Names" aria-label="Search" />
+                    <button class="btn btn-outline-success" id="nav-button" type="submit"> Search </button>
+                </form>
+                <button id="logout-btn" hidden class="btn btn-warning">Log out</button>
+                <button id="login-btn" hidden class="btn btn-success">Log in</button>
+            </div>
+            
+        </div>
+        </div>
+    </nav>
 </header>
+
+<script>
+    document.getElementById("my-account-btn").addEventListener("click", () => {
+        const role = localStorage.getItem("role");
+        if (role && role == "admin") window.location.href = "/admin/profile";
+        if (role && role == "instructor") window.location.href = "/instructors/profile";
+    });
+
+    if (!localStorage.getItem("id")) {
+        document.getElementById("logout-btn").hidden = true;
+    } else {
+        document.getElementById("logout-btn").hidden = false;
+    }
+
+    if (localStorage.getItem("id")) {
+        document.getElementById("login-btn").hidden = true;
+    } else {
+        document.getElementById("login-btn").hidden = false;
+    }
+
+    document.getElementById("logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("id");
+        localStorage.removeItem("role");
+        localStorage.removeItem("token");
+        window.location.href = "/";
+    });
+
+    document.getElementById("login-btn").addEventListener("click", () => {
+        window.location.href = "/auth/login";
+    });
+</script>

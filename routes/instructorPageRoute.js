@@ -70,6 +70,7 @@ router.get("/payment", (req, res) => {
     title: "Payment",
     pageScripts: [
       "/js/instructors/permission.js",
+      "/js/instructors/payment.js",
     ],
   });
 });

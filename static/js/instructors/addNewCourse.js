@@ -48,7 +48,7 @@ function addNewCourse() {
         .then(data => {
             console.log('Success:', data);
             if (data._id) {
-                window.location.href = `createCourse.html?courseId=${data._id}`;
+                window.location.href = `/instructors/createCourse?courseId=${data._id}`;
             } else {
                 alert("Error: Unable to retrieve course ID.");
             }
