@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(courseId);
     // const courseId = '66dd9c752e81ca3eaac0f42a';
 
-    fetch(`http://localhost:3000/courses/${courseId}`)
+    fetch(`/api/courses/${courseId}`)
         .then(response => response.json())
         .then(course => {
             // Populate form fields
@@ -33,8 +33,8 @@ links.forEach(link => {
     });
 });
 
-
-const courseId = '66e07cb88a0cafe880f72f39';
+// Get courseID from query string
+const courseId = new URLSearchParams(window.location.search).get('courseId');
 let currentIndex = 1; // Initialize index for new lectures
 let isEdit = false;
 let currentEditId = null;
@@ -51,7 +51,7 @@ const correctAnswerInput = document.getElementById('correctAnswer');
 
 async function getLecture() {
     try {
-        const response = await fetch(`http://localhost:3000/lectures/course/${courseId}`);
+        const response = await fetch(`/api/lectures/course/${courseId}`);
         const data = await response.json();
 
         lectureList.innerHTML = '';
@@ -99,7 +99,7 @@ function addEventListeners(row) {
 
 async function editLecture(lectureId) {
     try {
-        const response = await fetch(`http://localhost:3000/lectures/${lectureId}`);
+        const response = await fetch(`/api/lectures/${lectureId}`);
         const lecture = await response.json();
 
         lectureTitleInput.value = lecture.name;
@@ -137,8 +137,8 @@ async function saveLecture() {
     };
 
     const url = isEdit
-        ? `http://localhost:3000/lectures/${currentEditId}`
-        : `http://localhost:3000/lectures`;
+        ? `/api/lectures/${currentEditId}`
+        : `/api/lectures`;
     const method = isEdit ? 'PUT' : 'POST';
 
     try {
@@ -166,7 +166,7 @@ async function deleteLecture(lectureId) {
 
 
     try {
-        const response = await fetch(`http://localhost:3000/lectures/${lectureId}`, {
+        const response = await fetch(`/api/lectures/${lectureId}`, {
             method: 'DELETE'
         });
 
