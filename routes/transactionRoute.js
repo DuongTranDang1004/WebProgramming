@@ -1,18 +1,12 @@
-const express = require('express');
-const router = express.Router();
+const express = require("express");
 const {
-  getTransactions,           // Get all transactions
-  getTransactionsByUserId,    // Get transactions by a specific user
-  createTransaction,          // Create a new transaction
-  getTransactionsById         // Get transaction by ID
-} = require('../controllers/transactionController');
+  getTransactions,
+  getTransaction,
+  createTransaction,
+  deleteTransaction,
+} = require("../controllers/transactionController");
 
-/**
- * @swagger
- * tags:
- *   name: Transactions
- *   description: API for managing transactions
- */
+const router = express.Router();
 
 /**
  * @swagger
@@ -23,43 +17,33 @@ const {
  *     responses:
  *       200:
  *         description: List of all transactions
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Transactions'
  *       500:
  *         description: Server error
  */
-router.get('/', getTransactions);
+router.get("/", getTransactions);
 
 /**
  * @swagger
- * /api/transactions/user/{userId}:
+ * /api/transactions/{id}:
  *   get:
- *     summary: Get all transactions of a specific user
+ *     summary: Get a transaction by ID
  *     tags: [Transactions]
  *     parameters:
  *       - in: path
- *         name: userId
+ *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The user ID
+ *         description: The transaction ID
  *     responses:
  *       200:
- *         description: List of transactions for the user
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Transactions'
+ *         description: The transaction details by ID
+ *       404:
+ *         description: Transaction not found
  *       500:
  *         description: Server error
  */
-router.get('/user/:userId', getTransactionsByUserId);
+router.get("/:id", getTransaction);
 
 /**
  * @swagger
@@ -72,30 +56,20 @@ router.get('/user/:userId', getTransactionsByUserId);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Transactions'
- *           example:
- *             learnerId: "64e1a5f9f5e1a5f9f5e1a5f9"
- *             courseId: "64e1a5f9f5e1a5f9f5e1a5f9"
- *             amount: 99.99
- *             transactionDate: "2024-08-15T10:00:00Z"
- *             paymentMethod: "Momo"
+ *             $ref: '#/components/schemas/Transaction'
  *     responses:
  *       201:
  *         description: Transaction created successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Transactions'
  *       400:
  *         description: Bad request
  */
-router.post('/', createTransaction);
+router.post("/", createTransaction);
 
 /**
  * @swagger
  * /api/transactions/{id}:
- *   get:
- *     summary: Get transaction by ID
+ *   delete:
+ *     summary: Delete a transaction by ID
  *     tags: [Transactions]
  *     parameters:
  *       - in: path
@@ -106,16 +80,12 @@ router.post('/', createTransaction);
  *         description: The transaction ID
  *     responses:
  *       200:
- *         description: The transaction details
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Transactions'
+ *         description: Transaction deleted successfully
  *       404:
  *         description: Transaction not found
  *       500:
  *         description: Server error
  */
-router.get('/:id', getTransactionsById);
+router.delete("/:id", deleteTransaction);
 
 module.exports = router;
