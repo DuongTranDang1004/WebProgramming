@@ -1,18 +1,66 @@
+/* General section styling */
 section {
   font-size: large;
+  padding: 30px 15px;
+  background-color: #f9f9f9; 
 }
-/* Layout:
-Desktop Computers: Multi-column layout.  */
-/* tablets/smartphones: Collapsible into a one-or-two-column layout. */
-/* For Smartphones (767px or lower) */
+
+/* Section heading styling */
+section h1 {
+  font-size: 2.5rem; 
+  color:#6f42c1;
+}
+
+
+/* Layout adjustments for responsiveness */
 @media (max-width: 767px) {
+  section {
+    padding: 20px 10px;
+  }
+
+  section h1 {
+    font-size: 2rem;
+  }
+
+  section h2 {
+    font-size: 1.25rem;
+  }
 }
 
-/* For Tablets (768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  section {
+    padding: 25px 15px;
+  }
 
-@media (max-width: 1199px) and (min-width: 768px) {
+  section h1 {
+    font-size: 2.25rem;
+  }
+
+  section h2 {
+    font-size: 1.35rem;
+  }
 }
 
-/* For Desktop Computers (1200px or higher) */
 @media (min-width: 1200px) {
+  section {
+    padding: 30px 20px;
+  }
+
+  section h1 {
+    font-size: 2.5rem;
+  }
+
+  section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* FAQ question styling */
+.question {
+  color: #6f42c1; 
+}
+
+/* FAQ answer styling */
+section p {
+  color: #333; 
 }

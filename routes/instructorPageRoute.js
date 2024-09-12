@@ -85,4 +85,15 @@ router.get("/performance", (req, res) => {
   });
 });
 
+router.get("/resources", (req, res) => {
+  res.render("instructors/resources", {
+    title: "Resources",
+    pageScripts: [
+      "/js/instructors/permission.js",
+      "/js/instructors/resources.js",
+    ],
+    pageStylesheet: "css/instructors/resources.css",
+  });
+});
+
 module.exports = router;
