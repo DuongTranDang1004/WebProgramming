@@ -21,22 +21,17 @@ router.get("/aboutUs", (req, res) => {
   });
 });
 
-// browseCourse
-router.get("/browseCourse", (req, res) => {
-  res.render("general/browseCourse", {
-    title: "Browse Courses",
-    pageStylesheet: "css/general/browseCourse",
-    pageScripts: ["/js/globalProcessing.js"],
+//browseCoursesByName
+
+router.get("/browseCoursesByName", (req, res) => {
+  res.render("general/browseCoursesByName", {
+    title: "Browse Course By Name",
+    pageStylesheet: "css/general/browseCoursesByName.css",
+    pageScript: "js/general/browseCoursesByName.js",
+    layout: "./layouts/homepage",
   });
 });
-// browseInstructor
-router.get("/browseInstructor", (req, res) => {
-  res.render("general/browseInstructor", {
-    title: "Browse Instructor",
-    pageStylesheet: "css/general/browseInstructor.css",
-    pageScripts: ["/js/globalProcessing.js"],
-  });
-});
+
 // contactPage
 router.get("/contactPage", (req, res) => {
   res.render("general/contactPage", {
