@@ -1,22 +1,145 @@
-<div class="favorites-page">
-  <aside class="sidebar">
-    <h2>Favorite Courses</h2>
-    <input
-      type="text"
-      id="search-input"
-      placeholder="Search by category..."
-      oninput="filterCourses()"
-    />
-    <select id="sort-select" onchange="sortCourses()">
-      <option value="name">Sort by Name</option>
-      <option value="price">Sort by Price</option>
-    </select>
-    <button class="button" onclick="addFavoriteCourse()">Add Course</button>
-  </aside>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorite Courses</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
 
-  <div class="favorites-content">
-    <div id="favorite-courses" class="course-list">
-      <!-- Favorite courses will be dynamically inserted here -->
+<div class="container mx-auto p-8">
+  <h2 class="text-2xl font-semibold mb-6">My Favorite Courses</h2>
+
+  <!-- Sorting Controls -->
+  <div class="mb-6 flex justify-between">
+    <div>
+      <label for="sort" class="mr-2">Sort By:</label>
+      <select id="sort" class="border rounded-lg p-2" onchange="sortCourses()">
+        <option value="name">Name</option>
+        <option value="price">Price</option>
+      </select>
     </div>
+    <!-- Add Course Button -->
+    <button href="#" class="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors duration-300">
+      Add Course
+    </button>
+  </div>
+
+  <!-- Courses Container -->
+  <div id="coursesContainer" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Course cards will be added dynamically here -->
   </div>
 </div>
+
+<script>
+  // Example course data fetched dynamically
+  let courses = [];
+
+  // Function to fetch all favorite courses by learnerId
+  const fetchFavoriteCourses = async (learnerId) => {
+    try {
+      const response = await fetch(`/api/favoritesCourses/learner/${learnerId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch favorite courses");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
+
+  // Function to render the courses
+  function renderCourses() {
+    const container = document.getElementById('coursesContainer');
+    container.innerHTML = ''; // Clear previous content
+
+    courses.forEach(course => {
+        const randomReviews = Math.floor(Math.random() * 5000); // Generate random reviews
+        const courseCard = `
+            <div class="border border-gray-200 rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
+                <img src="${course.courseId.thumbnailImage || 'default.jpg'}" alt="Course Image" class="w-full h-48 object-cover rounded-lg mb-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">${course.courseId.name}</h3>
+                <p class="text-gray-600 mb-2">by ${course.courseId.instructorId || 'Unknown'}</p>
+                <div class="flex items-center mb-2">
+                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 17.75L5.47 21.25L6.72 14L1 9.19L8.37 8.39L12 2L15.63 8.39L23 9.19L17.28 14L18.53 21.25L12 17.75Z"></path>
+                    </svg>
+                    <span class="text-gray-600 ml-2">(${randomReviews} reviews)</span>
+                </div>
+                <p class="text-xl font-bold text-gray-800 mb-4">$${course.courseId.price}</p>
+                <button class="delete-course hover:bg-purple-700 hover:text-white py-2 px-4 rounded-lg hover:border-solid border-2 border-purple-600 text-purple transition-colors duration-300" data-id="${course._id}">
+                    Remove from Favorites
+                </button>
+            </div>
+        `;
+        container.innerHTML += courseCard;
+    });
+
+    // Reattach event listeners after rendering
+    document.querySelectorAll('.delete-course').forEach(button => {
+        button.addEventListener('click', function() {
+            const favoriteCourseId = this.dataset.id; // Get the favoriteCourseId from the button
+            removeCourse(favoriteCourseId);
+        });
+    });
+}
+
+
+  // Function to remove a favorite course
+  async function removeCourse(favoriteCourseId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/favoritesCourses/${favoriteCourseId}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to remove course from favorites');
+        }
+        // Re-fetch and render courses after removal
+        const urlSegments = window.location.pathname.split("/");
+        const learnerId = urlSegments[urlSegments.length - 1]; // Extract learnerId from URL
+        courses = await fetchFavoriteCourses(learnerId);
+        renderCourses();
+
+        alert('Course removed from favorites');
+    } catch (error) {
+        console.error('Error removing course:', error);
+    }
+}
+
+
+  // Event delegation for dynamically added buttons
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('delete-course')) {
+      const courseId = event.target.dataset.id;
+      removeCourse(courseId);
+    }
+  });
+
+  // Function to sort courses
+  function sortCourses() {
+    const sortBy = document.getElementById('sort').value;
+    if (sortBy === 'name') {
+      courses.sort((a, b) => a.courseId.name.localeCompare(b.courseId.name));
+    } else if (sortBy === 'price') {
+      courses.sort((a, b) => a.courseId.price - b.courseId.price);
+    }
+    renderCourses();
+  }
+
+  // Fetch favorite courses on page load
+  document.addEventListener("DOMContentLoaded", async function () {
+    const urlSegments = window.location.pathname.split("/");
+    const learnerId = urlSegments[urlSegments.length - 1]; // Extract learnerId from URL
+
+    const favoriteCourses = await fetchFavoriteCourses(learnerId);
+    if (favoriteCourses) {
+      courses = favoriteCourses; // Store the fetched courses
+      renderCourses(); // Render courses
+    }
+  });
+</script>
+
+</body>
+</html>

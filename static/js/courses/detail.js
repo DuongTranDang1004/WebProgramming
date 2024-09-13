@@ -10,6 +10,7 @@ function formatPrice(price) {
     }
     return formattedPrice;
 }
+// const courseId = "66e07cb88a0cafe880f72f3a"
 const courseId = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
 
 // Function to fetch course details and lectures
@@ -93,8 +94,7 @@ async function displayCourseDetails(course) {
                 <p class="text-3xl font-semibold text-purple-600"> ${formatPrice(course.price)} đ</p>
                 <div class="flex items-center">
                     <!-- Add to Cart Button -->
-                    <button class="mt-4 bg-purple-600 text-white py-2 px-4 mr-5 w-full rounded-md">Add to cart</button>
-                    
+                    <button class=" add-to-cart mt-4 bg-purple-600 text-white py-2 px-4 mr-5 w-full rounded-md" data-id="courseId" data-name="courseName" data-price="coursePrice">Add to cart</button>
                     <!-- Heart Icon Button -->
                     <button id="favoriteBtn" class="text-red-500 border border-gray-300 p-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" id="heartIcon">
@@ -118,6 +118,31 @@ async function displayCourseDetails(course) {
             </div>
         </div>
     `;
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const courseId = course._id;
+            const courseName = course.name;
+            const coursePrice = course.price;
+            const courseImage = course.thumbnailImage;
+            
+            // Get the existing cart from localStorage or set it as an empty array
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+            // Add the course to the cart
+            cart.push({
+                id: courseId,
+                name: courseName,
+                price: coursePrice,
+                image: courseImage
+            });
+    
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+    
+            alert('Course added to cart');
+        });
+    });
 
     // Add event listener for the "Buy now" button
     document.getElementById('buyNowBtn').addEventListener('click', () => {
@@ -148,6 +173,30 @@ async function displayCourseDetails(course) {
             },
         });
         window.location.href = `/learners/myCourses/${learner._id}`;
+    });
+
+    document.getElementById('favoriteBtn').addEventListener('click', async () => {
+        try {
+            const favoriteData = {
+                learnerId: learner._id,
+                courseId: course._id
+            };
+
+            await fetch(`http://localhost:3000/api/favoritesCourses`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(favoriteData),
+            });
+
+            // Update the heart icon to reflect favorited status
+            document.getElementById('heartIcon').classList.add('text-red-600');
+            alert('Course added to favorites');
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+            alert('Failed to add course to favorites');
+        }
     });
 }
 
