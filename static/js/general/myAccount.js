@@ -18,5 +18,5 @@ async function loadProfile() {
 loadProfile();
 
 function redirectToUpdate() {
-    
+    window.location.href = "/updateAccount";
 }

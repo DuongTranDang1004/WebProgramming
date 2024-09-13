@@ -85,6 +85,16 @@ router.get("/myAccount", (req, res) => {
     ],
   });
 });
+router.get("/updateAccount", (req, res) => {
+  res.render("general/updateAccount", {
+    title: "Update Account",
+    pageStylesheet: "css/general/updateAccount.css",
+    pageScripts: [
+      "/js/globalProcessing.js",
+      "/js/general/updateAccount.js",
+    ],
+  });
+});
 // pricing
 router.get("/pricing", (req, res) => {
   res.render("general/pricing", {
