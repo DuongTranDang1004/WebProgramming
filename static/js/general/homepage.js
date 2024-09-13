@@ -235,13 +235,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     courseList.innerHTML = ""; // Clear previous content
 
     courses.slice(0, 5).forEach(async (course) => {
-      const instructor = await (await fetch(`/api/instructors/${course.courseDetails.instructorId}`)).json();
       const courseHTML = `
           <div class="item">
             <img src="${course.courseDetails.thumbnailImage}" alt="${course.courseDetails.name}" class="course-img" />
             <div>
               <h3><a href=/courses/detail/${course._id}>${course.courseDetails.name}</a></h3>
-              <p>By ${instructor.firstName} ${instructor.lastName} - $${course.courseDetails.price}</p>
+              <p>By ${course.instructorDetails.firstName} ${course.instructorDetails.lastName} - $${course.courseDetails.price}</p>
             </div>
           </div>
         `;
@@ -262,7 +261,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           <div class="item">
             <img src="${course.courseDetails.thumbnailImage}" alt="${course.courseDetails.name}" class="course-img" />
             <div>
-              <h3><a href="#">${course.courseDetails.name}</a></h3>
+              <h3><a href="/courses/detail/${course._id}">${course.courseDetails.name}</a></h3>
               <p><strong>Lecturer: <a href="#">${instructorName}</a><strong></p>
             </div>
           </div>
