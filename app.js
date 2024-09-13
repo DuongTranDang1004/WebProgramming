@@ -22,7 +22,7 @@ app.use(express.json()); // Middleware for parsing JSON from response body
 app.use(express.urlencoded({ extended: false })); //encode character for url search query
 app.use(cors()); //set up cors so fe has the permisson to fetch
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger setup using the imported configuration
-
+app.use('/videos', express.static('static/videos'));
 // Authenticate middleware
 app.use(require("./middlewares/authenticate"));
 

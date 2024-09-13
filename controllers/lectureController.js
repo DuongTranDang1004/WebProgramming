@@ -328,7 +328,12 @@ const uploadVideo = async (req, res) => {
     upload(req, res, function (err) {
       console.log(req.file);
       if (err) {
+        console.error("Multer error:", err);
         return res.status(500).json({ message: err.message });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ message: 'No video file uploaded' });
       }
     });
     // Get file name from  /static/videos/ which start with id

@@ -43,14 +43,6 @@ function renderTransactions(transactions) {
               return `
               <div class="item">
                 <p><strong>Course Name:</strong> ${courseName || "N/A"}</p>
-                <p><strong>Certificate Name:</strong> ${
-                  item.certificateName || "N/A"
-                }</p>
-                <p><strong>Certificate Price:</strong> $${
-                  item.certificatePrice
-                    ? Number(item.certificatePrice).toFixed(2)
-                    : "N/A"
-                }</p>
               </div>
               `;
             })
