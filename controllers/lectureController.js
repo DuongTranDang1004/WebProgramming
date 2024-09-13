@@ -310,7 +310,7 @@ const deleteLecture = async (req, res) => {
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './static/videos/');
+    cb(null, './static/video/');
   },
   filename: function (req, file, cb) {
     cb(null, req.params.id + "." + file.originalname.split('.')[file.originalname.split('.').length - 1]);
