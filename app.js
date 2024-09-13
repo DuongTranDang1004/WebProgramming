@@ -87,6 +87,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/cart", cartRoutes);
 
+// Check if /static/video exists, if not, create it
+const fs = require("fs");
+const videoDir = "./static/video";
+if (!fs.existsSync(videoDir)) {
+  fs.mkdirSync(videoDir);
+}
+
 // Start the server, run at local first, then deploy on https://itlearning.ddns.net/ later on
 app.listen(port, host, async () => {
   // Print out PID for easy killing of the server
