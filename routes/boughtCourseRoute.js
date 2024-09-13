@@ -22,7 +22,7 @@ router.put("/purchase/:id", purchaseCourse); // Route to purchase the trial
 router.get("/learner/:learnerId", getAllBoughtCoursesByLearnerID);
 
 router.get(
-  "/learnerWithThumbnail/:learnerId",
+  "/byLearnerIdWithThumbnail/:learnerId",
   getAllBoughtCoursesByLearnerIdWithThumbnail
 );
 
