@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Material</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
@@ -10,25 +8,21 @@
     />
   </head>
 
-  <body class="bg-white">
-    <div class="mt-4 flex">
-      <!-- Sidebar -->
-      <aside
-        class="w-1/4 bg-white shadow-md p-4 fixed lg:relative lg:transform-none lg:translate-x-0 z-20 sidebar shadow-lg lg:sidebar-active"
-        id="sidebar"
-      >
-        <button id="toggleSidebarDesktop" class="text-purple-700 mb-4">
-          &#9776; Hide Menu
-        </button>
-        <div class="mb-4 flex justify-between">
-          <h2 class="text-xl font-bold" id="course2">Course Material</h2>
-        </div>
-        <nav>
-          <ul class="space-y-2" id="lecture-list">
-            <!-- Lecture list will be dynamically inserted here -->
-          </ul>
-        </nav>
-      </aside>
+    <div class="flex h-full">
+        <!-- Sidebar -->
+        <aside
+            class="w-1/4 bg-white shadow-md p-4 fixed lg:relative lg:transform-none lg:translate-x-0 z-20 sidebar shadow-lg lg:sidebar-active"
+            id="sidebar">
+            <button id="toggleSidebarDesktop" class="text-purple-700 mb-4">&#9776; Hide Menu</button>
+            <div class="mb-4 flex justify-between">
+                <h2 class="text-xl font-bold" id="course2">Course Material</h2>
+            </div>
+            <nav>
+                <ul class="space-y-2" id="lecture-list">
+                    <!-- Lecture list will be dynamically inserted here -->
+                </ul>
+            </nav>
+        </aside>
 
       <!-- Main Content -->
       <main
@@ -79,16 +73,18 @@
             <div id="options" class="mb-4 space-y-2">
               <!-- Options will be loaded here -->
             </div>
-            <button
-              type="submit"
-              class="bg-purple-600 text-white rounded-md px-4 py-2"
-            >
-              Submit Answer
-            </button>
-          </form>
-          <p id="result" class="mt-4 text-lg font-semibold"></p>
-        </div>
-      </main>
+
+            <!-- Exercise Section -->
+            <div class="mt-6">
+                <h4 class="text-lg font-semibold">Exercise</h4>
+                <form id="exerciseForm" class="mt-4">
+                    <p id="question" class="text-gray-800 mb-2">Loading exercise...</p>
+                    <div id="options" class="mb-4 space-y-2">
+                        <!-- Options will be loaded here -->
+                    </div>
+                    <button type="submit" class="bg-purple-600 text-white rounded-md px-4 py-2">Submit Answer</button>
+                </form>
+                <p id="result" class="mt-4 text-lg font-semibold"></p>
+            </div>
+        </main>
     </div>
-  </body>
-</html>
