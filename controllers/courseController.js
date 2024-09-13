@@ -364,16 +364,24 @@ const deleteCourse = async (req, res) => {
  *         description: Internal server error
  */
 const searchCourses = async (req, res) => {
-  const { q } = req.query; // Get the search query from the URL parameter
+  const { q, specialization } = req.query; // Get the search query and specialization from the URL parameter
 
   try {
-    // Search for courses where the name or description matches the query (case-insensitive)
-    const courses = await Course.find({
+    // Build the search criteria
+    const searchCriteria = {
       $or: [
         { name: new RegExp(q, 'i') },
         { description: new RegExp(q, 'i') },
       ],
-    }).populate("instructorId", "firstName lastName");
+    };
+
+    // If a specialization filter is provided, add it to the search criteria
+    if (specialization) {
+      searchCriteria.category = specialization;
+    }
+
+    // Search for courses matching the criteria
+    const courses = await Course.find(searchCriteria).populate("instructorId", "firstName lastName");
 
     // Return the found courses or an empty array
     res.status(200).json(courses);
@@ -381,6 +389,8 @@ const searchCourses = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 
 module.exports = {

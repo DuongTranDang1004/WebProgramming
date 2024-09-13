@@ -378,17 +378,25 @@ const getInstructorEarnings = async (req, res) => {
  *         description: Internal server error
  */
 const searchInstructors = async (req, res) => {
-  const { q } = req.query; // Get the search query from the URL parameter
+  const { q, specialization } = req.query; // Get the search query and specialization from the URL parameter
 
   try {
-    // Search for instructors where the first name, last name, or specialization matches the query (case-insensitive)
-    const instructors = await Instructor.find({
+    // Build the search criteria
+    const searchCriteria = {
       $or: [
         { firstName: new RegExp(q, 'i') },
         { lastName: new RegExp(q, 'i') },
         { specialization: new RegExp(q, 'i') },
       ],
-    });
+    };
+
+    // If a specialization filter is provided, add it to the search criteria
+    if (specialization) {
+      searchCriteria.specialization = specialization;
+    }
+
+    // Search for instructors matching the criteria
+    const instructors = await Instructor.find(searchCriteria);
 
     // Return the found instructors or an empty array
     res.status(200).json(instructors);
@@ -396,6 +404,7 @@ const searchInstructors = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 module.exports = {

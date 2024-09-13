@@ -1,10 +1,38 @@
-<h1 id="page-title">What do you want to learn today ?</h1>
+<h1 id="page-title">What do you want to learn today?</h1>
 
-    <div class="search-container">
-        <form action="/search" method="GET">
-            <input type="text" name="query" class="search-input" placeholder="Enter search term..." required>
-            <div class="btn">
-                <button type="submit" class="search-button">Search</button>
-            </div>
-        </form>
+<div class="search-container">
+    <!-- Search input section -->
+    <div>
+        <!-- Dropdown to select search type (Courses or Instructors) -->
+        <select id="search-type" class="search-dropdown">
+            <option value="courses">Courses</option>
+            <option value="instructors">Instructors</option>
+        </select>
+
+        <!-- Dropdown for filtering by Specialization -->
+        <select id="specialization-filter" class="filter-dropdown">
+            <option value="">All Specializations</option>
+            <option value="front-end">Front-end</option>
+            <option value="back-end">Back-end</option>
+            <option value="data science">Data Science</option>
+            <option value="AI">AI</option>
+            <option value="cyber security">Cyber Security</option>
+            <option value="testing">Testing</option>
+        </select>
+
+        <!-- Search input and button -->
+        <input type="text" name="q" class="search-input" placeholder="Find a course or instructor..." id="search-query" required>
+        <div class="btn">
+            <button type="submit" class="search-button" id="search">Search</button>
+        </div>
     </div>
+
+    <!-- Container for search results -->
+    <div class="section search-results">
+        <div id="search-results-list" class="item-container">
+            <!-- Search results will be dynamically rendered here -->
+        </div>
+    </div>
+</div>
+
+<script src="/js/general/searchPage.js"></script>
