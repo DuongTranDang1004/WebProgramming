@@ -33,7 +33,7 @@
                         <a class="nav-link" id="my-account-btn">My Account</a>
                         <!-- need js function to check if user has login, and which role ?  -->
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="course-nav">
                         <a class="nav-link" id="my-courses">My courses</a>
                     </li>
                     <li class="nav-item">
@@ -69,10 +69,12 @@
 
     document.getElementById("my-courses").addEventListener("click", () => {
         const role = localStorage.getItem("role");
-        if (role && role == "admin") alert("You must be logged in as an learner to access this page.")
-        if (role && role == "instructor") alert("You must be logged in as an learner to access this page.")
         if (role && role == "learner") window.location.href = `/learners/myCourses/${localStorage.getItem("id")}`;
     });
+
+    if (localStorage.getItem("role") != "learner") {
+        document.getElementById("course-nav").hidden = true;
+    }
 
     if (!localStorage.getItem("id")) {
         document.getElementById("logout-btn").hidden = true;
