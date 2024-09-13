@@ -1,60 +1,61 @@
-document.addEventListener("DOMContentLoaded", async function () {
-  // Step 1: Fetch the courses from the API
-  const fetchCourses = async () => {
-    try {
-      const response = await fetch("/api/courses");
-      if (!response.ok) {
-        throw new Error("Failed to fetch courses");
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching courses:", error);
-    }
-  };
-
-  // Step 2: Sort courses alphabetically by name
-  const sortCoursesAlphabetically = (courses) => {
-    return courses.sort((a, b) => a.name.localeCompare(b.name));
-  };
-
-  // Step 3: Render courses in rows (5 items per row)
-  const renderCourses = (courses) => {
-    const container = document.getElementById("coursesContainer"); // Assuming this exists in your HTML
-    container.innerHTML = ""; // Clear any existing content
-
-    let row;
-    courses.forEach((course, index) => {
-      if (index % 5 === 0) {
-        // Create a new row every 5 items
-        row = document.createElement("div");
-        row.className = "course-row"; // Add class for styling the row
-        container.appendChild(row);
-      }
-
-      // Create course card
-      const courseCard = document.createElement("div");
-      courseCard.className = "course-card"; // Add class for styling the card
-      courseCard.innerHTML = `
-          <div class="course-item">
-            <img src="${course.thumbnailImage}" alt="${course.name}" class="course-thumbnail"/>
-            <div class="course-info">
-              <h3 class="course-name">${course.name}</h3>
-              <p class="course-price">Price: $${course.price}</p>
-            </div>
-          </div>
-        `;
-      row.appendChild(courseCard);
-    });
-  };
-
-  // Main function to fetch, sort, and render courses
-  const main = async () => {
-    const courses = await fetchCourses();
-    if (courses) {
-      const sortedCourses = sortCoursesAlphabetically(courses);
-      renderCourses(sortedCourses);
-    }
-  };
-
-  main(); // Call the main function to execute
-});
+async function loadData() {
+	const courses = await (await fetch('/api/courses')).json();
+	let sortedCourses = {};
+	courses.forEach(course => {
+		if (!sortedCourses[course.name.toLowerCase()[0]]) {
+			sortedCourses[course.name.toLowerCase()[0]] = [course];
+		} else {
+			sortedCourses[course.name.toLowerCase()[0]].push(course);
+		}
+	});
+	const sortedCoursesKeys = Object.keys(sortedCourses).sort();
+	for (let i = 0; i < sortedCoursesKeys.length; i++) {
+		const letter = sortedCoursesKeys[i];
+		const courses = sortedCourses[letter];
+		let group2 = [document.createElement('div')];
+		group2[0].className = 'group2';
+		courses.forEach(course => {
+			const info = document.createElement('div');
+			info.className = 'info';
+			// Add image
+			const courseImage = document.createElement('img');
+			courseImage.src = course.thumbnailImage;
+			info.appendChild(courseImage);
+			// Add name
+			const courseName = document.createElement('h3');
+			courseName.textContent = course.name;
+			info.appendChild(courseName);
+			// Add instructor
+			const instructor = document.createElement('p');
+			instructor.textContent = `By ${course.instructorId.firstName} ${course.instructorId.lastName}`;
+			info.appendChild(instructor);
+			// Redirect to course page when clicked into info
+			info.onclick = () => {
+				window.location.href = `/courses/detail/${course._id}`;
+			};
+			// Get the last group2
+			let lastGroup2 = group2[group2.length - 1];
+			if (lastGroup2.children.length === 2) {
+				group2.push(document.createElement('div'));
+				group2[group2.length - 1].className = 'group2';
+				lastGroup2 = group2[group2.length - 1];
+			}
+			lastGroup2.appendChild(info);
+		});
+		let group4 = [document.createElement('div')];
+		group4[0].className = 'group4';
+		group2.forEach(group => {
+			let latestGroup4 = group4[group4.length - 1];
+			if (latestGroup4.children.length === 2) {
+				group4.push(document.createElement('div'));
+				group4[group4.length - 1].className = 'group4';
+				latestGroup4 = group4[group4.length - 1];
+			}
+			latestGroup4.appendChild(group);
+		});
+		group4.forEach(group => {
+			document.getElementById(letter).appendChild(group);
+		});
+	}
+}
+loadData();
