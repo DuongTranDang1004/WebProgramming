@@ -2,21 +2,21 @@
 h1 {
   text-align: center;
 }
-#new-instructor-list {
+#new-instructor-list,
+#new-courses-list,
+#featured-course-list,
+#top-course-list,
+#featured-instructor-list,
+#top-instructor-list {
   display: flex;
-}
-#new-courses-list {
-  display: flex;
-}
-#featured-course-list {
-  display: flex;
-}
-
-#featured-instructor-list {
-  display: flex;
+  justify-content: center;
+  align-items: center;             
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .section {
+  margin-top: 40px;
   margin-bottom: 40px;
 }
 
@@ -35,19 +35,56 @@ h1 {
 
 /* Item styles */
 .section .item {
+  position: relative;
   background-color: #f9f9f9;
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  margin-bottom: 20px;
-  width: 30%; /* By default, items will take 30% of the width on desktop */
+  overflow: hidden;
+  width: 50%; /* By default, items will take 30% of the width on desktop */
 }
 
 /* Ensure images have a max width to fit their containers */
 .section .item img {
   max-width: 100%;
-  height: auto;
+  max-height: 100%; 
+  object-fit: contain;
+  height: 70%;
   border-radius: 8px;
+}
+
+.section .item p {
+  font-size: large;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.profile-img {
+  width: 100%;
+  height: auto;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.instructor-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  color: black;
+  font-size: 18px;
+}
+
+.item:hover .profile-img {
+  opacity: 0.3; /* Fade out the image on hover */
+}
+
+.item:hover .instructor-info {
+  opacity: 1; /* Fade in the text */
 }
 
 /* Responsive styles for tablet (768px and below) */

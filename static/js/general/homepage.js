@@ -1,4 +1,96 @@
 document.addEventListener("DOMContentLoaded", async function () {
+
+  const searchForm = document.getElementById("search-form");
+  const searchInput = document.getElementById("nav-search-input");
+  const searchResultsContainer = document.getElementById("search-results");
+  const originalContent = document.getElementById("new-instructors").innerHTML; // Save original homepage content
+
+  searchForm.addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const query = searchInput.value.trim();
+    if (!query) return; // Do nothing if the query is empty
+
+    // Perform the search
+    const searchResults = await searchCoursesAndInstructors(query);
+
+    // If there are search results, display them and hide the original homepage content
+    if (searchResults) {
+      displaySearchResults(searchResults);
+    } else {
+      displayNoResults();
+    }
+  });
+
+  // Fetch search results from the backend
+  const searchCoursesAndInstructors = async (query) => {
+    try {
+      const coursesResponse = await fetch(`/api/search/courses?q=${encodeURIComponent(query)}`);
+      //const instructorsResponse = await fetch(`/api/search/instructors?q=${encodeURIComponent(query)}`);
+
+      const courses = await coursesResponse.json();
+      //const instructors = await instructorsResponse.json();
+
+      return { courses, instructors };
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      return null;
+    }
+  };
+
+  // Display search results and hide original content
+  const displaySearchResults = ({ courses, instructors }) => {
+    // Hide original homepage content
+    document.getElementById("new-instructors").style.display = 'none';
+    document.getElementById("new-courses").style.display = 'none';
+
+    // Clear previous search results
+    searchResultsContainer.innerHTML = '';
+    searchResultsContainer.style.display = 'block';
+
+    // Display courses
+    if (courses.length > 0) {
+      const coursesHTML = `
+        <h2>Courses</h2>
+        <ul>
+          ${courses.map(course => `
+            <li>
+              <a href="/courses/${course._id}">${course.name}</a> - By ${course.instructorName}
+            </li>
+          `).join('')}
+        </ul>
+      `;
+      searchResultsContainer.innerHTML += coursesHTML;
+    }
+
+    // Display instructors
+    if (instructors.length > 0) {
+      const instructorsHTML = `
+        <h2>Instructors</h2>
+        <ul>
+          ${instructors.map(instructor => `
+            <li>
+              <a href="/instructors/${instructor._id}">${instructor.firstName} ${instructor.lastName}</a> - ${instructor.specialization}
+            </li>
+          `).join('')}
+        </ul>
+      `;
+      searchResultsContainer.innerHTML += instructorsHTML;
+    }
+
+    // If no results found
+    if (courses.length === 0 && instructors.length === 0) {
+      searchResultsContainer.innerHTML = '<p>No results found</p>';
+    }
+  };
+
+  // If no results are found, display this message
+  const displayNoResults = () => {
+    searchResultsContainer.innerHTML = '<p>No results found for your query</p>';
+    searchResultsContainer.style.display = 'block';
+  };
+
+
   // Function to fetch top 5 instructors from /followingInstructors/rank
   const fetchTopInstructors = async () => {
     try {
@@ -12,6 +104,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   };
 
+  // Function to fetch featured 5 instructors from /followingInstructors/rank
+  const fetchFeaturedInstructors = async () => {
+    try {
+      const response = await fetch("/followingInstructors/rank");
+      if (!response.ok) {
+        throw new Error("Failed to fetch featured instructors");
+      }
+      return await response.json(); // Assuming the response is in JSON format
+    } catch (error) {
+      console.error("Error fetching featured instructors:", error);
+    }
+  };
+
   // Function to fetch top 5 favorite courses from /favoritesCourses/rank
   const fetchTopCourses = async () => {
     try {
@@ -22,6 +127,19 @@ document.addEventListener("DOMContentLoaded", async function () {
       return await response.json(); // Assuming the response is in JSON format
     } catch (error) {
       console.error("Error fetching top courses:", error);
+    }
+  };
+
+  // Function to fetch top 5 favorite courses from /favoritesCourses/rank
+  const fetchFeaturedCourses = async () => {
+    try {
+      const response = await fetch("/favoritesCourses/rank");
+      if (!response.ok) {
+        throw new Error("Failed to fetch featured courses");
+      }
+      return await response.json(); // Assuming the response is in JSON format
+    } catch (error) {
+      console.error("Error fetching featured courses:", error);
     }
   };
 
@@ -52,19 +170,39 @@ document.addEventListener("DOMContentLoaded", async function () {
   };
 
   // Function to render top instructors
-  const renderTopInstructors = (instructors) => {
+  const renderFeaturedInstructors = (instructors) => {
     const instructorList = document.getElementById("featured-instructor-list");
+    instructorList.innerHTML = ""; // Clear previous content
+    instructors.slice(0, 5).forEach((instructor) => {
+      const instructorHTML = `
+        <div class="item">
+          <img src="${instructor.instructorDetails.profilePicture}" alt="${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}" class="profile-img" />
+          <div class="instructor-info">
+            <h2>${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}</h2>
+            <p><strong>Specialization: ${instructor.instructorDetails.specialization}</strong></p>
+            <p>Current Role: ${instructor.instructorDetails.jobTitle}</p>
+          </div>
+        </div>
+      `;
+      instructorList.innerHTML += instructorHTML;
+    });
+  };
+
+  // Function to render top instructors
+  const renderTopInstructors = (instructors) => {
+    const instructorList = document.getElementById("top-instructor-list");
     instructorList.innerHTML = ""; // Clear previous content
 
     instructors.slice(0, 5).forEach((instructor) => {
       const instructorHTML = `
           <div class="item">
-            <img src="${instructor.instructorDetails.profilePicture}" alt="${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}" />
-            <div>
-              <h3><a href="#">${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}</a></h3>
-              <p>Specialization: ${instructor.instructorDetails.specialization}</p>
+            <img src="${instructor.instructorDetails.profilePicture}" alt="${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}" class="profile-img" />
+            <div class="instructor-info">
+              <h2>${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}</h2>
+              <p><strong>Specialization: ${instructor.instructorDetails.specialization}</strong></p>
+              <p>Current Role: ${instructor.instructorDetails.jobTitle}</p>
             </div>
-          </div>
+        </div>
         `;
       instructorList.innerHTML += instructorHTML;
     });
@@ -79,35 +217,61 @@ document.addEventListener("DOMContentLoaded", async function () {
     instructors.slice(0, 5).forEach((instructor) => {
       const instructorHTML = `
       <div class="item">
-        <img src="${instructor.profilePicture}" alt="${instructor.firstName} ${instructor.lastName}" />
-        <div>
-          <h3><a href="#">${instructor.firstName} ${instructor.lastName}</a></h3>
-          <p>Specialization: ${instructor.specialization}</p>
+          <img src="${instructor.profilePicture}" alt="${instructor.firstName} ${instructor.lastName}" class="profile-img" />
+          <div class="instructor-info">
+            <h2>${instructor.firstName} ${instructor.lastName}</h2>
+            <p><strong>Specialization: ${instructor.specialization}</strong></p>
+            <p>Current Role: ${instructor.jobTitle}</p>
+          </div>
         </div>
-      </div>
     `;
       newInstructorList.innerHTML += instructorHTML;
     });
   };
 
   // Function to render top featured courses
-  const renderTopCourses = (courses) => {
+  const renderFeaturedCourses = (courses) => {
     const courseList = document.getElementById("featured-course-list");
     courseList.innerHTML = ""; // Clear previous content
-
+  
     courses.slice(0, 5).forEach((course) => {
+      const instructorName = `${course.instructorDetails.firstName} ${course.instructorDetails.lastName}`;
+  
       const courseHTML = `
           <div class="item">
             <img src="${course.courseDetails.thumbnailImage}" alt="${course.courseDetails.name}" class="course-img" />
             <div>
               <h3><a href="#">${course.courseDetails.name}</a></h3>
-              <p>By <a href="#">${course.courseDetails.instructorId}</a> - $${course.courseDetails.price}</p>
+              <p><strong>Lecturer: <a href="#">${instructorName}</a></strong></p>
             </div>
           </div>
         `;
       courseList.innerHTML += courseHTML;
     });
   };
+  // - $${course.courseDetails.price}
+
+  // Function to render top courses
+  const renderTopCourses = (courses) => {
+    const courseList = document.getElementById("top-course-list");
+    courseList.innerHTML = ""; // Clear previous content
+  
+    courses.slice(0, 5).forEach((course) => {
+      const instructorName = `${course.instructorDetails.firstName} ${course.instructorDetails.lastName}`;
+  
+      const courseHTML = `
+          <div class="item">
+            <img src="${course.courseDetails.thumbnailImage}" alt="${course.courseDetails.name}" class="course-img" />
+            <div>
+              <h3><a href="#">${course.courseDetails.name}</a></h3>
+              <p><strong>Lecturer: <a href="#">${instructorName}</a><strong></p>
+            </div>
+          </div>
+        `;
+      courseList.innerHTML += courseHTML;
+    });
+  };
+  // - $${course.courseDetails.price}
 
   // Function to render new courses
   const renderNewCourses = (courses) => {
@@ -120,7 +284,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           <img src="${course.thumbnailImage}" alt="${course.name}" class="course-img" />
           <div>
             <h3><a href="#">${course.name}</a></h3>
-            <p>By <a href="#">${course.instructorId}</a> - $${course.price}</p>
+            <p><strong>Lecturer: <a href="#">${course.instructorId.firstName} ${course.instructorId.lastName}</a></strong></p>
           </div>
         </div>
       `;
@@ -134,6 +298,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     renderTopInstructors(topInstructors);
   }
 
+  // Fetch and render top instructors
+  const featuredInstructors = await fetchFeaturedInstructors();
+  if (featuredInstructors) {
+    renderFeaturedInstructors(featuredInstructors);
+  }
+
   // Fetch and render new instructors
   const newInstructors = await fetchNewInstructors();
   if (newInstructors) {
@@ -144,6 +314,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   const topCourses = await fetchTopCourses();
   if (topCourses) {
     renderTopCourses(topCourses);
+  }
+
+  // Fetch and render top courses
+  const featuredCourses = await fetchFeaturedCourses();
+  if (featuredCourses) {
+    renderFeaturedCourses(featuredCourses);
   }
 
   // Fetch and render new courses

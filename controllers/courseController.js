@@ -324,6 +324,52 @@ const deleteCourse = async (req, res) => {
   }
 };
 
+
+/**
+ * @swagger
+ * /course/search:
+ *   get:
+ *     summary: Search for courses by name or description
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The search query to match courses by name or description
+ *     responses:
+ *       200:
+ *         description: List of courses matching the query
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       500:
+ *         description: Internal server error
+ */
+const searchCourses = async (req, res) => {
+  const { q } = req.query; // Get the search query from the URL parameter
+
+  try {
+    // Search for courses where the name or description matches the query (case-insensitive)
+    const courses = await Course.find({
+      $or: [
+        { name: new RegExp(q, 'i') },
+        { description: new RegExp(q, 'i') },
+      ],
+    }).populate("instructorId", "firstName lastName");
+
+    // Return the found courses or an empty array
+    res.status(200).json(courses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   getCourse,
   getCourses,
@@ -332,4 +378,5 @@ module.exports = {
   deleteCourse,
   getIsPublishCourses,
   getCoursesByInstructorID,
+  searchCourses
 };

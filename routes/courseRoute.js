@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {getCourse, getCourses, createCourse, updateCourse, deleteCourse, getCoursesByInstructorID, getIsPublishCourses} = require("../controllers/courseController");
+const {getCourse, getCourses, createCourse, updateCourse, deleteCourse, getCoursesByInstructorID, getIsPublishCourses, searchCourses} = require("../controllers/courseController");
 
 router.get('/', getCourses);
+
+router.get('/courses', searchCourses);
 
 router.get("/publish", getIsPublishCourses)
 
