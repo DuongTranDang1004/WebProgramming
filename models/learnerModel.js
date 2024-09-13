@@ -94,6 +94,11 @@ const LearnersSchema = new Schema({
         type: Date,
         default: Date.now,
         required: true,
+    },
+    forget: {
+      type: String,
+      default: null,
+      require: false
     }
 }, { collection: "Learners" });
 

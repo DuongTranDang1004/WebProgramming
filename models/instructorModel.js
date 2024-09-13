@@ -128,8 +128,12 @@ const InstructorSchema = new mongoose.Schema(
           type: String,
           default: null,
           required: false
+        },
+        forget: {
+          type: String,
+          default: null,
+          require: false
         }
-
     }
 )
 
