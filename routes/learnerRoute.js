@@ -25,7 +25,6 @@ router.delete("/:id", deleteLearner);
 router.get("/favoriteCourses/:id", (req, res) => {
   res.render("learner/favCourses", {
     title: "Favorite Courses",
-    pageStylesheet: "css/learner/favCourses.css",
     pageScripts: ["/js/learner/favCourses.js"],
   });
 });
@@ -34,7 +33,6 @@ router.get("/favoriteCourses/:id", (req, res) => {
 router.get("/favoriteInstructors/:id", (req, res) => {
   res.render("learner/favInstructors", {
     title: "Favorite Courses",
-    pageStylesheet: "css/learner/favInstructors.css",
     pageScripts: ["/js/learner/favInstructors.js"],
   });
 });
@@ -63,6 +61,23 @@ router.get("/myCourses/:id", (req, res) => {
     title: "My Courses",
     pageStylesheet: "css/learner/myCourses.css",
     pageScripts: ["/js/learner/myCourses.js"],
+  });
+});
+
+// Learner My Profile
+router.get("/myProfile/:id", (req, res) => {
+  res.render("learner/myProfile", {
+    title: "My Profile",
+    pageStylesheet: "css/learner/myProfile",
+    pageScripts: ["/js/learner/myProfile.js"],
+  });
+});
+
+router.get("/myCart/:id", (req, res) => {
+  res.render("learner/myCart", {
+    title: "My Cart",
+    pageStylesheet: "css/learner/myCart",
+    pageScripts: ["/js/learner/myCart.js"],
   });
 });
 

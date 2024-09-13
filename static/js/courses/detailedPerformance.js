@@ -18,11 +18,9 @@ document.querySelectorAll('.lecture-link').forEach(link => {
     });
 });
 
-const courseId = window.location.pathname.split('/')[3];
-let boughtCourseId;
-let course;
-let boughtCourse;
-
+const urlParams = new URLSearchParams(window.location.search);
+const courseId = "66e2ca31196d825b16fc3687";
+const boughtCourseId = "66e2ca32196d825b16fc3716"; // Replace with dynamic value if needed
 
 if (courseId) {
     fetchCourseDetails().then(() => {
@@ -112,8 +110,11 @@ async function fetchLectureDetails(lectureId) {
         optionsContainer.appendChild(optionElement);
     });
 
-    // Fetch bought course details to check completion status
-    const lectureStatus = boughtCourse.completedLectures.find(status => status.lectureId === lectureId);
+            // Fetch bought course details to check completion status
+            fetch(`/api/boughtCourses/${boughtCourseId}`)
+                .then(response => response.json())
+                .then(boughtCourse => {
+                    const lectureStatus = boughtCourse.completedLectures.find(status => status.lectureId === lectureId);
 
     const exerciseForm = document.getElementById('exerciseForm');
     const submitButton = exerciseForm.querySelector('button[type="submit"]');
@@ -142,31 +143,41 @@ async function fetchLectureDetails(lectureId) {
             if (selectedOption) {
                 const userAnswer = selectedOption.value;
 
-                const requestBody = {
-                    boughtCourseId: boughtCourseId,
-                    lectureId: lectureId,
-                    userAnswer: userAnswer
-                };
-                
-                await fetch(`/api/lectures/markLecture`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestBody)
-                });
-                if (userAnswer === exercise.correctAnswer) {
-                    resultElement.textContent = "Correct! 🎉";
-                    resultElement.classList.add('text-green-600');
-                    document.getElementById(`status-${lectureId}`).textContent = '✅'; // Update sidebar status
-                } else {
-                    resultElement.textContent = "Incorrect. Try again!";
-                    resultElement.classList.add('text-red-600');
-                }
-                // Disable the submit button after submission
-                submitButton.disabled = true;
-            }
-        });
-    }
+                                const requestBody = {
+                                    boughtCourseId: boughtCourseId,
+                                    lectureId: lectureId,
+                                    userAnswer: userAnswer
+                                };
+
+                                fetch(`/api/lectures/markLecture`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(requestBody)
+                                })
+                                .then(response => response.json())
+                                .then(result => {
+                                    if (userAnswer === exercise.correctAnswer) {
+                                        resultElement.textContent = "Correct! 🎉";
+                                        resultElement.classList.add('text-green-600');
+                                    } else {
+                                        resultElement.textContent = "Incorrect. Try again!";
+                                        resultElement.classList.add('text-red-600');
+                                    }
+                                    // Disable the submit button after submission
+                                    console.log('Answer received')
+                                    submitButton.disabled = true;
+                                })
+                                .catch(error => {
+                                    console.error('Error submitting the answer:', error);
+                                });
+                            }
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching bought course details:', error));
+        })
+        .catch(error => console.error('Error fetching lecture details:', error));
 }
 });

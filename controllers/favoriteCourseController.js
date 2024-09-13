@@ -270,7 +270,7 @@ const deleteFavoriteCourse = async (req, res) => {
     const favoriteCourse = await FavoriteCourse.findByIdAndDelete(id);
 
     if (!favoriteCourse) {
-      return res.status(404).json({ message: "Favorite course not found" });
+      return res.status(204).json({ message: "Favorite course not found" });
     }
 
     res.status(200).json({ message: "Favorite course deleted successfully" });
