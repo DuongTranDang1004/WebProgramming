@@ -337,6 +337,8 @@ const uploadVideo = async (req, res) => {
       }
     });
     // Get file name from  /static/videos/ which start with id
+    // Wait 1 seconds for the file to be saved
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const filename = fs.readdirSync('./static/video/').find(file => file.startsWith(id));
     lecture.video = "/video/" + filename;
     lecture.save();
