@@ -3,8 +3,7 @@ let coursePrice = '';
 let courseImg = '';
 
 function formatPrice(price) {
-    let formattedPrice = price.toLocaleString('vi-VN'); // Format price for Vietnamese locale
-    // Check if the price is a whole number, and append ".000"
+    let formattedPrice = price.toLocaleString('vi-VN'); 
     if (Number.isInteger(price)) {
         formattedPrice += '.000';
     }
@@ -125,16 +124,18 @@ async function displayCourseDetails(course) {
             const courseName = course.name;
             const coursePrice = course.price;
             const courseImage = course.thumbnailImage;
+            const instructorId = course.instructorId;
             
             // Get the existing cart from localStorage or set it as an empty array
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
             // Add the course to the cart
             cart.push({
-                id: courseId,
+                courseId: courseId,
                 name: courseName,
                 price: coursePrice,
-                image: courseImage
+                image: courseImage,
+                instructor: instructorId
             });
     
             // Save the updated cart back to localStorage
@@ -146,7 +147,6 @@ async function displayCourseDetails(course) {
 
     // Add event listener for the "Buy now" button
     document.getElementById('buyNowBtn').addEventListener('click', () => {
-        // Redirect to the payment page with the course data
         const payUrl = new URL(`${window.location.origin}/courses/pay`);
         payUrl.searchParams.append('instructorId', instructorId);
         payUrl.searchParams.append('courseId', courseId);

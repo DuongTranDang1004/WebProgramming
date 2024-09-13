@@ -20,7 +20,7 @@ const LectureSchema = new mongoose.Schema({
   },
   video: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   exercise: {
