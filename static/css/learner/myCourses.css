@@ -1,102 +1,62 @@
-/* General container styles */
-section {
-  padding: 20px;
-  background-color: #f9f9f9;
+.tab-title {
+	font-size: 250%;
 }
 
-h1 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
+.my-courses {
+	font-size: 120%;
 }
 
-/* Flexbox container for the items */
-#display-bought-courses,
-#display-learning-courses,
-#display-completed-courses,
-#display-cert {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
+
+.on-going, .all, .finished, .certificate {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 }
 
-#bought-course-item,
-#learning-course-item,
-#completed-course-item,
-#cert-item {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 200px;
-  text-align: center;
-  margin: 10px;
-  transition: transform 0.2s;
+
+.courses {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 3% 0;
+	width: 100%;
 }
 
-#bought-course-item:hover,
-#learning-course-item:hover,
-#completed-course-item:hover,
-#cert-item:hover {
-  transform: scale(1.05);
+.courses button {
+	width: max-content;
 }
 
-/* Course thumbnails */
-#bought-course-item img,
-#learning-course-item img,
-#completed-course-item img,
-#cert-item img {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  margin-bottom: 15px;
+
+.course-row {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
 }
 
-/* Course name styles */
-#bought-course-item h2,
-#learning-course-item h2,
-#completed-course-item h2,
-#cert-item h2 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #333;
+
+.course-card-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-/* Additional text and progress */
-h3 {
-  font-size: 1rem;
-  color: #777;
+.course-card {
+	width: 33%;
 }
 
-h4 {
-  font-size: 0.9rem;
-  color: #555;
+.course-card-image {
+	display: flex;
+	justify-content: center;
 }
 
-#cert-item h1 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+.course-card-image img {
+	width: 95%;
 }
 
-#cert-item h4 {
-  font-size: 1rem;
-}
 
-#course-name {
-  font-weight: bold;
-  color: #444;
-}
-
-#learning-progress {
-  color: #29a329;
-}
-
-#completion-date {
-  color: #999;
-}
-
-#thumbnail-image {
-  margin: 10px 0;
+.course-card-image, .course-card-content {
+	cursor: pointer;
 }

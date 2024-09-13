@@ -108,9 +108,9 @@ const getFavoriteCourses = async (req, res) => {
 const getFavoriteCourseByLearnerID = async (req, res) => {
   try {
     const { id } = req.params;
-    const favoriteCourses = await FavoriteCourse.find({
-      learnerId: id,
-    }).populate("courseId", "name category price description");
+    const favoriteCourses = await FavoriteCourse.find({learnerId: id,})
+      .populate("courseId", "name category price description thumbnailImage instructorId")
+
     if (favoriteCourses.length > 0) {
       return res.status(200).json(favoriteCourses);
     } else {
@@ -270,7 +270,7 @@ const deleteFavoriteCourse = async (req, res) => {
     const favoriteCourse = await FavoriteCourse.findByIdAndDelete(id);
 
     if (!favoriteCourse) {
-      return res.status(404).json({ message: "Favorite course not found" });
+      return res.status(204).json({ message: "Favorite course not found" });
     }
 
     res.status(200).json({ message: "Favorite course deleted successfully" });

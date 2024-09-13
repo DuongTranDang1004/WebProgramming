@@ -97,7 +97,7 @@ const Membership = require("../models/membershipModel");
 const createMembership = async (req,res) => {
     try{
         const membership = await Membership.create(req.body);
-        res.status(200).json(instructor)
+        res.status(200).json(membership)
     }catch (error){
     res.status(500).json({message: error.message})
     }

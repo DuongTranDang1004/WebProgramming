@@ -153,3 +153,7 @@
         width: auto; /* Ensure button size adapts */
     }
 }
+
+a:hover {
+    color: white;
+}

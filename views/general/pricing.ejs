@@ -2,54 +2,86 @@
   <h1>Instructor's Membership Plans and Pricing</h1>
   <p>You can always change your plan later on or cancel anytime</p>
 
-  <div class="billing-toggle">
-    <button class="active">Monthly</button>
+  <div class="freq-btns">
+    <div class="billing-toggle">
+      <button class="active" id="monthly-btn">Monthly</button>
+    </div>
+    
+    <div class="billing-toggle">
+      <button class="inactive" id="yearly-btn">Yearly</button>
+    </div>
   </div>
+  
 
-  <div class="pricing-cards">
+  <div class="pricing-cards" id="monthly">
     <div class="card">
-      <h2>Free</h2>
+      <h2>Basic</h2>
       <h3>$0</h3>
-      <p>Per user/month</p>
+      <p>It is free and always free!</p>
       <ul>
-        <li>Can sell at most 5 courses</li>
+        <li>Can sell at most 1 courses</li>
         <li>High commission fee rate: 20%</li>
       </ul>
-      <button>Get started for free</button>
+      <button id="basic-monthly">Get started with basic plan!</button>
     </div>
 
     <div class="card popular">
-      <h2>Silver</h2>
+      <h2>Saving</h2>
       <h3>$20</h3>
       <p>Per user/month</p>
       <ul>
         <li>Can sell at most 10 courses</li>
         <li>Medium commission fee rate: 10%</li>
       </ul>
-      <button>Get started with Silver</button>
+      <button id="saving-monthly">Get started with Saving plan!</button>
     </div>
 
     <div class="card">
-      <h2>Gold</h2>
-      <h3>$50</h3>
+      <h2>Premium</h2>
+      <h3>$30</h3>
       <p>Per user/month</p>
       <ul>
         <li>Can sell at most 20 courses</li>
         <li>Low commission fee rate: 5%</li>
       </ul>
-      <button>Get started with Gold</button>
+      <button id="premium-monthly">Get started with Premium plan!</button>
     </div>
+  </div>
 
-    <div class="card dark">
-      <h2>Diamond</h2>
-      <h3>$200</h3>
-      <p>Per user/month</p>
+  <div class="pricing-cards" id="yearly" hidden>
+    <div class="card">
+      <h2>Basic</h2>
+      <h3>$0</h3>
+      <p>It is free and always free!</p>
       <ul>
-        <li>Can sell at most 100 courses</li>
-        <li>Very Low commission fee rate: 1%</li>
-        <li>Fit for Enterprise</li>
+        <li>Can sell at most 1 courses</li>
+        <li>High commission fee rate: 20%</li>
       </ul>
-      <button>Get started with Diamond</button>
+      <button id="basic-yearly">Get started with basic plan!</button>
+    </div>
+  
+    <div class="card popular">
+      <h2>Saving</h2>
+      <h3>$200</h3>
+      <p>Per user/year</p>
+      <ul>
+        <li>Can sell at most 10 courses</li>
+        <li>Medium commission fee rate: 10%</li>
+      </ul>
+      <button id="saving-yearly">Get started with Saving plan!</button>
+    </div>
+  
+    <div class="card">
+      <h2>Premium</h2>
+      <h3>$300</h3>
+      <p>Per user/year</p>
+      <ul>
+        <li>Can sell at most 20 courses</li>
+        <li>Low commission fee rate: 5%</li>
+      </ul>
+      <button id="premium-yearly">Get started with Premium plan!</button>
     </div>
   </div>
 </div>
+
+

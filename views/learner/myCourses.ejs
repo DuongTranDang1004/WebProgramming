@@ -1,51 +1,35 @@
-<!-- Display all bought course in a row -->
-<section id="display-bought-courses">
-  <h1>All of my bought courses</h1>
+<div class="my-courses">
+	<div class="on-going">
+		<h1 class="tab-title">On-going courses</h1>
+		<div class="courses" id="on-going-courses">
+			<button id="missing-on-going-btn" hidden>You do not have any on-going course. Buy or try one now!</button>
+		</div>
+	</div>
 
-  <div id="bought-course-item">
-    <h2 id="course-name">Course Name</h2>
-    <img id="thumbnail-image" src="" alt="sample image" />
-  </div>
-</section>
+	<hr />
 
-<!-- Display “learning/on progress” course in a row  (courseCompletionStatus = false )-->
-<section id="display-learning-courses">
-  <!-- Fixed ID spelling -->
-  <div id="learning-course-item">
-    <h2 id="course-name">Course Name</h2>
-    <img
-      id="thumbnail-image"
-      src="https://picsum.photos/seed/fp7Tc/640/480"
-      alt="sample image"
-    />
-    <h3 id="learning-progress">Progress: 50%</h3>
-  </div>
-</section>
+	<div class="all">
+		<h1 class="tab-title">All courses</h1>
+		<div class="courses" id="all-courses">
+			<button id="missing-all-btn" hidden>You do not have any course. Buy or try one now!</button>
+		</div>
+	</div>
 
-<!-- Display all completed course in a row (courseCompletionStatus = true ) -->
-<section id="display-completed-courses">
-  <div id="completed-course-item">
-    <h2 id="course-name">Course Name</h2>
-    <img id="thumbnail-image" src="" alt="sample image" />
-    <h3 id="completion-date">Completion Date: 06-08-2024</h3>
-  </div>
-</section>
+	<hr />
+	
+	<div class="finished">
+		<h1 class="tab-title">Finished courses</h1>
+		<div class="courses" id="finished-courses">
+			<button id="missing-finished-btn" hidden>You have not finished any course. Keep going!</button>
+		</div>
+	</div>
 
-<!-- Display all certificate in a row (isCertificate = true + courseCompletionStatus = true) -->
-<section id="display-cert">
-  <div id="cert-item">
-    <img
-      id="IT-learning-logo"
-      src="/img/Logo.png"
-      alt=""
-      width="50"
-      height="50"
-    />
-    <h1>Completion Certificate</h1>
-    <h4>has been presented to</h4>
-    <h2 id="learnerName">Learner's name</h2>
-    <h4>on 08-06-2024 (completion-date)</h4>
-    <h2>to the Course of <span id="course-name">Course Name</span></h2>
-    <!-- Fixed the id from "course name" to "course-name" -->
-  </div>
-</section>
+	<hr />
+
+	<div class="certificate">
+		<h1 class="tab-title">Certificates</h1>
+		<div class="courses" id="certificates">
+			<button id="missing-certificate-btn" hidden>You do not have any certificate. Finish the course or buy right to get certificate!</button>
+		</div>
+	</div>
+</div>

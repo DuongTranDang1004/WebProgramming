@@ -25,7 +25,6 @@ router.delete("/:id", deleteLearner);
 router.get("/favoriteCourses/:id", (req, res) => {
   res.render("learner/favCourses", {
     title: "Favorite Courses",
-    pageStylesheet: "css/learner/favCourses.css",
     pageScripts: ["/js/learner/favCourses.js"],
   });
 });
@@ -34,7 +33,6 @@ router.get("/favoriteCourses/:id", (req, res) => {
 router.get("/favoriteInstructors/:id", (req, res) => {
   res.render("learner/favInstructors", {
     title: "Favorite Courses",
-    pageStylesheet: "css/learner/favInstructors.css",
     pageScripts: ["/js/learner/favInstructors.js"],
   });
 });
@@ -52,7 +50,7 @@ router.get("/order/:id", (req, res) => {
 router.get("/account/:id", (req, res) => {
   res.render("learner/account", {
     title: "My Account",
-    pageStylesheet: "css/learner/account",
+    pageStylesheet: "css/learner/account.css",
     pageScripts: ["/js/learner/account.js"],
   });
 });
@@ -75,11 +73,17 @@ router.get("/myProfile/:id", (req, res) => {
   });
 });
 
+router.get("/myCart/:id", (req, res) => {
+  res.render("learner/myCart", {
+    title: "My Cart",
+  });
+});
+
 // Past transaction
 router.get("/transactions/:id", (req, res) => {
   res.render("learner/transactions", {
     title: "My Past Transactions",
-    pageStylesheet: "css/learner/transactions",
+    pageStylesheet: "css/learner/transactions.css",
     pageScripts: ["/js/learner/transactions.js"],
   });
 });

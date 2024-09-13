@@ -128,6 +128,8 @@ async function markLectureComplete(req, res) {
       )
     );
 
+    boughtCourse.courseCompletionStatus = allLecturesComplete;
+
     // Save the updated bought course
     await boughtCourse.save();
 

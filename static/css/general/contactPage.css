@@ -1,285 +1,192 @@
-/* Input Form */
+/* General form styling */
 .form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: #1f2937; /* Dark blue text color */
-}
-
-.form-group input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #6d28d9; /* Purple border */
-  border-radius: 4px;
-  background-color: #ffffff; /* White input background */
-  color: #1f2937; /* Dark blue text color */
-}
-
-/* Start of preferred contact days styling */
-
-/* Checkbox styling from testingCheckbox.html */
-
-/* Default for desktop: Label and checkbox on the same row */
-.checkbox-div {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.checkbox-div label {
-  margin-right: 10px;
-  font-size: 1rem;
-}
-
-.checkbox-div input[type="checkbox"] {
-  margin: 0;
-}
-
-#preferred-contact-days {
-  display: flex;
-  justify-content: flex-end;
-}
-#preferred-contact-method {
-  display: flex;
-  align-items: center;
-  white-space: nowrap; /* Prevent text wrapping */
-  justify-content: space-between; /* Ensure spacing between label and inputs */
-  margin-bottom: 40px; /* Ensure spacing at the bottom */
-}
-
-/* Media query for tablets and smartphones */
-@media (max-width: 1199px) {
-  .checkbox-div {
-    display: block;
-  }
-
-  .checkbox-div label,
-  .checkbox-div input[type="checkbox"] {
-    display: block;
-    margin-bottom: 5px;
-  }
-}
-
-/* Adjustments for existing form elements to avoid conflicts */
-
-/* Fieldset styling for overflow management */
-fieldset {
-  overflow: hidden;
-}
-
-/* Ensure preferred-contact-days are displayed properly */
-.preferred-contact-days {
-  margin-bottom: 10%;
-}
-
-/* Existing general label styling */
-label {
-  display: block;
-  padding: 0px 1em 0px 8px;
-}
-
-/* For specific input elements (radio, checkbox) */
-input[type="radio"],
-input.radio {
-  margin: 2px 0 0 2px;
-}
-
-/* Aligning checkbox and radio labels properly */
-input[type="checkbox"] + label,
-input[type="radio"] + label {
-  vertical-align: middle; /* Keep middle alignment */
-  height: 100%;
-  font-size: 16px;
-}
-
-/* Existing form-group styling, adjusted to avoid checkbox conflicts */
-.form-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .form-group label {
-  display: inline-block;
-  width: 30%;
-  font-size: 16px;
-  height: 60px; /* Matches the height of the input field */
-  line-height: 60px; /* Vertically centers the label text */
+  display: block;
+  margin-bottom: 8px;
+  color: #4a5568; /* Softer dark blue */
+  font-weight: 600;
+  font-size: 1rem;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group textarea,
-.form-group select {
-  width: 70%;
-  padding: 10px;
-  font-size: 16px;
-  height: 60px;
-  box-sizing: border-box;
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #9f7aea; /* Softer purple border */
+  border-radius: 6px;
+  background-color: #f7fafc; /* Light grey background */
+  color: #2d3748; /* Softer text color */
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: border-color 0.3s ease;
 }
 
-/* Fixing the gap between radio buttons and their labels */
-input[type="radio"] {
-  margin-right: 5px; /* Less space between the radio button and the label */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #6b46c1; /* Darker purple on focus */
+  outline: none;
 }
 
-/* Aligning radio buttons consistently */
-.radio-group {
+/* Contact days and method styling */
+#preferred-contact-method,
+#preferred-contact-days {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 15px;
-  font-size: large;
+  margin-bottom: 30px;
 }
 
-.radio-group label {
-  margin-left: 5px; /* Ensures labels are closer to the radio buttons */
-  font-size: 16px; /* Ensures text is consistent in size */
-}
-#preferred-contact-days {
+.radio-group,
+.checkbox-div {
+  display: flex;
   align-items: center;
-  white-space: nowrap;
-  justify-content: space-between;
 }
 
-#preferred-contact-days span {
-  font-size: 16px; /* Match the label font size */
-  font-weight: bold; /* Match label font weight */
-  display: inline-block; /* Ensure it's aligned properly with checkboxes */
-  margin-right: 10px; /* Add some space between the span and the checkboxes */
+.radio-group input,
+.checkbox-div input {
+  margin-right: 10px;
 }
 
-/* Adding vertical space between sections */
-#preferred-contact-method,
-#preferred-contact-days,
-#message-section {
-  margin-bottom: 40px; /* Space between the different sections */
+.radio-group label,
+.checkbox-div label {
+  margin-right: 15px;
+  font-size: 1rem;
 }
 
-/* Button styling */
+/* Media queries for mobile responsiveness */
+@media (max-width: 768px) {
+  #preferred-contact-method,
+  #preferred-contact-days {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+#message-section textarea {
+  resize: none;
+  height: 120px; /* Fixed height for message box */
+}
 
 #form-buttons-div {
-  margin-bottom: 5%;
+  text-align: center;
 }
 
-button[type="submit"],
-button[type="reset"] {
-  padding: 12px 20px;
+.submit-btn,
+.clear-btn {
+  padding: 12px 24px;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-button[type="submit"] {
-  background-color: #28a745;
+.submit-btn {
+  background-color: #b862ea; 
   color: #fff;
 }
 
-button[type="reset"] {
-  background-color: #dc3545;
-  color: #fff;
+.submit-btn:hover {
+  border: 2px solid #b862ea; 
+  color: #b862ea;
+}
+
+.clear-btn {
+  box-shadow:0px 0px 0px 2px black inset;
+  color: rgb(0, 0, 0);
+}
+
+.clear-btn:hover {
+  background-color:#2d3748; 
+  color: white;
+}
+
+/* Section titles */
+.section-title h1 {
+  font-size: 2.5rem;
+  color: #2d3748; 
+  margin-bottom: 0.5rem;
+}
+
+.section-title h3 {
+  font-size: 1.25rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  margin-bottom: 40px;
+}
+
+.text-center {
+  text-align: center;
 }
 
 /* Single address (Our info) */
 .single_address {
   overflow: hidden;
   margin-bottom: 20px;
-  padding-left: 40px;
+  padding-left: 20px;
 }
 
 .single_address i {
-  background: #f6f6f6;
-  color: #7564e5;
-  border-radius: 30px;
+  background: #e9d8fd; /* Light purple */
+  color: #805ad5; /* Purple icon */
+  border-radius: 50%;
   width: 60px;
   height: 60px;
-  line-height: 60px;
   text-align: center;
+  line-height: 60px;
+  font-size: 22px;
   float: left;
   margin-right: 14px;
-  font-size: 22px;
-  box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .single_address:hover i {
-  background: #7564e5;
+  background: #805ad5;
   color: #fff;
 }
 
 .single_address h4 {
-  font-size: 18px;
-  margin-bottom: 0px;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
 .single_address p {
   margin-top: 5px;
+  font-size: 1rem;
+  color: #4a5568;
 }
 
-/* Section titles */
-.section-title h1 {
-  font-size: 44px;
-  font-weight: 500;
-  margin-top: 0;
-  text-transform: capitalize;
-  margin-bottom: 15px;
+/* Section margin adjustments */
+#preferred-contact-method,
+#preferred-contact-days,
+#message-section {
+  margin-bottom: 30px;
 }
 
-.section-title p {
-  padding: 0 10px;
-  width: 70%;
-  margin: auto;
-  letter-spacing: 1px;
-}
-
-.section-title {
-  margin-bottom: 60px;
-}
-
-.text-center {
-  text-align: center !important;
-}
-
-/* Media query for mobile and tablet adjustments */
-@media only screen and (max-width: 768px) {
-  /* Ensure form elements are stacked properly */
+/* Mobile adjustments */
+@media (max-width: 768px) {
   .form-group {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .form-group label {
-    width: 100%;
-    line-height: 1.5;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
 
   .form-group input,
-  .form-group textarea,
-  .form-group select {
+  .form-group select,
+  .form-group textarea {
     width: 100%;
-  }
-
-  /* Ensure checkboxes and radio buttons stack properly */
-  .checkbox-group {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .radio-group,
-  .preferred-contact-days {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .preferred-contact-days label {
-    display: block;
-    margin-top: 10px;
   }
 }

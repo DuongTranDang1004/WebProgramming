@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(courseId);
     // const courseId = '66dd9c752e81ca3eaac0f42a';
 
-    fetch(`http://localhost:3000/courses/${courseId}`)
+    fetch(`/api/courses/${courseId}`)
         .then(response => response.json())
         .then(course => {
             // Populate form fields
             document.getElementById('title').value = course.name || '';
             document.getElementById('category').value = course.category || '';
-            // document.getElementById('price').value = course.price || '';
+            document.getElementById('price').value = course.price || '';
             document.getElementById('description').value = course.description || '';
         })
         .catch(error => {
@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const links = document.querySelectorAll('.sidebar-link');
 const sections = document.querySelectorAll('.content-section');
+
+const defaultSection = 'curriculum';
+document.getElementById(defaultSection).classList.add('active');
 
 links.forEach(link => {
     link.addEventListener('click', () => {
@@ -33,9 +36,9 @@ links.forEach(link => {
     });
 });
 
-
-const courseId = '66e07cb88a0cafe880f72f39';
-let currentIndex = 1; // Initialize index for new lectures
+// Get courseID from query string
+const courseId = new URLSearchParams(window.location.search).get('courseId');
+let currentIndex = 1;
 let isEdit = false;
 let currentEditId = null;
 
@@ -51,7 +54,7 @@ const correctAnswerInput = document.getElementById('correctAnswer');
 
 async function getLecture() {
     try {
-        const response = await fetch(`http://localhost:3000/lectures/course/${courseId}`);
+        const response = await fetch(`/api/lectures/course/${courseId}`);
         const data = await response.json();
 
         lectureList.innerHTML = '';
@@ -99,7 +102,7 @@ function addEventListeners(row) {
 
 async function editLecture(lectureId) {
     try {
-        const response = await fetch(`http://localhost:3000/lectures/${lectureId}`);
+        const response = await fetch(`/api/lectures/${lectureId}`);
         const lecture = await response.json();
 
         lectureTitleInput.value = lecture.name;
@@ -127,7 +130,8 @@ async function saveLecture() {
         courseId: courseId,
         name: lectureTitleInput.value,
         description: lectureDescriptionInput.value,
-        video: videoInput.value,
+        // video: videoInput.value,
+        video: null,
         exercise: {
             question: quizQuestionInput.value,
             options: answerInputs.map(input => input.value),
@@ -137,8 +141,8 @@ async function saveLecture() {
     };
 
     const url = isEdit
-        ? `http://localhost:3000/lectures/${currentEditId}`
-        : `http://localhost:3000/lectures`;
+        ? `/api/lectures/${currentEditId}`
+        : `/api/lectures`;
     const method = isEdit ? 'PUT' : 'POST';
 
     try {
@@ -151,6 +155,19 @@ async function saveLecture() {
         });
 
         if (response.ok) {
+
+            const savedLecture = await response.json();
+            const lectureId = savedLecture.lecture._id;
+            console.log("Lecture ID:", lectureId);
+
+            if (!isEdit && videoInput.files.length > 0) {
+                if (lectureId) {  // Ensure lectureId is defined
+                    await uploadVideo(lectureId);
+                } else {
+                    console.error("Error: Lecture ID is undefined");
+                }
+            }
+
             alert(isEdit ? 'Lecture updated successfully!' : 'Lecture added successfully!');
             getLecture();
             closeModal();
@@ -162,11 +179,31 @@ async function saveLecture() {
     }
 }
 
+async function uploadVideo(lectureId) {
+    const formData = new FormData();
+    formData.append('video', videoInput.files[0]);
+
+    try {
+        const response = await fetch(`/api/lectures/upload/${lectureId}`, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert('Video uploaded successfully!');
+        } else {
+            alert('Failed to upload video. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error uploading video:', error);
+    }
+}
+
 async function deleteLecture(lectureId) {
 
 
     try {
-        const response = await fetch(`http://localhost:3000/lectures/${lectureId}`, {
+        const response = await fetch(`/api/lectures/${lectureId}`, {
             method: 'DELETE'
         });
 

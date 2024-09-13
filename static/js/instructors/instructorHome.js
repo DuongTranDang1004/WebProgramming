@@ -41,7 +41,7 @@ function fetchCourses(sortOrder) {
                 courseList.innerHTML = '<p>No courses available.</p>';
             } else {
                 courseList.innerHTML = data.map(course => `
-                    <a href="createCourse.html?courseId=${course._id}" class="block border-b py-4">
+                    <a href="/instructors/createCourse?courseId=${course._id}" class="block border-b py-4">
                         <div class="flex justify-between items-center mb-4">
                             <div>
                                 <p class="text-lg font-semibold">${course.name}</p>

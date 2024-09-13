@@ -1,41 +1,48 @@
 /* Base Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: #f4f6f9;
 }
 
 .favorites-page {
     display: flex;
     min-height: 100vh;
     overflow: hidden;
+    background-color: #f4f6f9;
 }
 
 .sidebar {
     width: 250px;
     background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .sidebar h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    margin-bottom: 1rem; /* Adjust margin for better spacing */
     color: #333;
 }
 
 .search-input {
     width: 100%;
     padding: 0.75rem;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #ddd;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     font-size: 1rem;
     color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
 .button {
@@ -44,10 +51,12 @@ body {
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
     text-align: center;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem; /* Space between button and search input */
 }
 
 .button:hover {
@@ -57,7 +66,7 @@ body {
 /* Content Area */
 .favorites-content {
     flex: 1;
-    padding: 1.5rem;
+    padding: 2rem;
     background-color: #ffffff;
 }
 
@@ -65,51 +74,61 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+    justify-content: center; /* Center items in the container */
 }
 
 /* Instructor Item */
 .instructor-item {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: calc(33% - 1rem); /* 3 items per row, adjust as needed */
+    width: calc(25% - 1.5rem); /* 4 items per row */
     box-sizing: border-box;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .instructor-item:hover {
-    transform: scale(1.02);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .instructor-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    border-bottom: 2px solid #f1f1f1;
 }
 
 .instructor-item h2 {
-    font-size: 1.25rem;
-    margin: 0.5rem;
+    font-size: 1.5rem;
+    margin: 1rem;
     color: #333;
 }
 
 .instructor-item h3 {
-    font-size: 1rem;
-    margin: 0.5rem;
+    font-size: 1.125rem;
+    margin: 0 1rem 1rem;
     color: #666;
 }
 
 .instructor-item p {
     font-size: 0.875rem;
-    margin: 0.5rem;
+    margin: 0 1rem 1rem;
     color: #777;
+    line-height: 1.5;
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .instructor-item {
+        width: calc(33.333% - 1.5rem); /* 3 items per row */
+    }
+}
+
 @media (max-width: 768px) {
     .instructor-item {
-        width: calc(50% - 1rem); /* 2 items per row */
+        width: calc(50% - 1.5rem); /* 2 items per row */
     }
 }
 

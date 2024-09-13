@@ -3,13 +3,13 @@ let coursePrice = '';
 let courseImg = '';
 
 function formatPrice(price) {
-    let formattedPrice = price.toLocaleString('vi-VN'); // Format price for Vietnamese locale
-    // Check if the price is a whole number, and append ".000"
+    let formattedPrice = price.toLocaleString('vi-VN'); 
     if (Number.isInteger(price)) {
         formattedPrice += '.000';
     }
     return formattedPrice;
 }
+// const courseId = "66e07cb88a0cafe880f72f3a"
 const courseId = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
 
 // Function to fetch course details and lectures
@@ -93,8 +93,7 @@ async function displayCourseDetails(course) {
                 <p class="text-3xl font-semibold text-purple-600"> ${formatPrice(course.price)} đ</p>
                 <div class="flex items-center">
                     <!-- Add to Cart Button -->
-                    <button class="mt-4 bg-purple-600 text-white py-2 px-4 mr-5 w-full rounded-md">Add to cart</button>
-                    
+                    <button class=" add-to-cart mt-4 bg-purple-600 text-white py-2 px-4 mr-5 w-full rounded-md" data-id="courseId" data-name="courseName" data-price="coursePrice">Add to cart</button>
                     <!-- Heart Icon Button -->
                     <button id="favoriteBtn" class="text-red-500 border border-gray-300 p-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" id="heartIcon">
@@ -103,6 +102,7 @@ async function displayCourseDetails(course) {
                     </button>
                 </div>
                 <button id="buyNowBtn" class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Buy now</button>
+                <button id="tryBtn" class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Or may be give it a try?</button>
                 <p class="text-gray-500 mt-2">&copy; Certified by ITLearning</p>
                 <div class="mt-6">
                     <h4 class="font-semibold">This course include:</h4>
@@ -118,9 +118,35 @@ async function displayCourseDetails(course) {
         </div>
     `;
 
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const courseId = course._id;
+            const courseName = course.name;
+            const coursePrice = course.price;
+            const courseImage = course.thumbnailImage;
+            const instructorId = course.instructorId;
+            
+            // Get the existing cart from localStorage or set it as an empty array
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+            // Add the course to the cart
+            cart.push({
+                courseId: courseId,
+                name: courseName,
+                price: coursePrice,
+                image: courseImage,
+                instructor: instructorId
+            });
+    
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+    
+            alert('Course added to cart');
+        });
+    });
+
     // Add event listener for the "Buy now" button
     document.getElementById('buyNowBtn').addEventListener('click', () => {
-        // Redirect to the payment page with the course data
         const payUrl = new URL(`${window.location.origin}/courses/pay`);
         payUrl.searchParams.append('instructorId', instructorId);
         payUrl.searchParams.append('courseId', courseId);
@@ -129,6 +155,48 @@ async function displayCourseDetails(course) {
         payUrl.searchParams.append('courseImg', courseImg);
 
         window.location.href = payUrl.toString();
+    });
+
+    const learner = await (await fetch(`/api/learners/${localStorage.getItem("id")}`, { method: "GET" })).json();
+    document.getElementById('tryBtn').addEventListener('click', async () => {
+        const data = {
+            learnerId: learner._id,
+            courseId: courseId,
+            instructorId: instructor._id,
+            endDate: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+        }
+        await fetch(`/api/boughtCourses/`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        window.location.href = `/learners/myCourses/${learner._id}`;
+    });
+
+    document.getElementById('favoriteBtn').addEventListener('click', async () => {
+        try {
+            const favoriteData = {
+                learnerId: learner._id,
+                courseId: course._id
+            };
+
+            await fetch(`http://localhost:3000/api/favoritesCourses`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(favoriteData),
+            });
+
+            // Update the heart icon to reflect favorited status
+            document.getElementById('heartIcon').classList.add('text-red-600');
+            alert('Course added to favorites');
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+            alert('Failed to add course to favorites');
+        }
     });
 }
 

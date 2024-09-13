@@ -89,3 +89,7 @@
   width: max-content;
   font-weight: bolder;
 }
+
+a:hover {
+  color: white;
+}

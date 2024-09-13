@@ -1,6 +1,7 @@
 const Transaction = require("../models/transactionModel");
 const Learner = require("../models/learnerModel");
 const Course = require("../models/courseModel");
+const BoughtCourse = require("../models/boughtCourseModel");
 
 /**
  * @swagger
@@ -245,9 +246,56 @@ const deleteTransaction = async (req, res) => {
   }
 };
 
+//Get all transaction by learner id
+
+/**
+ * @swagger
+ * /api/transactions/learner/{learnerId}:
+ *   get:
+ *     summary: Get transactions by learner ID
+ *     tags: [Transactions]
+ *     parameters:
+ *       - in: path
+ *         name: learnerId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the learner to get transactions for
+ *     responses:
+ *       200:
+ *         description: List of transactions for the specified learner
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       404:
+ *         description: No transactions found for the specified learner
+ *       500:
+ *         description: Server error
+ */
+const getTransactionsByLearnerId = async (req, res) => {
+  const { learnerId } = req.params; // Get learnerId from request parameters
+
+  try {
+    const transactions = await Transaction.find({ learnerId }); // Find transactions by learnerId
+    if (transactions.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No transactions found for this learner" });
+    }
+    res.status(200).json(transactions); // Send the list of transactions as a JSON response
+  } catch (error) {
+    console.error("Error fetching transactions by learner ID:", error);
+    res.status(500).json({ message: "Server error" }); // Send an error message if something goes wrong
+  }
+};
+
 module.exports = {
   getTransactions,
   getTransaction,
   createTransaction,
   deleteTransaction,
+  getTransactionsByLearnerId,
 };

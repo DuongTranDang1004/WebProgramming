@@ -56,7 +56,7 @@ const membershipSchema = new mongoose.Schema({
     },
     startDate: {
         type: Date,
-        required: false,
+        default: () => { return new Date(); } // Today
     },
     endDate: {
         type: Date,
@@ -77,7 +77,7 @@ const membershipSchema = new mongoose.Schema({
     },
     cardNumber: {
         type: String,
-        required: function () { return this.paymentMethod === 'Card'; }
+        required: false
     }
 })
 

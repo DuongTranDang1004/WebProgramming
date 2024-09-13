@@ -63,3 +63,7 @@
 .dropdown:hover button {
     background-color: #b1b1b1;
 }
+
+a:hover {
+    color: white;
+}
