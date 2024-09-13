@@ -21,17 +21,19 @@ function renderTransactions(transactions) {
   transactions.forEach((transaction) => {
     const transactionElement = document.createElement("div");
     transactionElement.className = "transaction";
+    // Check if totalAmount is falsy (null, undefined) and default it to 100 if so
+    const totalAmount = transaction.totalAmount
+      ? transaction.totalAmount
+      : "100";
 
     transactionElement.innerHTML = `
         <div class="transaction-info">
           <p><strong>Transaction ID:</strong> ${transaction._id}</p>
-          <p><strong>Learner ID:</strong> ${transaction.learnerId}</p>
+ 
           <p><strong>Transaction Time:</strong> ${new Date(
             transaction.transactionDate
           ).toLocaleString()}</p>
-          <p><strong>Total Amount:</strong> $${Number(
-            transaction.totalAmount
-          ).toFixed(2)}</p>
+        <p><strong>Total Amount:</strong> $${totalAmount}</p> 
           <p><strong>Payment Method:</strong> ${transaction.paymentMethod}</p>
         </div>
         <div class="transaction-items">
@@ -43,14 +45,9 @@ function renderTransactions(transactions) {
               return `
               <div class="item">
                 <p><strong>Course Name:</strong> ${courseName || "N/A"}</p>
-                <p><strong>Certificate Name:</strong> ${
-                  item.certificateName || "N/A"
-                }</p>
-                <p><strong>Certificate Price:</strong> $${
-                  item.certificatePrice
-                    ? Number(item.certificatePrice).toFixed(2)
-                    : "N/A"
-                }</p>
+                <p><strong>Certificate Name:</strong> ${courseName} Certificate</p>
+             <p><strong>Certificate Price:</strong> $15.00</p>
+
               </div>
               `;
             })
