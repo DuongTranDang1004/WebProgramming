@@ -14,7 +14,7 @@ async function loadOnGoingCourse() {
 		method: "GET",
 	});
 	if (boughtCourses.status !== 200) {
-		document.getElementById("missing-all-btn").hidden = false;
+		document.getElementById("missing-on-going-btn").hidden = false;
 		return;
 	}
 	const boughtCoursesJson = await boughtCourses.json();
@@ -65,7 +65,7 @@ async function loadAllCourse() {
 	});
 	const boughtCoursesJson = await boughtCourses.json();
 	if (boughtCourses.status !== 200) {
-		document.getElementById("missing-finished-btn").hidden = false;
+		document.getElementById("missing-all-btn").hidden = false;
 		return;
 	}
 	let courseRows = [];
