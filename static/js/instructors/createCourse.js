@@ -161,7 +161,7 @@ async function saveLecture() {
             console.log("Lecture ID:", lectureId);
 
             if (!isEdit && videoInput.files.length > 0) {
-                if (lectureId) {  // Ensure lectureId is defined
+                if (lectureId) { 
                     await uploadVideo(lectureId);
                 } else {
                     console.error("Error: Lecture ID is undefined");
