@@ -317,6 +317,7 @@ const storage = multer.diskStorage({
   }
 });
 
+// I dont know how but it just works fine when I test with postman
 const uploadVideo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -326,7 +327,6 @@ const uploadVideo = async (req, res) => {
     }
     const upload = multer({ storage: storage }).single('video');
     upload(req, res, function (err) {
-      console.log(req.file);
       if (err) {
         console.error("Multer error:", err);
         return res.status(500).json({ message: err.message });
@@ -337,8 +337,8 @@ const uploadVideo = async (req, res) => {
       }
     });
     // Get file name from  /static/videos/ which start with id
-    const filename = fs.readdirSync('./static/videos/').find(file => file.startsWith(id));
-    lecture.video = "/videos/" + filename;
+    const filename = fs.readdirSync('./static/video/').find(file => file.startsWith(id));
+    lecture.video = "/video/" + filename;
     lecture.save();
     return res.status(200).json({ lecture });
   } catch (error) {
