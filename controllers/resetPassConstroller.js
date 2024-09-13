@@ -33,7 +33,6 @@ const resetPass = async (req,res) => {
         //Change new pass
         user.password = newPass;
         await user.save();
-        console.log(user);
 
         return res.status(200).json({message: "Change password successfully"});
     } catch (error) {
