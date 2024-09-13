@@ -95,7 +95,9 @@ h1 {
   #new-instructor-list,
   #new-courses-list,
   #featured-course-list,
-  #featured-instructor-list {
+  #featured-instructor-list,
+  #top-course-list,
+  #top-instructor-list {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,7 +112,9 @@ h1 {
   #new-instructor-list,
   #new-courses-list,
   #featured-course-list,
-  #featured-instructor-list {
+  #featured-instructor-list,
+  #top-course-list,
+  #top-instructor-list {
     display: flex;
     flex-direction: column;
     align-items: center;
