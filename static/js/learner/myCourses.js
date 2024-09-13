@@ -1,4 +1,4 @@
-// const learnerID = localStorage.getItem("id");
+const learnerID = localStorage.getItem("id");
 
 document
   .getElementById("missing-on-going-btn")
