@@ -19,8 +19,6 @@ router.put("/:id", updateLearner);
 
 router.delete("/:id", deleteLearner);
 
-//extra paths for learner UI page
-
 // Favorite Courses
 router.get("/favoriteCourses/:id", (req, res) => {
   res.render("learner/favCourses", {
