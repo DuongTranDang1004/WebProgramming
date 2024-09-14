@@ -51,3 +51,20 @@ There are alternative options, such as `APP_PORT` to determine the running port 
 
 2: Back end running on port 3000
 Go to 'http://localhost:{APP_PORT}/' to see applications
+
+## Accounts
+
+### Admin account
+
+-   Email: admin@itlearning.ddns.net
+-   Password: Admin123
+
+### Learner account
+
+-   Email: learner@itlearning.ddns.net
+-   Password: Learner123
+
+### Instructor account
+
+-   Email: instructor@itlearning.ddns.net
+-   Password: Instructor123
