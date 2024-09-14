@@ -1,34 +1,82 @@
-#my-account-btn, #my-courses {
+/* General Header Styles */
+#logo {
+    width: 80px;
+}
+
+.icon img {
+    width: 15px;
+    height: 15px;
+    margin-left: 15px;
     cursor: pointer;
 }
 
-#my-account-btn:hover {
+#user-avatar-container {
+    position: relative;
+    margin-left: 15px;
+}
+
+#user-avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
     cursor: pointer;
 }
 
-.nav-bar {
-    display: flex;
-    justify-content: space-between;
-    font-size: 170%;
+#user-avatar-container:hover .dropdown-menu {
+    display: block;
 }
 
 .search-and-log-out {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
 }
 
-.search-form {
-    display: flex;
+#login-btn {
+    margin-left: 15px;
+    background-color: rgb(181, 63, 255);
+    color: white;
 }
 
-.search-form input {
-    font-size: 100%;
+#signup-btn {
+    margin-left: 10px;
+    background-color: white;
+    border: 1px solid rgb(0, 0, 0);
+    color: black;
 }
 
-.search-and-log-out button {
-    margin: 0 4px;
+@media (max-width: 1200px) {
+
+    .navbar-nav {
+        flex-direction: column;
+    }
 }
 
-#logout-btn, #login-btn, #nav-button {
-    font-size: 100%;
+@media (max-width: 767px) {
+    .nav-bar {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+        font-size: 30px;
+        margin-right: 10px;
+    }
+
+    .show {
+        display: block !important;
+    }
+
+    #logo {
+        margin-left: 10px;
+    }
+
+    .search-and-log-out {
+        flex-direction: row;
+    }
+
+    .icon img {
+        margin: 0;
+        margin-right: 10px;
+    }
 }

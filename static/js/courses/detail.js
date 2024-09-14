@@ -68,6 +68,7 @@ async function displayCourseDetails(course) {
             <div class="col-span-2">
                 <h1 class="text-3xl font-bold">${course.name}</h1>
                 <p class="text-lg mt-2">Get yourself overwhelmed with fantastic contents our course provide</p>
+                <button id="tryBtn" class="mt-2 bg-purple-600 text-white py-2 px-4 rounded-md">Start Trial</button>
                 <div class="flex items-center mt-4">
                     <span class="text-yellow-400 text-xl">★ ${randomRating}</span>
                     <span class="ml-2 text-gray-600">(${randomRatingCount} ratings)</span>
@@ -102,7 +103,7 @@ async function displayCourseDetails(course) {
                     </button>
                 </div>
                 <button id="buyNowBtn" class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Buy now</button>
-                <button id="tryBtn" class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Or may be give it a try?</button>
+                <button id="withoutCert" class="mt-2 border border-purple-600 text-purple-600 py-2 px-4 w-full rounded-md">Buy without certificate?</button>
                 <p class="text-gray-500 mt-2">&copy; Certified by ITLearning</p>
                 <div class="mt-6">
                     <h4 class="font-semibold">This course include:</h4>

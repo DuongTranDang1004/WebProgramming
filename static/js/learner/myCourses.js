@@ -31,13 +31,15 @@ async function loadOnGoingCourse() {
 		const courseData = await (await fetch(`/api/courses/${boughtCourse.courseInfo._id}`)).json();
 		const courseCard = document.createElement("div");
 		courseCard.className = "course-card";
+		let buyCert = courseData.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
 		courseCard.innerHTML = `
 			<div class="course-card-image" id="course-${courseData._id}">
-				<img src="${courseData.thumbnailImage}" alt="Course Image">
+				<img src="${courseData.thumbnailImage}" alt="Course Image" onClick=goToCoursePage("${courseData._id}")>
 			</div>
 			<div class="course-card-content">
-				<h3>${courseData.name}</h3>
-				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p
+				<h3 onClick=goToCoursePage("${courseData._id})>${courseData.name}</h3>
+				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p>
+				${buyCert}
 			</div>
 		`;
 		// check if last element in courses row contain 3 courses
@@ -46,9 +48,9 @@ async function loadOnGoingCourse() {
 			courseRows[courseRows.length - 1].className = "course-row";
 		}
 		courseRows[courseRows.length - 1].appendChild(courseCard);
-		courseCard.addEventListener("click", function() {
-			window.location.href = `/courses/detailedPerformance/${courseData._id}`;
-		});
+		// courseCard.addEventListener("click", function() {
+		// 	window.location.href = `/courses/detailedPerformance/${courseData._id}`;
+		// });
 	}
 	for (let i = 0; i < courseRows.length; i++) {
 		const courseRow = courseRows[i];
@@ -57,6 +59,11 @@ async function loadOnGoingCourse() {
 	}
 }
 loadOnGoingCourse();
+
+
+function goToCoursePage(courseID) {
+	window.location.href = `/courses/detailedPerformance/${courseID}`;
+}
 
 
 async function loadAllCourse() {

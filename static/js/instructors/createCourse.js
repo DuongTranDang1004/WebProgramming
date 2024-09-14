@@ -18,6 +18,43 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
+async function updateCourse() {
+    const courseId = new URLSearchParams(window.location.search).get('courseId');
+
+    // Collect data from the form
+    const name = document.getElementById("title").value;
+    const category = document.getElementById("category").value;
+    const price = document.getElementById("price").value;
+    const description = document.getElementById("description").value;
+    // Create formData object if image is uploaded, else regular object
+    const formData = {
+        name,
+        category,
+        price,
+        description,
+    };
+
+    try {
+        const response = await fetch(`/api/courses/${courseId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            alert('Course updated successfully!');
+        } else {
+            alert('Failed to update course. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error updating course:', error);
+        alert('An error occurred while updating the course.');
+    }
+}
+
+
 const links = document.querySelectorAll('.sidebar-link');
 const sections = document.querySelectorAll('.content-section');
 
@@ -105,14 +142,13 @@ async function editLecture(lectureId) {
         const response = await fetch(`/api/lectures/${lectureId}`);
         const lecture = await response.json();
 
-        lectureTitleInput.value = lecture.name;
-        lectureDescriptionInput.value = lecture.description;
-        videoInput.value = lecture.video;
-        quizQuestionInput.value = lecture.exercise.question;
-        answerInputs[0].value = lecture.exercise.options[0];
-        answerInputs[1].value = lecture.exercise.options[1];
-        answerInputs[2].value = lecture.exercise.options[2];
-        correctAnswerInput.value = lecture.exercise.correctAnswer;
+        lectureTitleInput.value = lecture.lecture.name;
+        lectureDescriptionInput.value = lecture.lecture.description;
+        quizQuestionInput.value = lecture.lecture.exercise.question || '';
+        answerInputs[0].value = lecture.lecture.exercise.options[0];
+        answerInputs[1].value = lecture.lecture.exercise.options[1];
+        answerInputs[2].value = lecture.lecture.exercise.options[2];
+        correctAnswerInput.value = lecture.lecture.exercise.correctAnswer;
 
         isEdit = true;
         currentEditId = lectureId;
@@ -121,25 +157,38 @@ async function editLecture(lectureId) {
     } catch (error) {
         console.error('Error fetching lecture details:', error);
     }
-
-    console.log(lectureId);
 }
 
 async function saveLecture() {
+
+    let existingVideo = null;
+
+    if (isEdit) {
+        // Fetch the existing lecture details to get the current video URL
+        try {
+            const response = await fetch(`/api/lectures/${currentEditId}`);
+            const result = await response.json();
+            existingVideo = result.lecture.video;
+        } catch (error) {
+            console.error('Error fetching lecture details:', error);
+            alert('Failed to fetch lecture details. Please try again.');
+            return;
+        }
+    }
+
     const lecture = {
         courseId: courseId,
         name: lectureTitleInput.value,
         description: lectureDescriptionInput.value,
-        // video: videoInput.value,
-        video: null,
+        video: videoInput.files.length > 0 ? null : existingVideo,
         exercise: {
             question: quizQuestionInput.value,
             options: answerInputs.map(input => input.value),
             correctAnswer: correctAnswerInput.value
         },
-        index: currentIndex // Use currentIndex for new lectures
+        index: currentIndex 
     };
-
+    console.log('Lecture object:', lecture);
     const url = isEdit
         ? `/api/lectures/${currentEditId}`
         : `/api/lectures`;
@@ -153,14 +202,14 @@ async function saveLecture() {
             },
             body: JSON.stringify(lecture)
         });
-
+        console.log('Response status:', response.status);
         if (response.ok) {
 
             const savedLecture = await response.json();
             const lectureId = savedLecture.lecture._id;
             console.log("Lecture ID:", lectureId);
 
-            if (!isEdit && videoInput.files.length > 0) {
+            if (videoInput.files.length > 0) {
                 if (lectureId) { 
                     await uploadVideo(lectureId);
                 } else {

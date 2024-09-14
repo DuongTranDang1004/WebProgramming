@@ -309,7 +309,7 @@ async function generateSampleData() {
       let paymentMethod = Math.floor(Math.random() * 2) % 2 ? "Card" : "Paypal";
       membershipData.push({
         instructorId: instructorData[index]._id,
-        planName: "Gold", //this should be random
+        planName: faker.helpers.arrayElement(["Basic", "Saving", "Premium"]),
         planType: planType,
         commissionFee: 0.2,
         price: planType == "Monthly" ? 20 : 200,

@@ -54,11 +54,10 @@ router.get("/home", (req, res) => {
   });
 });
 
-router.get("/profile", (req, res) => {
+router.get("/instructorProfile", (req, res) => {
   res.render("instructors/instructorProfile", {
     title: "Instructor profile",
     pageScripts: [
-      "/js/instructors/permission.js",
       "/js/instructors/instructorProfile.js",
       "https://kit.fontawesome.com/eb26321189.js"
     ],

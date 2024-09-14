@@ -57,6 +57,6 @@
 }
 
 
-.course-card-image, .course-card-content {
+.course-card-image, .course-card-content h3 {
 	cursor: pointer;
 }

@@ -1,96 +1,10 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-  const searchForm = document.getElementById("search-form");
-  const searchInput = document.getElementById("nav-search-input");
-  const searchResultsContainer = document.getElementById("search-results");
-  const originalContent = document.getElementById("new-instructors").innerHTML; // Save original homepage content
-
-  searchForm.addEventListener("submit", async function (event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    const query = searchInput.value.trim();
-    if (!query) return; // Do nothing if the query is empty
-
-    // Perform the search
-    const searchResults = await searchCoursesAndInstructors(query);
-
-    // If there are search results, display them and hide the original homepage content
-    if (searchResults) {
-      displaySearchResults(searchResults);
-    } else {
-      displayNoResults();
-    }
-  });
-
-  // Fetch search results from the backend
-  const searchCoursesAndInstructors = async (query) => {
-    try {
-      const coursesResponse = await fetch(`/api/search/courses?q=${encodeURIComponent(query)}`);
-      //const instructorsResponse = await fetch(`/api/search/instructors?q=${encodeURIComponent(query)}`);
-
-      const courses = await coursesResponse.json();
-      //const instructors = await instructorsResponse.json();
-
-      return { courses, instructors };
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-      return null;
-    }
-  };
-
-  // Display search results and hide original content
-  const displaySearchResults = ({ courses, instructors }) => {
-    // Hide original homepage content
-    document.getElementById("new-instructors").style.display = 'none';
-    document.getElementById("new-courses").style.display = 'none';
-
-    // Clear previous search results
-    searchResultsContainer.innerHTML = '';
-    searchResultsContainer.style.display = 'block';
-
-    // Display courses
-    if (courses.length > 0) {
-      const coursesHTML = `
-        <h2>Courses</h2>
-        <ul>
-          ${courses.map(course => `
-            <li>
-              <a href="/courses/${course._id}">${course.name}</a> - By ${course.instructorName}
-            </li>
-          `).join('')}
-        </ul>
-      `;
-      searchResultsContainer.innerHTML += coursesHTML;
-    }
-
-    // Display instructors
-    if (instructors.length > 0) {
-      const instructorsHTML = `
-        <h2>Instructors</h2>
-        <ul>
-          ${instructors.map(instructor => `
-            <li>
-              <a href="/instructors/${instructor._id}">${instructor.firstName} ${instructor.lastName}</a> - ${instructor.specialization}
-            </li>
-          `).join('')}
-        </ul>
-      `;
-      searchResultsContainer.innerHTML += instructorsHTML;
-    }
-
-    // If no results found
-    if (courses.length === 0 && instructors.length === 0) {
-      searchResultsContainer.innerHTML = '<p>No results found</p>';
-    }
-  };
-
-  // If no results are found, display this message
-  const displayNoResults = () => {
-    searchResultsContainer.innerHTML = '<p>No results found for your query</p>';
-    searchResultsContainer.style.display = 'block';
-  };
-
-
+  function getRandomRating() {
+      const rating = (Math.random() * (5 - 3.5) + 3.5).toFixed(1); // Generates random rating between 3.5 and 5.0
+      const stars = "★".repeat(Math.floor(rating)) + "☆".repeat(5 - Math.floor(rating));
+      return { rating, stars };
+  }
   // Function to fetch top 5 instructors from /followingInstructors/rank
   const fetchTopInstructors = async () => {
     try {
@@ -175,13 +89,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     instructorList.innerHTML = ""; // Clear previous content
     instructors.slice(0, 5).forEach((instructor) => {
       const instructorHTML = `
-        <div class="item">
+        <div class="course-card">
+        <a href="/instructors/instructorProfile?instructorId=${instructor.instructorDetails._id}" style="text-decoration: none;">
           <img src="${instructor.instructorDetails.profilePicture}" alt="${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}" class="profile-img" />
           <div class="instructor-info">
-            <h2>${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}</h2>
-            <p><strong>Specialization: ${instructor.instructorDetails.specialization}</strong></p>
+            <h5>${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}</h5>
+            <h6><strong>Specialization: ${instructor.instructorDetails.specialization}</strong></h6>
             <p>Current Role: ${instructor.instructorDetails.jobTitle}</p>
           </div>
+        </a>
         </div>
       `;
       instructorList.innerHTML += instructorHTML;
@@ -195,13 +111,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     instructors.slice(0, 5).forEach((instructor) => {
       const instructorHTML = `
-          <div class="item">
+          <div class="course-card">
+          <a href="/instructors/instructorProfile?instructorId=${instructor.instructorDetails._id}" style="text-decoration: none;">
             <img src="${instructor.instructorDetails.profilePicture}" alt="${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}" class="profile-img" />
             <div class="instructor-info">
-              <h2>${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}</h2>
-              <p><strong>Specialization: ${instructor.instructorDetails.specialization}</strong></p>
+              <h5>${instructor.instructorDetails.firstName} ${instructor.instructorDetails.lastName}</h5>
+              <h6><strong>Specialization: ${instructor.instructorDetails.specialization}</strong></h6>
               <p>Current Role: ${instructor.instructorDetails.jobTitle}</p>
             </div>
+          </a>
         </div>
         `;
       instructorList.innerHTML += instructorHTML;
@@ -216,13 +134,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Only display top 5 instructors
     instructors.slice(0, 5).forEach((instructor) => {
       const instructorHTML = `
-      <div class="item">
+      <div class="course-card">
+      <a href="/instructors/instructorProfile?instructorId=${instructor.instructorDetails._id}" style="text-decoration: none;">
           <img src="${instructor.profilePicture}" alt="${instructor.firstName} ${instructor.lastName}" class="profile-img" />
           <div class="instructor-info">
-            <h2>${instructor.firstName} ${instructor.lastName}</h2>
-            <p><strong>Specialization: ${instructor.specialization}</strong></p>
+            <h5>${instructor.firstName} ${instructor.lastName}</h5>
+            <h6><strong>Specialization: ${instructor.specialization}</strong></h6>
             <p>Current Role: ${instructor.jobTitle}</p>
           </div>
+          
         </div>
     `;
       newInstructorList.innerHTML += instructorHTML;
@@ -234,14 +154,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     const courseList = document.getElementById("featured-course-list");
     courseList.innerHTML = ""; // Clear previous content
 
-    courses.slice(0, 5).forEach(async (course) => {
+    courses.slice(0, 10).forEach(async (course) => {
+      const { rating, stars } = getRandomRating();
+      const instructor = await (await fetch(`/api/instructors/${course.courseDetails.instructorId}`)).json();
       const courseHTML = `
-          <div class="item">
-            <img src="${course.courseDetails.thumbnailImage}" alt="${course.courseDetails.name}" class="course-img" />
-            <div>
-              <h3><a href=/courses/detail/${course._id}>${course.courseDetails.name}</a></h3>
-              <p>By ${course.instructorDetails.firstName} ${course.instructorDetails.lastName} - $${course.courseDetails.price}</p>
-            </div>
+          <div class="course-card">
+            <a href=/courses/detail/${course._id}>
+              <img src="${course.courseDetails.thumbnailImage}" alt="Course Image">
+              <h5>${course.courseDetails.name}</h5>
+              <p>${instructor.firstName} ${instructor.lastName}</p>
+              <p><strong>${rating}</strong> <span>${stars}</span></p>
+              <p>₫${course.courseDetails.price}</p>
+            </a>
           </div>
         `;
       courseList.innerHTML += courseHTML;
@@ -254,17 +178,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     const courseList = document.getElementById("top-course-list");
     courseList.innerHTML = ""; // Clear previous content
   
-    courses.slice(0, 5).forEach((course) => {
+    courses.slice(0, 10).forEach((course) => {
+      const { rating, stars } = getRandomRating();
       const instructorName = `${course.instructorDetails.firstName} ${course.instructorDetails.lastName}`;
   
       const courseHTML = `
-          <div class="item">
-            <img src="${course.courseDetails.thumbnailImage}" alt="${course.courseDetails.name}" class="course-img" />
-            <div>
-              <h3><a href="/courses/detail/${course._id}">${course.courseDetails.name}</a></h3>
-              <p><strong>Lecturer: <a href="#">${instructorName}</a><strong></p>
-            </div>
-          </div>
+        <div class="course-card">
+          <a href=/courses/detail/${course._id}>
+            <img src="${course.courseDetails.thumbnailImage}" alt="Course Image">
+            <h5>${course.courseDetails.name}</h5>
+            <p>${instructorName}</p>
+            <p><strong>${rating}</strong> <span>${stars}</span></p>
+            <p>₫${course.courseDetails.price}</p>
+          </a>
+        </div>
         `;
       courseList.innerHTML += courseHTML;
     });
@@ -276,14 +203,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     const newCoursesList = document.getElementById("new-courses-list"); // Assuming you have an element with this ID in HTML
     newCoursesList.innerHTML = ""; // Clear previous content
 
-    courses.slice(0, 5).forEach((course) => {
+    courses.slice(0, 10).forEach((course) => {
+      const { rating, stars } = getRandomRating();
       const courseHTML = `
-        <div class="item">
-          <img src="${course.thumbnailImage}" alt="${course.name}" class="course-img" />
-          <div>
-            <h3><a href="/courses/detail/${course._id}">${course.name}</a></h3>
-            <p>By ${course.instructorId.firstName} ${course.instructorId.lastName} - $${course.price}</p>
-          </div>
+        <div class="course-card">
+          <a href=/courses/detail/${course._id}>
+            <img src="${course.thumbnailImage}" alt="Course Image">
+            <h5>${course.name}</h5>
+            <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
+            <p><strong>${rating}</strong> <span>${stars}</span></p>
+            <p>₫${course.price}</p>
+          </a>
         </div>
       `;
       newCoursesList.innerHTML += courseHTML;
