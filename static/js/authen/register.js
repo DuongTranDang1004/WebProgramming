@@ -29,7 +29,7 @@ async function registerLearner() {
     return;
   }
   // Send to API
-  const result = await fetch("http://localhost:3000/api/learners/", {
+  const result = await fetch("/api/learners/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -73,7 +73,7 @@ async function registerInstructor() {
     return;
   }
   // Send to API
-  const result = await fetch("http://localhost:3000/api/instructors/", {
+  const result = await fetch("/api/instructors/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
