@@ -156,13 +156,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     courses.slice(0, 10).forEach(async (course) => {
       const { rating, stars } = getRandomRating();
-      const instructor = await (await fetch(`/api/instructors/${course.courseDetails.instructorId}`)).json();
       const courseHTML = `
           <div class="course-card">
             <a href=/courses/detail/${course._id} style="text-decoration: none;">
               <img src="${course.courseDetails.thumbnailImage}" alt="Course Image">
               <h5>${course.courseDetails.name}</h5>
-              <p>${instructor.firstName} ${instructor.lastName}</p>
+              <p>${course.instructorDetails.firstName} ${course.instructorDetails.lastName}</p>
               <p><strong>${rating}</strong> <span>${stars}</span></p>
               <p>₫${course.courseDetails.price}</p>
             </a>

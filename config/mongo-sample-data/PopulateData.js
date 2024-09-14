@@ -64,7 +64,7 @@ async function generateSampleData() {
     await platformAdmins.insertOne({
       email: "admin@itlearning.ddns.net",
       password: "Admin123",
-      profilePicture: faker.image.avatar(),
+      profilePicture: faker.image.avatarGitHub(),
       firstName: "Admin",
       lastName: "ITLearning",
       address: "702 Nguyen Van Linh, Tan Hung, District 7",
@@ -77,7 +77,7 @@ async function generateSampleData() {
     await instructors.insertOne({
       email: "instructor@itlearning.ddns.net",
       password: "Instructor123",
-      profilePicture: faker.image.avatar(),
+      profilePicture: faker.image.avatarGitHub(),
       firstName: "Instructor",
       lastName: "ITLearning",
       address: "702 Nguyen Van Linh, Tan Hung, District 7",
@@ -94,7 +94,7 @@ async function generateSampleData() {
     await learners.insertOne({
       email: "learner@itlearning.ddns.net",
       password: "Learner123",
-      profilePicture: faker.image.avatar(),
+      profilePicture: faker.image.avatarGitHub(),
       firstName: "Learner",
       lastName: "ITLearning",
       address: "702 Nguyen Van Linh, Tan Hung, District 7",
