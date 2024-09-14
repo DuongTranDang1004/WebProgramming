@@ -42,15 +42,15 @@ input[type="password"] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
+    color: #a359ed;
+    border: 2px solid #a359ed;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .login-button:hover {
-    background-color: #218838;
+    background-color: #a359ed;
+    color: white;
 }
 
 .form-footer {
@@ -59,7 +59,7 @@ input[type="password"] {
 }
 
 .form-footer a {
-    color: #007bff;
+    color: #b753ff;
     text-decoration: none;
 }
 

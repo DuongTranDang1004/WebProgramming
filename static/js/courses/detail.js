@@ -9,7 +9,6 @@ function formatPrice(price) {
     }
     return formattedPrice;
 }
-// const courseId = "66e07cb88a0cafe880f72f3a"
 const courseId = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
 
 // Function to fetch course details and lectures
@@ -154,6 +153,7 @@ async function displayCourseDetails(course) {
         payUrl.searchParams.append('courseName', courseName);
         payUrl.searchParams.append('price', coursePrice);
         payUrl.searchParams.append('courseImg', courseImg);
+        payUrl.searchParams.append('isCertificate', true);
 
         window.location.href = payUrl.toString();
     });
@@ -175,6 +175,20 @@ async function displayCourseDetails(course) {
         });
         window.location.href = `/learners/myCourses/${learner._id}`;
     });
+
+    //Add event listener to buy without cert button
+    document.getElementById('withoutCert').addEventListener('click', () => {
+        const payUrl = new URL(`${window.location.origin}/courses/pay`);
+        payUrl.searchParams.append('instructorId', instructorId);
+        payUrl.searchParams.append('courseId', courseId);
+        payUrl.searchParams.append('courseName', courseName);
+        payUrl.searchParams.append('price', coursePrice);
+        payUrl.searchParams.append('courseImg', courseImg);
+        payUrl.searchParams.append('isCertificate', false);
+
+        window.location.href = payUrl.toString();
+    });
+
 
     document.getElementById('favoriteBtn').addEventListener('click', async () => {
         try {

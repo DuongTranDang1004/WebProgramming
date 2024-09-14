@@ -182,7 +182,7 @@
             alert(`Checkout successful! ${data.message}`);
 
             localStorage.removeItem('cart');
-            window.location.href = `/learners/myAccount/${transactionData.learnerId}`;
+            window.location.href = `/learners/myCourses/${transactionData.learnerId}`;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
             alert('Checkout failed. Please try again.');

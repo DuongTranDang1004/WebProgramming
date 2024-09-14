@@ -147,11 +147,13 @@
                 const { rating, stars } = getRandomRating();
                 topCoursesContainer.innerHTML += `
                 <div class="course-card">
-                    <img src="${course.thumbnailImage}" alt="Course Image">
-                    <h5>${course.name}</h5>
-                    <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
-                    <p><strong>${rating}</strong> <span>${stars}</span></p>
-                    <p>₫${course.price}</p>
+                    <a href=/courses/detail/${course._id} style="text-decoration: none;">
+                        <img src="${course.thumbnailImage}" alt="Course Image">
+                        <h5>${course.name}</h5>
+                        <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
+                        <p><strong>${rating}</strong> <span>${stars}</span></p>
+                        <p>₫${course.price}</p>
+                    </a>
                 </div>`;
             });
         }
@@ -176,11 +178,13 @@
                 courseList.innerHTML += `
                 <div class="col-md-4">
                     <div class="course-card">
-                        <img src="${course.thumbnailImage}" alt="Course Image">
-                        <h5>${course.name}</h5>
-                        <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
-                        <p><strong>${rating}</strong> <span>${stars}</span></p>
-                        <p>₫${course.price}</p>
+                        <a href=/courses/detail/${course._id} style="text-decoration: none;">
+                            <img src="${course.thumbnailImage}" alt="Course Image">
+                            <h5>${course.name}</h5>
+                            <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
+                            <p><strong>${rating}</strong> <span>${stars}</span></p>
+                            <p>₫${course.price}</p>
+                        </a>
                     </div>
                 </div>`;
             });

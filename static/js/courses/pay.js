@@ -2,61 +2,96 @@ const learnerId = localStorage.getItem("id");
 
 function getQueryParams() {
     const params = new URLSearchParams(window.location.search);
+    const price = params.get('price').replace(/\./g, ''); // Remove thousand separators
+    const isCert = params.get('isCertificate') === 'true'; // Ensure isCert is a boolean
+
+    console.log('Query Params:', {
+        courseId: params.get('courseId'),
+        instructorId: params.get('instructorId'),
+        courseName: params.get('courseName'),
+        price: parseFloat(price), // Convert to number
+        imgUrl: params.get('courseImg'),
+        isCert
+    });
+
     return {
         courseId: params.get('courseId'),
         instructorId: params.get('instructorId'),
         courseName: params.get('courseName'),
-        price: params.get('price'),
-        imgUrl: params.get('courseImg')
+        price: parseFloat(price),
+        imgUrl: params.get('courseImg'),
+        isCert
     };
 }
 
 function formatPrice(price) {
-    let formattedPrice = price.toLocaleString('vi-VN');
-    if (Number.isInteger(parseFloat(price))) {
-        formattedPrice += '.000 vnđ';
-    }
+    let formattedPrice = price.toLocaleString('vi-VN', { minimumFractionDigits: 0 });
+    formattedPrice += ' đ';
     return formattedPrice;
 }
 
 function loadCheckoutData() {
-    const { courseName, price, imgUrl, courseId } = getQueryParams();
-    const formattedPrice = formatPrice(parseFloat(price));
+    const { courseName, price, imgUrl, isCert } = getQueryParams();
+    const coursePrice = price;
+    const certificatePrice = !isCert ? ((coursePrice * 20)/100) : 0;
+    const certificateName = isCert ? `${courseName} Certificate` : '';
+    const totalPrice = coursePrice - certificatePrice; // Total price should be coursePrice
+    const formattedCertificatePrice = formatPrice(certificatePrice);
+    const formattedTotalPrice = formatPrice(totalPrice);
+
+    console.log('Checkout Data:', {
+        courseName,
+        coursePrice,
+        certificatePrice,
+        certificateName,
+        totalPrice,
+        formattedCertificatePrice,
+        formattedTotalPrice
+    });
 
     document.getElementById('order-details').innerHTML = `
-<h2 class="text-2xl font-semibold mb-4">Order Details</h2>
-<div class="flex justify-between items-center">
-    <div class="flex items-center">
-    <img class="h-10 w-10 rounded-md" src="${imgUrl}" alt="Course Thumbnail">
-    <div class="ml-4">
-        <h3 class="text-lg font-semibold">${courseName}</h3>
-    </div>
-    </div>
-    <span class="text-lg">${formattedPrice}</span>
-</div>
-`;
+        <h2 class="text-2xl font-semibold mb-4">Order Details</h2>
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <img class="h-10 w-10 rounded-md" src="${imgUrl}" alt="Course Thumbnail">
+                <div class="ml-4">
+                    <h3 class="text-lg font-semibold">${courseName}</h3>
+                    ${certificateName ? `<p class="text-sm text-gray-600">${certificateName}</p>` : ''}
+                </div>
+            </div>
+            <span class="text-lg">${formatPrice(coursePrice)}</span>
+        </div>
+    `;
 
     document.getElementById('summary').innerHTML = `
-<h2 class="text-xl font-bold mb-6">Summary</h2>
-<div class="flex justify-between mb-4">
-    <span class="text-gray-700 text-lg">Original Price:</span>
-    <span class="font-medium text-lg text-gray-700">${formattedPrice} đ</span>
-</div>
-<div class="flex justify-between mb-6">
-    <span class="text-lg font-semibold text-gray-700">Total:</span>
-    <span class="text-lg font-semibold text-gray-700">${formattedPrice} đ</span>
-</div>
-<p class="text-sm text-gray-500 mb-6">By completing your purchase, you agree to these <a href="#" class="text-blue-600 underline">Terms of Service</a>.</p>
-<button id="completeCheckoutBtn" class="w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
-    Complete Checkout
-</button>
-<p class="text-center text-sm text-gray-500 mt-4">30-Day Money-Back Guarantee</p>
-`;
+        <h2 class="text-xl font-bold mb-6">Summary</h2>
+        <div class="flex justify-between mb-4">
+            <span class="text-gray-700 text-lg">Original Price:</span>
+            <span class="font-medium text-lg text-gray-700">${formatPrice(coursePrice)}</span>
+        </div>
+        ${!isCert ? `
+            <div class="flex justify-between mb-4">
+                <span class="text-gray-700 text-lg">Save Money Without Certificate:</span>
+                <span class="font-medium text-lg text-gray-700">${formattedCertificatePrice}</span>
+            </div>
+        ` : ''}
+        <div class="flex justify-between mb-6">
+            <span class="text-lg font-semibold text-gray-700">Total:</span>
+            <span class="text-lg font-semibold text-gray-700">${formattedTotalPrice}</span>
+        </div>
+        <p class="text-sm text-gray-500 mb-6">By completing your purchase, you agree to these <a href="#" class="text-blue-600 underline">Terms of Service</a>.</p>
+        <button id="completeCheckoutBtn" class="w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
+            Complete Checkout
+        </button>
+        <p class="text-center text-sm text-gray-500 mt-4">30-Day Money-Back Guarantee</p>
+    `;
 }
 
 async function handleCheckout() {
-    const { courseId, instructorId } = getQueryParams();
-    const price = parseFloat(new URLSearchParams(window.location.search).get('price'));
+    const { courseId, instructorId, isCert } = getQueryParams();
+    const coursePrice = parseFloat(new URLSearchParams(window.location.search).get('price').replace(/\./g, ''));
+    const certificatePrice = !isCert ? ((coursePrice * 20)/100) : 0;
+    const totalAmount = coursePrice - certificatePrice; // Total amount should be coursePrice
 
     const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
     if (!paymentMethod) {
@@ -68,18 +103,19 @@ async function handleCheckout() {
         learnerId,
         courseId,
         instructorId,
-        amount: price,
         transactionDate: new Date().toISOString(),
         paymentMethod: paymentMethod.value, // Ensure this is a string
         transactionItems: [
             {
                 courseId,
-                certificateName: '',
-                certificatePrice: 0
+                certificateName: isCert ? `${getQueryParams().courseName} Certificate` : '',
+                certificatePrice: isCert ? ((coursePrice * 20)/100) : 0
             }
         ],
-        totalAmount: price
+        totalAmount
     };
+
+    console.log('Transaction Data:', transactionData);
 
     try {
         const response = await fetch(`/api/transactions`, {
@@ -108,5 +144,12 @@ async function handleCheckout() {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadCheckoutData();
-    document.getElementById('completeCheckoutBtn').addEventListener('click', handleCheckout);
+    
+    // Check if the button exists before adding the event listener
+    const completeCheckoutBtn = document.getElementById('completeCheckoutBtn');
+    if (completeCheckoutBtn) {
+        completeCheckoutBtn.addEventListener('click', handleCheckout);
+    } else {
+        console.error('Button with ID "completeCheckoutBtn" not found.');
+    }
 });

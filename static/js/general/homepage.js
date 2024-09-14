@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     instructors.slice(0, 5).forEach((instructor) => {
       const instructorHTML = `
       <div class="course-card">
-      <a href="/instructors/instructorProfile?instructorId=${instructor.instructorDetails._id}" style="text-decoration: none;">
+      <a href="/instructors/instructorProfile?instructorId=${instructor._id}" style="text-decoration: none;">
           <img src="${instructor.profilePicture}" alt="${instructor.firstName} ${instructor.lastName}" class="profile-img" />
           <div class="instructor-info">
             <h5>${instructor.firstName} ${instructor.lastName}</h5>
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const instructor = await (await fetch(`/api/instructors/${course.courseDetails.instructorId}`)).json();
       const courseHTML = `
           <div class="course-card">
-            <a href=/courses/detail/${course._id}>
+            <a href=/courses/detail/${course._id} style="text-decoration: none;">
               <img src="${course.courseDetails.thumbnailImage}" alt="Course Image">
               <h5>${course.courseDetails.name}</h5>
               <p>${instructor.firstName} ${instructor.lastName}</p>
@@ -171,7 +171,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       courseList.innerHTML += courseHTML;
     });
   };
-  // - $${course.courseDetails.price}
 
   // Function to render top courses
   const renderTopCourses = (courses) => {
@@ -184,7 +183,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   
       const courseHTML = `
         <div class="course-card">
-          <a href=/courses/detail/${course._id}>
+          <a href=/courses/detail/${course._id} style="text-decoration: none;">
             <img src="${course.courseDetails.thumbnailImage}" alt="Course Image">
             <h5>${course.courseDetails.name}</h5>
             <p>${instructorName}</p>
@@ -196,18 +195,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       courseList.innerHTML += courseHTML;
     });
   };
-  // - $${course.courseDetails.price}
+
 
   // Function to render new courses
   const renderNewCourses = (courses) => {
-    const newCoursesList = document.getElementById("new-courses-list"); // Assuming you have an element with this ID in HTML
+    const newCoursesList = document.getElementById("new-courses-list");
     newCoursesList.innerHTML = ""; // Clear previous content
 
     courses.slice(0, 10).forEach((course) => {
       const { rating, stars } = getRandomRating();
       const courseHTML = `
         <div class="course-card">
-          <a href=/courses/detail/${course._id}>
+          <a href=/courses/detail/${course._id} style="text-decoration: none;">
             <img src="${course.thumbnailImage}" alt="Course Image">
             <h5>${course.name}</h5>
             <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
