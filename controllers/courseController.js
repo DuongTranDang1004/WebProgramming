@@ -1,5 +1,6 @@
 const Course = require("../models/courseModel");
-const Instructor = require("../models/instructorModel")
+const Instructor = require("../models/instructorModel");
+const { faker } = require("@faker-js/faker");
 /**
  * @swagger
  * tags:
@@ -186,6 +187,7 @@ const getCoursesByInstructorID = async (req, res) => {
  */
 const createCourse = async (req, res) => {
   try {
+    req.body.thumbnailImage = faker.image.url();
     const course = await Course.create(req.body);
     res.status(201).json(course);
   } catch (error) {

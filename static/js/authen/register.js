@@ -1,28 +1,101 @@
-// Function to fetch the country list and populate the dropdown
-async function populateCountryDropdown() {
-  try {
-    // Fetch the list of countries from the API
-    const response = await fetch("https://datahub.io/core/country-list");
-    const countries = await response.json();
+document.getElementById("register-btn").addEventListener("click", async (event) => {
+  if(document.getElementById("learner").checked) registerLearner();
+  else registerInstructor();
+});
 
-    // Get the country dropdown element
-    const countryDropdown = document.getElementById("country");
-    console.log(countryDropdown);
 
-    // Clear any existing options
-    countryDropdown.innerHTML = "";
-
-    // Populate the dropdown with the country options
-    countries.forEach((country) => {
-      const option = document.createElement("option");
-      option.value = country.Code; // Country code for the option value
-      option.textContent = country.Name; // Country name for the display text
-      countryDropdown.appendChild(option);
-    });
-  } catch (error) {
-    console.error("Error fetching countries:", error);
+async function registerLearner() {
+  const data = {
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value,
+    firstName: document.getElementById("first-name").value,
+    lastName: document.getElementById("last-name").value,
+    phone: document.getElementById("phone").value,
+    address: document.getElementById("address").value,
+    city: document.getElementById("city").value,
+    zipcode: document.getElementById("zipcode").value,
+    country: document.getElementById("country").value
+  }
+  // Check if all fields are filled
+  for (const key in data) {
+    if (data[key] == "") {
+      alert("Please fill in all fields");
+      return;
+    }
+  }
+  // Check if password and confirm password match
+  if (document.getElementById("password").value != document.getElementById("retype-password").value) {
+    alert("Passwords do not match");
+    return;
+  }
+  // Send to API
+  const result = await fetch("http://localhost:3000/api/learners/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+  if (result.ok) {
+    alert("Registration successful");
+    window.location.href = "/auth/login";
+  } else {
+    alert("Registration failed");
+    console.log(await result.json());
   }
 }
 
-// Call the function to populate the dropdown when the page loads
-document.addEventListener("DOMContentLoaded", populateCountryDropdown);
+async function registerInstructor() {
+  const data = {
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value,
+    firstName: document.getElementById("first-name").value,
+    lastName: document.getElementById("last-name").value,
+    phone: document.getElementById("phone").value,
+    address: document.getElementById("address").value,
+    city: document.getElementById("city").value,
+    zipcode: document.getElementById("zipcode").value,
+    country: document.getElementById("country").value,
+    companyOrSchoolName: document.getElementById("school-name").value,
+    jobTitle: document.getElementById("job-title").value,
+    specialization: document.getElementById("specialization").value,
+  }
+  // Check if all fields are filled
+  for (const key in data) {
+    if (data[key] == "") {
+      alert("Please fill in all fields");
+      return;
+    }
+  }
+  // Check if password and confirm password match
+  if (document.getElementById("password").value != document.getElementById("retype-password").value) {
+    alert("Passwords do not match");
+    return;
+  }
+  // Send to API
+  const result = await fetch("http://localhost:3000/api/instructors/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+  if (result.ok) {
+    alert("Registration successful");
+    window.location.href = "/auth/login";
+  } else {
+    alert("Registration failed");
+    console.log(await result.json());
+  }
+}
+
+let showInstructorFields = false;
+function toggleInstructorFields() {
+  if (showInstructorFields) {
+    document.getElementById("instructor-fields").hidden = true;
+    showInstructorFields = false;
+  } else {
+    document.getElementById("instructor-fields").hidden = false;
+    showInstructorFields = true;
+  }  
+}

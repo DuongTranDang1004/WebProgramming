@@ -113,7 +113,7 @@ const InstructorSchema = new mongoose.Schema(
         membershipId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Membership",
-            required: true
+            required: false
         },
         createTime: {
           type: Date,
