@@ -31,7 +31,7 @@ async function loadOnGoingCourse() {
 		const courseData = await (await fetch(`/api/courses/${boughtCourse.courseInfo._id}`)).json();
 		const courseCard = document.createElement("div");
 		courseCard.className = "course-card";
-		let buyCert = courseData.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
+		let buyCert = boughtCourse.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
 		courseCard.innerHTML = `
 			<div class="course-card-image" id="course-${courseData._id}">
 				<img src="${courseData.thumbnailImage}" alt="Course Image" onClick=goToCoursePage("${courseData._id}")>
@@ -81,7 +81,7 @@ async function loadAllCourse() {
 	for (let i = 0; i < boughtCoursesJson.length; i++) {
 		const boughtCourse = boughtCoursesJson[i];
 		const courseData = await (await fetch(`/api/courses/${boughtCourse.courseInfo._id}`)).json();
-		let buyCert = courseData.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
+		let buyCert = boughtCourse.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
 		const courseCard = document.createElement("div");
 		courseCard.className = "course-card";
 		courseCard.innerHTML = `
@@ -138,7 +138,7 @@ async function loadFinishedCourse() {
 	for (let i = 0; i < finishedCourses.length; i++) {
 		const boughtCourse = finishedCourses[i];
 		const courseData = await (await fetch(`/api/courses/${boughtCourse.courseInfo._id}`)).json();
-		let buyCert = courseData.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
+		let buyCert = boughtCourse.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
 		const courseCard = document.createElement("div");
 		courseCard.className = "course-card";
 		courseCard.innerHTML = `

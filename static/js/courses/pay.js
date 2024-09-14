@@ -39,16 +39,6 @@ function loadCheckoutData() {
     const formattedCertificatePrice = formatPrice(certificatePrice);
     const formattedTotalPrice = formatPrice(totalPrice);
 
-    console.log('Checkout Data:', {
-        courseName,
-        coursePrice,
-        certificatePrice,
-        certificateName,
-        totalPrice,
-        formattedCertificatePrice,
-        formattedTotalPrice
-    });
-
     document.getElementById('order-details').innerHTML = `
         <h2 class="text-2xl font-semibold mb-4">Order Details</h2>
         <div class="flex justify-between items-center">
@@ -114,8 +104,6 @@ async function handleCheckout() {
         ],
         totalAmount
     };
-
-    console.log('Transaction Data:', transactionData);
 
     try {
         const response = await fetch(`/api/transactions`, {

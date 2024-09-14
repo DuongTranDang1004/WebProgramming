@@ -56,7 +56,7 @@ async function loadCheckoutData() {
 
 async function handleCheckout() {
     const boughtCourseID = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
-    const boughtCourse = await (await fetch(`/api/boughtCourses/${boughtCourseID}`, { method: "GET" })).json();
+    let boughtCourse = await (await fetch(`/api/boughtCourses/${boughtCourseID}`, { method: "GET" })).json();
     const course = await (await fetch(`/api/courses/${boughtCourse.courseId._id}`, { method: "GET" })).json();
 
     const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
@@ -78,25 +78,40 @@ async function handleCheckout() {
         totalAmount: 500
     };
 
+    boughtCourse.isCertificate = true;
+
     try {
-        const response = await fetch(`/api/transactions`, {
+        let response = await fetch(`/api/transactions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(transactionData),
         });
-
         if (!response.ok) {
             // Log response body for debugging
             const errorText = await response.text();
             console.error(`HTTP error! status: ${response.status}, message: ${errorText}`);
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
         const data = await response.json();
+
+        const response2 = await fetch(`/api/boughtCourses/${boughtCourseID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(boughtCourse),
+        });
+        if (!response2.ok) {
+            // Log response body for debugging
+            const errorText = await response2.text();
+            console.error(`HTTP error! status: ${response2.status}, message: ${errorText}`);
+            throw new Error(`HTTP error! status: ${response2.status}`);
+        }
+        const data2 = await response2.json();
         alert(`Checkout successful! ${data.message}`);
-        window.location.href = `/learners/myCourses/${boughtCourse.learnerId._id}`;
+        // window.location.href = `/learners/myCourses/${boughtCourse.learnerId._id}`;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         alert('Checkout failed. Please try again.');
