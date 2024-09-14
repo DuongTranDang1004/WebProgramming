@@ -96,7 +96,7 @@ const getFollowingInstructorsByLearnerID = async (req, res) => {
       learnerId: id,
     }).populate(
       "instructorId",
-      "profilePicture firstName lastName jobTitle Bio"
+      "profilePicture firstName lastName jobTitle Bio specialization"
     );
 
     if (followingInstructors.length > 0) {
@@ -173,7 +173,7 @@ const getFollowingInstructor = async (req, res) => {
 const createFollowingInstructor = async (req, res) => {
   try {
     const followingInstructor = await FollowingInstructor.create(req.body);
-    res.status(200).json(FollowingInstructor);
+    res.status(200).json(followingInstructor);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

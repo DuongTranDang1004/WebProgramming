@@ -337,6 +337,62 @@ const deleteCourse = async (req, res) => {
   }
 };
 
+
+/**
+ * @swagger
+ * /course/search:
+ *   get:
+ *     summary: Search for courses by name or description
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The search query to match courses by name or description
+ *     responses:
+ *       200:
+ *         description: List of courses matching the query
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course'
+ *       500:
+ *         description: Internal server error
+ */
+const searchCourses = async (req, res) => {
+  const { q, specialization } = req.query; // Get the search query and specialization from the URL parameter
+
+  try {
+    // Build the search criteria
+    const searchCriteria = {
+      $or: [
+        { name: new RegExp(q, 'i') },
+        { description: new RegExp(q, 'i') },
+      ],
+    };
+
+    // If a specialization filter is provided, add it to the search criteria
+    if (specialization) {
+      searchCriteria.category = specialization;
+    }
+
+    // Search for courses matching the criteria
+    const courses = await Course.find(searchCriteria).populate("instructorId", "firstName lastName");
+
+    // Return the found courses or an empty array
+    res.status(200).json(courses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
 module.exports = {
   getCourse,
   getCourses,
@@ -345,4 +401,5 @@ module.exports = {
   deleteCourse,
   getIsPublishCourses,
   getCoursesByInstructorID,
+  searchCourses
 };

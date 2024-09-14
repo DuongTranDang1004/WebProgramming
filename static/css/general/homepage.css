@@ -1,81 +1,43 @@
-/* General styles for all sections */
-h1 {
-  text-align: center;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
-#new-instructor-list {
-  display: flex;
-}
-#new-courses-list {
-  display: flex;
-}
-#featured-course-list {
-  display: flex;
-}
-
-#featured-instructor-list {
-  display: flex;
-}
-
-.section {
-  margin-bottom: 40px;
-}
-
-.section h2 {
-  text-align: center;
-  font-size: 24px;
+.course-card {
   margin-bottom: 20px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid black;
 }
 
-/* Flexbox container for the items in each section */
-.section .item-container {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
-  justify-content: space-between; /* Add space between items */
-}
-
-/* Item styles */
-.section .item {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  margin-bottom: 20px;
-  width: 30%; /* By default, items will take 30% of the width on desktop */
-}
-
-/* Ensure images have a max width to fit their containers */
-.section .item img {
-  max-width: 100%;
+.course-card img {
+  width: 100%;
   height: auto;
-  border-radius: 8px;
 }
 
-/* Responsive styles for tablet (768px and below) */
-@media (max-width: 768px) {
-  .section .item {
-    width: 48%; /* On tablet, items will take 48% of the width */
-  }
-  #new-instructor-list,
-  #new-courses-list,
-  #featured-course-list,
-  #featured-instructor-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.scrollable-course {
+  display: flex;
+  overflow-x: scroll;
+  gap: 20px;
 }
 
-/* Responsive styles for mobile (576px and below) */
-@media (max-width: 576px) {
-  .section .item {
-    width: 100%; /* On mobile, items will take 100% of the width */
-  }
-  #new-instructor-list,
-  #new-courses-list,
-  #featured-course-list,
-  #featured-instructor-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.scrollable-course::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollable-course .course-card {
+  flex: 0 0 20%;
+}
+
+h5 {
+  font-weight: 700;
+  padding-top: 5px;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h6 {
+  padding-top: 5px;
+  font-size: 14px;
+  font-family:Georgia, 'Times New Roman', Times, serif;
 }

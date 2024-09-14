@@ -24,6 +24,19 @@ router.get("/aboutUs", (req, res) => {
   });
 });
 
+// About us
+router.get("/searchPage", (req, res) => {
+  res.render("general/searchPage", {
+    title: "Search Page",
+    pageStylesheet: "css/general/searchPage.css",
+    layout: "./layouts/homepage",
+    pageScripts: [
+      "/js/globalProcessing.js",
+      "/js/general/searchPage.js",
+    ],
+  });
+});
+
 //browseCoursesByName
 
 router.get("/browseCoursesByName", (req, res) => {

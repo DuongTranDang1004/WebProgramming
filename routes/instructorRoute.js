@@ -9,11 +9,14 @@ const {
   deleteInstructor,
   getCoursesByInstructorId,
   getInstructorEarnings,
+  searchInstructors
 } = require("../controllers/instructorController");
 
 router.get("/", getInstructors);
 
 router.get("/:id", getInstructorById);
+
+router.get('/instructors', searchInstructors);
 
 router.post("/", createInstructor);
 

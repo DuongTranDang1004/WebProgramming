@@ -29,13 +29,6 @@ router.get("/favoriteCourses/:id", (req, res) => {
   });
 });
 
-// Favorite Instructors
-router.get("/favoriteInstructors/:id", (req, res) => {
-  res.render("learner/favInstructors", {
-    title: "Favorite Courses",
-    pageScripts: ["/js/learner/favInstructors.js"],
-  });
-});
 
 // Order (my cart + payment)
 router.get("/order/:id", (req, res) => {

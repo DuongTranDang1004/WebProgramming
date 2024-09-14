@@ -1,21 +1,22 @@
+/* General Header Styles */
 #logo {
     width: 80px;
 }
 
 .icon img {
-    width: 15px; 
-    height: 15px; 
-    margin-left: 15px; 
+    width: 15px;
+    height: 15px;
+    margin-left: 15px;
     cursor: pointer;
 }
 
 #user-avatar-container {
     position: relative;
-    margin-left: 15px; /* Add spacing between avatar and icons */
+    margin-left: 15px;
 }
 
 #user-avatar {
-    width: 40px;  /* Adjust avatar size */
+    width: 40px;
     height: 40px;
     object-fit: cover;
     cursor: pointer;
@@ -23,13 +24,6 @@
 
 #user-avatar-container:hover .dropdown-menu {
     display: block;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    display: none;
 }
 
 .search-and-log-out {
@@ -48,4 +42,41 @@
     background-color: white;
     border: 1px solid rgb(0, 0, 0);
     color: black;
+}
+
+@media (max-width: 1200px) {
+
+    .navbar-nav {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-bar {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+        font-size: 30px;
+        margin-right: 10px;
+    }
+
+    .show {
+        display: block !important;
+    }
+
+    #logo {
+        margin-left: 10px;
+    }
+
+    .search-and-log-out {
+        flex-direction: row;
+    }
+
+    .icon img {
+        margin: 0;
+        margin-right: 10px;
+    }
 }

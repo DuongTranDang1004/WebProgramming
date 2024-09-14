@@ -1,6 +1,6 @@
 <header id="default-header">
     <nav class="navbar navbar-expand-lg navbar-light navbar-static-top" style="margin: 0">
-        <div id="topNav" class="container-fluid">
+        <div id="topNav" class="container-fluid flex">
             <a class="navbar-brand" href="/">
                 <img id="logo" src="/img/headerlogo.png" alt="IT Learning Logo" class="d-inline-block"/>
             </a>
@@ -14,7 +14,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarCategoryDropdown">
                                 <li><a class="dropdown-item" href="/browseCoursesByCategory?category=back-end">Backend</a></li>
                                 <li><a class="dropdown-item" href="/browseCoursesByCategory?category=front-end">Frontend</a></li>
-                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=AI"">AI</a></li>
+                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=AI">AI</a></li>
                                 <li><a class="dropdown-item" href="/browseCoursesByCategory?category=data science">Data Science</a></li>
                                 <li><a class="dropdown-item" href="/browseCoursesByCategory?category=cyber security">Cyber Security</a></li>
                                 <li><a class="dropdown-item" href="/browseCoursesByCategory?category=testing">Software Testing</a></li>
@@ -34,31 +34,29 @@
                         </li>
                     </ul>
                 </div>
+            </div>
 
-                <div class="search-and-log-out">
-                    <a class="icon" href="/search">
-                        <img src="/img/search.png" alt="Search">
-                    </a>
-                    <a class="icon" href="/favourite">
-                        <img src="/img/heart.png" alt="favourite">
-                    </a>
-                    <a class="icon" href="/myCart">
-                        <img src="/img/shopping-cart.png" alt="cart">
-                    </a>
-
-                    <button id="login-btn" class="btn btn-success">Log In</button>
-                    <button id="signup-btn" class="btn btn-success">Sign Up</button>
-
-                    <div id="user-avatar-container" class="dropdown" hidden>
-                        <img id="user-avatar" class="rounded-circle" src="/img/avt.png" alt="User Avatar"/>
-                        <ul class="dropdown-menu" aria-labelledby="user-avatar">
-                            <li><a class="dropdown-item" href="/account">Account</a></li>
-                            <li><a class="dropdown-item" href="/transaction">Transaction</a></li>
-                            <li><a class="dropdown-item" href="/publicProfile">Public Profile</a></li>
-                            <li><a class="dropdown-item" href="/editProfile">Edit Profile</a></li>
-                            <li><a class="dropdown-item" id="logout-btn">Logout</a></li>
-                        </ul>
-                    </div>
+            <div class="search-and-log-out">
+                <a class="icon" href="/searchPage">
+                    <img src="/img/search.png" alt="Search">
+                </a>
+                <a class="icon" href="#" id="favorites-link">
+                    <img src="/img/heart.png" alt="favourite">
+                </a>
+                <a class="icon" href="#" id="cart-link">
+                    <img src="/img/shopping-cart.png" alt="cart">
+                </a>
+                <button id="login-btn" class="btn btn-success">Log In</button>
+                <button id="signup-btn" class="btn btn-success">Sign Up</button>
+                <div id="user-avatar-container" class="dropdown" hidden>
+                    <img id="user-avatar" class="rounded-circle" src="/img/avt.png" alt="User Avatar"/>
+                    <ul class="dropdown-menu" aria-labelledby="user-avatar">
+                        <li><a id="editProfile" class="dropdown-item" href="#">Manage Account</a></li>
+                        <li><a id="myCourse" class="dropdown-item" href="#">My Course</a></li>
+                        <li><a id="publicProfile" class="dropdown-item" href="#">Public Profile</a></li>
+                        <li><a id="transaction" class="dropdown-item" href="#">Transaction</a></li>
+                        <li><a class="dropdown-item" id="logout-btn">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -73,10 +71,54 @@
         document.getElementById("login-btn").hidden = true;
         const avatarContainer = document.getElementById("user-avatar-container");
         avatarContainer.hidden = false;
+
+        document.getElementById("favorites-link").href = `/learners/favoriteCourses/${userId}`;
+        document.getElementById("cart-link").href = `/learners/myCart/${userId}`;
     } else {
         document.getElementById("login-btn").hidden = false;
         document.getElementById("signup-btn").hidden = false;
         document.getElementById("user-avatar-container").hidden = true;
+    }
+
+    document.getElementById("editProfile").addEventListener("click", () => {
+        const role = localStorage.getItem("role");
+        if (role && role == "admin") window.location.href = "/admin/profile";
+        if (role && role == "instructor") window.location.href = `instructors/accountProfile`;
+        if (role && role == "learner") window.location.href = `/myAccount`;
+    });
+
+    document.getElementById("myCourse").addEventListener("click", () => {
+        const role = localStorage.getItem("role");
+        if (role && role == "instructor") window.location.href = `/instructors/home`;
+        if (role && role == "learner") window.location.href = `/learners/myCourses/${userId}`;
+    });
+
+    document.getElementById("publicProfile").addEventListener("click", () => {
+        const role = localStorage.getItem("role");
+        if (role && role == "instructor") window.location.href = `/instructors/instructorProfile?instructorId=${userId}`;
+    });
+
+    document.getElementById("transaction").addEventListener("click", () => {
+        const role = localStorage.getItem("role");
+        if (role && role == "instructor") window.location.href = "/billing";
+        if (role && role == "learner") window.location.href = `/transactions/${userId}`;
+    });
+
+    if (localStorage.getItem("role") == "admin") {
+        document.getElementById("myCourse").hidden = true;
+        document.getElementById("publicProfile").hidden = true;
+        document.getElementById("transaction").hidden = true;
+        document.getElementById("cart-link").hidden = true;
+        document.getElementById("favorites-link").hidden = true;
+    }
+
+    if (localStorage.getItem("role") == "instructor") {
+        document.getElementById("cart-link").hidden = true;
+        document.getElementById("favorites-link").hidden = true;
+    }
+
+    if (localStorage.getItem("role") == "learner") {
+        document.getElementById("publicProfile").hidden = true;
     }
 
     document.getElementById("logout-btn").addEventListener("click", () => {
@@ -89,45 +131,10 @@
     document.getElementById("login-btn").addEventListener("click", () => {
         window.location.href = "/auth/login";
     });
+
+    // Toggle navigation for small screens
+    document.getElementById("hamburger-menu").addEventListener("click", function() {
+        const navBar = document.getElementById("navbarTogglerDemo01");
+        navBar.classList.toggle("show");
+    });
 </script>
-
-<!-- <script>
-    document.getElementById("my-account-btn").addEventListener("click", () => {
-        const role = localStorage.getItem("role");
-        if (role && role == "admin") window.location.href = "/admin/profile";
-        if (role && role == "instructor") window.location.href = "/instructors/profile";
-        if (role && role == "learner") window.location.href = `/myAccount`;
-    });
-
-    document.getElementById("my-courses").addEventListener("click", () => {
-        const role = localStorage.getItem("role");
-        if (role && role == "learner") window.location.href = `/learners/myCourses/${localStorage.getItem("id")}`;
-    });
-
-    if (localStorage.getItem("role") != "learner") {
-        document.getElementById("course-nav").hidden = true;
-    }
-
-    if (!localStorage.getItem("id")) {
-        document.getElementById("logout-btn").hidden = true;
-    } else {
-        document.getElementById("logout-btn").hidden = false;
-    }
-
-    if (localStorage.getItem("id")) {
-        document.getElementById("login-btn").hidden = true;
-    } else {
-        document.getElementById("login-btn").hidden = false;
-    }
-
-    document.getElementById("logout-btn").addEventListener("click", () => {
-        localStorage.removeItem("id");
-        localStorage.removeItem("role");
-        localStorage.removeItem("token");
-        window.location.href = "/";
-    });
-
-    document.getElementById("login-btn").addEventListener("click", () => {
-        window.location.href = "/auth/login";
-    });
-</script> -->

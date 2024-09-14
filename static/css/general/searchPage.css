@@ -1,0 +1,179 @@
+#page-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+/* Centering the search container */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Search box - reduced to 50% width and centered */
+.search-input {
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Search button aligned with input */
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Optional: Adjust the button on hover */
+.search-button:hover {
+    background-color: #444;
+}
+
+
+/* Forms and Inputs */
+input[type="text"], input[type="search"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus, input[type="search"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #999;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+/* Lists and Content Sections */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+.results-container {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-item {
+    margin-bottom: 15px;
+}
+
+.result-item h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.result-item p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* General section styling */
+.section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  
+  /* Flexbox container for search results */
+  .item-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Item styling (applied to each search result) */
+  .item {
+    position: relative;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    width: 30%; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+  
+  .item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .item h3 {
+    font-size: 18px;
+  }
+  
+  .item p {
+    font-size: 14px;
+  }
+
+  /* Style for the specialization filter dropdown */
+.filter-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  
+  /* Responsive design for mobile */
+  @media (max-width: 768px) {
+    .item {
+      width: 48%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .item {
+      width: 100%;
+    }
+  }
+  

@@ -352,6 +352,61 @@ const getInstructorEarnings = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /instructors/search:
+ *   get:
+ *     summary: Search for instructors by first name, last name, or specialization
+ *     tags: [Instructors]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The search query to match instructors by first name, last name, or specialization
+ *     responses:
+ *       200:
+ *         description: List of instructors matching the query
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Instructor'
+ *       500:
+ *         description: Internal server error
+ */
+const searchInstructors = async (req, res) => {
+  const { q, specialization } = req.query; // Get the search query and specialization from the URL parameter
+
+  try {
+    // Build the search criteria
+    const searchCriteria = {
+      $or: [
+        { firstName: new RegExp(q, 'i') },
+        { lastName: new RegExp(q, 'i') },
+        { specialization: new RegExp(q, 'i') },
+      ],
+    };
+
+    // If a specialization filter is provided, add it to the search criteria
+    if (specialization) {
+      searchCriteria.specialization = specialization;
+    }
+
+    // Search for instructors matching the criteria
+    const instructors = await Instructor.find(searchCriteria);
+
+    // Return the found instructors or an empty array
+    res.status(200).json(instructors);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
 module.exports = {
   getInstructors,
   getInstructorById,
@@ -360,4 +415,5 @@ module.exports = {
   deleteInstructor,
   getCoursesByInstructorId,
   getInstructorEarnings,
+  searchInstructors
 };

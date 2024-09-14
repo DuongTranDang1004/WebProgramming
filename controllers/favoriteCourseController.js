@@ -333,6 +333,31 @@ async function rankFavoriteCourse(req, res) {
         // Unwind the course details array to convert it into an object
         $unwind: "$courseDetails",
       },
+      {
+        // Lookup to fetch instructor details from the Instructors collection
+        $lookup: {
+          from: "Instructors", // Instructors collection
+          localField: "courseDetails.instructorId", // instructorId from courseDetails
+          foreignField: "_id", // _id in the Instructors collection
+          as: "instructorDetails", // The output field that will contain instructor data
+        },
+      },
+      {
+        // Unwind the instructor details array to convert it into an object
+        $unwind: "$instructorDetails",
+      },
+      {
+        // Project only the necessary fields
+        $project: {
+          _id: 1,
+          favoriteCount: 1,
+          "courseDetails.name": 1,
+          "courseDetails.thumbnailImage": 1,
+          "courseDetails.price": 1,
+          "instructorDetails.firstName": 1,
+          "instructorDetails.lastName": 1,
+        },
+      },
     ]);
     res.status(200).json(rankedCourses);
   } catch (error) {
@@ -342,6 +367,7 @@ async function rankFavoriteCourse(req, res) {
     });
   }
 }
+
 
 module.exports = {
   getFavoriteCourses,
