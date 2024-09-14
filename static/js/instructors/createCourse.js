@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const courseId = urlParams.get('courseId'); // Get the courseId parameter
     console.log(courseId);
-    // const courseId = '66dd9c752e81ca3eaac0f42a';
 
     fetch(`/api/courses/${courseId}`)
         .then(response => response.json())
@@ -32,6 +31,7 @@ async function updateCourse() {
         category,
         price,
         description,
+        isPublish: true
     };
 
     try {
@@ -46,6 +46,7 @@ async function updateCourse() {
         if (response.ok) {
             alert('Course updated successfully!');
         } else {
+            console.log(await response.json());
             alert('Failed to update course. Please try again.');
         }
     } catch (error) {
@@ -237,7 +238,6 @@ async function uploadVideo(lectureId) {
             method: 'POST',
             body: formData
         });
-
         if (response.ok) {
             alert('Video uploaded successfully!');
         } else {

@@ -131,8 +131,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const newInstructorList = document.getElementById("new-instructor-list");
     newInstructorList.innerHTML = ""; // Clear previous content
 
+    const instructorsReversed = instructors.reverse();
+
     // Only display top 5 instructors
-    instructors.slice(0, 5).forEach((instructor) => {
+    instructorsReversed.slice(0, 5).forEach((instructor) => {
       const instructorHTML = `
       <div class="course-card">
       <a href="/instructors/instructorProfile?instructorId=${instructor._id}" style="text-decoration: none;">
@@ -201,7 +203,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const newCoursesList = document.getElementById("new-courses-list");
     newCoursesList.innerHTML = ""; // Clear previous content
 
-    courses.slice(0, 10).forEach((course) => {
+    const reversedCourses = courses.reverse();
+
+    reversedCourses.slice(0, 10).forEach((course) => {
       const { rating, stars } = getRandomRating();
       const courseHTML = `
         <div class="course-card">

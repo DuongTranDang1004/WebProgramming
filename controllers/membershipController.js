@@ -1,4 +1,5 @@
 const Membership = require("../models/membershipModel");
+const Instructor = require("../models/instructorModel");
 
 /**
  * @swagger
@@ -96,8 +97,12 @@ const Membership = require("../models/membershipModel");
  */
 const createMembership = async (req,res) => {
     try{
+        console.log(req.body)
         const membership = await Membership.create(req.body);
-        res.status(200).json(membership)
+        const instructor = await Instructor.findById(req.body.instructorId);
+        instructor.membershipId = membership._id;
+        await instructor.save();
+        res.status(200).json(membership);
     }catch (error){
     res.status(500).json({message: error.message})
     }

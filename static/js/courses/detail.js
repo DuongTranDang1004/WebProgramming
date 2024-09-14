@@ -73,7 +73,7 @@ async function displayCourseDetails(course) {
                     <span class="ml-2 text-gray-600">(${randomRatingCount} ratings)</span>
                     <span class="ml-4 text-gray-600">${randomLearners} learners by far</span>
                 </div>
-                <p class="mt-2 text-gray-600">Course by <a href="#" class="text-indigo-600 hover:underline">${instructor.firstName} ${instructor.lastName}</a></p>
+                <p class="mt-2 text-gray-600">Course by <a href="/instructors/instructorProfile?instructorId=${instructor._id}" class="text-indigo-600 hover:underline">${instructor.firstName} ${instructor.lastName}</a></p>
                 <p class="text-gray-500">Date: ${new Date(course.createTime).toLocaleDateString()}</p>
 
                 <!-- Placeholder for Course Lectures (will be dynamically inserted) -->

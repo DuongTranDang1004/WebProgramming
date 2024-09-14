@@ -81,20 +81,20 @@ async function handleCheckout() {
     boughtCourse.isCertificate = true;
 
     try {
-        let response = await fetch(`/api/transactions`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(transactionData),
-        });
-        if (!response.ok) {
-            // Log response body for debugging
-            const errorText = await response.text();
-            console.error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        // let response = await fetch(`/api/transactions`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(transactionData),
+        // });
+        // if (!response.ok) {
+        //     // Log response body for debugging
+        //     const errorText = await response.text();
+        //     console.error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        //     throw new Error(`HTTP error! status: ${response.status}`);
+        // }
+        // const data = await response.json();
 
         const response2 = await fetch(`/api/boughtCourses/${boughtCourseID}`, {
             method: 'PUT',
@@ -109,8 +109,7 @@ async function handleCheckout() {
             console.error(`HTTP error! status: ${response2.status}, message: ${errorText}`);
             throw new Error(`HTTP error! status: ${response2.status}`);
         }
-        const data2 = await response2.json();
-        alert(`Checkout successful! ${data.message}`);
+        alert(`Checkout successful!`);
         // window.location.href = `/learners/myCourses/${boughtCourse.learnerId._id}`;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);

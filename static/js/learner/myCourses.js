@@ -38,7 +38,7 @@ async function loadOnGoingCourse() {
 			</div>
 			<div class="course-card-content">
 				<h3 onClick=goToCoursePage("${courseData._id})>${courseData.name}</h3>
-				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p>
+				<p> By <a href="/instructors/instructorProfile?instructorId${boughtCourse.instructorId._id}"> ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName} </a></p>
 				${buyCert}
 			</div>
 		`;
@@ -90,7 +90,7 @@ async function loadAllCourse() {
 			</div>
 			<div class="course-card-content">
 				<h3>${courseData.name}</h3>
-				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p>
+				<p> By <a href="/instructors/instructorProfile?instructorId${boughtCourse.instructorId._id}"> ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName} </a></p>
 				${buyCert}
 			</div>
 		`;
@@ -147,7 +147,7 @@ async function loadFinishedCourse() {
 			</div>
 			<div class="course-card-content">
 				<h3>${courseData.name}</h3>
-				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p>
+				<p> By <a href="/instructors/instructorProfile?instructorId${boughtCourse.instructorId._id}"> ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName} </a></p>s
 				${buyCert}
 			</div>
 		`;
