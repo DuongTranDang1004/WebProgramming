@@ -1,65 +1,97 @@
 <header id="default-header">
     <nav class="navbar navbar-expand-lg navbar-light navbar-static-top" style="margin: 0">
         <div id="topNav" class="container-fluid">
-        <a class="navbar-brand" href="/"> <img id="logo" src="/img/headerlogo.png" alt="IT Learning Logo" class="d-inline-block"/> </a>
+            <a class="navbar-brand" href="/">
+                <img id="logo" src="/img/headerlogo.png" alt="IT Learning Logo" class="d-inline-block"/>
+            </a>
 
-        <div class="collapse navbar-collapse nav-bar" id="navbarTogglerDemo01">
-            <div class="selection">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/aboutUs">About Us</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Browse
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <li>
-                                <a class="dropdown-item" href="/browseCoursesByCategory">Browse Courses by Category</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/browseCoursesByName">Browse Courses by Name</a>
-                            </li>
+            <div class="collapse navbar-collapse nav-bar" id="navbarTogglerDemo01">
+                <div class="selection">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarCategoryDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarCategoryDropdown">
+                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=back-end">Backend</a></li>
+                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=front-end">Frontend</a></li>
+                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=AI"">AI</a></li>
+                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=data science">Data Science</a></li>
+                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=cyber security">Cyber Security</a></li>
+                                <li><a class="dropdown-item" href="/browseCoursesByCategory?category=testing">Software Testing</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="aboutITLearningDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">About ITLearning</a>
+                            <ul class="dropdown-menu" aria-labelledby="aboutITLearningDropdown">
+                                <li><a class="dropdown-item" href="/aboutUs">About Us</a></li>
+                                <li><a class="dropdown-item" href="/faq">FAQs</a></li>
+                                <li><a class="dropdown-item" href="/contactPage">Contact</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="search-and-log-out">
+                    <a class="icon" href="/search">
+                        <img src="/img/search.png" alt="Search">
+                    </a>
+                    <a class="icon" href="/favourite">
+                        <img src="/img/heart.png" alt="favourite">
+                    </a>
+                    <a class="icon" href="/myCart">
+                        <img src="/img/shopping-cart.png" alt="cart">
+                    </a>
+
+                    <button id="login-btn" class="btn btn-success">Log In</button>
+                    <button id="signup-btn" class="btn btn-success">Sign Up</button>
+
+                    <div id="user-avatar-container" class="dropdown" hidden>
+                        <img id="user-avatar" class="rounded-circle" src="/img/avt.png" alt="User Avatar"/>
+                        <ul class="dropdown-menu" aria-labelledby="user-avatar">
+                            <li><a class="dropdown-item" href="/account">Account</a></li>
+                            <li><a class="dropdown-item" href="/transaction">Transaction</a></li>
+                            <li><a class="dropdown-item" href="/publicProfile">Public Profile</a></li>
+                            <li><a class="dropdown-item" href="/editProfile">Edit Profile</a></li>
+                            <li><a class="dropdown-item" id="logout-btn">Logout</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pricing">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="my-account-btn">My Account</a>
-                        <!-- need js function to check if user has login, and which role ?  -->
-                    </li>
-                    <li class="nav-item" id="course-nav">
-                        <a class="nav-link" id="my-courses">My courses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/faq">FAQs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contactPage">Contact</a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
-            
-            <div class="search-and-log-out">
-                <form class="search-form" id="search-form">
-                    <input class="form-control me-2" id="nav-search-input" type="search" placeholder="Type Course Names" aria-label="Search" />
-                    <button class="btn btn-outline-success" id="nav-button" type="submit"> Search </button>
-                </form>
-                <button id="logout-btn" hidden class="btn btn-warning">Log out</button>
-                <button id="login-btn" hidden class="btn btn-success">Log in</button>
-            </div>
-            
-        </div>
         </div>
     </nav>
 </header>
 
 <script>
+    const userId = localStorage.getItem("id");
+
+    if (userId) {
+        document.getElementById("signup-btn").hidden = true;
+        document.getElementById("login-btn").hidden = true;
+        const avatarContainer = document.getElementById("user-avatar-container");
+        avatarContainer.hidden = false;
+    } else {
+        document.getElementById("login-btn").hidden = false;
+        document.getElementById("signup-btn").hidden = false;
+        document.getElementById("user-avatar-container").hidden = true;
+    }
+
+    document.getElementById("logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("id");
+        localStorage.removeItem("avatar");
+        localStorage.removeItem("role");
+        window.location.href = "/";
+    });
+
+    document.getElementById("login-btn").addEventListener("click", () => {
+        window.location.href = "/auth/login";
+    });
+</script>
+
+<!-- <script>
     document.getElementById("my-account-btn").addEventListener("click", () => {
         const role = localStorage.getItem("role");
         if (role && role == "admin") window.location.href = "/admin/profile";
@@ -98,4 +130,4 @@
     document.getElementById("login-btn").addEventListener("click", () => {
         window.location.href = "/auth/login";
     });
-</script>
+</script> -->

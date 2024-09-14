@@ -1,150 +1,200 @@
-<center>
-    <h1>Front-end Courses</h1>
-</center>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="container" id="fe">
-    <div class="slide">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="fe-prev">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-        </svg>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Course Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-        <div class="course" id="fe-course">
-            <img src="" alt="Lights" id="fe-img">
-            <h2 id="fe-name">Front-end Course 1</h2>
-            <p id="fe-ins">Some text..</p>
+        h5 {
+            font-weight: 700;
+            padding-top: 5px;
+            font-size: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .course-card {
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        .course-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .section-title {
+            margin-top: 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .course-row .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .course-row .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        .scrollable-courses {
+            display: flex;
+            overflow-x: scroll;
+            gap: 20px;
+        }
+
+        .scrollable-courses::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollable-courses .course-card {
+            flex: 0 0 20%;
+        }
+
+        .filter-section {
+            padding: 20px 0;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-bar select {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Random courses -->
+        <h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 700; font-size: 24px; margin-bottom: 10px;">
+            Most Popular Courses</h2>
+        <div class="scrollable-courses" id="top-courses">
+            <!-- Courses is here -->
         </div>
 
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="fe-next">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
-    </div>
-</div>
+        <!-- All Section Course -->
+        <div class="section-title"
+            style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 700; font-size: 24px;">
+            All Courses</div>
 
-<hr />
-
-<center>
-    <h1>Back-end Courses</h1>
-</center>
-
-<div class="container" id="be">
-    <div class="slide">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="be-prev">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-        </svg>
-
-        <div class="course" id="be-course">
-            <img src="" alt="Lights" id="be-img">
-            <h2 id="be-name">Front-end Course 1</h2>
-            <p id="be-ins">Some text..</p>
+        <!-- Sort by oldest/newest -->
+        <div class="filter-bar">
+            <label for="sort-courses"
+                style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 700; font-size: 17px; margin-right: 5px;">Sort
+                by: </label>
+            <select id="sort-courses" onchange="sortCourses()">
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+            </select>
         </div>
 
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="be-next">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
-    </div>
-</div>
-
-<hr />
-
-<center>
-    <h1>Artificial Intelligence Courses</h1>
-</center>
-
-<div class="container" id="ai">
-    <div class="slide">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="ai-prev">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-        </svg>
-
-        <div class="course" id="ai-course">
-            <img src="" alt="Lights" id="ai-img">
-            <h2 id="ai-name">Front-end Course 1</h2>
-            <p id="ai-ins">Some text..</p>
+        <!-- Course list display -->
+        <div class="row course-row" id="course-list">
+            <!-- Courses is here -->
         </div>
-
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="ai-next">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
     </div>
-</div>
 
-<hr />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-<center>
-    <h1>Data Science Courses</h1>
-</center>
+    <script>
+        // Function to generate a random rating
+        function getRandomRating() {
+            const rating = (Math.random() * (5 - 3.5) + 3.5).toFixed(1); // Generates random rating between 3.5 and 5.0
+            const stars = "★".repeat(Math.floor(rating)) + "☆".repeat(5 - Math.floor(rating));
+            return { rating, stars };
+        }
 
-<div class="container" id="ds">
-    <div class="slide">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="ds-prev">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-        </svg>
+        function getCategoryFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('category');
+        }
 
-        <div class="course" id="ds-course">
-            <img src="" alt="Lights" id="ds-img">
-            <h2 id="ds-name">Front-end Course 1</h2>
-            <p id="ds-ins">Some text..</p>
-        </div>
+        // Fetch top courses 
+        async function getTopCourses() {
+            const response = await fetch("/api/courses/");
+            const courses = await response.json();
+            const category = getCategoryFromURL();
+            const topCourses = courses.filter(course => course.category === category); // Assuming AI category
+            const topCoursesContainer = document.getElementById("top-courses");
 
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="ds-next">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
-    </div>
-</div>
+            topCourses.slice(0, 30).forEach(course => {
+                const { rating, stars } = getRandomRating();
+                topCoursesContainer.innerHTML += `
+                <div class="course-card">
+                    <img src="${course.thumbnailImage}" alt="Course Image">
+                    <h5>${course.name}</h5>
+                    <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
+                    <p><strong>${rating}</strong> <span>${stars}</span></p>
+                    <p>₫${course.price}</p>
+                </div>`;
+            });
+        }
 
-<hr />
+        // Fetch by category
+        async function getCourses(sortOrder = "newest") {
+            const response = await fetch("/api/courses/");
+            let courses = await response.json();
+            const courseList = document.getElementById("course-list");
+            const category = getCategoryFromURL();
+            // Filter by category and sort by newest/oldest
+            courses = courses.filter(course => course.category === category).sort((a, b) => {
+                const dateA = new Date(a.createTime);
+                const dateB = new Date(b.createTime);
+                return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+            });
 
-<center>
-    <h1>Software Testing Courses</h1>
-</center>
+            courseList.innerHTML = '';
 
-<div class="container" id="testing">
-    <div class="slide">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="testing-prev">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-        </svg>
+            courses.forEach(course => {
+                const { rating, stars } = getRandomRating();
+                courseList.innerHTML += `
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <img src="${course.thumbnailImage}" alt="Course Image">
+                        <h5>${course.name}</h5>
+                        <p>${course.instructorId.firstName} ${course.instructorId.lastName}</p>
+                        <p><strong>${rating}</strong> <span>${stars}</span></p>
+                        <p>₫${course.price}</p>
+                    </div>
+                </div>`;
+            });
+        }
 
-        <div class="course" id="testing-course">
-            <img src="" alt="Lights" id="testing-img">
-            <h2 id="testing-name">Front-end Course 1</h2>
-            <p id="testing-ins">Some text..</p>
-        </div>
+        // Sort courses on sort selection change
+        function sortCourses() {
+            const sortOrder = document.getElementById("sort-courses").value;
+            getCourses(sortOrder); 
+        }
+        
+        getTopCourses();
+        getCourses();
+    </script>
+</body>
 
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="testing-next">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
-    </div>
-</div>
-
-<hr/>
-
-<center><h1>Cyber Security Courses</h1></center>
-<div class="container" id="cs">
-    <div class="slide">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="cs-prev">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-        </svg>
-
-        <div class="course" id="cs-course">
-            <img src="" alt="Lights" id="cs-img">
-            <h2 id="cs-name">Front-end Course 1</h2>
-            <p id="cs-ins">Some text..</p>
-        </div>
-
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6" id="cs-next">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
-    </div>
-</div>
+</html>
