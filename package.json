@@ -4,7 +4,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "background": "rm nohup.out && nohup node app.js &"
+    "background": "rm nohup.out && nohup node app.js &",
+    "populate": "node config/mongo-sample-data/PopulateData.js"
   },
   "keywords": [],
   "author": "",

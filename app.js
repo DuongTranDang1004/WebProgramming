@@ -106,11 +106,9 @@ app.listen(port, host, async () => {
 
   // Connect to MongoDB
   await connectDB();
-  console.log(`Server is running on http://${host}:${port}`);
   console.log(
     `SwaggerUI API Documentation is running on http://${host}:${port}/api-docs/`
   );
   //Print out general pages paths
   console.log(`Home Page available at: http://${host}:${port}/`);
-  console.log(`About Us Page available at: http://${host}:${port}/aboutUs`);
 });
