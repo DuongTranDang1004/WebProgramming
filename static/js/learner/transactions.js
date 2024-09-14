@@ -25,7 +25,7 @@ function renderTransactions(transactions) {
     transactionElement.innerHTML = `
         <div class="transaction-info">
           <p><strong>Transaction ID:</strong> ${transaction._id}</p>
-          <p><strong>Learner ID:</strong> ${transaction.learnerId}</p>
+          <p><strong>Learner ID:</strong> ${transaction.learnerId._id}</p>
           <p><strong>Transaction Time:</strong> ${new Date(
             transaction.transactionDate
           ).toLocaleString()}</p>

@@ -379,6 +379,7 @@ async function generateSampleData() {
             certificatePrice: certificatePrice,
           },
         ],
+        totalAmount: course.price
       });
     }
 

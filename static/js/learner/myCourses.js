@@ -81,6 +81,7 @@ async function loadAllCourse() {
 	for (let i = 0; i < boughtCoursesJson.length; i++) {
 		const boughtCourse = boughtCoursesJson[i];
 		const courseData = await (await fetch(`/api/courses/${boughtCourse.courseInfo._id}`)).json();
+		let buyCert = courseData.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
 		const courseCard = document.createElement("div");
 		courseCard.className = "course-card";
 		courseCard.innerHTML = `
@@ -89,7 +90,8 @@ async function loadAllCourse() {
 			</div>
 			<div class="course-card-content">
 				<h3>${courseData.name}</h3>
-				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p
+				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p>
+				${buyCert}
 			</div>
 		`;
 		// check if last element in courses row contain 3 courses
@@ -136,6 +138,7 @@ async function loadFinishedCourse() {
 	for (let i = 0; i < finishedCourses.length; i++) {
 		const boughtCourse = finishedCourses[i];
 		const courseData = await (await fetch(`/api/courses/${boughtCourse.courseInfo._id}`)).json();
+		let buyCert = courseData.isCertificate ? "" : `<a href="/courses/buyCert/${boughtCourse._id}">Buy certificate for ${courseData.name} now!</a>`;
 		const courseCard = document.createElement("div");
 		courseCard.className = "course-card";
 		courseCard.innerHTML = `
@@ -144,7 +147,8 @@ async function loadFinishedCourse() {
 			</div>
 			<div class="course-card-content">
 				<h3>${courseData.name}</h3>
-				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p
+				<p> By ${boughtCourse.instructorId.firstName} ${boughtCourse.instructorId.lastName}</p>
+				${buyCert}
 			</div>
 		`;
 		// check if last element in courses row contain 3 courses

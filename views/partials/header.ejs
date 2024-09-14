@@ -105,7 +105,7 @@
     document.getElementById("transaction").addEventListener("click", () => {
         const role = localStorage.getItem("role");
         if (role && role == "instructor") window.location.href = "/billing";
-        if (role && role == "learner") window.location.href = `/transactions/${userId}`;
+        if (role && role == "learner") window.location.href = `/learners/transactions/${userId}`;
     });
 
     if (localStorage.getItem("role") == "admin") {
@@ -137,7 +137,7 @@
     });
 
     // Toggle navigation for small screens
-    document.getElementById("hamburger-menu").addEventListener("click", function() {
+    document.getElementById("burger-menu").addEventListener("click", function() {
         const navBar = document.getElementById("navbarTogglerDemo01");
         navBar.classList.toggle("show");
     });
