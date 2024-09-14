@@ -55,6 +55,8 @@ const cartRoutes = require("./routes/cartRoute");
 const membershipRoutes = require("./routes/membershipRoute");
 const authRoutes = require("./routes/authenticateRoute");
 const generalPagesRoutes = require("./routes/generalPagesRoute");
+const forgetPassRoutes = require("./routes/forgetPassRoute");
+const resetPassRoutes = require("./routes/resetPassRoute");
 
 // Using the controllers as routers
 
@@ -86,6 +88,8 @@ app.use("/api/memberships", membershipRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/forgetPass", forgetPassRoutes);
+app.use("/api/resetPass", resetPassRoutes)
 
 // Check if /static/video exists, if not, create it
 const fs = require("fs");

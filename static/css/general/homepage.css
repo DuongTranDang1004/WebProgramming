@@ -41,3 +41,41 @@ h6 {
   font-size: 14px;
   font-family:Georgia, 'Times New Roman', Times, serif;
 }
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .scrollable-course .course-card {
+    flex: 0 0 20%; 
+  }
+
+  h5 {
+    font-size: 18px;
+  }
+
+  h6 {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 10px;
+  }
+
+  .scrollable-course {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .scrollable-course .course-card {
+    flex: 1 0 auto; 
+    width: 100%; 
+  }
+
+  h5 {
+    font-size: 16px;
+  }
+
+  h6 {
+    font-size: 12px;
+  }
+}

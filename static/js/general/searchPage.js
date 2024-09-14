@@ -23,7 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Fetch search results from the appropriate endpoint
         const response = await fetch(endpoint);
-        const results = await response.json();
+        let results = await response.json();
+        if (specialization != "") 
+            results = results.filter(result => result.category === specialization); // Filter results by specialization
+        results = results.filter(result => result.isPublish); // Filter results by isPublish
+        results = results.filter(result => result.name.toLowerCase().includes(searchInput.value.toLowerCase())); // Filter results by query
 
         // Clear previous search results
         searchResultsList.innerHTML = '';

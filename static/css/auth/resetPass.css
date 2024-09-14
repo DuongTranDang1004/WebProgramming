@@ -1,0 +1,41 @@
+.forget-page {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 3% 5%;
+    border: 1px solid #b3b3b3;
+    border-radius: 7px;
+    background-color: rgb(249, 249, 249);
+
+    font-size: 170%;
+    width: 50%;
+}
+
+#password, #confirm-password {
+    padding: 1% 2%;
+    border-radius: 7px;
+    border: 1px solid #b3b3b3;
+    width: 90%;
+}
+
+#password:focus, #confirm-password:focus {
+    outline: 1px solid #939292;
+}
+
+.password-button {
+    margin-top: 2%;
+    width: 30%;
+    background-color: rgb(25, 135, 84);
+    border: 1px solid #b3b3b3;
+    color: white;
+}

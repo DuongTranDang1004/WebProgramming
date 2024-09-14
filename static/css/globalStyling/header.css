@@ -1,4 +1,43 @@
 /* General Header Styles */
+#topNav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content:first baseline;
+    align-items: center;
+    padding-right: 100px;
+    padding-left: 50px;
+}
+
+.navbar-brand {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.dropdown-menu > li {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.dropdown-item {
+    font-size: 12px;
+    color: black;
+    padding-left: 20px;
+}
+.nav-item {
+    font-size: 13px;
+    padding-left: 20px;
+}
+
 #logo {
     width: 80px;
 }
@@ -44,14 +83,48 @@
     color: black;
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 768px) and (max-width: 1199px) {
+    #topNav{
+        padding-top: 15px;
+        align-items: flex-start;
+    }
+    #logo {
+        padding-top: 15px;
+    }
 
     .navbar-nav {
+        padding-left: 200px;
         flex-direction: column;
+        
+    }
+    .search-and-log-out {
+        padding-top: 5px;
+        margin-bottom: 10px;
+        text-align: center;
     }
 }
 
 @media (max-width: 767px) {
+    #logo-container {
+        display: none; /* Ẩn logo khi dưới 767px */
+    }
+
+    #burger-menu {
+        display: block; /* Hiển thị menu burger khi dưới 767px */
+    }
+
+    .nav-bar {
+        display: none;
+    }
+
+    .show {
+        display: block !important;
+    }
+
+    .navbar-collapse {
+        flex-direction: column;
+        align-items: center;
+    }
     .nav-bar {
         display: none;
     }
@@ -67,16 +140,15 @@
         display: block !important;
     }
 
-    #logo {
-        margin-left: 10px;
+    .navbar-collapse {
+        flex-direction: column;
+        align-items: center;
     }
 
     .search-and-log-out {
-        flex-direction: row;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
     }
 
-    .icon img {
-        margin: 0;
-        margin-right: 10px;
-    }
 }
