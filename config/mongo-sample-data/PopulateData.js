@@ -61,6 +61,49 @@ async function generateSampleData() {
 
     console.log("Collections emptied successfully.");
 
+    await platformAdmins.insertOne({
+      email: "admin@itlearning.ddns.net",
+      password: "Admin123",
+      profilePicture: faker.image.avatar(),
+      firstName: "Admin",
+      lastName: "ITLearning",
+      address: "702 Nguyen Van Linh, Tan Hung, District 7",
+      city: "Ho Chi Minh",
+      zipcode: "700000",
+      country: "VN",
+      phone: "02837761300",
+    });
+
+    await instructors.insertOne({
+      email: "instructor@itlearning.ddns.net",
+      password: "Instructor123",
+      profilePicture: faker.image.avatar(),
+      firstName: "Instructor",
+      lastName: "ITLearning",
+      address: "702 Nguyen Van Linh, Tan Hung, District 7",
+      city: "Ho Chi Minh",
+      zipcode: "700000",
+      country: "VN",
+      phone: "02837761300",
+      schoolOrCompanyName: "RMIT Vietnam University",
+      jobTitle: "Lecturer",
+      specialization: "front-end",
+      status: "active",
+    });
+
+    await learners.insertOne({
+      email: "learner@itlearning.ddns.net",
+      password: "Learner123",
+      profilePicture: faker.image.avatar(),
+      firstName: "Learner",
+      lastName: "ITLearning",
+      address: "702 Nguyen Van Linh, Tan Hung, District 7",
+      city: "Ho Chi Minh",
+      zipcode: "700000",
+      country: "VN",
+      phone: "02837761300",
+    });
+
     // Generate and insert sample data for PlatformAdmins
     let platformAdminData = [];
     for (let i = 0; i < 30; i++) {

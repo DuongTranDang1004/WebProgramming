@@ -1,5 +1,9 @@
 nohup.out
 static/video/*
+.DS_Store
+mongo-sample-data@1.0.0
+nodemon
+package-lock.json
 
 # Logs
 logs
