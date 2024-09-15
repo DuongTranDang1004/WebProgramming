@@ -1,7 +1,7 @@
 <header id="default-header">
     <nav class="navbar navbar-expand-lg navbar-light navbar-static-top" style="margin: 0">
         <div id="topNav" class="container-fluid flex">
-            <a class="navbar-brand" href="/">
+            <a id="logo-container" class="navbar-brand" href="/">
                 <img id="logo" src="/img/headerlogo.png" alt="IT Learning Logo" class="d-inline-block"/>
             </a>
 
@@ -88,57 +88,18 @@
         const role = localStorage.getItem("role");
         if (role && role == "admin") window.location.href = "/admin/profile";
         if (role && role == "instructor") window.location.href = `/instructors/profile`;
-        if (role && role == "learner") window.location.href = `/myAccount`;
+        if (role && role == "learner") window.location.href = `/learners/accountProfile/${userId}`;
     });
 
-    document.getElementById("myCourse").addEventListener("click", () => {
-        const role = localStorage.getItem("role");
-        if (role && role == "instructor") window.location.href = `/instructors/home`;
-        if (role && role == "learner") window.location.href = `/learners/myCourses/${userId}`;
-    });
-
-    document.getElementById("publicProfile").addEventListener("click", () => {
-        const role = localStorage.getItem("role");
-        if (role && role == "instructor") window.location.href = `/instructors/instructorProfile?instructorId=${userId}`;
-    });
-
-    document.getElementById("transaction").addEventListener("click", () => {
-        const role = localStorage.getItem("role");
-        if (role && role == "instructor") window.location.href = "/billing";
-        if (role && role == "learner") window.location.href = `/learners/transactions/${userId}`;
-    });
-
-    if (localStorage.getItem("role") == "admin") {
-        document.getElementById("myCourse").hidden = true;
-        document.getElementById("publicProfile").hidden = true;
-        document.getElementById("transaction").hidden = true;
-        document.getElementById("cart-link").hidden = true;
-        document.getElementById("favorites-link").hidden = true;
-    }
-
-    if (localStorage.getItem("role") == "instructor") {
-        document.getElementById("cart-link").hidden = true;
-        document.getElementById("favorites-link").hidden = true;
-    }
-
-    if (localStorage.getItem("role") == "learner") {
-        document.getElementById("publicProfile").hidden = true;
-    }
-
-    document.getElementById("logout-btn").addEventListener("click", () => {
-        localStorage.removeItem("id");
-        localStorage.removeItem("avatar");
-        localStorage.removeItem("role");
-        window.location.href = "/";
-    });
-
-    document.getElementById("login-btn").addEventListener("click", () => {
-        window.location.href = "/auth/login";
-    });
-
-    // Toggle navigation for small screens
     document.getElementById("burger-menu").addEventListener("click", function() {
         const navBar = document.getElementById("navbarTogglerDemo01");
         navBar.classList.toggle("show");
+
+        if (navBar.classList.contains("show")) {
+            window.scrollTo({
+                top: navBar.offsetTop,
+                behavior: "smooth"
+            });
+        }
     });
 </script>

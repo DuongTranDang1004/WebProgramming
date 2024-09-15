@@ -25,7 +25,7 @@ ITLearning is an innovative online learning hub designed to provide comprehensiv
 2: Go to database folder
 
 3: Run this command to deploy database:
-`docker compose up -d .`
+`docker compose up -d`
 
 ### Step 2: Populate data
 

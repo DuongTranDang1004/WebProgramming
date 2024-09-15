@@ -24,7 +24,8 @@ const transactionSchema = new Schema({
       "VISA",
       "Mastercard",
       "Bank Transfer",
-      "Momo"
+      "Momo",
+      "PayPal"
     ]
   },
   transactionItems: [
