@@ -68,3 +68,7 @@ Go to 'http://localhost:{APP_PORT}/' to see applications
 
 -   Email: instructor@itlearning.ddns.net
 -   Password: Instructor123
+
+## Demo
+
+Youtube: https://youtu.be/FR11VyO8q5s

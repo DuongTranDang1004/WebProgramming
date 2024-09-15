@@ -1,14 +1,21 @@
 let transactions = []; // Global variable to store transactions
+const learnerID = localStorage.getItem("id"); // Get learner ID from local storage
 
 // Fetch transactions from the API
 async function fetchTransactions() {
   try {
     const response = await fetch("/api/transactions"); // Adjust endpoint if needed
     if (!response.ok) throw new Error("Failed to fetch transactions");
-
     const data = await response.json();
     console.log("Fetched transactions:", data); // Log the data to verify
-    return data;
+    let filteredData = [];
+    data.forEach((transaction) => {
+      if (transaction.learnerId._id === learnerID) {
+        filteredData.push(transaction);
+      }
+    });
+    console.log("Filtered transactions:", filteredData); // Log the filtered
+    return filteredData;
   } catch (error) {
     console.error("Error fetching transactions:", error);
     return [];
