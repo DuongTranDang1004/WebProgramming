@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-// for page scripts: include fetchAPi first, then client side processing later
-
 // Root path (homepage)
 router.get("/", (req, res) => {
   res.render("general/homepage", {
@@ -17,10 +15,7 @@ router.get("/aboutUs", (req, res) => {
   res.render("general/aboutUs", {
     title: "About Us",
     pageStylesheet: "css/general/aboutUs.css",
-    pageScripts: [
-      "/js/globalProcessing.js",
-      "/js/general/aboutUs.js",
-    ],
+    pageScripts: ["/js/globalProcessing.js", "/js/general/aboutUs.js"],
   });
 });
 
@@ -92,20 +87,14 @@ router.get("/myAccount", (req, res) => {
   res.render("general/myAccount", {
     title: "My Account",
     pageStylesheet: "css/general/myAccount.css",
-    pageScripts: [
-      "/js/globalProcessing.js",
-      "/js/general/myAccount.js",
-    ],
+    pageScripts: ["/js/globalProcessing.js", "/js/general/myAccount.js"],
   });
 });
 router.get("/updateAccount", (req, res) => {
   res.render("general/updateAccount", {
     title: "Update Account",
     pageStylesheet: "css/general/updateAccount.css",
-    pageScripts: [
-      "/js/globalProcessing.js",
-      "/js/general/updateAccount.js",
-    ],
+    pageScripts: ["/js/globalProcessing.js", "/js/general/updateAccount.js"],
   });
 });
 // pricing

@@ -2,9 +2,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Material</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
     <div class="flex h-full">
         <!-- Sidebar -->
@@ -22,31 +24,54 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
-        <main class="w-3/4 ml-4 bg-white shadow-md rounded-md p-6 relative h-full">
+      <!-- Main Content -->
+      <main
+        class="w-3/4 ml-4 bg-white shadow-md rounded-md p-6 relative h-full"
+      >
+        <div class="mb-4">
+          <nav class="text-gray-600">
+            <ol class="flex items-center space-x-2">
+              <li><a href="#" class="hover:text-purple-600">Home</a></li>
+              <li>/</li>
+              <li>
+                <a href="#" class="hover:text-purple-600" id="course1"
+                  >Module 1</a
+                >
+              </li>
+              <li>/</li>
+              <li class="text-purple-600" id="current-lecture">
+                Lecture Title
+              </li>
+            </ol>
+          </nav>
+          <button
+            id="toggleSidebarMobile"
+            class="lg:hidden mt-2 ml-2 text-xl text-gray-600"
+          >
+            &#9776;
+          </button>
+        </div>
 
-            <div class="mb-4">
-                <nav class="text-gray-600">
-                    <ol class="flex items-center space-x-2">
-                        <li><a href="#" class="hover:text-purple-600">Home</a></li>
-                        <li>/</li>
-                        <li><a href="#" class="hover:text-purple-600" id="course1">Module 1</a></li>
-                        <li>/</li>
-                        <li class="text-purple-600" id="current-lecture">Lecture Title</li>
-                    </ol>
-                </nav>
-                <button id="toggleSidebarMobile" class="lg:hidden mt-2 ml-2 text-xl text-gray-600">&#9776;</button>
-            </div>
+        <!-- Video Section -->
+        <div class="max-w-fit h-3/5">
+          <video id="video" class="w-full h-full" controls autoplay>
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-lg font-semibold" id="lecture-title">
+            Lecture Title
+          </h3>
+          <p class="text-gray-700" id="lecture-duration">Duration</p>
+        </div>
 
-            <!-- Video Section -->
-            <div class="max-w-fit h-3/5">
-                <video id="video" class="w-full h-full" controls autoplay>
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="mt-4">
-                <h3 class="text-lg font-semibold" id="lecture-title">Lecture Title</h3>
-                <p class="text-gray-700" id="lecture-duration">Duration</p>
+        <!-- Exercise Section -->
+        <div class="mt-6">
+          <h4 class="text-lg font-semibold">Exercise</h4>
+          <form id="exerciseForm" class="mt-4">
+            <p id="question" class="text-gray-800 mb-2">Loading exercise...</p>
+            <div id="options" class="mb-4 space-y-2">
+              <!-- Options will be loaded here -->
             </div>
 
             <!-- Exercise Section -->

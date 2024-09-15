@@ -1,10 +1,9 @@
 const BoughtCourses = require("../models/boughtCourseModel");
 const mongoose = require("mongoose");
 const Courses = require("../models/courseModel");
-
 /**
  * @swagger
- * /api/boughtCourses/learnerWithThumbnail/{learnerId}:
+ * /api/boughtCourses/byLearnerIdWithThumbnail/{learnerId}:
  *   get:
  *     summary: Get all bought courses by a specific learner ID including course thumbnail
  *     tags: [BoughtCourses]
@@ -42,19 +41,17 @@ const getAllBoughtCoursesByLearnerIdWithThumbnail = async (req, res) => {
     // Use `new` when creating ObjectId
     const boughtCoursesWithThumbnail = await BoughtCourses.aggregate([
       {
-        $match: { learnerId: new mongoose.Types.ObjectId(learnerId) }, // Correct use of new
+        $match: { learnerId: new mongoose.Types.ObjectId(learnerId) },
       },
       {
         $lookup: {
-          from: "Courses", // Lookup from the Courses collection
-          localField: "courseId", // The field from BoughtCourses to match
-          foreignField: "_id", // The field from Courses to match
-          as: "courseInfo", // Alias the result as courseInfo
+          from: "Courses",
+          localField: "courseId",
+          foreignField: "_id",
+          as: "courseInfo",
         },
       },
-      {
-        $unwind: "$courseInfo", // Unwind the courseInfo array to flatten the structure
-      },
+      { $unwind: "$courseInfo" },
       {
         $project: {
           _id: 1,
@@ -91,6 +88,8 @@ const getAllBoughtCoursesByLearnerIdWithThumbnail = async (req, res) => {
     });
   }
 };
+
+module.exports = { getAllBoughtCoursesByLearnerIdWithThumbnail };
 
 /**
  * @swagger

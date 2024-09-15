@@ -19,8 +19,6 @@ router.put("/:id", updateLearner);
 
 router.delete("/:id", deleteLearner);
 
-//extra paths for learner UI page
-
 // Favorite Courses
 router.get("/favoriteCourses/:id", (req, res) => {
   res.render("learner/favCourses", {
@@ -57,14 +55,14 @@ router.get("/myCourses/:id", (req, res) => {
   });
 });
 
-// Learner My Profile
-router.get("/myProfile/:id", (req, res) => {
-  res.render("learner/myProfile", {
-    title: "My Profile",
-    pageStylesheet: "css/learner/myProfile",
-    pageScripts: ["/js/learner/myProfile.js"],
-  });
-});
+// // Learner My Profile
+// router.get("/myProfile/:id", (req, res) => {
+//   res.render("learner/myProfile", {
+//     title: "My Profile",
+//     pageStylesheet: "css/learner/myProfile",
+//     pageScripts: ["/js/learner/myProfile.js"],
+//   });
+// });
 
 router.get("/myCart/:id", (req, res) => {
   res.render("learner/myCart", {

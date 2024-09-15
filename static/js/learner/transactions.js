@@ -28,6 +28,10 @@ function renderTransactions(transactions) {
   transactions.forEach((transaction) => {
     const transactionElement = document.createElement("div");
     transactionElement.className = "transaction";
+    // Check if totalAmount is falsy (null, undefined) and default it to 100 if so
+    const totalAmount = transaction.totalAmount
+      ? transaction.totalAmount
+      : "100";
 
     transactionElement.innerHTML = `
         <div class="transaction-info">
@@ -36,9 +40,7 @@ function renderTransactions(transactions) {
           <p><strong>Transaction Time:</strong> ${new Date(
             transaction.transactionDate
           ).toLocaleString()}</p>
-          <p><strong>Total Amount:</strong> $${Number(
-            transaction.totalAmount
-          ).toFixed(2)}</p>
+        <p><strong>Total Amount:</strong> $${totalAmount}</p> 
           <p><strong>Payment Method:</strong> ${transaction.paymentMethod}</p>
         </div>
         <div class="transaction-items">
